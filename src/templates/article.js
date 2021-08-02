@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -10,23 +10,17 @@ const Article = ({ data }) => {
   const node = data.nodeArticle
   const body = node.body ? node.body.processed : ""
 
-  // const img = useStaticQuery(graphql`
-  //   query {
-  //     file(relativePath: { eq: node.relationships.field_media_image.relationships.field_media_image
-  //           .localFile.publicURL }) {
-  //       childImageSharp {
-  //         fixed(width: 125, height: 125) {
-  //           ...GatsbyImageSharpFixed
-  //         }
-  //       }
-  //     }
-  //   }
-  // `);
-
   return (
     <Layout>
       <Seo title={node.title} />
       <h1>{node.title}</h1>
+      <Img
+        fluid={
+          node.relationships.field_media_image.relationships.field_media_image
+            .localFile.childImageSharp.fluid
+        }
+      />
+
       <img
         src={
           node.relationships.field_media_image.relationships.field_media_image
@@ -56,7 +50,11 @@ export const query = graphql`
           relationships {
             field_media_image {
               localFile {
-                publicURL
+                childImageSharp {
+                  fluid(maxWidth: 960) {
+                    ...GatsbyImageSharpFluid
+                  }
+                }
               }
             }
           }

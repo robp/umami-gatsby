@@ -4,6 +4,7 @@ import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import Img from "gatsby-image"
 
 const Recipe = ({ data }) => {
   const node = data.nodeRecipe
@@ -13,12 +14,11 @@ const Recipe = ({ data }) => {
     <Layout>
       <Seo title={node.title} />
       <h1>{node.title}</h1>
-      <img
-        src={
+      <Img
+        fluid={
           node.relationships.field_media_image.relationships.field_media_image
-            .localFile.publicURL
+            .localFile.childImageSharp.fluid
         }
-        alt={node.relationships.field_media_image.alt}
       />
       <div dangerouslySetInnerHTML={{ __html: field_summary }} />
     </Layout>
@@ -50,7 +50,11 @@ export const query = graphql`
           relationships {
             field_media_image {
               localFile {
-                publicURL
+                childImageSharp {
+                  fluid(maxWidth: 960) {
+                    ...GatsbyImageSharpFluid
+                  }
+                }
               }
             }
           }
