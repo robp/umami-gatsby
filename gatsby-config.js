@@ -1,3 +1,8 @@
+// Use .env for environment configuration.
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -33,5 +38,15 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-source-drupal`,
+      options: {
+        baseUrl: process.env.DRUPAL_BASE_URL,
+        apiBase: process.env.DRUPAL_API_BASE, // optional, defaults to `jsonapi`
+      },
+      fastBuilds: true,
+    },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
   ],
 }
