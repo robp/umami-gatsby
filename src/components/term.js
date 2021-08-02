@@ -2,18 +2,18 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 
-function Tag({ id, name, path }) {
+function Term({ id, name, path }) {
   return (
-    <div id={id} className="tag">
+    <div id={id} className="term">
       <Link to={path.alias}>{name}</Link>
     </div>
   )
 }
 
-Tag.propTypes = {
+Term.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   path: PropTypes.object.isRequired,
 }
 
-export default Tag
+export default Term

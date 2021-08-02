@@ -3,7 +3,8 @@ import PropTypes from "prop-types"
 
 import Term from "./term"
 
-function Tags({ data }) {
+function RecipeCategories({ data }) {
+  console.log(data)
   const terms = data.length
     ? data
         .map(term => {
@@ -12,11 +13,13 @@ function Tags({ data }) {
         .reduce((prev, curr) => [prev, ", ", curr])
     : null
 
-  return terms ? <div className="tags">Tags: {terms}</div> : null
+  return terms ? (
+    <div className="recipe-categories">Recipe Categories: {terms}</div>
+  ) : null
 }
 
-Tags.propTypes = {
+RecipeCategories.propTypes = {
   data: PropTypes.array.isRequired,
 }
 
-export default Tags
+export default RecipeCategories

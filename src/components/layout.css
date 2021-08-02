@@ -596,11 +596,11 @@ pre tt:after {
   }
 }
 
+.recipe-categories,
 .tags {
-  display: flex;
   margin-bottom: 1em;
 }
 
-.tag {
-  margin-left: 0.2em;
+.term {
+  display: inline;
 }

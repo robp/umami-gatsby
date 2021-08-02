@@ -5,6 +5,7 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import RecipeCategories from "../components/recipe-categories"
 import Tags from "../components/tags"
 
 const Recipe = ({ data }) => {
@@ -19,6 +20,7 @@ const Recipe = ({ data }) => {
     <Layout>
       <Seo title={node.title} />
       <h1>{node.title}</h1>
+      <RecipeCategories data={node.relationships.field_recipe_category} />
       <Tags data={node.relationships.field_tags} />
       <GatsbyImage
         image={image}
@@ -67,6 +69,13 @@ export const query = graphql`
           }
           field_media_image {
             alt
+          }
+        }
+        field_recipe_category {
+          id
+          name
+          path {
+            alias
           }
         }
         field_tags {
