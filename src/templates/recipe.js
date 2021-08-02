@@ -4,21 +4,24 @@ import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import Img from "gatsby-image"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 const Recipe = ({ data }) => {
   const node = data.nodeRecipe
   const field_summary = node.field_summary ? node.field_summary.processed : ""
+  const image = getImage(
+    node.relationships.field_media_image.relationships.field_media_image
+      .localFile
+  )
 
   return (
     <Layout>
       <Seo title={node.title} />
       <h1>{node.title}</h1>
-      <Img
-        fluid={
-          node.relationships.field_media_image.relationships.field_media_image
-            .localFile.childImageSharp.fluid
-        }
+      <GatsbyImage
+        image={image}
+        alt={node.relationships.field_media_image.field_media_image.alt}
+        style={{ marginBottom: `1.45rem` }}
       />
       <div dangerouslySetInnerHTML={{ __html: field_summary }} />
     </Layout>
@@ -51,9 +54,11 @@ export const query = graphql`
             field_media_image {
               localFile {
                 childImageSharp {
-                  fluid(maxWidth: 960) {
-                    ...GatsbyImageSharpFluid
-                  }
+                  gatsbyImageData(
+                    width: 960
+                    placeholder: BLURRED
+                    formats: [AUTO, WEBP, AVIF]
+                  )
                 }
               }
             }

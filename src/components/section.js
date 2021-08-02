@@ -7,7 +7,7 @@ function Section({ id, field_number, field_title, field_body }) {
   return (
     <div id={id} className="section">
       <div className="field_number">{field_number}</div>
-      <div className="field_title">{field_title}</div>
+      <h3 className="field_title">{field_title}</h3>
       <div
         className="field_body"
         dangerouslySetInnerHTML={{ __html: body }}

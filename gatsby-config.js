@@ -46,7 +46,5 @@ module.exports = {
       },
       fastBuilds: true,
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
   ],
 }
