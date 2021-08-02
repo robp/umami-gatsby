@@ -1,10 +1,11 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { graphql } from "gatsby"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import Tags from "../components/tags"
 
 const Recipe = ({ data }) => {
   const node = data.nodeRecipe
@@ -18,6 +19,7 @@ const Recipe = ({ data }) => {
     <Layout>
       <Seo title={node.title} />
       <h1>{node.title}</h1>
+      <Tags data={node.relationships.field_tags} />
       <GatsbyImage
         image={image}
         alt={node.relationships.field_media_image.field_media_image.alt}
@@ -65,6 +67,13 @@ export const query = graphql`
           }
           field_media_image {
             alt
+          }
+        }
+        field_tags {
+          id
+          name
+          path {
+            alias
           }
         }
       }

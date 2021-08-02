@@ -14,7 +14,7 @@ exports.createPages = ({ graphql, actions }) => {
   // Variables can be added as the second function parameter
   return graphql(
     `
-      query loadNodesQuery($limit: Int!) {
+      query loadDrupalQuery($limit: Int!) {
         allNodeArticle(limit: $limit) {
           edges {
             node {
@@ -36,6 +36,16 @@ exports.createPages = ({ graphql, actions }) => {
           }
         }
         allNodePage {
+          edges {
+            node {
+              id
+              path {
+                alias
+              }
+            }
+          }
+        }
+        allTaxonomyTermTags {
           edges {
             node {
               id
@@ -80,6 +90,17 @@ exports.createPages = ({ graphql, actions }) => {
       createPage({
         path: edge.node.path.alias,
         component: path.resolve("src/templates/basic-page.js"),
+        context: {
+          nodeId: edge.node.id,
+        },
+      })
+    })
+
+    // Create tags pages.
+    result.data.allTaxonomyTermTags.edges.forEach(edge => {
+      createPage({
+        path: edge.node.path.alias,
+        component: path.resolve("src/templates/tag.js"),
         context: {
           nodeId: edge.node.id,
         },

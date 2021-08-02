@@ -595,3 +595,12 @@ pre tt:after {
     font-size: 100%;
   }
 }
+
+.tags {
+  display: flex;
+  margin-bottom: 1em;
+}
+
+.tag {
+  margin-left: 0.2em;
+}
