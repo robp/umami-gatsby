@@ -596,6 +596,10 @@ pre tt:after {
   }
 }
 
+.feature-image {
+  margin-bottom: 1.5em;
+}
+
 .recipe-categories,
 .tags {
   margin-bottom: 1em;

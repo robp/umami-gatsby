@@ -15,6 +15,14 @@ exports.createPages = ({ graphql, actions }) => {
   return graphql(
     `
       query loadDrupalQuery($limit: Int!) {
+        allNodeTypeNodeType {
+          edges {
+            node {
+              id
+              drupal_internal__type
+            }
+          }
+        }
         allNodeArticle(limit: $limit) {
           edges {
             node {
@@ -72,6 +80,18 @@ exports.createPages = ({ graphql, actions }) => {
     if (result.errors) {
       throw result.errors
     }
+
+    // Create node type pages.
+    result.data.allNodeTypeNodeType.edges.forEach(edge => {
+      createPage({
+        path: `/${edge.node.drupal_internal__type}`,
+        component: path.resolve("src/templates/node-type.js"),
+        context: {
+          nodeId: edge.node.id,
+          nodeType: edge.node.drupal_internal__type,
+        },
+      })
+    })
 
     // Create article pages.
     result.data.allNodeArticle.edges.forEach(edge => {

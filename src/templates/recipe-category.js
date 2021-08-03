@@ -4,6 +4,7 @@ import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import PageTitle from "../components/page-title"
 
 const RecipeCategory = ({ data }) => {
   const node = data.taxonomyTermRecipeCategory
@@ -28,7 +29,7 @@ const RecipeCategory = ({ data }) => {
   return (
     <Layout>
       <Seo title={`Recipe Category: ${node.name}`} />
-      <h1>{node.name}</h1>
+      <PageTitle title={`Recipe Category: ${node.name}`} />
       {recipes}
     </Layout>
   )

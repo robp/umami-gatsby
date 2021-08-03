@@ -4,17 +4,19 @@ import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import PageTitle from "../components/page-title"
 import Sections from "../components/sections"
 
 const BasicPage = ({ data }) => {
   const node = data.nodePage
-  const body = node.body ? node.body.processed : ""
 
   return (
     <Layout>
       <Seo title={node.title} />
-      <h1>{node.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: body }} />
+      <PageTitle title={node.title} />
+      {node.body ? (
+        <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
+      ) : null}
       <Sections data={node.relationships.field_sections} />
     </Layout>
   )
