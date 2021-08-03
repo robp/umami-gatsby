@@ -23,7 +23,7 @@ const RecipeCategory = ({ data }) => {
       </ul>
     </>
   ) : (
-    ""
+    null
   )
 
   return (

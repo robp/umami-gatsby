@@ -23,7 +23,7 @@ const Tag = ({ data }) => {
       </ul>
     </>
   ) : (
-    ""
+    null
   )
 
   const recipes = node.relationships.node__recipe ? (
@@ -40,7 +40,7 @@ const Tag = ({ data }) => {
       </ul>
     </>
   ) : (
-    ""
+    null
   )
 
   return (

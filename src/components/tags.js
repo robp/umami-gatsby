@@ -9,7 +9,6 @@ function Tags({ data }) {
         .map(term => {
           return <Term key={term.id} {...term} />
         })
-        .reduce((prev, curr) => [prev, ", ", curr])
     : null
 
   return terms ? <div className="tags">Tags: {terms}</div> : null

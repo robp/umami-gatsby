@@ -608,3 +608,11 @@ pre tt:after {
 .term {
   display: inline;
 }
+
+.term::after {
+  content: ', ';
+}
+
+.term:last-child::after {
+  content: '';
+}

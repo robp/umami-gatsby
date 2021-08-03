@@ -27,7 +27,7 @@ const NodeType = ({ data }) => {
       </ul>
     </>
   ) : (
-    ""
+    null
   )
 
   return (
