@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 
 function Instructions({ data }) {
-  return node.field_recipe_instruction ? (
+  return data ? (
     <div className="instructions">
       <h2>Instructions</h2>
       <div
