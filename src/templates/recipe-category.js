@@ -16,15 +16,15 @@ const RecipeCategory = ({ data }) => {
         {node.relationships.node__recipe.map(recipe => {
           return (
             <li key={recipe.id}>
-              <Link to={recipe.path.alias}>{recipe.title}</Link>
+              <Link to={`/${node.langcode}${recipe.path.alias}`}>
+                {recipe.title}
+              </Link>
             </li>
           )
         })}
       </ul>
     </>
-  ) : (
-    null
-  )
+  ) : null
 
   return (
     <Layout>
@@ -42,6 +42,7 @@ RecipeCategory.propTypes = {
 export const query = graphql`
   query ($nodeId: String!) {
     taxonomyTermRecipeCategory(id: { eq: $nodeId }) {
+      langcode
       id
       name
       path {

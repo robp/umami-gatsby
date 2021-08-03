@@ -16,15 +16,15 @@ const Tag = ({ data }) => {
         {node.relationships.node__article.map(article => {
           return (
             <li key={article.id}>
-              <Link to={article.path.alias}>{article.title}</Link>
+              <Link to={`/${node.langcode}${article.path.alias}`}>
+                {article.title}
+              </Link>
             </li>
           )
         })}
       </ul>
     </>
-  ) : (
-    null
-  )
+  ) : null
 
   const recipes = node.relationships.node__recipe ? (
     <>
@@ -33,15 +33,13 @@ const Tag = ({ data }) => {
         {node.relationships.node__recipe.map(recipe => {
           return (
             <li key={recipe.id}>
-              <Link to={recipe.path.alias}>{recipe.title}</Link>
+              <Link to={`/${node.langcode}${recipe.path.alias}`}>{recipe.title}</Link>
             </li>
           )
         })}
       </ul>
     </>
-  ) : (
-    null
-  )
+  ) : null
 
   return (
     <Layout>
@@ -60,6 +58,7 @@ Tag.propTypes = {
 export const query = graphql`
   query ($nodeId: String!) {
     taxonomyTermTags(id: { eq: $nodeId }) {
+      langcode
       id
       name
       path {

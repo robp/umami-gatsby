@@ -2,15 +2,16 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 
-function Term({ id, name, path }) {
+function Term({ lang, id, name, path }) {
   return (
     <div id={id} className="term">
-      <Link to={path.alias}>{name}</Link>
+      <Link to={`/${lang}${path.alias}`}>{name}</Link>
     </div>
   )
 }
 
 Term.propTypes = {
+  lang: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   path: PropTypes.object.isRequired,

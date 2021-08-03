@@ -20,15 +20,15 @@ const NodeType = ({ data }) => {
         {dataNodes.map(node => {
           return (
             <li key={node.id}>
-              <Link to={node.path.alias}>{node.title}</Link>
+              <Link to={`/${node.langcode}${node.path.alias}`}>
+                {node.title}
+              </Link>
             </li>
           )
         })}
       </ul>
     </>
-  ) : (
-    null
-  )
+  ) : null
 
   return (
     <Layout>
@@ -57,6 +57,7 @@ export const query = graphql`
       drupal_internal__type
       relationships {
         node__article {
+          langcode
           id
           title
           path {
@@ -64,6 +65,7 @@ export const query = graphql`
           }
         }
         node__page {
+          langcode
           id
           title
           path {
@@ -71,6 +73,7 @@ export const query = graphql`
           }
         }
         node__recipe {
+          langcode
           id
           title
           path {

@@ -8,13 +8,14 @@ const path = require("path")
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
+  const languages = [`en`, `es`]
   // Query for markdown nodes to use in creating pages.
   // You can query for whatever data you want to create pages for e.g.
   // products, portfolio items, landing pages, etc.
   // Variables can be added as the second function parameter
   return graphql(
     `
-      query loadDrupalQuery($limit: Int!) {
+      query loadDataQuery($limit: Int!) {
         allNodeTypeNodeType {
           edges {
             node {
@@ -26,6 +27,7 @@ exports.createPages = ({ graphql, actions }) => {
         allNodeArticle(limit: $limit) {
           edges {
             node {
+              langcode
               id
               path {
                 alias
@@ -36,6 +38,7 @@ exports.createPages = ({ graphql, actions }) => {
         allNodeRecipe(limit: $limit) {
           edges {
             node {
+              langcode
               id
               path {
                 alias
@@ -43,9 +46,10 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
         }
-        allNodePage {
+        allNodePage(limit: $limit) {
           edges {
             node {
+              langcode
               id
               path {
                 alias
@@ -53,9 +57,10 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
         }
-        allTaxonomyTermTags {
+        allTaxonomyTermTags(limit: $limit) {
           edges {
             node {
+              langcode
               id
               path {
                 alias
@@ -63,9 +68,10 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
         }
-        allTaxonomyTermRecipeCategory {
+        allTaxonomyTermRecipeCategory(limit: $limit) {
           edges {
             node {
+              langcode
               id
               path {
                 alias
@@ -83,23 +89,26 @@ exports.createPages = ({ graphql, actions }) => {
 
     // Create node type pages.
     result.data.allNodeTypeNodeType.edges.forEach(edge => {
-      createPage({
-        path: `/${edge.node.drupal_internal__type}`,
-        component: path.resolve("src/templates/node-type.js"),
-        context: {
-          nodeId: edge.node.id,
-          nodeType: edge.node.drupal_internal__type,
-        },
+      languages.map(langcode => {
+        createPage({
+          path: `/${langcode}/${edge.node.drupal_internal__type}`,
+          component: path.resolve("src/templates/node-type.js"),
+          context: {
+            nodeId: edge.node.id,
+            langcode: `${langcode}`,
+          },
+        })
       })
     })
 
     // Create article pages.
     result.data.allNodeArticle.edges.forEach(edge => {
       createPage({
-        path: edge.node.path.alias,
+        path: `/${edge.node.langcode}${edge.node.path.alias}`,
         component: path.resolve("src/templates/article.js"),
         context: {
           nodeId: edge.node.id,
+          langcode: edge.node.langcode,
         },
       })
     })
@@ -107,10 +116,11 @@ exports.createPages = ({ graphql, actions }) => {
     // Create recipe pages.
     result.data.allNodeRecipe.edges.forEach(edge => {
       createPage({
-        path: edge.node.path.alias,
+        path: `/${edge.node.langcode}${edge.node.path.alias}`,
         component: path.resolve("src/templates/recipe.js"),
         context: {
           nodeId: edge.node.id,
+          langcode: edge.node.langcode,
         },
       })
     })
@@ -118,10 +128,11 @@ exports.createPages = ({ graphql, actions }) => {
     // Create basic pages.
     result.data.allNodePage.edges.forEach(edge => {
       createPage({
-        path: edge.node.path.alias,
+        path: `/${edge.node.langcode}${edge.node.path.alias}`,
         component: path.resolve("src/templates/basic-page.js"),
         context: {
           nodeId: edge.node.id,
+          langcode: edge.node.langcode,
         },
       })
     })
@@ -129,10 +140,11 @@ exports.createPages = ({ graphql, actions }) => {
     // Create tags pages.
     result.data.allTaxonomyTermTags.edges.forEach(edge => {
       createPage({
-        path: edge.node.path.alias,
+        path: `/${edge.node.langcode}${edge.node.path.alias}`,
         component: path.resolve("src/templates/tag.js"),
         context: {
           nodeId: edge.node.id,
+          langcode: edge.node.langcode,
         },
       })
     })
@@ -140,7 +152,7 @@ exports.createPages = ({ graphql, actions }) => {
     // Create recipe category pages.
     result.data.allTaxonomyTermRecipeCategory.edges.forEach(edge => {
       createPage({
-        path: edge.node.path.alias,
+        path: `/${edge.node.langcode}${edge.node.path.alias}`,
         component: path.resolve("src/templates/recipe-category.js"),
         context: {
           nodeId: edge.node.id,

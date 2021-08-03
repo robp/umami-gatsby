@@ -3,11 +3,11 @@ import PropTypes from "prop-types"
 
 import Term from "./term"
 
-function Tags({ data }) {
+function Tags({ lang, data }) {
   const terms = data.length
     ? data
         .map(term => {
-          return <Term key={term.id} {...term} />
+          return <Term lang={lang} key={term.id} {...term} />
         })
     : null
 
@@ -15,6 +15,7 @@ function Tags({ data }) {
 }
 
 Tags.propTypes = {
+  lang: PropTypes.string.isRequired,
   data: PropTypes.array.isRequired,
 }
 

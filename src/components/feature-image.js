@@ -3,8 +3,11 @@ import PropTypes from "prop-types"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 function FeatureImage({ media }) {
+  if (!media)
+    return null;
+
   const featureImage = getImage(
-    media.relationships.field_media_image.localFile
+    media.relationships.field_media_image?.localFile
   )
 
   return featureImage ? (

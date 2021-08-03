@@ -13,9 +13,9 @@ const Article = ({ data }) => {
 
   return (
     <Layout>
-      <Seo title={node.title} />
+      <Seo lang={node.langcode} title={node.title} />
       <PageTitle title={node.title} />
-      <Tags data={node.relationships.field_tags} />
+      <Tags lang={node.langcode} data={node.relationships.field_tags} />
       <FeatureImage media={node.relationships.field_media_image} />
       {node.body ? (
         <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
@@ -31,6 +31,7 @@ Article.propTypes = {
 export const query = graphql`
   query ($nodeId: String!) {
     nodeArticle(id: { eq: $nodeId }) {
+      langcode
       id
       title
       body {

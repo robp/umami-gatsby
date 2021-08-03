@@ -3,12 +3,15 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
+const languages = require("./src/data/languages")
+
 module.exports = {
   siteMetadata: {
     title: `Umami Food Magazine`,
     description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
     author: `@gatsbyjs`,
     siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
+    languages,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -43,8 +46,31 @@ module.exports = {
       options: {
         baseUrl: process.env.DRUPAL_BASE_URL,
         apiBase: process.env.DRUPAL_API_BASE, // optional, defaults to `jsonapi`
+        languageConfig: {
+          defaultLanguage: "en",
+          enabledLanguages: ["en", "es"],
+          translatableEntities: [
+            "node--article",
+            "node--recipe",
+            "node--page",
+            "taxonomy_term--recipe_category",
+            "taxonomy_term--tags",
+            "taxonomy_vocabulary--taxonomy_vocabulary",
+            "media--image",
+            "file--file",
+            "media_type--media_type",
+          ],
+        },
       },
       fastBuilds: true,
+    },
+    {
+      resolve: "gatsby-plugin-i18n",
+      options: {
+        langKeyDefault: languages.defaultLangKey,
+        langKeyForNull: "any",
+        useLangKeyLayout: false,
+      },
     },
   ],
 }

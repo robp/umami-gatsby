@@ -15,7 +15,7 @@ function Instructions({ data }) {
 }
 
 Instructions.propTypes = {
-  data: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
 }
 
 export default Instructions

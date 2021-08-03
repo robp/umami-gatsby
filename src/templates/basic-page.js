@@ -12,12 +12,14 @@ const BasicPage = ({ data }) => {
 
   return (
     <Layout>
-      <Seo title={node.title} />
+      <Seo lang={node.langcode} title={node.title} />
       <PageTitle title={node.title} />
       {node.body ? (
         <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
       ) : null}
-      <Sections data={node.relationships.field_sections} />
+      {node.relationships.field_sections ? (
+        <Sections data={node.relationships.field_sections} />
+      ) : null}
     </Layout>
   )
 }
@@ -29,6 +31,7 @@ BasicPage.propTypes = {
 export const query = graphql`
   query ($nodeId: String!) {
     nodePage(id: { eq: $nodeId }) {
+      langcode
       id
       title
       body {

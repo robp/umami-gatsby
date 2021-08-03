@@ -596,6 +596,22 @@ pre tt:after {
   }
 }
 
+.language-switcher ul {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  justify-content: flex-end;
+}
+
+.language-switcher li {
+  margin: 0;
+}
+
+.language-switcher li a {
+  color: white;
+  padding: 0.5em;
+}
+
 .feature-image {
   margin-bottom: 1.5em;
 }
@@ -610,9 +626,9 @@ pre tt:after {
 }
 
 .term::after {
-  content: ', ';
+  content: ", ";
 }
 
 .term:last-child::after {
-  content: '';
+  content: "";
 }

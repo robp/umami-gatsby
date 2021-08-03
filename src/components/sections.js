@@ -9,15 +9,15 @@ function Sections({ data }) {
   })
 
   return sections.length ? (
-      <div className="sections">
-        <h2>Sections</h2>
-        {sections}
-      </div>
-    ) : null;
+    <div className="sections">
+      <h2>Sections</h2>
+      {sections}
+    </div>
+  ) : null
 }
 
 Sections.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.array.isRequired,
 }
 
 export default Sections

@@ -2,6 +2,8 @@ import * as React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 
+import LanguageSwitcher from "./language-switcher"
+
 const Header = ({ siteTitle }) => (
   <header
     style={{
@@ -16,6 +18,7 @@ const Header = ({ siteTitle }) => (
         padding: `1.45rem 1.0875rem`,
       }}
     >
+      <LanguageSwitcher />
       <h1 style={{ margin: 0 }}>
         <Link
           to="/"

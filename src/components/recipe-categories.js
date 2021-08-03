@@ -3,12 +3,11 @@ import PropTypes from "prop-types"
 
 import Term from "./term"
 
-function RecipeCategories({ data }) {
+function RecipeCategories({ lang, data }) {
   const terms = data.length
-    ? data
-        .map(term => {
-          return <Term key={term.id} {...term} />
-        })
+    ? data.map(term => {
+        return <Term lang={lang} key={term.id} {...term} />
+      })
     : null
 
   return terms ? (
@@ -17,6 +16,7 @@ function RecipeCategories({ data }) {
 }
 
 RecipeCategories.propTypes = {
+  lang: PropTypes.string.isRequired,
   data: PropTypes.array.isRequired,
 }
 

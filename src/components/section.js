@@ -20,7 +20,7 @@ Section.propTypes = {
   id: PropTypes.string.isRequired,
   field_number: PropTypes.string.isRequired,
   field_title: PropTypes.string.isRequired,
-  field_body: PropTypes.string,
+  field_body: PropTypes.object,
 }
 
 export default Section

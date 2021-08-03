@@ -16,10 +16,17 @@ const Recipe = ({ data }) => {
 
   return (
     <Layout>
-      <Seo title={node.title} description={node.field_summary.value} />
+      <Seo
+        lang={node.langcode}
+        title={node.title}
+        description={node.field_summary.value}
+      />
       <PageTitle title={node.title} />
-      <RecipeCategories data={node.relationships.field_recipe_category} />
-      <Tags data={node.relationships.field_tags} />
+      <RecipeCategories
+        lang={node.langcode}
+        data={node.relationships.field_recipe_category}
+      />
+      <Tags lang={node.langcode} data={node.relationships.field_tags} />
       <FeatureImage media={node.relationships.field_media_image} />
       {node.field_summary ? (
         <div
@@ -39,6 +46,7 @@ Recipe.propTypes = {
 export const query = graphql`
   query ($nodeId: String!) {
     nodeRecipe(id: { eq: $nodeId }) {
+      langcode
       id
       title
       field_cooking_time
