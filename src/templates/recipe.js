@@ -8,6 +8,7 @@ import PageTitle from "../components/page-title"
 import RecipeCategories from "../components/recipe-categories"
 import Tags from "../components/tags"
 import FeatureImage from "../components/feature-image"
+import Ingredients from "../components/recipe/ingredients"
 
 const Recipe = ({ data }) => {
   const node = data.nodeRecipe
@@ -23,6 +24,17 @@ const Recipe = ({ data }) => {
         <div
           dangerouslySetInnerHTML={{ __html: node.field_summary.processed }}
         />
+      ) : null}
+      <Ingredients data={node.field_ingredients} />
+      {node.field_recipe_instruction ? (
+        <div className="instructions">
+          <h2>Instructions</h2>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: node.field_recipe_instruction.processed,
+            }}
+          />
+        </div>
       ) : null}
     </Layout>
   )
