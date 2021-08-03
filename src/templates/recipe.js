@@ -16,7 +16,7 @@ const Recipe = ({ data }) => {
 
   return (
     <Layout>
-      <Seo title={node.title} />
+      <Seo title={node.title} description={node.field_summary.value} />
       <PageTitle title={node.title} />
       <RecipeCategories data={node.relationships.field_recipe_category} />
       <Tags data={node.relationships.field_tags} />
@@ -51,6 +51,7 @@ export const query = graphql`
       }
       field_summary {
         processed
+        value
       }
       relationships {
         field_media_image {
