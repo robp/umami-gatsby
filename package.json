@@ -15,6 +15,7 @@
     "gatsby-plugin-react-helmet": "^4.10.0",
     "gatsby-plugin-sharp": "^3.10.2",
     "gatsby-source-drupal": "^4.10.0",
+    "gatsby-source-drupal-menu-links": "git+https://github.com/robp/gatsby-source-drupal-menu-links.git#feature/add-i18n",
     "gatsby-source-filesystem": "^3.10.0",
     "gatsby-transformer-sharp": "^3.10.0",
     "prop-types": "^15.7.2",
@@ -24,6 +25,7 @@
     "react-intl": "^5.20.6"
   },
   "devDependencies": {
+    "gatsby-plugin-remove-trailing-slashes": "^3.10.0",
     "prettier": "2.3.2"
   },
   "keywords": [

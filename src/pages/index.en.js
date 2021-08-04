@@ -1,9 +1,10 @@
 import * as React from "react"
-import { Link } from "gatsby"
 import { useStaticQuery, graphql } from "gatsby"
+import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import PageTitle from "../components/page-title"
 
 const IndexPage = () => {
   const pages = useStaticQuery(graphql`
@@ -23,7 +24,7 @@ const IndexPage = () => {
   return (
     <Layout>
       <Seo title="Home" />
-      <h1>Hi people</h1>
+      <PageTitle title="Home" />
 
       <h2>Pages ({pages.allSitePage.totalCount})</h2>
       <ul>

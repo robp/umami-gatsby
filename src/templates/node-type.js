@@ -8,20 +8,27 @@ import PageTitle from "../components/page-title"
 
 const NodeType = ({ data }) => {
   const node = data.nodeTypeNodeType
-  const dataNodes =
-    data.nodeTypeNodeType.relationships[`node__${node.drupal_internal__type}`]
 
-  const nodes = dataNodes ? (
+  const capitalizeFirstLetter = string => {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+  }
+
+  console.log(data)
+  const edges =
+    data[`allNode${capitalizeFirstLetter(node.drupal_internal__type)}`].edges
+
+  console.log(edges)
+  const nodes = edges ? (
     <>
       <h2>
-        {node.name} ({dataNodes.length})
+        {node.name} ({edges.length})
       </h2>
       <ul>
-        {dataNodes.map(node => {
+        {edges.map(edge => {
           return (
-            <li key={node.id}>
-              <Link to={`/${node.langcode}${node.path.alias}`}>
-                {node.title}
+            <li key={edge.node.id}>
+              <Link to={`/${edge.node.langcode}${edge.node.path.alias}`}>
+                {edge.node.title}
               </Link>
             </li>
           )
@@ -49,36 +56,61 @@ NodeType.propTypes = {
 /* We have to query all node types for now until we can figure out how to use
    some kind of a wildcard or filter. */
 export const query = graphql`
-  query ($nodeId: String!) {
+  query ($nodeId: String!, $langcode: String!, $nodeType: String!) {
     nodeTypeNodeType(id: { eq: $nodeId }) {
       id
       name
       description
       drupal_internal__type
-      relationships {
-        node__article {
-          langcode
+    }
+    allNodeArticle(
+      filter: {
+        langcode: { eq: $langcode }
+        internal: { type: { eq: $nodeType } }
+      }
+    ) {
+      edges {
+        node {
           id
           title
           path {
             alias
           }
+          langcode
         }
-        node__page {
-          langcode
+      }
+    }
+    allNodePage(
+      filter: {
+        langcode: { eq: $langcode }
+        internal: { type: { eq: $nodeType } }
+      }
+    ) {
+      edges {
+        node {
           id
           title
           path {
             alias
           }
+          langcode
         }
-        node__recipe {
-          langcode
+      }
+    }
+    allNodeRecipe(
+      filter: {
+        langcode: { eq: $langcode }
+        internal: { type: { eq: $nodeType } }
+      }
+    ) {
+      edges {
+        node {
           id
           title
           path {
             alias
           }
+          langcode
         }
       }
     }

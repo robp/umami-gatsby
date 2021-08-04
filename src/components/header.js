@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import { Link } from "gatsby"
 
 import LanguageSwitcher from "./language-switcher"
+import MainMenu from "./menu/main"
 
 const Header = ({ siteTitle }) => (
   <header
@@ -19,7 +20,7 @@ const Header = ({ siteTitle }) => (
       }}
     >
       <LanguageSwitcher />
-      <h1 style={{ margin: 0 }}>
+      <h1>
         <Link
           to="/"
           style={{
@@ -30,6 +31,7 @@ const Header = ({ siteTitle }) => (
           {siteTitle}
         </Link>
       </h1>
+      <MainMenu />
     </div>
   </header>
 )

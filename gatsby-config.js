@@ -59,6 +59,8 @@ module.exports = {
             "media--image",
             "file--file",
             "media_type--media_type",
+            "menu_link_content--menu_link_content",
+            "menu_items",
           ],
         },
       },
@@ -72,5 +74,15 @@ module.exports = {
         useLangKeyLayout: false,
       },
     },
+    {
+      resolve: `gatsby-source-drupal-menu-links`,
+      options: {
+        baseUrl: process.env.DRUPAL_BASE_URL,
+        apiBase: process.env.DRUPAL_API_BASE,
+        menus: ["main", "footer"], // Which menus to fetch, there are the menu IDs.
+        languages: ["en"],
+      },
+    },
+    `gatsby-plugin-remove-trailing-slashes`,
   ],
 }

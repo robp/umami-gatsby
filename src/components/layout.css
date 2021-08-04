@@ -596,15 +596,15 @@ pre tt:after {
   }
 }
 
+header h1 {
+
+}
+
 .language-switcher ul {
   display: flex;
   list-style-type: none;
   margin: 0;
   justify-content: flex-end;
-}
-
-.language-switcher li {
-  margin: 0;
 }
 
 .language-switcher li a {
@@ -631,4 +631,17 @@ pre tt:after {
 
 .term:last-child::after {
   content: "";
+}
+
+.menu--main ul {
+  list-style-type: none;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.menu--main a {
+  padding: 0.5em 1.5em;
+  color: white;
 }

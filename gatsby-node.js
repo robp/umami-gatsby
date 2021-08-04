@@ -8,7 +8,7 @@ const path = require("path")
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
-  const languages = [`en`, `es`]
+  // const languages = [`en`, `es`]
   // Query for markdown nodes to use in creating pages.
   // You can query for whatever data you want to create pages for e.g.
   // products, portfolio items, landing pages, etc.
@@ -16,14 +16,14 @@ exports.createPages = ({ graphql, actions }) => {
   return graphql(
     `
       query loadDataQuery($limit: Int!) {
-        allNodeTypeNodeType {
-          edges {
-            node {
-              id
-              drupal_internal__type
-            }
-          }
-        }
+        # allNodeTypeNodeType {
+        #   edges {
+        #     node {
+        #       id
+        #       drupal_internal__type
+        #     }
+        #   }
+        # }
         allNodeArticle(limit: $limit) {
           edges {
             node {
@@ -88,18 +88,19 @@ exports.createPages = ({ graphql, actions }) => {
     }
 
     // Create node type pages.
-    result.data.allNodeTypeNodeType.edges.forEach(edge => {
-      languages.map(langcode => {
-        createPage({
-          path: `/${langcode}/${edge.node.drupal_internal__type}`,
-          component: path.resolve("src/templates/node-type.js"),
-          context: {
-            nodeId: edge.node.id,
-            langcode: `${langcode}`,
-          },
-        })
-      })
-    })
+    // result.data.allNodeTypeNodeType.edges.forEach(edge => {
+    //   languages.map(langcode => {
+    //     createPage({
+    //       path: `/${langcode}/${edge.node.drupal_internal__type}`,
+    //       component: path.resolve("src/templates/node-type.js"),
+    //       context: {
+    //         nodeId: edge.node.id,
+    //         langcode: `${langcode}`,
+    //         nodeType: `node__${edge.node.drupal_internal__type}`,
+    //       },
+    //     })
+    //   })
+    // })
 
     // Create article pages.
     result.data.allNodeArticle.edges.forEach(edge => {
