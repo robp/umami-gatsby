@@ -1,0 +1,18 @@
+@import "./_variables.scss";
+
+header {
+  background: $backgroundColorSecondary;
+  margin-bottom: 1.45rem;
+
+  > div:first-child {
+    margin: 0 auto;
+    max-width: $containerWidth;
+    padding: 1.45rem 1.0875rem;
+  }
+
+  .site-title a {
+    color: white;
+    text-decoration: none;
+  }
+}
+

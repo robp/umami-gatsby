@@ -2,6 +2,8 @@ import React from "react"
 import PropTypes from "prop-types"
 import Link from "./link"
 
+import "../styles/term.scss"
+
 function Term({ lang, id, name, path }) {
   return (
     <div id={id} className="term">

@@ -10,7 +10,10 @@ import PropTypes from "prop-types"
 import { useSiteMetadata } from "../hooks/use-site-metadata"
 
 import Header from "./header"
-import "./layout.css"
+import Footer from "./footer"
+
+import "../styles/_base.scss"
+import "../styles/layout.scss"
 
 const Layout = ({ children }) => {
   const { title } = useSiteMetadata()
@@ -18,23 +21,9 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header siteTitle={title || `Title`} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
-      >
+      <div className="container">
         <main>{children}</main>
-        <footer
-          style={{
-            marginTop: `2rem`,
-          }}
-        >
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.com">Gatsby</a>
-        </footer>
+        <Footer />
       </div>
     </>
   )

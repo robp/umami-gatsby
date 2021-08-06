@@ -1,7 +1,9 @@
+@import "./variables.scss";
+
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-  font: 112.5%/1.45em georgia, serif, sans-serif;
+  font: 112.5%/1.45em $fontFamily;
   box-sizing: border-box;
   overflow-y: scroll;
 }
@@ -9,8 +11,8 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: hsla(0, 0%, 0%, 0.8);
-  font-family: georgia, serif;
+  color: $colorPrimary;
+  font-family: $fontFamily;
   font-weight: normal;
   word-wrap: break-word;
   font-kerning: normal;
@@ -82,8 +84,7 @@ h1,
   padding-top: 0;
   margin-bottom: 1.45rem;
   color: inherit;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: $headingFontFamily;
   font-weight: bold;
   text-rendering: optimizeLegibility;
   font-size: 2.25rem;
@@ -261,8 +262,7 @@ h2 {
   padding-top: 0;
   margin-bottom: 1.45rem;
   color: inherit;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: $headingFontFamily;
   font-weight: bold;
   text-rendering: optimizeLegibility;
   font-size: 1.62671rem;
@@ -278,8 +278,7 @@ h3 {
   padding-top: 0;
   margin-bottom: 1.45rem;
   color: inherit;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: $headingFontFamily;
   font-weight: bold;
   text-rendering: optimizeLegibility;
   font-size: 1.38316rem;
@@ -295,8 +294,7 @@ h4 {
   padding-top: 0;
   margin-bottom: 1.45rem;
   color: inherit;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: $headingFontFamily;
   font-weight: bold;
   text-rendering: optimizeLegibility;
   font-size: 1rem;
@@ -312,8 +310,7 @@ h5 {
   padding-top: 0;
   margin-bottom: 1.45rem;
   color: inherit;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: $headingFontFamily;
   font-weight: bold;
   text-rendering: optimizeLegibility;
   font-size: 0.85028rem;
@@ -329,8 +326,7 @@ h6 {
   padding-top: 0;
   margin-bottom: 1.45rem;
   color: inherit;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: $headingFontFamily;
   font-weight: bold;
   text-rendering: optimizeLegibility;
   font-size: 0.78405rem;
@@ -596,105 +592,3 @@ pre tt:after {
     font-size: 100%;
   }
 }
-
-.language-switcher ul {
-  display: flex;
-  list-style-type: none;
-  margin: 0;
-  justify-content: flex-end;
-}
-
-.language-switcher li a {
-  color: white;
-  padding: 0.5em;
-}
-
-.feature-image {
-  margin-bottom: 1.5em;
-}
-
-.recipe-categories,
-.tags {
-  margin-bottom: 1em;
-}
-
-.term {
-  display: inline;
-}
-
-.term::after {
-  content: ", ";
-}
-
-.term:last-child::after {
-  content: "";
-}
-
-.menu,
-.sub-menu {
-  list-style-type: none;
-  margin: 0;
-}
-
-.menu--main > ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-.menu--main a {
-  padding: 0.5em 1.5em;
-  color: white;
-}
-
-/* Dropdown menus */
-/* li {
- display: block;
- transition-duration: 0.5s;
-}
-
-li:hover {
-  cursor: pointer;
-} */
-
-.menu-item {
-  position: relative;
-}
-
-.menu--main ul li ul {
-  visibility: hidden;
-  opacity: 0;
-  position: absolute;
-  transition: all 0.5s ease;
-  margin-top: 1rem;
-  left: 0;
-  /* display: none; */
-
-  padding: 1em;
-  background-color: white;
-  border: 1px solid #eee;
-}
-
-.menu--main li li a {
-  color: hsla(0, 0%, 0%, 0.8);
-}
-
-.menu--main ul li:hover > ul,
-.menu--main ul li ul:hover,
-.menu--main ul li ul:focus {
-  visibility: visible;
-  opacity: 1;
-  /* display: block; */
-}
-
-/* :focus-within doesn't work on IE11 so we separate it from above style */
-.menu--main ul li:focus-within > ul {
-  visibility: visible;
-  opacity: 1;
-  display: block;
-}
-
-/* .menu--main ul li ul li {
-  clear: both;
-  width: 100%;
-} */

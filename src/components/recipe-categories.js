@@ -3,6 +3,8 @@ import PropTypes from "prop-types"
 
 import Term from "./term"
 
+import "../styles/recipe-categories.scss"
+
 function RecipeCategories({ lang, data }) {
   const terms = data.length
     ? data.map(term => {

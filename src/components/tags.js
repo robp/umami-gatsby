@@ -3,6 +3,8 @@ import PropTypes from "prop-types"
 
 import Term from "./term"
 
+import "../styles/tags.scss"
+
 function Tags({ lang, data }) {
   const terms = data.length
     ? data.map(term => {

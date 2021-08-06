@@ -3,6 +3,8 @@ import PropTypes from "prop-types"
 
 import Link from "./link"
 
+import "../styles/menu.scss"
+
 const Menu = ({ childMenu = false, depth = null, name, items }) => {
   // Callback for Array.filter() to remove empty elements.
   const filterEmpty = el => {
@@ -39,18 +41,16 @@ const Menu = ({ childMenu = false, depth = null, name, items }) => {
     return items.map(item => {
       if (item.node.parent === parentId || item.node.parent?.id === parentId) {
         return (
-          <>
-            <li key={item.node.id} className="menu-item">
-              <Link
-                to={item.node.url}
-                activeClassName="active"
-                getProps={getPropsCallback}
-              >
-                {item.node.title}
-              </Link>
-              {getMenu(item.node.id, currentDepth + 1)}
-            </li>
-          </>
+          <li key={item.node.id} className="menu-item">
+            <Link
+              to={item.node.url}
+              activeClassName="active"
+              getProps={getPropsCallback}
+            >
+              {item.node.title}
+            </Link>
+            {getMenu(item.node.id, currentDepth + 1)}
+          </li>
         )
       }
       return null

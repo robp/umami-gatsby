@@ -3,6 +3,8 @@ import { useStaticQuery, graphql } from "gatsby"
 
 import Menu from "../menu"
 
+import "../../styles/main-menu.scss"
+
 const MainMenu = menu => {
   const menuItems = useStaticQuery(graphql`
     query {

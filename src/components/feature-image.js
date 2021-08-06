@@ -2,6 +2,8 @@ import React from "react"
 import PropTypes from "prop-types"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
+import "../styles/feature-image.scss"
+
 function FeatureImage({ media }) {
   if (!media) return null
 

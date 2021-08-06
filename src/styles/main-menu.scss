@@ -1,0 +1,66 @@
+@import "./_variables.scss";
+
+.menu--main {
+  > ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  a {
+    padding: 0.5em 1.5em;
+    color: $colorSecondary;
+  }
+
+  /* Dropdown menus */
+  /* li {
+   display: block;
+   transition-duration: 0.5s;
+  }
+
+  li:hover {
+    cursor: pointer;
+  } */
+
+  .menu-item {
+    position: relative;
+  }
+
+  ul li ul {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    transition: all 0.5s ease;
+    margin-top: 1rem;
+    left: 0;
+    /* display: none; */
+
+    padding: 1em;
+    background-color: $backgroundColorPrimary;
+    border: 1px solid #eee;
+  }
+
+  li li a {
+    color: $colorPrimary;
+  }
+
+  ul li:hover > ul,
+  ul li ul:hover,
+  ul li ul:focus {
+    visibility: visible;
+    opacity: 1;
+    /* display: block; */
+  }
+
+  /* :focus-within doesn't work on IE11 so we separate it from above style */
+  ul li:focus-within > ul {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+  }
+
+  /* ul li ul li {
+    clear: both;
+    width: 100%;
+  } */
+}
