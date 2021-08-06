@@ -1,4 +1,4 @@
-@import "./variables.scss";
+@import "./_variables";
 
 html {
   -ms-text-size-adjust: 100%;
@@ -73,8 +73,7 @@ strong {
 dfn {
   font-style: italic;
 }
-h1,
-.site-title {
+h1 {
   margin-left: 0;
   margin-right: 0;
   margin-top: 0;

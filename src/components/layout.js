@@ -13,7 +13,7 @@ import Header from "./header"
 import Footer from "./footer"
 
 import "../styles/_base.scss"
-import "../styles/layout.scss"
+import { container } from "../styles/layout.module.scss"
 
 const Layout = ({ children }) => {
   const { title } = useSiteMetadata()
@@ -21,7 +21,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header siteTitle={title || `Title`} />
-      <div className="container">
+      <div className={container}>
         <main>{children}</main>
         <Footer />
       </div>

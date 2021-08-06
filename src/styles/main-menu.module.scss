@@ -1,10 +1,14 @@
-@import "./_variables.scss";
+@import "./_variables";
 
-.menu--main {
+.styles {
   > ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
+  }
+
+  li {
+    position: relative;
   }
 
   a {
@@ -22,10 +26,6 @@
     cursor: pointer;
   } */
 
-  .menu-item {
-    position: relative;
-  }
-
   ul li ul {
     visibility: hidden;
     opacity: 0;
@@ -35,7 +35,7 @@
     left: 0;
     /* display: none; */
 
-    padding: 1em;
+    padding: 1em 0;
     background-color: $backgroundColorPrimary;
     border: 1px solid #eee;
   }

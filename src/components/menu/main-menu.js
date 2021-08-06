@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from "gatsby"
 
 import Menu from "../menu"
 
-import "../../styles/main-menu.scss"
+import { styles } from "../../styles/main-menu.module.scss"
 
 const MainMenu = menu => {
   const menuItems = useStaticQuery(graphql`
@@ -29,7 +29,7 @@ const MainMenu = menu => {
     }
   `)
 
-  return <Menu name="main" depth={2} items={menuItems.allMenuItems.edges} />
+  return <Menu className={styles} name="main" depth={2} items={menuItems.allMenuItems.edges} />
 }
 
 export default MainMenu

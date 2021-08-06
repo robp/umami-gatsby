@@ -1,11 +1,11 @@
 import React from 'react'
 import Link from "./link"
 
-import "../styles/language-switcher.scss"
+import { styles } from "../styles/language-switcher.module.scss"
 
 const LanguageSwitcher = () => {
   return (
-    <div className="language-switcher">
+    <div className={styles}>
       <ul>
         <li>
           <Link to="/en">English</Link>

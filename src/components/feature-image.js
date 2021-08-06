@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
-import "../styles/feature-image.scss"
+import { styles } from "../styles/feature-image.module.scss"
 
 function FeatureImage({ media }) {
   if (!media) return null
@@ -13,7 +13,7 @@ function FeatureImage({ media }) {
 
   if (featureImage) {
     return (
-      <div className="feature-image">
+      <div className={styles}>
         <GatsbyImage image={featureImage} alt={media.field_media_image.alt} />
       </div>
     )

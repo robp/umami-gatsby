@@ -1,19 +1,17 @@
 import * as React from "react"
 import PropTypes from "prop-types"
-import Link from "./link"
 
 import LanguageSwitcher from "./language-switcher"
+import SiteBranding from "./site-branding"
 import MainMenu from "./menu/main-menu"
 
-import "../styles/header.scss"
+import { styles } from "../styles/header.module.scss"
 
 const Header = ({ siteTitle }) => (
-  <header>
+  <header className={styles}>
     <div>
       <LanguageSwitcher />
-      <div className="site-title">
-        <Link to="/">{siteTitle}</Link>
-      </div>
+      <SiteBranding siteTitle={siteTitle}/>
       <MainMenu />
     </div>
   </header>

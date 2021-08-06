@@ -1,10 +1,10 @@
 import * as React from "react"
 
-import "../styles/footer.scss"
+import { styles } from "../styles/footer.module.scss"
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className={styles}>
       © {new Date().getFullYear()}, Built with
       {` `}
       <a href="https://www.gatsbyjs.com">Gatsby</a>

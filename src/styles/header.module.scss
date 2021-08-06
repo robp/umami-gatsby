@@ -1,6 +1,6 @@
-@import "./_variables.scss";
+@import "./_variables";
 
-header {
+.styles {
   background: $backgroundColorSecondary;
   margin-bottom: 1.45rem;
 
@@ -9,10 +9,4 @@ header {
     max-width: $containerWidth;
     padding: 1.45rem 1.0875rem;
   }
-
-  .site-title a {
-    color: white;
-    text-decoration: none;
-  }
 }
-
