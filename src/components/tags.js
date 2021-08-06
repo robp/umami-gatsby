@@ -5,13 +5,15 @@ import Term from "./term"
 
 function Tags({ lang, data }) {
   const terms = data.length
-    ? data
-        .map(term => {
-          return <Term lang={lang} key={term.id} {...term} />
-        })
+    ? data.map(term => {
+        return <Term lang={lang} key={term.id} {...term} />
+      })
     : null
 
-  return terms ? <div className="tags">Tags: {terms}</div> : null
+  if (terms) {
+    return <div className="tags">Tags: {terms}</div>
+  }
+  return null
 }
 
 Tags.propTypes = {

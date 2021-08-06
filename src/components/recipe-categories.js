@@ -10,9 +10,10 @@ function RecipeCategories({ lang, data }) {
       })
     : null
 
-  return terms ? (
-    <div className="recipe-categories">Recipe Categories: {terms}</div>
-  ) : null
+  if (terms) {
+    return <div className="recipe-categories">Recipe Categories: {terms}</div>
+  }
+  return null
 }
 
 RecipeCategories.propTypes = {

@@ -1,10 +1,10 @@
 import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import PageTitle from "../components/page-title"
+import Link from "../components/link"
 
 const IndexPage = () => {
   const pages = useStaticQuery(graphql`

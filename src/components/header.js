@@ -1,9 +1,9 @@
 import * as React from "react"
 import PropTypes from "prop-types"
-import { Link } from "gatsby"
+import Link from "./link"
 
 import LanguageSwitcher from "./language-switcher"
-import MainMenu from "./menu/main"
+import MainMenu from "./menu/main-menu"
 
 const Header = ({ siteTitle }) => (
   <header
@@ -20,7 +20,7 @@ const Header = ({ siteTitle }) => (
       }}
     >
       <LanguageSwitcher />
-      <h1>
+      <div className="site-title">
         <Link
           to="/"
           style={{
@@ -30,7 +30,7 @@ const Header = ({ siteTitle }) => (
         >
           {siteTitle}
         </Link>
-      </h1>
+      </div>
       <MainMenu />
     </div>
   </header>

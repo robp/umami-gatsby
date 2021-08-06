@@ -8,12 +8,15 @@ function Sections({ data }) {
     return <Section key={section.id} {...section} />
   })
 
-  return sections.length ? (
-    <div className="sections">
-      <h2>Sections</h2>
-      {sections}
-    </div>
-  ) : null
+  if (sections.length) {
+    return (
+      <div className="sections">
+        <h2>Sections</h2>
+        {sections}
+      </div>
+    )
+  }
+  return null
 }
 
 Sections.propTypes = {

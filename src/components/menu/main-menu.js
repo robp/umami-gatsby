@@ -7,15 +7,18 @@ const MainMenu = menu => {
   const menuItems = useStaticQuery(graphql`
     query {
       allMenuItems(
-        filter: { menu_name: { eq: "main" }, parent: { id: { eq: null } } }
+        filter: { menu_name: { eq: "main" } }
         sort: { order: ASC, fields: weight }
       ) {
         edges {
           node {
+            id
             title
             url
-            id
             parent {
+              id
+            }
+            children {
               id
             }
           }
@@ -24,7 +27,7 @@ const MainMenu = menu => {
     }
   `)
 
-  return <Menu name="main" items={menuItems.allMenuItems.edges} />
+  return <Menu name="main" depth={2} items={menuItems.allMenuItems.edges} />
 }
 
 export default MainMenu
