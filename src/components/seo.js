@@ -9,66 +9,71 @@ import * as React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useSiteMetadata } from "../hooks/use-site-metadata"
+import { UserStateContext } from "./user-context"
 
-function Seo({ description, lang, meta, title }) {
+function Seo({ description, meta, title }) {
   const siteMetadata = useSiteMetadata()
   const metaDescription = description || siteMetadata.description
   const defaultTitle = siteMetadata?.title
 
   return (
-    <Helmet
-      htmlAttributes={{
-        lang,
+    <UserStateContext.Consumer>
+      {user => {
+        return (
+          <Helmet
+            htmlAttributes={{
+              lang: user.locale,
+            }}
+            title={title}
+            titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
+            meta={[
+              {
+                name: `description`,
+                content: metaDescription,
+              },
+              {
+                property: `og:title`,
+                content: title,
+              },
+              {
+                property: `og:description`,
+                content: metaDescription,
+              },
+              {
+                property: `og:type`,
+                content: `website`,
+              },
+              {
+                name: `twitter:card`,
+                content: `summary`,
+              },
+              {
+                name: `twitter:creator`,
+                content: siteMetadata?.author || ``,
+              },
+              {
+                name: `twitter:title`,
+                content: title,
+              },
+              {
+                name: `twitter:description`,
+                content: metaDescription,
+              },
+            ].concat(meta)}
+          />
+        )
       }}
-      title={title}
-      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
-      meta={[
-        {
-          name: `description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: siteMetadata?.author || ``,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
-      ].concat(meta)}
-    />
+    </UserStateContext.Consumer>
   )
 }
 
 Seo.defaultProps = {
-  lang: `en`,
   meta: [],
   description: ``,
 }
 
 Seo.propTypes = {
   description: PropTypes.string,
-  lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string.isRequired,
 }

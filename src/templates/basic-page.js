@@ -12,7 +12,7 @@ const BasicPage = ({ data }) => {
 
   return (
     <Layout>
-      <Seo lang={node.langcode} title={node.title} />
+      <Seo title={node.title} />
       <PageTitle title={node.title} />
       {node.body ? (
         <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />

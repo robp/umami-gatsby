@@ -1,5 +1,6 @@
 import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
+import { UserStateContext } from "../components/user-context"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -21,21 +22,45 @@ const IndexPage = () => {
     }
   `)
 
+  const filteredPagesCount = () => {
+    return (
+      <UserStateContext.Consumer>
+        {user => {
+          const filterLang = edge => {
+            return edge.node.path.split("/")[1] === user.locale
+          }
+          return pages.allSitePage.edges.filter(filterLang).length
+        }}
+      </UserStateContext.Consumer>
+    )
+  }
+
+  const filteredPages = () => {
+    return (
+      <UserStateContext.Consumer>
+        {user => {
+          const filterLang = edge => {
+            return edge.node.path.split("/")[1] === user.locale
+          }
+          return pages.allSitePage.edges.filter(filterLang).map(edge => {
+            return (
+              <li key={edge.node.id}>
+                <Link to={edge.node.path}>{edge.node.path}</Link>
+              </li>
+            )
+          })
+        }}
+      </UserStateContext.Consumer>
+    )
+  }
+
   return (
     <Layout>
       <Seo title="Home" />
       <PageTitle title="Home" />
 
-      <h2>Pages ({pages.allSitePage.totalCount})</h2>
-      <ul>
-        {pages.allSitePage.edges.map(edge => {
-          return (
-            <li key={edge.node.id}>
-              <Link to={edge.node.path}>{edge.node.path}</Link>
-            </li>
-          )
-        })}
-      </ul>
+      <h2>Pages ({filteredPagesCount()})</h2>
+      <ul>{filteredPages()}</ul>
     </Layout>
   )
 }

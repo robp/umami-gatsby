@@ -1,14 +1,8 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.com/docs/use-static-query/
- */
-
 import * as React from "react"
 import PropTypes from "prop-types"
 import { useSiteMetadata } from "../hooks/use-site-metadata"
 
+import UserContext from "./user-context"
 import Header from "./header"
 import Footer from "./footer"
 
@@ -19,13 +13,13 @@ const Layout = ({ children }) => {
   const { title } = useSiteMetadata()
 
   return (
-    <>
+    <UserContext>
       <Header siteTitle={title || `Title`} />
       <div className={container}>
         <main>{children}</main>
         <Footer />
       </div>
-    </>
+    </UserContext>
   )
 }
 

@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { UserStateContext } from "./user-context"
 
 import Link from "./link"
 
@@ -9,7 +10,11 @@ const SiteBranding = ({ siteTitle }) => {
   return (
     <div className={styles}>
       <div className={siteTitleStyles}>
-        <Link to="/">{siteTitle}</Link>
+        <UserStateContext.Consumer>
+          {user => {
+            return <Link to={`/${user.locale}`}>{siteTitle}</Link>
+          }}
+        </UserStateContext.Consumer>
       </div>
     </div>
   )

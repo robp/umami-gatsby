@@ -1,5 +1,6 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
+import { UserStateContext } from "../user-context"
 
 import Menu from "../menu"
 
@@ -23,13 +24,28 @@ const MainMenu = menu => {
             children {
               id
             }
+            langcode
           }
         }
       }
     }
   `)
 
-  return <Menu className={styles} name="main" depth={2} items={menuItems.allMenuItems.edges} />
+  return (
+    <UserStateContext.Consumer>
+      {user => {
+        return (
+          <Menu
+            className={styles}
+            name="main"
+            lang={user.locale}
+            depth={2}
+            items={menuItems.allMenuItems.edges}
+          />
+        )
+      }}
+    </UserStateContext.Consumer>
+  )
 }
 
 export default MainMenu

@@ -13,7 +13,7 @@ const Article = ({ data }) => {
 
   return (
     <Layout>
-      <Seo lang={node.langcode} title={node.title} />
+      <Seo title={node.title} />
       <PageTitle title={node.title} />
       <Tags lang={node.langcode} data={node.relationships.field_tags} />
       <FeatureImage media={node.relationships.field_media_image} />

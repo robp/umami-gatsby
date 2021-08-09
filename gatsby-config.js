@@ -37,7 +37,7 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
-    `gatsby-plugin-gatsby-cloud`,
+    // `gatsby-plugin-gatsby-cloud`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
@@ -67,20 +67,20 @@ module.exports = {
       fastBuilds: true,
     },
     {
-      resolve: "gatsby-plugin-i18n",
-      options: {
-        langKeyDefault: languages.defaultLangKey,
-        langKeyForNull: "any",
-        useLangKeyLayout: false,
-      },
-    },
-    {
       resolve: `gatsby-source-drupal-menu-links`,
       options: {
         baseUrl: process.env.DRUPAL_BASE_URL,
         apiBase: process.env.DRUPAL_API_BASE,
         menus: ["main", "footer"], // Which menus to fetch, there are the menu IDs.
-        languages: ["en"],
+        languages: languages.langs,
+      },
+    },
+    {
+      resolve: "gatsby-plugin-i18n",
+      options: {
+        langKeyDefault: languages.defaultLangKey,
+        langKeyForNull: "any",
+        useLangKeyLayout: false,
       },
     },
     `gatsby-plugin-remove-trailing-slashes`,

@@ -1,4 +1,5 @@
 import { useSiteMetadata } from "../hooks/use-site-metadata"
+import { navigate } from "gatsby"
 
 const IndexPage = () => {
   const { languages } = useSiteMetadata()
@@ -7,7 +8,8 @@ const IndexPage = () => {
     2
   )
   const langcode = languages.langs.includes(userLang) ? userLang : languages.defaultLangKey
-  window.location.href = `/${langcode}`
+  const href = `/${langcode}`
+  navigate(href, { replace: true })
   return null
 }
 
