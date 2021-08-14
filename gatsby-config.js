@@ -46,6 +46,10 @@ module.exports = {
       options: {
         baseUrl: process.env.DRUPAL_BASE_URL,
         apiBase: process.env.DRUPAL_API_BASE, // optional, defaults to `jsonapi`
+        basicAuth: {
+          username: process.env.BASIC_AUTH_USERNAME,
+          password: process.env.BASIC_AUTH_PASSWORD,
+        },
         languageConfig: {
           defaultLanguage: "en",
           enabledLanguages: ["en", "es"],
@@ -71,7 +75,11 @@ module.exports = {
       options: {
         baseUrl: process.env.DRUPAL_BASE_URL,
         apiBase: process.env.DRUPAL_API_BASE,
-        menus: ["main", "footer"], // Which menus to fetch, there are the menu IDs.
+        basicAuth: {
+          username: process.env.BASIC_AUTH_USERNAME,
+          password: process.env.BASIC_AUTH_PASSWORD,
+        },
+        menus: ["main"], // Which menus to fetch, these are the menu IDs.
         languages: languages.langs,
       },
     },
