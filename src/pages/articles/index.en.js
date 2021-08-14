@@ -1,6 +1,8 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
+import { normalizeString } from "../../utils/functions"
+
 import Layout from "../../components/layout"
 import Seo from "../../components/seo"
 import PageTitle from "../../components/page-title"
@@ -53,7 +55,7 @@ const ArticlesPage = () => {
           {pages.allNodeArticle.edges.map(edge => {
             return (
               <li key={edge.node.id}>
-                <Link to={`/${edge.node.langcode}${edge.node.path.alias}`}>
+                <Link to={`/${edge.node.langcode}${normalizeString(edge.node.path.alias)}`}>
                   {edge.node.title}
                 </Link>
               </li>

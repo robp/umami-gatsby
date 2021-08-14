@@ -9,7 +9,11 @@ const UserContext = ({ children }) => {
   const { languages } = useSiteMetadata()
 
   const getLocale = () => {
-    const pathname = window.location.pathname
+    /**
+     * @todo Do this without the hack of testing window.
+     */
+    const pathname =
+      typeof window !== "undefined" ? window.location.pathname : ""
     const locale = pathname.split("/")[1]
     return languages.langs.includes(locale) ? locale : languages.defaultLangKey
   }

@@ -2,6 +2,8 @@ import React from "react"
 import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 
+import { normalizeString } from "../utils/functions"
+
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import PageTitle from "../components/page-title"
@@ -17,7 +19,7 @@ const Tag = ({ data }) => {
         {node.relationships.node__article.map(article => {
           return (
             <li key={article.id}>
-              <Link to={`/${node.langcode}${article.path.alias}`}>
+              <Link to={`/${node.langcode}${normalizeString(article.path.alias)}`}>
                 {article.title}
               </Link>
             </li>
@@ -34,7 +36,7 @@ const Tag = ({ data }) => {
         {node.relationships.node__recipe.map(recipe => {
           return (
             <li key={recipe.id}>
-              <Link to={`/${node.langcode}${recipe.path.alias}`}>{recipe.title}</Link>
+              <Link to={`/${node.langcode}${normalizeString(recipe.path.alias)}`}>{recipe.title}</Link>
             </li>
           )
         })}
