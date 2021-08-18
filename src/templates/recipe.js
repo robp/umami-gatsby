@@ -13,9 +13,10 @@ import Instructions from "../components/recipe/instructions"
 
 const Recipe = ({ data }) => {
   const node = data.nodeRecipe
+  const translations = data.allNodeRecipe.edges
 
   return (
-    <Layout>
+    <Layout translations={translations}>
       <Seo
         lang={node.langcode}
         title={node.title}
@@ -44,7 +45,7 @@ Recipe.propTypes = {
 }
 
 export const query = graphql`
-  query ($nodeId: String!) {
+  query ($nodeId: String!, $internalNid: Int!) {
     nodeRecipe(id: { eq: $nodeId }) {
       langcode
       id
@@ -90,6 +91,17 @@ export const query = graphql`
         field_tags {
           id
           name
+          path {
+            alias
+          }
+        }
+      }
+    }
+    allNodeRecipe(filter: { drupal_internal__nid: { eq: $internalNid } }) {
+      edges {
+        node {
+          langcode
+          id
           path {
             alias
           }

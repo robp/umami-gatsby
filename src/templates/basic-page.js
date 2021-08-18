@@ -9,9 +9,10 @@ import Sections from "../components/sections"
 
 const BasicPage = ({ data }) => {
   const node = data.nodePage
+  const translations = data.allNodePage.edges
 
   return (
-    <Layout>
+    <Layout translations={translations}>
       <Seo title={node.title} />
       <PageTitle title={node.title} />
       {node.body ? (
@@ -29,7 +30,7 @@ BasicPage.propTypes = {
 }
 
 export const query = graphql`
-  query ($nodeId: String!) {
+  query ($nodeId: String!, $internalNid: Int!) {
     nodePage(id: { eq: $nodeId }) {
       langcode
       id
@@ -44,6 +45,17 @@ export const query = graphql`
           field_title
           field_body {
             processed
+          }
+        }
+      }
+    }
+    allNodePage(filter: { drupal_internal__nid: { eq: $internalNid } }) {
+      edges {
+        node {
+          langcode
+          id
+          path {
+            alias
           }
         }
       }
