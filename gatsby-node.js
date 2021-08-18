@@ -5,11 +5,12 @@
  */
 
 const path = require("path")
+const languages = require("./src/data/languages")
 
 const { normalizeString } = require("./src/utils/functions")
 
 exports.createPages = ({ graphql, actions }) => {
-  const { createPage } = actions
+  const { createPage, createRedirect } = actions
 
   const createPath = node => {
     return `/${node.langcode}${normalizeString(node.path.alias)}`
@@ -173,6 +174,21 @@ exports.createPages = ({ graphql, actions }) => {
           internalTid: edge.node.drupal_internal__tid,
         },
       })
+    })
+
+    // Create redirects for `/` based on browser language, plus a fallback.
+    languages.langs.map(langcode => {
+      createRedirect({
+        fromPath: `/`,
+        toPath: `/${langcode}`,
+        Language: langcode,
+        isPermanent: true,
+      })
+    })
+    createRedirect({
+      fromPath: `/`,
+      toPath: `/${languages.defaultLangKey}`,
+      isPermanent: true,
     })
   })
 }
