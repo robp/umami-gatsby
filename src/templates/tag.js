@@ -11,6 +11,7 @@ import Link from "../components/link"
 
 const Tag = ({ data }) => {
   const node = data.taxonomyTermTags
+  const translations = data.allTaxonomyTermTags.edges
 
   const articles = node.relationships.node__article ? (
     <>
@@ -19,7 +20,9 @@ const Tag = ({ data }) => {
         {node.relationships.node__article.map(article => {
           return (
             <li key={article.id}>
-              <Link to={`/${node.langcode}${normalizeString(article.path.alias)}`}>
+              <Link
+                to={`/${node.langcode}${normalizeString(article.path.alias)}`}
+              >
                 {article.title}
               </Link>
             </li>
@@ -36,7 +39,11 @@ const Tag = ({ data }) => {
         {node.relationships.node__recipe.map(recipe => {
           return (
             <li key={recipe.id}>
-              <Link to={`/${node.langcode}${normalizeString(recipe.path.alias)}`}>{recipe.title}</Link>
+              <Link
+                to={`/${node.langcode}${normalizeString(recipe.path.alias)}`}
+              >
+                {recipe.title}
+              </Link>
             </li>
           )
         })}
@@ -45,7 +52,7 @@ const Tag = ({ data }) => {
   ) : null
 
   return (
-    <Layout>
+    <Layout translations={translations}>
       <Seo title={`Tag: ${node.name}`} />
       <PageTitle title={`Tag: ${node.name}`} />
       {articles}
@@ -59,7 +66,7 @@ Tag.propTypes = {
 }
 
 export const query = graphql`
-  query ($nodeId: String!) {
+  query ($nodeId: String!, $internalTid: Int!) {
     taxonomyTermTags(id: { eq: $nodeId }) {
       langcode
       id
@@ -78,6 +85,19 @@ export const query = graphql`
         node__recipe {
           id
           title
+          path {
+            alias
+          }
+        }
+      }
+    }
+    allTaxonomyTermTags(
+      filter: { drupal_internal__tid: { eq: $internalTid } }
+    ) {
+      edges {
+        node {
+          langcode
+          id
           path {
             alias
           }

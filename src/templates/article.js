@@ -10,9 +10,10 @@ import FeatureImage from "../components/feature-image"
 
 const Article = ({ data }) => {
   const node = data.nodeArticle
+  const translations = data.allNodeArticle.edges
 
   return (
-    <Layout>
+    <Layout translations={translations}>
       <Seo title={node.title} />
       <PageTitle title={node.title} />
       <Tags lang={node.langcode} data={node.relationships.field_tags} />
@@ -29,10 +30,11 @@ Article.propTypes = {
 }
 
 export const query = graphql`
-  query ($nodeId: String!) {
+  query ($nodeId: String!, $internalNid: Int!) {
     nodeArticle(id: { eq: $nodeId }) {
       langcode
       id
+      drupal_internal__nid
       title
       body {
         processed
@@ -59,6 +61,17 @@ export const query = graphql`
         field_tags {
           id
           name
+          path {
+            alias
+          }
+        }
+      }
+    }
+    allNodeArticle(filter: { drupal_internal__nid: { eq: $internalNid } }) {
+      edges {
+        node {
+          langcode
+          id
           path {
             alias
           }

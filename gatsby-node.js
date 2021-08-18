@@ -11,6 +11,10 @@ const { normalizeString } = require("./src/utils/functions")
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
 
+  const createPath = node => {
+    return `/${node.langcode}${normalizeString(node.path.alias)}`
+  }
+
   // const languages = [`en`, `es`]
 
   // Query for markdown nodes to use in creating pages.
@@ -33,6 +37,7 @@ exports.createPages = ({ graphql, actions }) => {
             node {
               langcode
               id
+              drupal_internal__nid
               path {
                 alias
               }
@@ -44,6 +49,7 @@ exports.createPages = ({ graphql, actions }) => {
             node {
               langcode
               id
+              drupal_internal__nid
               path {
                 alias
               }
@@ -55,6 +61,7 @@ exports.createPages = ({ graphql, actions }) => {
             node {
               langcode
               id
+              drupal_internal__nid
               path {
                 alias
               }
@@ -66,6 +73,7 @@ exports.createPages = ({ graphql, actions }) => {
             node {
               langcode
               id
+              drupal_internal__tid
               path {
                 alias
               }
@@ -77,6 +85,7 @@ exports.createPages = ({ graphql, actions }) => {
             node {
               langcode
               id
+              drupal_internal__tid
               path {
                 alias
               }
@@ -109,11 +118,11 @@ exports.createPages = ({ graphql, actions }) => {
     // Create article pages.
     result.data.allNodeArticle.edges.forEach(edge => {
       createPage({
-        path: `/${edge.node.langcode}${normalizeString(edge.node.path.alias)}`,
+        path: createPath(edge.node),
         component: path.resolve("src/templates/article.js"),
         context: {
           nodeId: edge.node.id,
-          langcode: edge.node.langcode,
+          internalNid: edge.node.drupal_internal__nid,
         },
       })
     })
@@ -121,11 +130,11 @@ exports.createPages = ({ graphql, actions }) => {
     // Create recipe pages.
     result.data.allNodeRecipe.edges.forEach(edge => {
       createPage({
-        path: `/${edge.node.langcode}${normalizeString(edge.node.path.alias)}`,
+        path: createPath(edge.node),
         component: path.resolve("src/templates/recipe.js"),
         context: {
           nodeId: edge.node.id,
-          langcode: edge.node.langcode,
+          internalNid: edge.node.drupal_internal__nid,
         },
       })
     })
@@ -133,11 +142,11 @@ exports.createPages = ({ graphql, actions }) => {
     // Create basic pages.
     result.data.allNodePage.edges.forEach(edge => {
       createPage({
-        path: `/${edge.node.langcode}${normalizeString(edge.node.path.alias)}`,
+        path: createPath(edge.node),
         component: path.resolve("src/templates/basic-page.js"),
         context: {
           nodeId: edge.node.id,
-          langcode: edge.node.langcode,
+          internalNid: edge.node.drupal_internal__nid,
         },
       })
     })
@@ -145,11 +154,11 @@ exports.createPages = ({ graphql, actions }) => {
     // Create tags pages.
     result.data.allTaxonomyTermTags.edges.forEach(edge => {
       createPage({
-        path: `/${edge.node.langcode}${normalizeString(edge.node.path.alias)}`,
+        path: createPath(edge.node),
         component: path.resolve("src/templates/tag.js"),
         context: {
           nodeId: edge.node.id,
-          langcode: edge.node.langcode,
+          internalTid: edge.node.drupal_internal__tid,
         },
       })
     })
@@ -157,13 +166,13 @@ exports.createPages = ({ graphql, actions }) => {
     // Create recipe category pages.
     result.data.allTaxonomyTermRecipeCategory.edges.forEach(edge => {
       createPage({
-        path: `/${edge.node.langcode}${normalizeString(edge.node.path.alias)}`,
+        path: createPath(edge.node),
         component: path.resolve("src/templates/recipe-category.js"),
         context: {
           nodeId: edge.node.id,
+          internalTid: edge.node.drupal_internal__tid,
         },
       })
     })
   })
-
 }

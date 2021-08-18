@@ -11,6 +11,7 @@ import Link from "../components/link"
 
 const RecipeCategory = ({ data }) => {
   const node = data.taxonomyTermRecipeCategory
+  const translations = data.allTaxonomyTermRecipeCategory.edges
 
   const recipes = node.relationships.node__recipe ? (
     <>
@@ -19,7 +20,9 @@ const RecipeCategory = ({ data }) => {
         {node.relationships.node__recipe.map(recipe => {
           return (
             <li key={recipe.id}>
-              <Link to={`/${node.langcode}${normalizeString(recipe.path.alias)}`}>
+              <Link
+                to={`/${node.langcode}${normalizeString(recipe.path.alias)}`}
+              >
                 {recipe.title}
               </Link>
             </li>
@@ -30,7 +33,7 @@ const RecipeCategory = ({ data }) => {
   ) : null
 
   return (
-    <Layout>
+    <Layout translations={translations}>
       <Seo title={`Recipe Category: ${node.name}`} />
       <PageTitle title={`Recipe Category: ${node.name}`} />
       {recipes}
@@ -43,7 +46,7 @@ RecipeCategory.propTypes = {
 }
 
 export const query = graphql`
-  query ($nodeId: String!) {
+  query ($nodeId: String!, $internalTid: Int!) {
     taxonomyTermRecipeCategory(id: { eq: $nodeId }) {
       langcode
       id
@@ -55,6 +58,19 @@ export const query = graphql`
         node__recipe {
           id
           title
+          path {
+            alias
+          }
+        }
+      }
+    }
+    allTaxonomyTermRecipeCategory(
+      filter: { drupal_internal__tid: { eq: $internalTid } }
+    ) {
+      edges {
+        node {
+          langcode
+          id
           path {
             alias
           }

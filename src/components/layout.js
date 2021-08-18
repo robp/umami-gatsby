@@ -9,12 +9,12 @@ import Footer from "./footer"
 import "../styles/_base.scss"
 import { container } from "../styles/layout.module.scss"
 
-const Layout = ({ children }) => {
+const Layout = ({ translations, children }) => {
   const { title } = useSiteMetadata()
 
   return (
     <UserContext>
-      <Header siteTitle={title || `Title`} />
+      <Header translations={translations} siteTitle={title || `Title`} />
       <div className={container}>
         <main>{children}</main>
         <Footer />
@@ -24,6 +24,7 @@ const Layout = ({ children }) => {
 }
 
 Layout.propTypes = {
+  translations: PropTypes.array,
   children: PropTypes.node.isRequired,
 }
 
