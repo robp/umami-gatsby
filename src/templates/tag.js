@@ -56,8 +56,8 @@ const Tag = ({ data }) => {
 
   return (
     <Layout translations={translations}>
-      <Seo title={`Tag: ${node.name}`} />
-      <PageTitle title={`Tag: ${node.name}`} />
+      <Seo title={`${t("Tag")}: ${node.name}`} />
+      <PageTitle title={`${t("Tag")}: ${node.name}`} />
       {articles}
       {recipes}
     </Layout>

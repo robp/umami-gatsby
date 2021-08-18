@@ -123,22 +123,18 @@ module.exports = {
         },
         pages: [
           {
-            matchPath: "/:lang?/:path*",
+            matchPath: "/:lang/:slug*",
             getLanguageFromPath: true,
           },
           // {
-          //   matchPath: "/:lang?/blog/:uid",
-          //   getLanguageFromPath: true,
-          //   excludeLanguages: ["es"],
-          // },
-          // {
-          //   matchPath: "/preview",
-          //   languages: ["en"],
+          //   matchPath: "/recipes",
+          //   getLanguageFromPath: false,
+          //   languages: languages.langs,
           // },
         ],
       },
     },
-    // `gatsby-plugin-remove-trailing-slashes`,
+    `gatsby-plugin-remove-trailing-slashes`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-netlify`, // make sure to keep it last in the array
   ],

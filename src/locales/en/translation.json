@@ -1,12 +1,15 @@
 {
+  "Not found": "Not found",
+  "You just hit a route that doesn&#39;t exist... the sadness.": "You just hit a route that doesn&#39;t exist... the sadness.",
   "Home": "Home",
-  "Hi people": "Hello, world",
+  "Hi people": "Hi people",
   "Articles": "Articles",
   "Pages": "Pages",
   "Recipes": "Recipes",
   "Recipe Categories": "Recipe Categories",
   "Recipe Category": "Recipe Category",
   "Tags": "Tags",
+  "Tag": "Tag",
   "Ingredients": "Ingredients",
   "Instructions": "Instructions"
 }
