@@ -29,6 +29,8 @@ Article.propTypes = {
   data: PropTypes.object.isRequired,
 }
 
+export default Article
+
 export const query = graphql`
   query ($nodeId: String!, $internalNid: Int!) {
     nodeArticle(id: { eq: $nodeId }) {
@@ -80,5 +82,3 @@ export const query = graphql`
     }
   }
 `
-
-export default Article

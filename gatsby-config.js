@@ -92,14 +92,53 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-plugin-i18n",
+      resolve: `gatsby-source-filesystem`,
       options: {
-        langKeyDefault: languages.defaultLangKey,
-        langKeyForNull: "any",
-        useLangKeyLayout: false,
+        path: `${__dirname}/src/locales`,
+        name: `locale`,
       },
     },
-    `gatsby-plugin-remove-trailing-slashes`,
+    {
+      resolve: `gatsby-plugin-react-i18next`,
+      options: {
+        localeJsonSourceName: `locale`, // name given to `gatsby-source-filesystem` plugin.
+        languages: languages.langs,
+        defaultLanguage: languages.defaultLangKey,
+        generateDefaultLanguagePage: true,
+        redirect: true,
+        // if you are using Helmet, you must include siteUrl, and make sure you add http:https
+        // siteUrl: `https://example.com/`,
+        // you can pass any i18next options
+        // pass following options to allow message content as a key
+        i18nextOptions: {
+          debug: true,
+          interpolation: {
+            escapeValue: false, // not needed for react as it escapes by default
+          },
+          keySeparator: false,
+          nsSeparator: false,
+          // detection: {
+          //   order: ["path", "htmlTag"],
+          // },
+        },
+        pages: [
+          {
+            matchPath: "/:lang?/:path*",
+            getLanguageFromPath: true,
+          },
+          // {
+          //   matchPath: "/:lang?/blog/:uid",
+          //   getLanguageFromPath: true,
+          //   excludeLanguages: ["es"],
+          // },
+          // {
+          //   matchPath: "/preview",
+          //   languages: ["en"],
+          // },
+        ],
+      },
+    },
+    // `gatsby-plugin-remove-trailing-slashes`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-netlify`, // make sure to keep it last in the array
   ],

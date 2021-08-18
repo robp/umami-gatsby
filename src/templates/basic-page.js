@@ -29,6 +29,8 @@ BasicPage.propTypes = {
   data: PropTypes.object.isRequired,
 }
 
+export default BasicPage
+
 export const query = graphql`
   query ($nodeId: String!, $internalNid: Int!) {
     nodePage(id: { eq: $nodeId }) {
@@ -62,5 +64,3 @@ export const query = graphql`
     }
   }
 `
-
-export default BasicPage
