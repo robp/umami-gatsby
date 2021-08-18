@@ -28,19 +28,27 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
-        start_url: `/`,
+        name: `Umami Food Magazine`,
+        short_name: `Umami`,
+        description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+        lang: `en`,
+        start_url: `/en`,
         background_color: `#663399`,
         theme_color: `#663399`,
-        display: `minimal-ui`,
+        display: `standalone`,
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        localize: [
+          {
+            name: `Revista Umami Food`,
+            short_name: `Umami`,
+            description: `Comienza tu próximo gran proyecto de Gatsby con este motor de arranque predeterminado. Este iniciador básico se envía con los principales archivos de configuración de Gatsby que pueda necesitar.`,
+            lang: `es`,
+            start_url: `/es`,
+          },
+        ],
       },
     },
-    // `gatsby-plugin-gatsby-cloud`,
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    `gatsby-plugin-offline`,
     {
       resolve: `gatsby-source-drupal`,
       options: {
@@ -51,8 +59,8 @@ module.exports = {
           password: process.env.BASIC_AUTH_PASSWORD,
         },
         languageConfig: {
-          defaultLanguage: "en",
-          enabledLanguages: ["en", "es"],
+          defaultLanguage: languages.defaultLangKey,
+          enabledLanguages: languages.langs,
           translatableEntities: [
             "node--article",
             "node--recipe",
@@ -93,6 +101,6 @@ module.exports = {
     },
     `gatsby-plugin-remove-trailing-slashes`,
     `gatsby-plugin-sass`,
-    `gatsby-plugin-netlify`,
+    `gatsby-plugin-netlify`, // make sure to keep it last in the array
   ],
 }
