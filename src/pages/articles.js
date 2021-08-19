@@ -1,5 +1,6 @@
 import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import { graphql } from "gatsby"
+import { useTranslation } from "gatsby-plugin-react-i18next"
 
 import { normalizeString } from "../utils/functions"
 
@@ -8,54 +9,40 @@ import Seo from "../components/seo"
 import PageTitle from "../components/page-title"
 import Link from "../components/link"
 
-const ArticlesPage = () => {
-  const pages = useStaticQuery(graphql`
-    query {
-      nodeTypeNodeType(drupal_internal__type: { eq: "article" }) {
-        id
-        name
-        description
-        drupal_internal__type
-      }
-      allNodeArticle(filter: { langcode: { eq: "en" } }) {
-        edges {
-          node {
-            id
-            title
-            path {
-              alias
-            }
-            langcode
-          }
-        }
-        totalCount
-      }
-    }
-  `)
+const ArticlesPage = ({ data }) => {
+  const { t } = useTranslation()
+
+  const nodeType = data.nodeTypeNodeType
+  const articles = data.allNodeArticle.edges
+  const articleCount = data.allNodeArticle.totalCount
 
   return (
     <Layout>
-      <Seo title="Articles" />
-      <PageTitle title="Articles" />
+      <Seo title={t("Articles")} />
+      <PageTitle title={t("Articles")} />
 
-      {pages.nodeTypeNodeType.description ? (
+      {nodeType.description ? (
         <p
           dangerouslySetInnerHTML={{
-            __html: pages.nodeTypeNodeType.description,
+            __html: nodeType.description,
           }}
         />
       ) : null}
 
       <h2>
-        {pages.nodeTypeNodeType.name} ({pages.allNodeArticle.totalCount})
+        {t(data.nodeTypeNodeType.name)} ({articleCount})
       </h2>
 
-      {pages.allNodeArticle.edges ? (
+      {articles ? (
         <ul>
-          {pages.allNodeArticle.edges.map(edge => {
+          {articles.map(edge => {
             return (
               <li key={edge.node.id}>
-                <Link to={`/${edge.node.langcode}${normalizeString(edge.node.path.alias)}`}>
+                <Link
+                  to={`/${edge.node.langcode}${normalizeString(
+                    edge.node.path.alias
+                  )}`}
+                >
                   {edge.node.title}
                 </Link>
               </li>
@@ -63,10 +50,43 @@ const ArticlesPage = () => {
           })}
         </ul>
       ) : (
-        "<p>No articles.</p>"
+        `<p>${t("No articles.")}</p>`
       )}
     </Layout>
   )
 }
 
 export default ArticlesPage
+
+export const query = graphql`
+  query ($language: String!) {
+    locales: allLocale(filter: { language: { eq: $language } }) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
+    nodeTypeNodeType(drupal_internal__type: { eq: "article" }) {
+      id
+      name
+      description
+      drupal_internal__type
+    }
+    allNodeArticle(filter: { langcode: { eq: $language } }) {
+      edges {
+        node {
+          id
+          title
+          path {
+            alias
+          }
+          langcode
+        }
+      }
+      totalCount
+    }
+  }
+`

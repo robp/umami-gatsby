@@ -30,7 +30,7 @@ const RecipesPage = ({ data }) => {
         />
       ) : null}
 
-      <h2>Recipe Categories</h2>
+      <h2>{t("Recipe Categories")}</h2>
 
       <div className="recipe-categories">
         <ul>
@@ -51,7 +51,7 @@ const RecipesPage = ({ data }) => {
       </div>
 
       <h2>
-        {data.nodeTypeNodeType.name} ({recipeCount})
+        {t(data.nodeTypeNodeType.name)} ({recipeCount})
       </h2>
 
       {recipes ? (
@@ -71,7 +71,7 @@ const RecipesPage = ({ data }) => {
           })}
         </ul>
       ) : (
-        "<p>No recipes.</p>"
+        `<p>${t("No recipes.")}</p>`
       )}
     </Layout>
   )
@@ -96,7 +96,7 @@ export const query = graphql`
       description
       drupal_internal__type
     }
-    allNodeRecipe(filter: { langcode: { eq: "en" } }) {
+    allNodeRecipe(filter: { langcode: { eq: $language } }) {
       edges {
         node {
           id
@@ -109,7 +109,7 @@ export const query = graphql`
       }
       totalCount
     }
-    allTaxonomyTermRecipeCategory(filter: { langcode: { eq: "en" } }) {
+    allTaxonomyTermRecipeCategory(filter: { langcode: { eq: $language } }) {
       edges {
         node {
           id

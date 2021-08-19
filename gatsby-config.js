@@ -123,14 +123,13 @@ module.exports = {
         },
         pages: [
           {
-            matchPath: "/:lang/:slug*",
+            matchPath: "/:lang/:slug+",
             getLanguageFromPath: true,
           },
-          // {
-          //   matchPath: "/recipes",
-          //   getLanguageFromPath: false,
-          //   languages: languages.langs,
-          // },
+          {
+            matchPath: "/:slug/",
+            getLanguageFromPath: false,
+          },
         ],
       },
     },
