@@ -44,8 +44,19 @@ Recipe.propTypes = {
   data: PropTypes.object.isRequired,
 }
 
+export default Recipe
+
 export const query = graphql`
-  query ($nodeId: String!, $internalNid: Int!) {
+  query ($language: String!, $nodeId: String!, $internalNid: Int!) {
+    locales: allLocale(filter: { language: { eq: $language } }) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
     nodeRecipe(id: { eq: $nodeId }) {
       langcode
       id
@@ -110,5 +121,3 @@ export const query = graphql`
     }
   }
 `
-
-export default Recipe

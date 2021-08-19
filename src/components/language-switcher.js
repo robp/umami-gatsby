@@ -1,22 +1,23 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Link from "./link"
+import { useI18next } from "gatsby-plugin-react-i18next"
 
 import { normalizeString } from "../utils/functions"
 
 import { styles } from "../styles/language-switcher.module.scss"
 
 const LanguageSwitcher = ({ translations }) => {
-  let links = {
-    en: {
-      path: "/en",
-      title: "English",
-    },
-    es: {
-      path: "/es",
-      title: "Spanish",
-    },
-  }
+  const { t, languages } = useI18next()
+
+  let links = {}
+
+  languages.forEach(langcode => {
+    links[langcode] = {
+      path: `/${langcode}`,
+      title: t(langcode),
+    }
+  })
 
   translations.forEach(edge => {
     links[edge.node.langcode].path += normalizeString(edge.node.path.alias)
@@ -25,12 +26,11 @@ const LanguageSwitcher = ({ translations }) => {
   return (
     <div className={styles}>
       <ul>
-        <li>
-          <Link to={links.en.path}>{links.en.title}</Link>
-        </li>
-        <li>
-          <Link to={links.es.path}>{links.es.title}</Link>
-        </li>
+        {languages.map(langcode => (
+          <li>
+            <Link to={links[langcode].path}>{links[langcode].title}</Link>
+          </li>
+        ))}
       </ul>
     </div>
   )

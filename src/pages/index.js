@@ -1,5 +1,6 @@
 import * as React from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import { graphql } from "gatsby"
+import { useTranslation } from "gatsby-plugin-react-i18next"
 import { UserStateContext } from "../components/user-context"
 
 import Layout from "../components/layout"
@@ -7,20 +8,10 @@ import Seo from "../components/seo"
 import PageTitle from "../components/page-title"
 import Link from "../components/link"
 
-const IndexPage = () => {
-  const pages = useStaticQuery(graphql`
-    query {
-      allSitePage {
-        edges {
-          node {
-            path
-            id
-          }
-        }
-        totalCount
-      }
-    }
-  `)
+const IndexPage = ({ data }) => {
+  const { t } = useTranslation()
+
+  const pages = data.allSitePage.edges
 
   const filteredPagesCount = () => {
     return (
@@ -29,7 +20,7 @@ const IndexPage = () => {
           const filterLang = edge => {
             return edge.node.path.split("/")[1] === user.locale
           }
-          return pages.allSitePage.edges.filter(filterLang).length
+          return pages.filter(filterLang).length
         }}
       </UserStateContext.Consumer>
     )
@@ -42,7 +33,7 @@ const IndexPage = () => {
           const filterLang = edge => {
             return edge.node.path.split("/")[1] === user.locale
           }
-          return pages.allSitePage.edges.filter(filterLang).map(edge => {
+          return pages.filter(filterLang).map(edge => {
             return (
               <li key={edge.node.id}>
                 <Link to={edge.node.path}>{edge.node.path}</Link>
@@ -56,13 +47,38 @@ const IndexPage = () => {
 
   return (
     <Layout>
-      <Seo title="Hola gente" />
-      <PageTitle title="Hola gente" />
+      <Seo title={t("Home")} />
+      <PageTitle title={t("Hi people")} />
 
-      <h2>Paginas ({filteredPagesCount()})</h2>
+      <h2>
+        {t("Pages")} ({filteredPagesCount()})
+      </h2>
       <ul>{filteredPages()}</ul>
     </Layout>
   )
 }
 
 export default IndexPage
+
+export const query = graphql`
+  query ($language: String!) {
+    locales: allLocale(filter: { language: { eq: $language } }) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
+    allSitePage {
+      edges {
+        node {
+          path
+          id
+        }
+      }
+      totalCount
+    }
+  }
+`

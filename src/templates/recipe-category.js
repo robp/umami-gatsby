@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { graphql } from "gatsby"
+import { useTranslation } from "gatsby-plugin-react-i18next"
 
 import { normalizeString } from "../utils/functions"
 
@@ -10,12 +11,14 @@ import PageTitle from "../components/page-title"
 import Link from "../components/link"
 
 const RecipeCategory = ({ data }) => {
+  const { t } = useTranslation()
+
   const node = data.taxonomyTermRecipeCategory
   const translations = data.allTaxonomyTermRecipeCategory.edges
 
   const recipes = node.relationships.node__recipe ? (
     <>
-      <h2>Recipes ({node.relationships.node__recipe.length})</h2>
+      <h2>{t("Recipes")} ({node.relationships.node__recipe.length})</h2>
       <ul>
         {node.relationships.node__recipe.map(recipe => {
           return (
@@ -34,8 +37,8 @@ const RecipeCategory = ({ data }) => {
 
   return (
     <Layout translations={translations}>
-      <Seo title={`Recipe Category: ${node.name}`} />
-      <PageTitle title={`Recipe Category: ${node.name}`} />
+      <Seo title={`${t("Recipe Category")}: ${node.name}`} />
+      <PageTitle title={`${t("Recipe Category")}: ${node.name}`} />
       {recipes}
     </Layout>
   )
@@ -45,8 +48,19 @@ RecipeCategory.propTypes = {
   data: PropTypes.object.isRequired,
 }
 
+export default RecipeCategory
+
 export const query = graphql`
-  query ($nodeId: String!, $internalTid: Int!) {
+  query ($language: String!, $nodeId: String!, $internalTid: Int!) {
+    locales: allLocale(filter: { language: { eq: $language } }) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
     taxonomyTermRecipeCategory(id: { eq: $nodeId }) {
       langcode
       id
@@ -79,5 +93,3 @@ export const query = graphql`
     }
   }
 `
-
-export default RecipeCategory
