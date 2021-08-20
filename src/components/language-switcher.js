@@ -8,25 +8,30 @@ import { normalizeString } from "../utils/functions"
 import { styles } from "../styles/language-switcher.module.scss"
 
 const LanguageSwitcher = ({ translations }) => {
-  const { t, languages } = useI18next()
+  const { t, language, languages } = useI18next()
+  console.log(translations)
 
-  let links = {}
+  const links = {}
 
   languages.forEach(langcode => {
-    links[langcode] = {
-      path: `/${langcode}`,
-      title: t(langcode),
+    if (langcode !== language) {
+      links[langcode] = {
+        path: `/${langcode}`,
+        title: t(langcode),
+      }
     }
   })
 
   translations.forEach(edge => {
-    links[edge.node.langcode].path += normalizeString(edge.node.path.alias)
+    if (edge.node.langcode !== language) {
+      links[edge.node.langcode].path = `/${edge.node.langcode}${normalizeString(edge.node.path.alias)}`
+    }
   })
 
   return (
     <div className={styles}>
       <ul>
-        {languages.map(langcode => (
+        {Object.keys(links).map(langcode => (
           <li>
             <Link to={links[langcode].path}>{links[langcode].title}</Link>
           </li>
