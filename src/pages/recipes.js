@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { useTranslation } from "gatsby-plugin-react-i18next"
+import { useI18next } from "gatsby-plugin-react-i18next"
 
 import { normalizeString } from "../utils/functions"
 
@@ -10,18 +10,34 @@ import PageTitle from "../components/page-title"
 import Link from "../components/link"
 
 const RecipesPage = ({ data }) => {
-  const { t } = useTranslation()
+  const { t, languages, originalPath } = useI18next()
 
   const nodeType = data.nodeTypeNodeType
   const recipeCategories = data.allTaxonomyTermRecipeCategory.edges
   const recipes = data.allNodeRecipe.edges
   const recipeCount = data.allNodeRecipe.totalCount
 
+  /**
+   * @todo Use i18next to handle this, somehow.
+   */
+  const translations = []
+
+  languages.forEach(langcode => {
+    translations.push({
+      node: {
+        langcode,
+        path: {
+          alias: originalPath,
+        },
+      },
+    })
+  })
+
   return (
-    <Layout>
+    <Layout translations={translations}>
+      {" "}
       <Seo title={t("Recipes")} />
       <PageTitle title={t("Recipes")} />
-
       {nodeType.description ? (
         <p
           dangerouslySetInnerHTML={{
@@ -29,9 +45,7 @@ const RecipesPage = ({ data }) => {
           }}
         />
       ) : null}
-
       <h2>{t("Recipe Categories")}</h2>
-
       <div className="recipe-categories">
         <ul>
           {recipeCategories?.map(edge => {
@@ -49,11 +63,9 @@ const RecipesPage = ({ data }) => {
           })}
         </ul>
       </div>
-
       <h2>
         {t(data.nodeTypeNodeType.name)} ({recipeCount})
       </h2>
-
       {recipes ? (
         <ul>
           {recipes.map(edge => {

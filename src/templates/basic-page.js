@@ -32,7 +32,16 @@ BasicPage.propTypes = {
 export default BasicPage
 
 export const query = graphql`
-  query ($nodeId: String!, $internalNid: Int!) {
+  query ($language: String!$nodeId: String!, $internalNid: Int!) {
+    locales: allLocale(filter: { language: { eq: $language } }) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
     nodePage(id: { eq: $nodeId }) {
       langcode
       id

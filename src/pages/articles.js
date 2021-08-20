@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { useTranslation } from "gatsby-plugin-react-i18next"
+import { useI18next } from "gatsby-plugin-react-i18next"
 
 import { normalizeString } from "../utils/functions"
 
@@ -10,14 +10,30 @@ import PageTitle from "../components/page-title"
 import Link from "../components/link"
 
 const ArticlesPage = ({ data }) => {
-  const { t } = useTranslation()
+  const { t, languages, originalPath } = useI18next()
 
   const nodeType = data.nodeTypeNodeType
   const articles = data.allNodeArticle.edges
   const articleCount = data.allNodeArticle.totalCount
 
+  /**
+   * @todo Use i18next to handle this, somehow.
+   */
+  const translations = []
+
+  languages.forEach(langcode => {
+    translations.push({
+      node: {
+        langcode,
+        path: {
+          alias: originalPath,
+        }
+      }
+    })
+  })
+
   return (
-    <Layout>
+    <Layout translations={translations}>
       <Seo title={t("Articles")} />
       <PageTitle title={t("Articles")} />
 
