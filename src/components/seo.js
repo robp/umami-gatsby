@@ -8,62 +8,57 @@
 import * as React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
+import { useI18next } from "gatsby-plugin-react-i18next"
 import { useSiteMetadata } from "../hooks/use-site-metadata"
-import { UserStateContext } from "./user-context"
 
 function Seo({ description, meta, title }) {
+  const { t, language } = useI18next()
   const siteMetadata = useSiteMetadata()
   const metaDescription = description || siteMetadata.description
   const defaultTitle = siteMetadata?.title
 
   return (
-    <UserStateContext.Consumer>
-      {user => {
-        return (
-          <Helmet
-            htmlAttributes={{
-              lang: user.locale,
-            }}
-            title={title}
-            titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
-            meta={[
-              {
-                name: `description`,
-                content: metaDescription,
-              },
-              {
-                property: `og:title`,
-                content: title,
-              },
-              {
-                property: `og:description`,
-                content: metaDescription,
-              },
-              {
-                property: `og:type`,
-                content: `website`,
-              },
-              {
-                name: `twitter:card`,
-                content: `summary`,
-              },
-              {
-                name: `twitter:creator`,
-                content: siteMetadata?.author || ``,
-              },
-              {
-                name: `twitter:title`,
-                content: title,
-              },
-              {
-                name: `twitter:description`,
-                content: metaDescription,
-              },
-            ].concat(meta)}
-          />
-        )
+    <Helmet
+      htmlAttributes={{
+        lang: language,
       }}
-    </UserStateContext.Consumer>
+      title={title}
+      titleTemplate={defaultTitle ? `%s | ${t(defaultTitle)}` : null}
+      meta={[
+        {
+          name: `description`,
+          content: metaDescription,
+        },
+        {
+          property: `og:title`,
+          content: title,
+        },
+        {
+          property: `og:description`,
+          content: metaDescription,
+        },
+        {
+          property: `og:type`,
+          content: `website`,
+        },
+        {
+          name: `twitter:card`,
+          content: `summary`,
+        },
+        {
+          name: `twitter:creator`,
+          content: siteMetadata?.author || ``,
+        },
+        {
+          name: `twitter:title`,
+          content: title,
+        },
+        {
+          name: `twitter:description`,
+          content: metaDescription,
+        },
+      ].concat(meta)}
+    />
   )
 }
 

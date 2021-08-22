@@ -1,7 +1,6 @@
 import * as React from "react"
 import { graphql } from "gatsby"
-import { useTranslation } from "gatsby-plugin-react-i18next"
-import { UserStateContext } from "../components/user-context"
+import { useI18next } from "gatsby-plugin-react-i18next"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -9,40 +8,24 @@ import PageTitle from "../components/page-title"
 import Link from "../components/link"
 
 const IndexPage = ({ data }) => {
-  const { t } = useTranslation()
+  const { t, language } = useI18next()
 
   const pages = data.allSitePage.edges
 
-  const filteredPagesCount = () => {
-    return (
-      <UserStateContext.Consumer>
-        {user => {
-          const filterLang = edge => {
-            return edge.node.path.split("/")[1] === user.locale
-          }
-          return pages.filter(filterLang).length
-        }}
-      </UserStateContext.Consumer>
-    )
+  const filterLang = edge => {
+    return edge.node.path.split("/")[1] === language
   }
 
+  const filteredPagesCount = pages.filter(filterLang).length
+
   const filteredPages = () => {
-    return (
-      <UserStateContext.Consumer>
-        {user => {
-          const filterLang = edge => {
-            return edge.node.path.split("/")[1] === user.locale
-          }
-          return pages.filter(filterLang).map(edge => {
-            return (
-              <li key={edge.node.id}>
-                <Link to={edge.node.path}>{edge.node.path}</Link>
-              </li>
-            )
-          })
-        }}
-      </UserStateContext.Consumer>
-    )
+    return pages.filter(filterLang).map(edge => {
+      return (
+        <li key={edge.node.id}>
+          <Link to={edge.node.path}>{edge.node.path}</Link>
+        </li>
+      )
+    })
   }
 
   return (
@@ -51,7 +34,7 @@ const IndexPage = ({ data }) => {
       <PageTitle title={t("Hi people")} />
 
       <h2>
-        {t("Pages")} ({filteredPagesCount()})
+        {t("Pages")} ({filteredPagesCount})
       </h2>
       <ul>{filteredPages()}</ul>
     </Layout>

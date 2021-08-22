@@ -1,12 +1,14 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import { UserStateContext } from "../user-context"
+import { useI18next } from "gatsby-plugin-react-i18next"
 
 import Menu from "../menu"
 
 import { styles } from "../../styles/main-menu.module.scss"
 
 const MainMenu = menu => {
+  const { language } = useI18next()
+
   const menuItems = useStaticQuery(graphql`
     query {
       allMenuItems(
@@ -32,19 +34,13 @@ const MainMenu = menu => {
   `)
 
   return (
-    <UserStateContext.Consumer>
-      {user => {
-        return (
-          <Menu
-            className={styles}
-            name="main"
-            lang={user.locale}
-            depth={2}
-            items={menuItems.allMenuItems.edges}
-          />
-        )
-      }}
-    </UserStateContext.Consumer>
+    <Menu
+      className={styles}
+      name="main"
+      lang={language}
+      depth={2}
+      items={menuItems.allMenuItems.edges}
+    />
   )
 }
 
