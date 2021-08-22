@@ -111,7 +111,7 @@ module.exports = {
         // you can pass any i18next options
         // pass following options to allow message content as a key
         i18nextOptions: {
-          debug: true,
+          debug: process.env.I18NEXT_DEBUG,
           interpolation: {
             escapeValue: false, // not needed for react as it escapes by default
           },

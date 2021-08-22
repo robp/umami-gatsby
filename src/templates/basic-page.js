@@ -18,7 +18,7 @@ const BasicPage = ({ data }) => {
       {node.body ? (
         <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
       ) : null}
-      {node.relationships.field_sections ? (
+      {node.relationships?.field_sections ? (
         <Sections data={node.relationships.field_sections} />
       ) : null}
     </Layout>
