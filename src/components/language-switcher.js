@@ -9,7 +9,6 @@ import { styles } from "../styles/language-switcher.module.scss"
 
 const LanguageSwitcher = ({ translations }) => {
   const { t, language, languages } = useI18next()
-  console.log(translations)
 
   const links = {}
 

@@ -49,16 +49,16 @@ export const query = graphql`
       body {
         processed
       }
-      relationships {
-        field_sections {
-          id
-          field_number
-          field_title
-          field_body {
-            processed
-          }
-        }
-      }
+      # relationships {
+      #   field_sections {
+      #     id
+      #     field_number
+      #     field_title
+      #     field_body {
+      #       processed
+      #     }
+      #   }
+      # }
     }
     allNodePage(filter: { drupal_internal__nid: { eq: $internalNid } }) {
       edges {

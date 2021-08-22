@@ -16,11 +16,9 @@ const NodeType = ({ data }) => {
     return string.charAt(0).toUpperCase() + string.slice(1)
   }
 
-  console.log(data)
   const edges =
     data[`allNode${capitalizeFirstLetter(node.drupal_internal__type)}`].edges
 
-  console.log(edges)
   const nodes = edges ? (
     <>
       <h2>
