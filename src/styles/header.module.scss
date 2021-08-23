@@ -1,12 +1,28 @@
 @import "./_variables";
 
 .styles {
-  background: $backgroundColorSecondary;
   margin-bottom: 1.45rem;
 
-  > div:first-child {
-    margin: 0 auto;
-    max-width: $containerWidth;
-    padding: 1.45rem 1.0875rem;
-  }
+  // > div:first-child {
+  //   margin: 0 auto;
+  //   max-width: $containerWidth;
+  //   padding: 1.45rem 1.0875rem;
+  // }
+}
+
+.regionPreHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 4%;
+  border-bottom: 1px solid $lightGrey;
+}
+
+.regionHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 4%;
 }

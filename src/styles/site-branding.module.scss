@@ -1,8 +1,12 @@
 @import "./variables";
 
 .styles {
-  .zzz {
-    font-size: 100%;
+  flex: 0 1 40%;
+
+  @media all and ($breakpointNarrow) {
+    flex: 0 1 220px;
+    margin: 2.5rem 0;
+    text-align: left;
   }
 }
 

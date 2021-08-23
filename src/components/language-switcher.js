@@ -5,10 +5,11 @@ import { LanguageSwitcherContext } from "./context/language-switcher-context"
 
 import { normalizeString } from "../utils/functions"
 
-import { styles } from "../styles/language-switcher.module.scss"
+import { styles, activeTrail } from "../styles/language-switcher.module.scss"
 
 const LanguageSwitcher = () => {
-  const { t, languages, language } = useI18next()
+  const { t, languages } = useI18next()
+  console.log(styles.activeTrail)
 
   const defaultTranslations = languages.map(langcode => {
     return {
@@ -21,6 +22,10 @@ const LanguageSwitcher = () => {
     }
   })
 
+  // this link will be active when itself or deeper routes are current
+  const getPropsCallback = ({ isPartiallyCurrent }) => {
+    return isPartiallyCurrent ? { className: activeTrail } : {}
+  }
 
   return (
     <LanguageSwitcherContext.Consumer>
@@ -32,11 +37,19 @@ const LanguageSwitcher = () => {
           <div className={styles}>
             <ul>
               {translations.map(edge => {
-                return (edge.node.langcode !== language) ? (
+                return (
                   <li>
-                    <Link to={`/${edge.node.langcode}${normalizeString(edge.node.path.alias)}`}>{t(edge.node.langcode)}</Link>
+                    <Link
+                      to={`/${edge.node.langcode}${normalizeString(
+                        edge.node.path.alias
+                      )}`}
+                      activeClassName="active"
+                      getProps={getPropsCallback}
+                    >
+                      {t(edge.node.langcode)}
+                    </Link>
                   </li>
-                ) : null;
+                )
               })}
             </ul>
           </div>

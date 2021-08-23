@@ -1,9 +1,15 @@
-$colorPrimary: hsla(0, 0%, 0%, 0.8);
-$backgroundColorPrimary: white;
+$colorPrimary: #464646;
+$backgroundColorPrimary: #fbf5ee;
 $colorSecondary: white;
 $backgroundColorSecondary: rebeccapurple;
+$lightGrey: #e6eee0;
+$umamiOrange: #da3c13;
+$umamiGreen: #008068;
 
-$fontFamily: georgia, serif, sans-serif;
-$headingFontFamily: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+$fontFamily: "Open Sans", Verdana, sans-serif;
+$headingFontFamily: "Scope One", Georgia, serif;
 
 $containerWidth: 960px;
+
+$breakpointNarrow: "min-width: 48em";
+$breakpointWide: "min-width: 60em";

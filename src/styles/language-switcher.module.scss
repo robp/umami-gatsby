@@ -5,11 +5,20 @@
     display: flex;
     list-style-type: none;
     margin: 0;
-    justify-content: flex-end;
+  }
+
+  li {
+    margin-bottom: 0;
   }
 
   li a {
-    color: white;
+    color: inherit;
     padding: 0.5em;
+    text-decoration: none;
+  }
+
+  .activeTrail {
+    font-weight: bold;
+    color: black;
   }
 }

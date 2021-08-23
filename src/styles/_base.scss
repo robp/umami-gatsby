@@ -3,7 +3,7 @@
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-  font: 112.5%/1.45em $fontFamily;
+  font: 1rem/1.5rem $fontFamily;
   box-sizing: border-box;
   overflow-y: scroll;
 }
@@ -51,6 +51,14 @@ progress {
 [hidden],
 template {
   display: none;
+}
+.visually-hidden {
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  width: 1px;
+  height: 1px;
+  word-wrap: normal;
 }
 a {
   background-color: transparent;
@@ -484,9 +492,9 @@ dt {
 th {
   font-weight: bold;
 }
-li {
-  margin-bottom: calc(1.45rem / 2);
-}
+// li {
+//   margin-bottom: calc(1.45rem / 2);
+// }
 ol li {
   padding-left: 0;
 }
@@ -586,8 +594,30 @@ pre tt:before,
 pre tt:after {
   content: "";
 }
-@media only screen and (max-width: 480px) {
-  html {
-    font-size: 100%;
-  }
+
+/* My overrides */
+*:focus {
+  outline-width: 1px;
+  outline-style: dotted;
+  outline-color: #008068;
+  outline-offset: 2px;
+}
+
+a:hover,
+a:focus {
+  color: $umamiOrange;
+  background-color: $lightGrey;
+}
+
+button:hover,
+button:active,
+button:focus,
+.button:hover,
+.button:active,
+.button:focus {
+  transition: background-color 0.5s ease;
+  text-decoration: none;
+  color: black;
+  border: 2px solid $umamiGreen;
+  background-color: $lightGrey;
 }

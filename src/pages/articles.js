@@ -29,8 +29,8 @@ const ArticlesPage = ({ data }) => {
         langcode,
         path: {
           alias: originalPath,
-        }
-      }
+        },
+      },
     })
   })
 

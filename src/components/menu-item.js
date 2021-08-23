@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 
 import Link from "./link"
 
-import { styles } from "../styles/menu-item.module.scss"
+// import { styles } from "../styles/menu-item.module.scss"
 
 const MenuItem = ({
   id,
@@ -12,10 +12,11 @@ const MenuItem = ({
   title,
   getMenuCallback,
   currentDepth,
+  menuItemClassName,
 }) => {
   return (
-    <li key={id} className={styles}>
-      <Link to={href} activeClassName="active" getProps={getPropsCallback}>
+    <li key={id} className={menuItemClassName}>
+      <Link to={href} activeClassName="is-active" getProps={getPropsCallback}>
         {title}
       </Link>
       {getMenuCallback(id, currentDepth + 1)}
@@ -30,6 +31,7 @@ MenuItem.propTypes = {
   title: PropTypes.string.isRequired,
   getMenuCallback: PropTypes.func.isRequired,
   currentDepth: PropTypes.number.isRequired,
+  menuItemClassName: PropTypes.string,
 }
 
 export default MenuItem

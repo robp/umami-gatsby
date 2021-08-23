@@ -3,15 +3,23 @@ import PropTypes from "prop-types"
 
 import LanguageSwitcher from "./language-switcher"
 import SiteBranding from "./site-branding"
-import MainMenu from "./menu/main-menu"
+import MainMenuToggle from "./main-menu-toggle"
+import MainMenu from "./main-menu"
 
-import { styles } from "../styles/header.module.scss"
+import {
+  styles,
+  regionPreHeader,
+  regionHeader,
+} from "../styles/header.module.scss"
 
 const Header = ({ siteTitle }) => (
   <header className={styles}>
-    <div>
+    <div className={regionPreHeader}>
       <LanguageSwitcher />
+    </div>
+    <div className={regionHeader}>
       <SiteBranding siteTitle={siteTitle} />
+      <MainMenuToggle />
       <MainMenu />
     </div>
   </header>

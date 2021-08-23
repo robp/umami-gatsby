@@ -1,0 +1,25 @@
+@import "./_variables";
+
+.menuMainToggle {
+  width: 41px;
+  height: 41px;
+  margin-right: -9px;
+  padding: 0 6px;
+  text-align: left;
+  border: 3px solid transparent;
+  border-radius: 0;
+  background-color: transparent;
+  line-height: 1;
+  &:hover {
+    background-color: transparent;
+  }
+
+  @media all and ($breakpointNarrow) {
+    display: none;
+  }
+}
+
+.menuMainActive {
+  overflow-y: auto !important;
+  max-height: 18.75rem !important;
+}

@@ -2,9 +2,15 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 
-import Menu from "../menu"
+import Menu from "./menu"
 
-import { styles } from "../../styles/main-menu.module.scss"
+import {
+  styles,
+  menuItem,
+  menuLink,
+  activeTrail,
+  active,
+} from "../styles/main-menu.module.scss"
 
 const MainMenu = menu => {
   const { language } = useI18next()
@@ -36,7 +42,12 @@ const MainMenu = menu => {
   return (
     <Menu
       className={styles}
+      menuItemClassName={menuItem}
+      menuLinkClassName={menuLink}
+      activeTrailClassName={activeTrail}
+      activeClassName={active}
       name="main"
+      data-gatsby-selector="menu-main"
       lang={language}
       depth={2}
       items={menuItems.allMenuItems.edges}

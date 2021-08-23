@@ -5,7 +5,18 @@ import MenuItem from "./menu-item"
 
 import { menuStyles, submenuStyles } from "../styles/menu.module.scss"
 
-const Menu = ({ childMenu = false, name, lang, depth = null, items, ...rest }) => {
+const Menu = ({
+  childMenu = false,
+  name,
+  lang,
+  depth = null,
+  items,
+  menuItemClassName,
+  menuLinkClassName,
+  activeTrailClassName,
+  activeClassName,
+  ...rest
+}) => {
   // Callback for Array.filter() to remove empty elements.
   const filterEmpty = el => {
     return el !== null && el !== ""
@@ -15,8 +26,13 @@ const Menu = ({ childMenu = false, name, lang, depth = null, items, ...rest }) =
   }
 
   // this link will be active when itself or deeper routes are current
-  const getPropsCallback = ({ isPartiallyCurrent }) => {
-    return isPartiallyCurrent ? { className: "active-trail" } : {}
+  const getPropsCallback = ({ isPartiallyCurrent, isCurrent }) => {
+    let className = menuLinkClassName
+    className += isPartiallyCurrent ? ` ${activeTrailClassName}` : ""
+    className += isCurrent ? ` ${activeClassName}` : ""
+    return {
+      className: className,
+    }
   }
 
   const getMenuItems = (parentId, currentDepth) => {
@@ -31,6 +47,7 @@ const Menu = ({ childMenu = false, name, lang, depth = null, items, ...rest }) =
             title={item.node.title}
             getMenuCallback={getMenu}
             currentDepth={currentDepth}
+            menuItemClassName={menuItemClassName}
           />
         )
       }
@@ -78,6 +95,10 @@ Menu.propTypes = {
   depth: PropTypes.number,
   items: PropTypes.array.isRequired,
   className: PropTypes.string,
+  menuItemClassName: PropTypes.string,
+  menuLinkClassName: PropTypes.string,
+  activeTrailClassName: PropTypes.string,
+  activeClassName: PropTypes.string,
 }
 
 export default Menu
