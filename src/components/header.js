@@ -7,10 +7,10 @@ import MainMenu from "./menu/main-menu"
 
 import { styles } from "../styles/header.module.scss"
 
-const Header = ({ translations, siteTitle }) => (
+const Header = ({ siteTitle }) => (
   <header className={styles}>
     <div>
-      <LanguageSwitcher translations={translations} />
+      <LanguageSwitcher />
       <SiteBranding siteTitle={siteTitle} />
       <MainMenu />
     </div>
@@ -18,7 +18,6 @@ const Header = ({ translations, siteTitle }) => (
 )
 
 Header.propTypes = {
-  translations: PropTypes.array,
   siteTitle: PropTypes.string,
 }
 

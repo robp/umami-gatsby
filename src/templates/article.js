@@ -2,6 +2,8 @@ import React from "react"
 import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 
+import LanguageSwitcherContextProvider from "../components/context/language-switcher-context"
+
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import PageTitle from "../components/page-title"
@@ -13,15 +15,17 @@ const Article = ({ data }) => {
   const translations = data.allNodeArticle.edges
 
   return (
-    <Layout translations={translations}>
-      <Seo title={node.title} />
-      <PageTitle title={node.title} />
-      <Tags lang={node.langcode} data={node.relationships.field_tags} />
-      <FeatureImage media={node.relationships.field_media_image} />
-      {node.body ? (
-        <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
-      ) : null}
-    </Layout>
+    <LanguageSwitcherContextProvider translations={translations}>
+      <Layout>
+        <Seo title={node.title} />
+        <PageTitle title={node.title} />
+        <Tags lang={node.langcode} data={node.relationships.field_tags} />
+        <FeatureImage media={node.relationships.field_media_image} />
+        {node.body ? (
+          <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
+        ) : null}
+      </Layout>
+    </LanguageSwitcherContextProvider>
   )
 }
 

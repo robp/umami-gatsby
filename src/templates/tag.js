@@ -3,6 +3,8 @@ import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 import { useTranslation } from "gatsby-plugin-react-i18next"
 
+import LanguageSwitcherContextProvider from "../components/context/language-switcher-context"
+
 import { normalizeString } from "../utils/functions"
 
 import Layout from "../components/layout"
@@ -55,12 +57,14 @@ const Tag = ({ data }) => {
   ) : null
 
   return (
-    <Layout translations={translations}>
-      <Seo title={`${t("Tag")}: ${node.name}`} />
-      <PageTitle title={`${t("Tag")}: ${node.name}`} />
-      {articles}
-      {recipes}
-    </Layout>
+    <LanguageSwitcherContextProvider translations={translations}>
+      <Layout>
+        <Seo title={`${t("Tag")}: ${node.name}`} />
+        <PageTitle title={`${t("Tag")}: ${node.name}`} />
+        {articles}
+        {recipes}
+      </Layout>
+    </LanguageSwitcherContextProvider>
   )
 }
 

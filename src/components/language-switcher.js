@@ -1,51 +1,49 @@
 import React from "react"
-import PropTypes from "prop-types"
 import Link from "./link"
 import { useI18next } from "gatsby-plugin-react-i18next"
+import { LanguageSwitcherContext } from "./context/language-switcher-context"
 
 import { normalizeString } from "../utils/functions"
 
 import { styles } from "../styles/language-switcher.module.scss"
 
-const LanguageSwitcher = ({ translations }) => {
-  const { t, language, languages } = useI18next()
+const LanguageSwitcher = () => {
+  const { t, languages, language } = useI18next()
 
-  const links = {}
-
-  languages.forEach(langcode => {
-    if (langcode !== language) {
-      links[langcode] = {
-        path: `/${langcode}`,
-        title: t(langcode),
-      }
+  const defaultTranslations = languages.map(langcode => {
+    return {
+      node: {
+        langcode: langcode,
+        path: {
+          alias: `/`,
+        },
+      },
     }
   })
 
-  translations.forEach(edge => {
-    if (edge.node.langcode !== language) {
-      links[edge.node.langcode].path = `/${edge.node.langcode}${normalizeString(edge.node.path.alias)}`
-    }
-  })
 
   return (
-    <div className={styles}>
-      <ul>
-        {Object.keys(links).map(langcode => (
-          <li>
-            <Link to={links[langcode].path}>{links[langcode].title}</Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <LanguageSwitcherContext.Consumer>
+      {translations => {
+        if (!translations) {
+          translations = defaultTranslations
+        }
+        return (
+          <div className={styles}>
+            <ul>
+              {translations.map(edge => {
+                return (edge.node.langcode !== language) ? (
+                  <li>
+                    <Link to={`/${edge.node.langcode}${normalizeString(edge.node.path.alias)}`}>{t(edge.node.langcode)}</Link>
+                  </li>
+                ) : null;
+              })}
+            </ul>
+          </div>
+        )
+      }}
+    </LanguageSwitcherContext.Consumer>
   )
-}
-
-LanguageSwitcher.propTypes = {
-  translations: PropTypes.array,
-}
-
-LanguageSwitcher.defaultProps = {
-  translations: [],
 }
 
 export default LanguageSwitcher
