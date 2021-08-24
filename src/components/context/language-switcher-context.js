@@ -1,9 +1,11 @@
 import React, { createContext } from "react"
 import PropTypes from "prop-types"
 
-export const LanguageSwitcherContext = createContext(null)
+export const LanguageSwitcherContext = createContext()
 
 const LanguageSwitcherContextProvider = ({ translations, children }) => {
+  // const [translations, setTranslations] = useState([])
+
   return (
     <LanguageSwitcherContext.Provider value={translations}>
       {children}

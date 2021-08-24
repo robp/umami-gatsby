@@ -17,6 +17,17 @@
   justify-content: space-between;
   padding: 0.75rem 4%;
   border-bottom: 1px solid $lightGrey;
+  min-height: 65px; /* TODO: remove */
+
+  @media screen and ($breakpointNarrow) {
+    padding-top: 0;
+    padding-bottom: 0;
+    min-height: 77px; /* TODO: remove */
+  }
+
+  @media screen and ($breakpointFull) {
+    padding: 0;
+  }
 }
 
 .regionHeader {

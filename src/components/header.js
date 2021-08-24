@@ -11,16 +11,19 @@ import {
   regionPreHeader,
   regionHeader,
 } from "../styles/header.module.scss"
+import { container } from "../styles/layout.module.scss"
 
 const Header = ({ siteTitle }) => (
   <header className={styles}>
-    <div className={regionPreHeader}>
-      <LanguageSwitcher />
-    </div>
-    <div className={regionHeader}>
-      <SiteBranding siteTitle={siteTitle} />
-      <MainMenuToggle />
-      <MainMenu />
+    <div className={container}>
+      <div className={regionPreHeader}>
+        <LanguageSwitcher />
+      </div>
+      <div className={regionHeader}>
+        <SiteBranding siteTitle={siteTitle} />
+        <MainMenuToggle />
+        <MainMenu />
+      </div>
     </div>
   </header>
 )

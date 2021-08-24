@@ -21,8 +21,6 @@ const Layout = ({ children }) => {
         <main>{children}</main>
         <Footer />
       </div>
-      <link rel="stylesheet" media="all" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i"></link>
-      <link rel="stylesheet" media="all" href="https://fonts.googleapis.com/css?family=Scope+One"></link>
     </UserContextProvider>
   )
 }
