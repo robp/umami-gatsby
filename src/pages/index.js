@@ -9,7 +9,6 @@ import PageTitle from "../components/page-title"
 import RecipeCollections from "../components/blocks/recipe-collections"
 
 import { container } from "../styles/layout.module.scss"
-
 // import * as styles from "../styles/pages/index.module.scss"
 
 const IndexPage = ({ data }) => {
@@ -19,7 +18,7 @@ const IndexPage = ({ data }) => {
     <Layout>
       <Seo title={t("Home")} />
       <div className={container}>
-        <PageTitle title={t("Home")} />
+        <PageTitle title={t("Home")} className="visually-hidden"/>
       </div>
       <RecipeCollections/>
     </Layout>

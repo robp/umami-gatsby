@@ -1,8 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-function PageTitle({ title }) {
-  return <h1 className="page-title">{title}</h1>
+function PageTitle({ title, ...rest }) {
+  return <h1 {...rest}>{title}</h1>
 }
 
 PageTitle.propTypes = {
