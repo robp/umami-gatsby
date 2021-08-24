@@ -8,15 +8,19 @@ import PageTitle from "../components/page-title"
 // import Link from "../components/link"
 import RecipeCollections from "../components/blocks/recipe-collections"
 
-import { styles } from "../styles/pages/index.module.scss"
+import { container } from "../styles/layout.module.scss"
+
+// import * as styles from "../styles/pages/index.module.scss"
 
 const IndexPage = ({ data }) => {
-  const { t, language } = useI18next()
+  const { t } = useI18next()
 
   return (
     <Layout>
       <Seo title={t("Home")} />
-      <PageTitle title={t("Home")} />
+      <div className={container}>
+        <PageTitle title={t("Home")} />
+      </div>
       <RecipeCollections/>
     </Layout>
   )

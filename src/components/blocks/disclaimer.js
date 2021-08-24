@@ -4,12 +4,12 @@ import { useI18next } from "gatsby-plugin-react-i18next"
 
 import Block from "../block"
 
-import { styles } from "../../styles/blocks/disclaimer.module.scss"
+import * as styles from "../../styles/blocks/disclaimer.module.scss"
 
 const Disclaimer = () => {
   const { language, defaultLanguage } = useI18next()
 
-  const blocks = useStaticQuery(graphql`
+  const query = useStaticQuery(graphql`
     query {
       allBlockContentDisclaimerBlock {
         edges {
@@ -37,7 +37,7 @@ const Disclaimer = () => {
   let block = {}
   let defaultBlock = {}
 
-  blocks.allBlockContentDisclaimerBlock.edges.forEach(edge => {
+  query.allBlockContentDisclaimerBlock.edges.forEach(edge => {
     if (edge.node.langcode === language) {
       block = edge.node
     }
@@ -49,7 +49,7 @@ const Disclaimer = () => {
   block = block || defaultBlock
 
   return (
-    <Block className={styles}>
+    <Block className={styles.block}>
       <div
         className={styles.disclaimer}
         dangerouslySetInnerHTML={{ __html: block.field_disclaimer.processed }}

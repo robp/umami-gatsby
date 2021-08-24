@@ -1,10 +1,13 @@
 @import "../_variables";
 
-.styles {
-  display: flex;
-  justify-content: space-between;
+.block {
   border-bottom: 1px solid $lightGrey;
   margin-bottom: 1rem;
+
+  @media all and ($breakpointFull) {
+    display: flex;
+    justify-content: space-between;
+  }
 
   .disclaimer,
   .copyright {
@@ -13,4 +16,3 @@
     font-size: 0.94rem;
   }
 }
-

@@ -8,7 +8,6 @@ import Header from "./header"
 import Footer from "./footer"
 
 import "../styles/_base.scss"
-import { container } from "../styles/layout.module.scss"
 
 const Layout = ({ children }) => {
   const { t } = useTranslation()
@@ -17,10 +16,8 @@ const Layout = ({ children }) => {
   return (
     <UserContextProvider>
       <Header siteTitle={t(title || `Title`)} />
-      <div className={container}>
-        <main>{children}</main>
-        <Footer />
-      </div>
+      <main>{children}</main>
+      <Footer />
     </UserContextProvider>
   )
 }

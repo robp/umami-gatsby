@@ -6,20 +6,16 @@ import SiteBranding from "./site-branding"
 import MainMenuToggle from "./main-menu-toggle"
 import MainMenu from "./main-menu"
 
-import {
-  styles,
-  regionPreHeader,
-  regionHeader,
-} from "../styles/header.module.scss"
+import * as styles from "../styles/header.module.scss"
 import { container } from "../styles/layout.module.scss"
 
 const Header = ({ siteTitle }) => (
-  <header className={styles}>
+  <header className={styles.header}>
     <div className={container}>
-      <div className={regionPreHeader}>
+      <div className={styles.header.regionPreHeader}>
         <LanguageSwitcher />
       </div>
-      <div className={regionHeader}>
+      <div className={styles.header.regionHeader}>
         <SiteBranding siteTitle={siteTitle} />
         <MainMenuToggle />
         <MainMenu />

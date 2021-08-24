@@ -2,14 +2,12 @@ import React from "react"
 import PropTypes from "prop-types"
 import classNames from "classnames"
 
-import { styles } from "../styles/block.module.scss"
+import * as styles from "../styles/block.module.scss"
 
 const Block = ({ children, title, className }) => {
-  if (title) {
-  }
   return (
-    <div className={classNames(styles, className)}>
-      {title ? <h2 className={styles.title}>{title}</h2> : null}
+    <div className={classNames(styles.block, className)}>
+      {title ? <h2>{title}</h2> : null}
       {children}
     </div>
   )
