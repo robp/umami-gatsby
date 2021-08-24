@@ -12,6 +12,8 @@ import Seo from "../components/seo"
 import PageTitle from "../components/page-title"
 import Link from "../components/link"
 
+import { container } from "../styles/layout.module.scss"
+
 const Tag = ({ data }) => {
   const { t } = useTranslation()
 
@@ -20,7 +22,9 @@ const Tag = ({ data }) => {
 
   const articles = node.relationships.node__article ? (
     <>
-      <h2>{t("Articles")} ({node.relationships.node__article.length})</h2>
+      <h2>
+        {t("Articles")} ({node.relationships.node__article.length})
+      </h2>
       <ul>
         {node.relationships.node__article.map(article => {
           return (
@@ -39,7 +43,9 @@ const Tag = ({ data }) => {
 
   const recipes = node.relationships.node__recipe ? (
     <>
-      <h2>{t("Recipes")} ({node.relationships.node__recipe.length})</h2>
+      <h2>
+        {t("Recipes")} ({node.relationships.node__recipe.length})
+      </h2>
       <ul>
         {node.relationships.node__recipe.map(recipe => {
           return (
@@ -60,9 +66,11 @@ const Tag = ({ data }) => {
     <LanguageSwitcherContextProvider translations={translations}>
       <Layout>
         <Seo title={`${t("Tag")}: ${node.name}`} />
-        <PageTitle title={`${t("Tag")}: ${node.name}`} />
-        {articles}
-        {recipes}
+        <div className={container}>
+          <PageTitle title={`${t("Tag")}: ${node.name}`} />
+          {articles}
+          {recipes}
+        </div>
       </Layout>
     </LanguageSwitcherContextProvider>
   )

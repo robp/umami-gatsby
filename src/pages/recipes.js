@@ -11,6 +11,8 @@ import Seo from "../components/seo"
 import PageTitle from "../components/page-title"
 import Link from "../components/link"
 
+import { container } from "../styles/layout.module.scss"
+
 const RecipesPage = ({ data }) => {
   const { t, languages, originalPath } = useI18next()
 
@@ -39,54 +41,56 @@ const RecipesPage = ({ data }) => {
     <LanguageSwitcherContextProvider translations={translations}>
       <Layout>
         <Seo title={t("Recipes")} />
-        <PageTitle title={t("Recipes")} />
-        {nodeType.description ? (
-          <p
-            dangerouslySetInnerHTML={{
-              __html: nodeType.description,
-            }}
-          />
-        ) : null}
-        <h2>{t("Recipe Categories")}</h2>
-        <div className="recipe-categories">
-          <ul>
-            {recipeCategories?.map(edge => {
-              return (
-                <li key={edge.node.id}>
-                  <Link
-                    to={`/${edge.node.langcode}${normalizeString(
-                      edge.node.path.alias
-                    )}`}
-                  >
-                    {edge.node.name}
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
+        <div className={container}>
+          <PageTitle title={t("Recipes")} />
+          {nodeType.description ? (
+            <p
+              dangerouslySetInnerHTML={{
+                __html: nodeType.description,
+              }}
+            />
+          ) : null}
+          <h2>{t("Recipe Categories")}</h2>
+          <div className="recipe-categories">
+            <ul>
+              {recipeCategories?.map(edge => {
+                return (
+                  <li key={edge.node.id}>
+                    <Link
+                      to={`/${edge.node.langcode}${normalizeString(
+                        edge.node.path.alias
+                      )}`}
+                    >
+                      {edge.node.name}
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+          <h2>
+            {t(data.nodeTypeNodeType.name)} ({recipeCount})
+          </h2>
+          {recipes ? (
+            <ul>
+              {recipes.map(edge => {
+                return (
+                  <li key={edge.node.id}>
+                    <Link
+                      to={`/${edge.node.langcode}${normalizeString(
+                        edge.node.path.alias
+                      )}`}
+                    >
+                      {edge.node.title}
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          ) : (
+            `<p>${t("No recipes.")}</p>`
+          )}
         </div>
-        <h2>
-          {t(data.nodeTypeNodeType.name)} ({recipeCount})
-        </h2>
-        {recipes ? (
-          <ul>
-            {recipes.map(edge => {
-              return (
-                <li key={edge.node.id}>
-                  <Link
-                    to={`/${edge.node.langcode}${normalizeString(
-                      edge.node.path.alias
-                    )}`}
-                  >
-                    {edge.node.title}
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
-        ) : (
-          `<p>${t("No recipes.")}</p>`
-        )}
       </Layout>
     </LanguageSwitcherContextProvider>
   )

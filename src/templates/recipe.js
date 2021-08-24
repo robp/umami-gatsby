@@ -13,6 +13,8 @@ import FeatureImage from "../components/feature-image"
 import Ingredients from "../components/recipe/ingredients"
 import Instructions from "../components/recipe/instructions"
 
+import { container } from "../styles/layout.module.scss"
+
 const Recipe = ({ data }) => {
   const node = data.nodeRecipe
   const translations = data.allNodeRecipe.edges
@@ -25,20 +27,22 @@ const Recipe = ({ data }) => {
           title={node.title}
           description={node.field_summary.value}
         />
-        <PageTitle title={node.title} />
-        <RecipeCategories
-          lang={node.langcode}
-          data={node.relationships.field_recipe_category}
-        />
-        <Tags lang={node.langcode} data={node.relationships.field_tags} />
-        <FeatureImage media={node.relationships.field_media_image} />
-        {node.field_summary ? (
-          <div
-            dangerouslySetInnerHTML={{ __html: node.field_summary.processed }}
+        <div className={container}>
+          <PageTitle title={node.title} />
+          <RecipeCategories
+            lang={node.langcode}
+            data={node.relationships.field_recipe_category}
           />
-        ) : null}
-        <Ingredients data={node.field_ingredients} />
-        <Instructions data={node.field_recipe_instruction} />
+          <Tags lang={node.langcode} data={node.relationships.field_tags} />
+          <FeatureImage media={node.relationships.field_media_image} />
+          {node.field_summary ? (
+            <div
+              dangerouslySetInnerHTML={{ __html: node.field_summary.processed }}
+            />
+          ) : null}
+          <Ingredients data={node.field_ingredients} />
+          <Instructions data={node.field_recipe_instruction} />
+        </div>
       </Layout>
     </LanguageSwitcherContextProvider>
   )

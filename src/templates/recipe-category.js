@@ -12,6 +12,8 @@ import Seo from "../components/seo"
 import PageTitle from "../components/page-title"
 import Link from "../components/link"
 
+import { container } from "../styles/layout.module.scss"
+
 const RecipeCategory = ({ data }) => {
   const { t } = useTranslation()
 
@@ -20,7 +22,9 @@ const RecipeCategory = ({ data }) => {
 
   const recipes = node.relationships.node__recipe ? (
     <>
-      <h2>{t("Recipes")} ({node.relationships.node__recipe.length})</h2>
+      <h2>
+        {t("Recipes")} ({node.relationships.node__recipe.length})
+      </h2>
       <ul>
         {node.relationships.node__recipe.map(recipe => {
           return (
@@ -41,8 +45,10 @@ const RecipeCategory = ({ data }) => {
     <LanguageSwitcherContextProvider translations={translations}>
       <Layout>
         <Seo title={`${t("Recipe Category")}: ${node.name}`} />
-        <PageTitle title={`${t("Recipe Category")}: ${node.name}`} />
-        {recipes}
+        <div className={container}>
+          <PageTitle title={`${t("Recipe Category")}: ${node.name}`} />
+          {recipes}
+        </div>
       </Layout>
     </LanguageSwitcherContextProvider>
   )

@@ -11,6 +11,8 @@ import Seo from "../components/seo"
 import PageTitle from "../components/page-title"
 import Link from "../components/link"
 
+import { container } from "../styles/layout.module.scss"
+
 const ArticlesPage = ({ data }) => {
   const { t, languages, originalPath } = useI18next()
 
@@ -38,39 +40,41 @@ const ArticlesPage = ({ data }) => {
     <LanguageSwitcherContextProvider translations={translations}>
       <Layout>
         <Seo title={t("Articles")} />
-        <PageTitle title={t("Articles")} />
+        <div className={container}>
+          <PageTitle title={t("Articles")} />
 
-        {nodeType.description ? (
-          <p
-            dangerouslySetInnerHTML={{
-              __html: nodeType.description,
-            }}
-          />
-        ) : null}
+          {nodeType.description ? (
+            <p
+              dangerouslySetInnerHTML={{
+                __html: nodeType.description,
+              }}
+            />
+          ) : null}
 
-        <h2>
-          {t(data.nodeTypeNodeType.name)} ({articleCount})
-        </h2>
+          <h2>
+            {t(data.nodeTypeNodeType.name)} ({articleCount})
+          </h2>
 
-        {articles ? (
-          <ul>
-            {articles.map(edge => {
-              return (
-                <li key={edge.node.id}>
-                  <Link
-                    to={`/${edge.node.langcode}${normalizeString(
-                      edge.node.path.alias
-                    )}`}
-                  >
-                    {edge.node.title}
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
-        ) : (
-          `<p>${t("No articles.")}</p>`
-        )}
+          {articles ? (
+            <ul>
+              {articles.map(edge => {
+                return (
+                  <li key={edge.node.id}>
+                    <Link
+                      to={`/${edge.node.langcode}${normalizeString(
+                        edge.node.path.alias
+                      )}`}
+                    >
+                      {edge.node.title}
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          ) : (
+            `<p>${t("No articles.")}</p>`
+          )}
+        </div>
       </Layout>
     </LanguageSwitcherContextProvider>
   )

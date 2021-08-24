@@ -5,14 +5,20 @@ import { useTranslation } from "gatsby-plugin-react-i18next"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
+import { container } from "../styles/layout.module.scss"
+
 const NotFoundPage = () => {
   const { t } = useTranslation()
 
   return (
     <Layout>
       <Seo title={`404: ${t("Not found")}`} />
-      <h1>404: {t("Not found")}</h1>
-      <p>{t("You just hit a route that doesn&#39;t exist... the sadness.")}</p>
+      <div className={container}>
+        <h1>404: {t("Not found")}</h1>
+        <p>
+          {t("You just hit a route that doesn&#39;t exist... the sadness.")}
+        </p>
+      </div>
     </Layout>
   )
 }

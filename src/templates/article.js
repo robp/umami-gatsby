@@ -10,6 +10,8 @@ import PageTitle from "../components/page-title"
 import Tags from "../components/tags"
 import FeatureImage from "../components/feature-image"
 
+import { container } from "../styles/layout.module.scss"
+
 const Article = ({ data }) => {
   const node = data.nodeArticle
   const translations = data.allNodeArticle.edges
@@ -18,12 +20,14 @@ const Article = ({ data }) => {
     <LanguageSwitcherContextProvider translations={translations}>
       <Layout>
         <Seo title={node.title} />
-        <PageTitle title={node.title} />
-        <Tags lang={node.langcode} data={node.relationships.field_tags} />
-        <FeatureImage media={node.relationships.field_media_image} />
-        {node.body ? (
-          <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
-        ) : null}
+        <div className={container}>
+          <PageTitle title={node.title} />
+          <Tags lang={node.langcode} data={node.relationships.field_tags} />
+          <FeatureImage media={node.relationships.field_media_image} />
+          {node.body ? (
+            <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
+          ) : null}
+        </div>
       </Layout>
     </LanguageSwitcherContextProvider>
   )

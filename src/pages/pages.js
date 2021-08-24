@@ -7,6 +7,8 @@ import Seo from "../components/seo"
 import PageTitle from "../components/page-title"
 import Link from "../components/link"
 
+import { container } from "../styles/layout.module.scss"
+
 const IndexPage = ({ data }) => {
   const { t, language } = useI18next()
 
@@ -31,13 +33,14 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <Seo title={t("Home")} />
-      <PageTitle title={t("Hi people")} />
+      <div className={container}>
+        <PageTitle title={t("Hi people")} />
 
-      <h2>
-        {t("Pages")} ({filteredPagesCount})
-      </h2>
-      <ul>{filteredPages()}</ul>
-
+        <h2>
+          {t("Pages")} ({filteredPagesCount})
+        </h2>
+        <ul>{filteredPages()}</ul>
+      </div>
     </Layout>
   )
 }

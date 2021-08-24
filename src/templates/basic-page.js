@@ -9,6 +9,8 @@ import Seo from "../components/seo"
 import PageTitle from "../components/page-title"
 import Sections from "../components/sections"
 
+import { container } from "../styles/layout.module.scss"
+
 const BasicPage = ({ data }) => {
   const node = data.nodePage
   const translations = data.allNodePage.edges
@@ -17,13 +19,15 @@ const BasicPage = ({ data }) => {
     <LanguageSwitcherContextProvider translations={translations}>
       <Layout>
         <Seo title={node.title} />
-        <PageTitle title={node.title} />
-        {node.body ? (
-          <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
-        ) : null}
-        {node.relationships?.field_sections ? (
-          <Sections data={node.relationships.field_sections} />
-        ) : null}
+        <div className={container}>
+          <PageTitle title={node.title} />
+          {node.body ? (
+            <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
+          ) : null}
+          {node.relationships?.field_sections ? (
+            <Sections data={node.relationships.field_sections} />
+          ) : null}
+        </div>
       </Layout>
     </LanguageSwitcherContextProvider>
   )
