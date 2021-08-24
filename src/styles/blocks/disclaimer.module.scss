@@ -1,0 +1,16 @@
+@import "../_variables";
+
+.styles {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid $lightGrey;
+  margin-bottom: 1rem;
+
+  .disclaimer,
+  .copyright {
+    display: block;
+    text-align: center;
+    font-size: 0.94rem;
+  }
+}
+

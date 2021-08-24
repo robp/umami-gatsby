@@ -7,7 +7,7 @@ import LanguageSwitcherContextProvider from "../components/context/language-swit
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import PageTitle from "../components/page-title"
-import RecipeCategories from "../components/recipe-categories"
+import RecipeCategories from "../components/recipe/categories"
 import Tags from "../components/tags"
 import FeatureImage from "../components/feature-image"
 import Ingredients from "../components/recipe/ingredients"

@@ -73,6 +73,7 @@ module.exports = {
             "media_type--media_type",
             "menu_link_content--menu_link_content",
             "menu_items",
+            "block_content--disclaimer_block",
           ],
         },
       },
