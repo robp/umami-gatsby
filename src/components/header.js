@@ -12,10 +12,10 @@ import { container } from "../styles/layout.module.scss"
 const Header = ({ siteTitle }) => (
   <header className={styles.header}>
     <div className={container}>
-      <div className={styles.header.regionPreHeader}>
+      <div className={styles.regionPreHeader}>
         <LanguageSwitcher />
       </div>
-      <div className={styles.header.regionHeader}>
+      <div className={styles.regionHeader}>
         <SiteBranding siteTitle={siteTitle} />
         <MainMenuToggle />
         <MainMenu />
