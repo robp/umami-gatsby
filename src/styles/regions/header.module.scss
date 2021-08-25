@@ -1,0 +1,17 @@
+@import "../_variables";
+
+.styles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 4%;
+
+  @media screen and ($breakpointNarrow) {
+    padding-top: 0;
+  }
+
+  @media screen and ($breakpointFull) {
+    padding: 0;
+  }
+}

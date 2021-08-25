@@ -6,7 +6,7 @@ import Block from "../block"
 
 import * as styles from "../../styles/blocks/disclaimer.module.scss"
 
-const Disclaimer = () => {
+const DisclaimerBlock = () => {
   const { language, defaultLanguage } = useI18next()
 
   const query = useStaticQuery(graphql`
@@ -62,4 +62,4 @@ const Disclaimer = () => {
   )
 }
 
-export default Disclaimer
+export default DisclaimerBlock

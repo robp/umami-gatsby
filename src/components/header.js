@@ -1,25 +1,19 @@
 import * as React from "react"
 import PropTypes from "prop-types"
 
-import LanguageSwitcher from "./language-switcher"
-import SiteBranding from "./site-branding"
-import MainMenuToggle from "./main-menu-toggle"
-import MainMenu from "./main-menu"
+import PreHeaderRegion from "./regions/pre-header"
+import HeaderRegion from "./regions/header"
+import HighlightedRegion from "./regions/highlighted"
 
-import * as styles from "../styles/header.module.scss"
+import { styles } from "../styles/header.module.scss"
 import { container } from "../styles/layout.module.scss"
 
 const Header = ({ siteTitle }) => (
-  <header className={styles.header}>
+  <header className={styles}>
     <div className={container}>
-      <div className={styles.regionPreHeader}>
-        <LanguageSwitcher />
-      </div>
-      <div className={styles.regionHeader}>
-        <SiteBranding siteTitle={siteTitle} />
-        <MainMenuToggle />
-        <MainMenu />
-      </div>
+      <PreHeaderRegion />
+      <HeaderRegion siteTitle={siteTitle} />
+      <HighlightedRegion />
     </div>
   </header>
 )

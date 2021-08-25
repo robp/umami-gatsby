@@ -10,7 +10,7 @@ import Block from "../block"
 import { container } from "../../styles/layout.module.scss"
 import * as styles from "../../styles/blocks/recipe-collections.module.scss"
 
-const RecipeCollections = () => {
+const RecipeCollectionsBlock = () => {
   const { t, language } = useI18next()
 
   const query = useStaticQuery(graphql`
@@ -57,4 +57,4 @@ const RecipeCollections = () => {
   )
 }
 
-export default RecipeCollections
+export default RecipeCollectionsBlock

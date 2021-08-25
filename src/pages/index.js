@@ -5,8 +5,8 @@ import { useI18next } from "gatsby-plugin-react-i18next"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import PageTitle from "../components/page-title"
-// import Link from "../components/link"
-import RecipeCollections from "../components/blocks/recipe-collections"
+import BannerBlock from "../components/blocks/banner"
+import RecipeCollectionsBlock from "../components/blocks/recipe-collections"
 
 import { container } from "../styles/layout.module.scss"
 // import * as styles from "../styles/pages/index.module.scss"
@@ -18,9 +18,10 @@ const IndexPage = ({ data }) => {
     <Layout>
       <Seo title={t("Home")} />
       <div className={container}>
-        <PageTitle title={t("Home")} className="visually-hidden"/>
+        <PageTitle title={t("Home")} className="visually-hidden" />
       </div>
-      <RecipeCollections/>
+      <BannerBlock data={data.blockContentBannerBlock} />
+      <RecipeCollectionsBlock />
     </Layout>
   )
 }
@@ -37,6 +38,13 @@ export const query = graphql`
           language
         }
       }
+    }
+    blockContentBannerBlock(
+      drupal_internal__id: { eq: 3 }
+      langcode: { eq: $language }
+      status: { eq: true }
+    ) {
+      ...BannerBlockQuery
     }
   }
 `
