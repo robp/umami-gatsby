@@ -1,7 +1,7 @@
 import * as React from "react"
 
 import { container } from "../../styles/layout.module.scss"
-import * as styles from "../../styles/footer.module.scss"
+import * as styles from "../../styles/layout/footer.module.scss"
 
 const Footer = () => {
   return (

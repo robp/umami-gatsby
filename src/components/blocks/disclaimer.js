@@ -46,10 +46,11 @@ const DisclaimerBlock = () => {
     }
   })
 
+  // Use the defaultLanguage version if a native version doesn't exist.
   block = block || defaultBlock
 
   return (
-    <Block className={styles.block}>
+    <Block className={styles.block} locations={["*"]}>
       <div
         className={styles.disclaimer}
         dangerouslySetInnerHTML={{ __html: block.field_disclaimer.processed }}

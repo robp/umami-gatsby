@@ -10,7 +10,9 @@ const Block = ({ children, title, className, locations }) => {
 
   // Display the block if no locations are provided, or if the current
   // originalPath matches one of the locations provided.
-  const display = !locations || locations.indexOf(originalPath) !== -1
+  const display =
+    locations &&
+    (locations.indexOf("*") !== -1 || locations.indexOf(originalPath) !== -1)
 
   return display ? (
     <div className={classNames(styles, className)}>

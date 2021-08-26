@@ -3,7 +3,7 @@ import * as React from "react"
 import RecipeCollectionsBlock from "../blocks/recipe-collections"
 
 import { container } from "../../styles/layout.module.scss"
-import { styles } from "../../styles/content-bottom.module.scss"
+import { styles } from "../../styles/layout/content-bottom.module.scss"
 
 const ContentBottom = () => {
   return (

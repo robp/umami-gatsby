@@ -1,9 +1,11 @@
+@import "../variables";
+
 .styles {
   .footer {
     padding: 2rem 4%;
     text-align: center;
-    color: #fff;
-    background-color: #5f635d;
+    color: white;
+    background-color: $mediumDarkGrey;
     font-size: 0.9rem;
   }
 }

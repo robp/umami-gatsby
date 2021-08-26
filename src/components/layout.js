@@ -5,6 +5,7 @@ import { useTranslation } from "gatsby-plugin-react-i18next"
 
 import UserContextProvider from "./context/user-context"
 import Header from "./layout/header"
+import BannerTop from "./layout/banner-top"
 import ContentBottom from "./layout/content-bottom"
 import Footer from "./layout/footer"
 import Bottom from "./layout/bottom"
@@ -18,6 +19,7 @@ const Layout = ({ children }) => {
   return (
     <UserContextProvider>
       <Header siteTitle={t(title || `Title`)} />
+      <BannerTop />
       <main>{children}</main>
       <ContentBottom />
       <Footer />
