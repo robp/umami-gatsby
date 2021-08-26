@@ -13,8 +13,11 @@ const BannerBlock = ({ data }) => {
   const media = data.relationships.field_media_image
   const image = getImage(media.relationships?.field_media_image?.localFile)
 
+  // Array of URLs this block is to be displayed on.
+  const locations = ["/"]
+
   return (
-    <Block className={styles.block}>
+    <Block className={styles.block} locations={locations}>
       {image ? (
         <div className={styles.image}>
           <GatsbyImage image={image} alt={media.field_media_image.alt} />

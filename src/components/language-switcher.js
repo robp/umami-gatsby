@@ -32,7 +32,7 @@ const LanguageSwitcher = () => {
       <ul>
         {translations.map(edge => {
           return (
-            <li>
+            <li key={edge.node.langcode}>
               <Link
                 to={`/${edge.node.langcode}${normalizeString(
                   edge.node.path.alias

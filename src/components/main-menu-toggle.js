@@ -35,7 +35,7 @@ export const MainMenuToggle = () => {
           <use xlinkHref="#a" transform="translate(0 18)" fill="#5F635D"></use>
           <use xlinkHref="#a" transform="translate(0 9)" fill="#5F635D"></use>
           <defs>
-            <path id="a" fill-rule="evenodd" d="M0 0h23v5H0V0z"></path>
+            <path id="a" fillRule="evenodd" d="M0 0h23v5H0V0z"></path>
           </defs>
         </svg>
       </button>

@@ -6,7 +6,6 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import PageTitle from "../components/page-title"
 import BannerBlock from "../components/blocks/banner"
-import RecipeCollectionsBlock from "../components/blocks/recipe-collections"
 
 import { container } from "../styles/layout.module.scss"
 // import * as styles from "../styles/pages/index.module.scss"
@@ -21,7 +20,6 @@ const IndexPage = ({ data }) => {
         <PageTitle title={t("Home")} className="visually-hidden" />
       </div>
       <BannerBlock data={data.blockContentBannerBlock} />
-      <RecipeCollectionsBlock />
     </Layout>
   )
 }
