@@ -1,0 +1,33 @@
+@import "./variables";
+
+.link {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  padding-right: 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-bottom: 1px solid transparent;
+  background-color: inherit;
+
+  &:before {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 14px;
+    height: 14px;
+    margin-top: -7px;
+    content: "";
+    background-image: url(../images/svg/pointer.svg);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: contain;
+  }
+
+  &:hover {
+    text-decoration: none;
+    color: $umamiGreen;
+    border-bottom: 1px solid $umamiGreen;
+    background-color: inherit;
+  }
+}

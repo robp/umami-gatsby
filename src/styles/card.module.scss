@@ -1,0 +1,25 @@
+@import "./variables";
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid $lightPink;
+
+  .title {
+    flex-grow: 1;
+    text-decoration: none;
+    color: #000;
+    font-size: 1.424rem;
+    font-weight: 400;
+  }
+
+  .readMore {
+    margin-bottom: 1em;
+  }
+
+  .image {
+
+  }
+}

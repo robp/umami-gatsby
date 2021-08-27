@@ -13,9 +13,6 @@ import * as styles from "../../styles/blocks/recipe-collections.module.scss"
 const RecipeCollectionsBlock = () => {
   const { t, language } = useI18next()
 
-  // Array of URLs this block is to be displayed on.
-  const locations = ["/"]
-
   const query = useStaticQuery(graphql`
     query {
       allTaxonomyTermTags(sort: { fields: weight }) {
@@ -45,7 +42,7 @@ const RecipeCollectionsBlock = () => {
     <Block
       title={t("Recipe collections")}
       className={styles.block}
-      locations={locations}
+      locations={["/"]}
     >
       <div className={container}>
         <ul className={styles.list}>

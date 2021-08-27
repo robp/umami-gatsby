@@ -33,7 +33,7 @@ exports.createPages = ({ graphql, actions }) => {
         #     }
         #   }
         # }
-        allNodeArticle(limit: $limit) {
+        allNodeArticle(filter: { status: { eq: true } }, limit: $limit) {
           edges {
             node {
               langcode
@@ -42,10 +42,13 @@ exports.createPages = ({ graphql, actions }) => {
               path {
                 alias
               }
+              promote
+              sticky
+              created
             }
           }
         }
-        allNodeRecipe(limit: $limit) {
+        allNodeRecipe(filter: { status: { eq: true } }, limit: $limit) {
           edges {
             node {
               langcode
@@ -54,10 +57,13 @@ exports.createPages = ({ graphql, actions }) => {
               path {
                 alias
               }
+              promote
+              sticky
+              created
             }
           }
         }
-        allNodePage(limit: $limit) {
+        allNodePage(filter: { status: { eq: true } }, limit: $limit) {
           edges {
             node {
               langcode
@@ -66,6 +72,9 @@ exports.createPages = ({ graphql, actions }) => {
               path {
                 alias
               }
+              promote
+              sticky
+              created
             }
           }
         }
