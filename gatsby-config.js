@@ -97,7 +97,7 @@ module.exports = {
           username: process.env.BASIC_AUTH_USERNAME,
           password: process.env.BASIC_AUTH_PASSWORD,
         },
-        menus: ["main"], // Which menus to fetch, these are the menu IDs.
+        menus: ["main", "footer"], // Which menus to fetch, these are the menu IDs.
         languages: languages.langs,
       },
     },

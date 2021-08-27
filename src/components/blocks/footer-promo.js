@@ -6,14 +6,14 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import Block from "../block"
 import Link from "../link"
 
-import * as styles from "../../styles/blocks/banner.module.scss"
+import * as styles from "../../styles/blocks/footer-promo.module.scss"
 
-const BannerBlock = ({ data }) => {
+const FooterPromoBlock = ({ data }) => {
   const { language } = useI18next()
 
   const query = useStaticQuery(graphql`
     query {
-      allBlockContentBannerBlock {
+      allBlockContentFooterPromoBlock {
         edges {
           node {
             id
@@ -37,9 +37,7 @@ const BannerBlock = ({ data }) => {
                     localFile {
                       childImageSharp {
                         gatsbyImageData(
-                          layout: FULL_WIDTH
-                          aspectRatio: 1.8519
-                          transformOptions: { cropFocus: CENTER }
+                          width: 266
                           placeholder: BLURRED
                           formats: [AUTO, WEBP, AVIF]
                         )
@@ -57,10 +55,10 @@ const BannerBlock = ({ data }) => {
 
   // Array of URLs this block is to be displayed on.
   const locations = {
-    3: ["/"],
+    2: ["*"],
   }
 
-  const renderData = (data) => {
+  const renderData = data => {
     if (data.langcode === language) {
       const uri = data.field_content_link.uri.replace(/^internal:/, "")
       const media = data.relationships.field_media_image
@@ -76,15 +74,13 @@ const BannerBlock = ({ data }) => {
               <GatsbyImage image={image} alt={media.field_media_image.alt} />
             </div>
           ) : null}
+          <h2 className={styles.title}>{data.field_title}</h2>
           <div className={styles.content}>
-            <div className={styles.contentInner}>
-              <h2 className={styles.title}>{data.field_title}</h2>
-              <div className={styles.summary}>{data.field_summary}</div>
-              <div>
-                <Link to={uri} className={styles.button}>
-                  {data.field_content_link.title}
-                </Link>
-              </div>
+            <div className={styles.summary}>{data.field_summary}</div>
+            <div>
+              <Link to={uri}>
+                {data.field_content_link.title}
+              </Link>
             </div>
           </div>
         </Block>
@@ -99,46 +95,9 @@ const BannerBlock = ({ data }) => {
   }
 
   // Otherwise, render the results of the query.
-  return query.allBlockContentBannerBlock.edges?.map(edge => {
-    return renderData(edge.node);
+  return query.allBlockContentFooterPromoBlock.edges?.map(edge => {
+    return renderData(edge.node)
   })
 }
 
-export default BannerBlock
-
-export const BannerBlockQuery = graphql`
-  fragment BannerBlockQuery on block_content__banner_block {
-    id
-    langcode
-    status
-    info
-    field_summary
-    field_title
-    field_content_link {
-      title
-      uri
-    }
-    relationships {
-      field_media_image {
-        field_media_image {
-          alt
-        }
-        relationships {
-          field_media_image {
-            localFile {
-              childImageSharp {
-                gatsbyImageData(
-                  layout: FULL_WIDTH
-                  aspectRatio: 1.8519
-                  transformOptions: { cropFocus: CENTER }
-                  placeholder: BLURRED
-                  formats: [AUTO, WEBP, AVIF]
-                )
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`
+export default FooterPromoBlock

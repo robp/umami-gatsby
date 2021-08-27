@@ -5,7 +5,7 @@ import { useI18next } from "gatsby-plugin-react-i18next"
 
 import { styles } from "../styles/block.module.scss"
 
-const Block = ({ children, title, className, locations }) => {
+const Block = ({ children, element, title, className, locations, ...rest }) => {
   const { originalPath } = useI18next()
 
   // Display the block if no locations are provided, or if the current
@@ -14,19 +14,26 @@ const Block = ({ children, title, className, locations }) => {
     locations &&
     (locations.indexOf("*") !== -1 || locations.indexOf(originalPath) !== -1)
 
+  const Element = `${element}`
+
   return display ? (
-    <div className={classNames(styles, className)}>
+    <Element className={classNames(styles, className)} {...rest}>
       {title ? <h2>{title}</h2> : null}
       {children}
-    </div>
+    </Element>
   ) : null
 }
 
 Block.propTypes = {
   children: PropTypes.node.isRequired,
+  element: PropTypes.string,
   title: PropTypes.string,
   className: PropTypes.string,
   locations: PropTypes.array,
+}
+
+Block.defaultProps = {
+  element: "div",
 }
 
 export default Block

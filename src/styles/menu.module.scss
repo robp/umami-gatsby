@@ -1,7 +1,9 @@
 @import "./_variables";
 
-.menuStyles,
-.submenuStyles {
-  list-style-type: none;
-  margin: 0;
+.styles {
+  .menu,
+  .submenu {
+    list-style-type: none;
+    margin: 0;
+  }
 }

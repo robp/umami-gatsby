@@ -1,0 +1,42 @@
+@import "./_variables";
+
+.block {
+  padding: 0;
+
+  @media all and ($breakpointWide) {
+    flex-basis: 25%;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+
+    @media all and ($breakpointWide) {
+      padding-top: 2rem;
+    }
+  }
+
+  .menu {
+    padding: 0;
+  }
+
+  .menuItem {
+    margin-bottom: 0.5em;
+    list-style: none;
+  }
+
+  .menuLink {
+    text-decoration: none;
+    color: white;
+    background-color: inherit;
+    font-weight: 700 !important;
+
+    &:active,
+    &:focus,
+    &:hover {
+      text-decoration: underline;
+      outline-color: white;
+      background-color: black;
+    }
+  }
+}

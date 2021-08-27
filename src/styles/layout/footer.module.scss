@@ -7,5 +7,15 @@
     color: white;
     background-color: $mediumDarkGrey;
     font-size: 0.9rem;
+
+    a {
+      color: white;
+      background-color: inherit;
+      font-weight: 400;
+    }
+
+    @media all and ($breakpointWide) {
+      text-align: left;
+    }
   }
 }

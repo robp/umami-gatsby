@@ -1,9 +1,10 @@
 import React from "react"
 import PropTypes from "prop-types"
+import classNames from "classnames"
 
 import MenuItem from "./menu-item"
 
-import { menuStyles, submenuStyles } from "../styles/menu.module.scss"
+import * as styles from "../styles/menu.module.scss"
 
 const Menu = ({
   childMenu = false,
@@ -11,6 +12,7 @@ const Menu = ({
   lang,
   depth = null,
   items,
+  className,
   menuItemClassName,
   menuLinkClassName,
   activeTrailClassName,
@@ -59,7 +61,7 @@ const Menu = ({
     // Return if we've gone below the specified depth.
     if (currentDepth > depth) return
 
-    const menuClass = currentDepth > 1 ? submenuStyles : menuStyles
+    const menuClass = currentDepth > 1 ? styles.submenu : classNames(styles.menu, className)
     const menuItems = getMenuItems(parentId, currentDepth).filter(filterEmpty)
 
     if (menuItems.length) {
@@ -76,16 +78,7 @@ const Menu = ({
     return null
   }
 
-  const menu = getMenu()
-
-  if (childMenu) {
-    return menu
-  }
-  return (
-    <nav role="navigation" {...rest}>
-      {menu}
-    </nav>
-  )
+  return getMenu()
 }
 
 Menu.propTypes = {

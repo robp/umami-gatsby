@@ -1,5 +1,7 @@
 import * as React from "react"
 
+import FooterRegion from "../regions/footer"
+
 import { container } from "../../styles/layout.module.scss"
 import * as styles from "../../styles/layout/footer.module.scss"
 
@@ -7,7 +9,9 @@ const Footer = () => {
   return (
     <div className={styles.styles}>
       <footer className={styles.footer}>
-        <div className={container}></div>
+        <div className={container}>
+          <FooterRegion />
+        </div>
       </footer>
     </div>
   )
