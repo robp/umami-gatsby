@@ -12,8 +12,6 @@ import Seo from "../components/seo"
 import PageTitle from "../components/page-title"
 import Link from "../components/link"
 
-import { container } from "../styles/layout.module.scss"
-
 const Tag = ({ data }) => {
   const { t } = useTranslation()
 
@@ -66,11 +64,9 @@ const Tag = ({ data }) => {
     <LanguageSwitcherContextProvider translations={translations}>
       <Layout>
         <Seo title={`${t("Tag")}: ${node.name}`} />
-        <div className={container}>
-          <PageTitle title={`${t("Tag")}: ${node.name}`} />
-          {articles}
-          {recipes}
-        </div>
+        <PageTitle title={`${t("Tag")}: ${node.name}`} />
+        {articles}
+        {recipes}
       </Layout>
     </LanguageSwitcherContextProvider>
   )
