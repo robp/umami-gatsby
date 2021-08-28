@@ -1,0 +1,25 @@
+@import "../_variables";
+
+.attachment {
+  @media all and ($breakpointWide) {
+    display: flex;
+    margin-left: 14px;
+  }
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  @media all and ($breakpointTiny) {
+    display: flex;
+    margin: 0 -14px;
+
+    li {
+      display: flex;
+      width: calc(50% - 28px);
+      margin: 0 14px;
+    }
+  }
+}

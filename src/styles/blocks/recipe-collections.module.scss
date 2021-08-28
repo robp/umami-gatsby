@@ -2,40 +2,48 @@
 
 .block {
   padding: 3rem 4%;
-  color: #fff;
-  background: #767775;
+  color: white;
+  background: $mediumGrey;
 
   h2 {
     margin-bottom: 1.5rem;
     text-align: center;
   }
+}
 
-  .list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  @media all and ($breakpointNarrow) {
+    column-count: 4;
+    column-gap: 28px;
+    max-width: 832px;
+    margin: auto;
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    text-align: center;
 
     @media all and ($breakpointNarrow) {
-      column-count: 4;
-      column-gap: 28px;
-      max-width: 832px;
-      margin: auto;
-    }
-
-    li {
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
-      text-align: center;
-
-      @media all and ($breakpointNarrow) {
-        text-align: left;
-      }
+      text-align: left;
     }
 
     .link {
       text-decoration: none;
       color: white;
       font-weight: bold;
+
+      &:active,
+      &:focus,
+      &:hover {
+        text-decoration: underline;
+        outline-color: #fff;
+        background: transparent;
+      }
     }
   }
 }

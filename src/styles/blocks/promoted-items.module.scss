@@ -2,35 +2,48 @@
 
 .block {
   padding: 0 4%;
+}
 
-  .container {
-    padding: 1rem 0 2rem;
+.container {
+  padding: 1rem 0 2rem;
+
+  @media all and ($breakpointTiny) {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
   }
 
-  .list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  @media all and ($breakpointWide) {
+    display: flex;
+  }
+}
 
-    // @media all and ($breakpointNarrow) {
-    //   column-count: 4;
-    //   column-gap: 28px;
-    //   max-width: 832px;
-    //   margin: auto;
-    // }
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 
-    li {
-      margin-bottom: 14px;
+  @media all and ($breakpointWide) {
+    display: flex;
+    flex: 0 0 50%;
+    margin-right: 14px;
+  }
 
-      // @media all and ($breakpointNarrow) {
-      //   text-align: left;
-      // }
+  li {
+    margin-bottom: 14px;
+
+    @media all and ($breakpointTiny) {
+      display: flex;
+      margin-bottom: 28px;
     }
 
-    .link {
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
+    @media all and ($breakpointWide) {
+      margin-bottom: 0;
     }
   }
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
 }

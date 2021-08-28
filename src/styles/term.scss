@@ -2,10 +2,6 @@
   display: inline;
 }
 
-.term::after {
+.term + .term::before {
   content: ", ";
-}
-
-.term:last-child::after {
-  content: "";
 }

@@ -4,6 +4,7 @@ $colorSecondary: white;
 $backgroundColorSecondary: rebeccapurple;
 $darkGrey: #464646;
 $mediumDarkGrey: #5f665b;
+$mediumGrey: #767775;
 $lightGrey: #e6eee0;
 $umamiOrange: #da3c13;
 $umamiPink: #d93760;
@@ -16,6 +17,7 @@ $headingFontFamily: "Scope One", Georgia, serif;
 
 $containerWidth: 1200px;
 
+$breakpointTiny: "min-width: 30rem";
 $breakpointNarrow: "min-width: 48rem";
 $breakpointWide: "min-width: 60rem";
 $breakpointFull: "min-width: 80rem";

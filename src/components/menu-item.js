@@ -1,9 +1,10 @@
 import React from "react"
 import PropTypes from "prop-types"
+import classNames from "classnames"
 
 import Link from "./link"
 
-// import { styles } from "../styles/menu-item.module.scss"
+import { styles } from "../styles/menu-item.module.scss"
 
 const MenuItem = ({
   id,
@@ -15,7 +16,7 @@ const MenuItem = ({
   menuItemClassName,
 }) => {
   return (
-    <li key={id} className={menuItemClassName}>
+    <li key={id} className={classNames(styles, menuItemClassName)}>
       <Link to={href} activeClassName="is-active" getProps={getPropsCallback}>
         {title}
       </Link>

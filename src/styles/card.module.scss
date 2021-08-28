@@ -6,20 +6,28 @@
   width: 100%;
   padding: 1rem;
   border: 1px solid $lightPink;
+}
 
-  .title {
-    flex-grow: 1;
-    text-decoration: none;
-    color: #000;
-    font-size: 1.424rem;
-    font-weight: 400;
+.title {
+  flex-grow: 1;
+  text-decoration: none;
+  color: black;
+  font-size: 1.424rem;
+  font-weight: 400;
+}
+
+.link {
+  .zzz {
+    color: red;
   }
+}
 
-  .readMore {
-    margin-bottom: 1em;
-  }
+.image {
+  flex-shrink: 0;
+  margin-bottom: 1.2em;
 
-  .image {
-
+  img, picture {
+    display: block;
+    width: 100%;
   }
 }

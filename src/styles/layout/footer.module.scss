@@ -1,21 +1,33 @@
 @import "../variables";
 
 .styles {
-  .footer {
-    padding: 2rem 4%;
-    text-align: center;
+  .zzz {
+    color: red;
+  }
+}
+
+.footer {
+  padding: 2rem 4%;
+  text-align: center;
+  color: white;
+  background-color: $mediumDarkGrey;
+  font-size: 0.9rem;
+
+  a {
     color: white;
-    background-color: $mediumDarkGrey;
-    font-size: 0.9rem;
+    background-color: inherit;
+    font-weight: 400;
 
-    a {
+    &:active,
+    &:focus,
+    &:hover {
       color: white;
-      background-color: inherit;
-      font-weight: 400;
+      outline-color: white;
+      background-color: black;
     }
+  }
 
-    @media all and ($breakpointWide) {
-      text-align: left;
-    }
+  @media all and ($breakpointWide) {
+    text-align: left;
   }
 }

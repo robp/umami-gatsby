@@ -8,11 +8,11 @@
     display: flex;
     justify-content: space-between;
   }
+}
 
-  .disclaimer,
-  .copyright {
-    display: block;
-    text-align: center;
-    font-size: 0.94rem;
-  }
+.disclaimer,
+.copyright {
+  display: block;
+  text-align: center;
+  font-size: 0.94rem;
 }

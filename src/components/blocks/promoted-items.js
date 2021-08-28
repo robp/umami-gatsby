@@ -2,12 +2,19 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 import classNames from "classnames"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
+
+import { normalizeString } from "../../utils/functions"
 
 import Block from "../block"
 import Card from "../card"
+import Link from "../link"
+import PromotedItemsAttachment from "./promoted-items-attachment"
 
 import { container } from "../../styles/layout.module.scss"
 import * as styles from "../../styles/blocks/promoted-items.module.scss"
+import * as readMoreStyles from "../../styles/read-more.module.scss"
+import * as cardStyles from "../../styles/card-common.module.scss"
 
 const PromotedItemsBlock = () => {
   const { t, language } = useI18next()
@@ -37,7 +44,7 @@ const PromotedItemsBlock = () => {
                     localFile {
                       childImageSharp {
                         gatsbyImageData(
-                          width: 850
+                          width: 1536
                           aspectRatio: 1.5
                           transformOptions: { cropFocus: CENTER }
                           placeholder: BLURRED
@@ -67,9 +74,8 @@ const PromotedItemsBlock = () => {
 
   let nodes = []
 
-  for (const [index, edge] of query.allNodeArticle.edges.entries()) {
+  for (const [, edge] of query.allNodeArticle.edges.entries()) {
     if (edge.node.langcode === language) {
-      console.log(edge.node.title)
       nodes.push(edge.node)
       // Only save the first node.
       break
@@ -77,17 +83,39 @@ const PromotedItemsBlock = () => {
   }
 
   return (
-    <Block className={styles.block} locations={["/"]}>
+    <Block className={classNames(container, styles.block)} locations={["/"]}>
       <div className={classNames(container, styles.container)}>
         <ul className={styles.list}>
           {nodes.map(node => {
+            const renderedLink = (
+              <Link
+                to={`/${node.langcode}${normalizeString(node.path.alias)}`}
+                className={readMoreStyles.link}
+              >
+                {t("View article")}
+              </Link>
+            )
+            const media = node.relationships.field_media_image
+            const image = getImage(
+              media.relationships?.field_media_image?.localFile
+            )
+            const renderedImage = (
+              <GatsbyImage image={image} alt={media.field_media_image.alt} />
+            )
+
             return (
               <li key={node.id}>
-                <Card data={node} />
+                <Card
+                  title={node.title}
+                  link={renderedLink}
+                  linkClassName={cardStyles.link}
+                  image={renderedImage}
+                />
               </li>
             )
           })}
         </ul>
+        <PromotedItemsAttachment />
       </div>
     </Block>
   )
