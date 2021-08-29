@@ -7,6 +7,7 @@ import UserContextProvider from "./context/user-context"
 import Header from "./layout/header"
 import HighlightedLayout from "./layout/highlighted"
 import BannerTopLayout from "./layout/banner-top"
+import BreadcrumbsLayout from "./layout/breadcrumbs"
 import PageTitleLayout from "./layout/page-title"
 import PageTitleBlock from "./blocks/page-title"
 import ContentLayout from "./layout/content"
@@ -25,6 +26,7 @@ const Layout = ({ children, title }) => {
       <Header siteTitle={t(siteTitle || `Title`)} />
       <HighlightedLayout />
       <BannerTopLayout />
+      <BreadcrumbsLayout />
       <PageTitleLayout>
         <PageTitleBlock title={title} />
       </PageTitleLayout>

@@ -58,6 +58,7 @@ const BannerBlock = ({ data }) => {
   // Array of URLs this block is to be displayed on.
   const locations = {
     3: ["/"],
+    4: ["/recipes/"],
   }
 
   const renderData = (data) => {

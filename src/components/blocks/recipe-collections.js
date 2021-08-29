@@ -42,7 +42,7 @@ const RecipeCollectionsBlock = () => {
     <Block
       title={t("Recipe collections")}
       className={styles.block}
-      locations={["/"]}
+      locations={["*"]}
     >
       <div className={container}>
         <ul className={styles.list}>
