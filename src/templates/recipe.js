@@ -4,7 +4,7 @@ import { graphql } from "gatsby"
 
 import LanguageSwitcherContextProvider from "../components/context/language-switcher-context"
 
-import Layout from "../components/layout"
+import Layout from "../components/layout/layout-node"
 import Seo from "../components/seo"
 import RecipeCategories from "../components/recipe/categories"
 import Tags from "../components/tags"

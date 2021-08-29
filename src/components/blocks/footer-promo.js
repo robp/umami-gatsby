@@ -36,6 +36,7 @@ const FooterPromoBlock = ({ data }) => {
 
       return (
         <Block
+          key={data.id}
           className={styles.block}
           locations={locations[data.drupal_internal__id]}
         >

@@ -7,7 +7,7 @@ import LanguageSwitcherContextProvider from "../components/context/language-swit
 
 import { normalizeString } from "../utils/functions"
 
-import Layout from "../components/layout"
+import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import Link from "../components/link"
 

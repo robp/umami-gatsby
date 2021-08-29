@@ -41,7 +41,7 @@ const Block = ({
 }
 
 Block.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   element: PropTypes.string,
   title: PropTypes.string,
   titleClassName: PropTypes.string,

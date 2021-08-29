@@ -7,7 +7,7 @@ import { normalizeString } from "../utils/functions"
 
 import LanguageSwitcherContextProvider from "../components/context/language-switcher-context"
 
-import Layout from "../components/layout"
+import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import Card from "../components/card"
 import Link from "../components/link"
@@ -50,11 +50,9 @@ const ArticlesPage = ({ data }) => {
                   const node = edge.node
 
                   const renderedTitle = (
-                    <Field
-                      labelHidden
-                      item={node.title}
-                      className={cardStyles.fieldTitle}
-                    />
+                    <Field labelHidden className={cardStyles.fieldTitle}>
+                      {node.title}
+                    </Field>
                   )
                   const renderedLink = (
                     <Link

@@ -1,3 +1,68 @@
+@import "./variables";
+
 .node {
   background: white;
+}
+
+.header {
+  .zzz {
+    color: red;
+  }
+}
+
+.meta {
+  .zzz {
+    color: red;
+  }
+}
+
+.submitted {
+  .zzz {
+    color: red;
+  }
+}
+
+.byAuthor {
+  .zzz {
+    color: red;
+  }
+
+  &::after {
+    display: inline-block;
+    margin: 0 0.25ex;
+    content: "•";
+    vertical-align: middle;
+    color: $lightGreen;
+    font-size: 2em;
+  }
+}
+
+.content {
+  .zzz {
+    color: red;
+  }
+}
+
+.viewModeFull {
+  margin: 0 auto 2.37rem;
+  padding: 1.266rem;
+  border-top: 1px solid $lightPink;
+  border-right: none;
+  border-bottom: 1px solid $lightPink;
+  border-left: none;
+  background-color: white;
+
+  .submitted {
+    margin-bottom: 1.2em;
+    font-size: 0.889em;
+  }
+
+  .byAuthor::after {
+    display: inline-block;
+    margin: 0 0.25ex;
+    content: "•";
+    vertical-align: middle;
+    color: $lightGreen;
+    font-size: 2em;
+  }
 }

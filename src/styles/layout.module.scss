@@ -4,3 +4,9 @@
   max-width: $containerWidth;
   margin: auto;
 }
+
+.oneCol {
+  .region {
+    width: 100%;
+  }
+}

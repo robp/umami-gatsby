@@ -1,27 +1,73 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { graphql } from "gatsby"
+import classNames from "classnames"
+import { useI18next } from "gatsby-plugin-react-i18next"
 
 import LanguageSwitcherContextProvider from "../components/context/language-switcher-context"
 
-import Layout from "../components/layout"
+import Layout from "../components/layout/layout-node"
 import Seo from "../components/seo"
+import Field from "../components/field"
 import Tags from "../components/tags"
 import FeatureImage from "../components/feature-image"
 
-const Article = ({ data }) => {
+import * as nodeStyles from "../styles/node.module.scss"
+import * as layoutStyles from "../styles/layout.module.scss"
+
+const Article = ({ location, data }) => {
+  const { language } = useI18next()
+
   const node = data.nodeArticle
   const translations = data.allNodeArticle.edges
 
   return (
     <LanguageSwitcherContextProvider translations={translations}>
-      <Layout title={node.title}>
+      <Layout>
         <Seo title={node.title} />
-        <Tags lang={node.langcode} data={node.relationships.field_tags} />
+        <article
+          about={location.pathname}
+          typeof="schema:Article"
+          className={classNames(nodeStyles.node, nodeStyles.viewModeFull)}
+        >
+          <header className={nodeStyles.header}>
+            <h1>
+              <Field labelHidden property="schema:name">
+                {node.title}
+              </Field>
+            </h1>
+          </header>
+          <footer className={nodeStyles.meta}>
+            <div className={nodeStyles.submitted}>
+              <span className={nodeStyles.byAuthor}>
+                by{" "}
+                <Field labelHidden element="span" rel="schema:author">
+                  <span typeof="schema:Person" property="schema:name">
+                    {node.relationships.uid?.display_name}
+                  </span>
+                </Field>{" "}
+              </span>{" "}
+              {node.createdFormatted}
+              <span
+                property="schema:dateCreated"
+                content={node.created}
+                className="rdf-meta hidden"
+              ></span>
+            </div>
+          </footer>
+          <div className={nodeStyles.content}>
+            <div className={layoutStyles.oneCol}>
+              <div className={layoutStyles.region}>
+                <Tags lang={language} data={node.relationships?.field_tags} />
+              </div>
+            </div>
+          </div>
+        </article>
         <FeatureImage media={node.relationships.field_media_image} />
+        {/*
         {node.body ? (
           <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
-        ) : null}
+        ) : null} */}
       </Layout>
     </LanguageSwitcherContextProvider>
   )
@@ -48,6 +94,8 @@ export const query = graphql`
       langcode
       id
       drupal_internal__nid
+      created
+      createdFormatted: created(formatString: "Do MMMM YYYY", locale: $language)
       title
       body {
         processed
@@ -77,6 +125,9 @@ export const query = graphql`
           path {
             alias
           }
+        }
+        uid {
+          display_name
         }
       }
     }

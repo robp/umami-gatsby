@@ -7,7 +7,7 @@ import { normalizeString, capitalizeFirstLetter } from "../utils/functions"
 
 import LanguageSwitcherContextProvider from "../components/context/language-switcher-context"
 
-import Layout from "../components/layout"
+import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import Card from "../components/card"
 import Link from "../components/link"
@@ -50,11 +50,9 @@ const RecipesPage = ({ data }) => {
                   const node = edge.node
 
                   const renderedTitle = (
-                    <Field
-                      labelHidden
-                      item={node.title}
-                      className={cardStyles.fieldTitle}
-                    />
+                    <Field labelHidden className={cardStyles.fieldTitle}>
+                      {node.title}
+                    </Field>
                   )
                   const renderedLink = (
                     <Link
@@ -71,25 +69,22 @@ const RecipesPage = ({ data }) => {
                     media.relationships?.field_media_image?.localFile
                   )
                   const renderedImage = (
-                    <Field
-                      label={t("Image")}
-                      labelHidden
-                      item={
-                        <GatsbyImage
-                          image={image}
-                          alt={media.field_media_image.alt}
-                        />
-                      }
-                    />
+                    <Field label={t("Image")} labelHidden>
+                      <GatsbyImage
+                        image={image}
+                        alt={media.field_media_image.alt}
+                      />
+                    </Field>
                   )
                   const difficulty = (
                     <Field
                       labelItems
                       labelInline
                       label={`${t("Difficulty")}:`}
-                      item={capitalizeFirstLetter(t(node.field_difficulty))}
                       className={cardStyles.labelItems}
-                    />
+                    >
+                      {capitalizeFirstLetter(t(node.field_difficulty))}
+                    </Field>
                   )
 
                   return (

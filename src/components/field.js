@@ -5,9 +5,11 @@ import classNames from "classnames"
 import * as styles from "../styles/field.module.scss"
 
 const Field = ({
+  children,
+  items,
+  element,
   labelItems,
   label,
-  item,
   labelHidden,
   labelInline,
   className,
@@ -15,8 +17,10 @@ const Field = ({
   itemClassName,
   ...rest
 }) => {
+  const Element = `${element}`
+
   return (
-    <div
+    <Element
       className={classNames(
         styles.field,
         { [styles.labelItems]: labelItems },
@@ -26,20 +30,36 @@ const Field = ({
       {...rest}
     >
       {label ? (
-        <div
+        <Element
           className={classNames(styles.label, labelClassName, {
             "visually-hidden": labelHidden,
           })}
         >
           {label}
-        </div>
+        </Element>
       ) : null}
-      <div className={classNames(styles.item, itemClassName)}>{item}</div>
-    </div>
+      {items ? (
+        <Element className={classNames(styles.items, itemClassName)}>
+          {items.map((item, index) => {
+            return (
+              <Element key={`item-${index}`} className={styles.item}>
+                {item}
+              </Element>
+            )
+          })}
+        </Element>
+      ) : (
+        <Element className={classNames(styles.item, itemClassName)}>
+          {children}
+        </Element>
+      )}
+    </Element>
   )
 }
 
 Field.propTypes = {
+  element: PropTypes.string,
+  items: PropTypes.array,
   labelItems: PropTypes.bool,
   label: PropTypes.string,
   item: PropTypes.node,
@@ -51,6 +71,7 @@ Field.propTypes = {
 }
 
 Field.defaultProps = {
+  element: "div",
   labelItems: false,
   labelHidden: false,
   labelInline: false,

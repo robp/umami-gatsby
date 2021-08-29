@@ -24,6 +24,10 @@
   display: flex;
   flex-wrap: wrap;
 
+  .label::after {
+    content: ":";
+  }
+
   .label,
   > .item,
   .items {
@@ -33,6 +37,11 @@
 
 .labelItems {
   margin-bottom: 1.2em;
+
+  .items {
+    display: flex;
+    flex-wrap: wrap;
+  }
 
   .label,
   .item {

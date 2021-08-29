@@ -2,7 +2,7 @@ import * as React from "react"
 import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 
-import Layout from "../components/layout"
+import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import FrontpageBlock from "../components/blocks/frontpage"
 

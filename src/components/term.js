@@ -4,13 +4,13 @@ import Link from "./link"
 
 import { normalizeString } from "../utils/functions"
 
-import "../styles/term.scss"
+import "../styles/term.module.scss"
 
 function Term({ lang, id, name, path }) {
   return (
-    <div id={id} className="term">
-      <Link to={`/${lang}${normalizeString(path.alias)}`}>{name}</Link>
-    </div>
+    <Link key={id} to={`/${lang}${normalizeString(path.alias)}`}>
+      {name}
+    </Link>
   )
 }
 

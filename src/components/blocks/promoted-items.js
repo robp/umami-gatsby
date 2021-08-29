@@ -78,11 +78,9 @@ const PromotedItemsBlock = () => {
         <ul className={styles.list}>
           {nodes.map(node => {
             const renderedTitle = (
-              <Field
-                labelHidden
-                item={node.title}
-                className={cardStyles.fieldTitle}
-              />
+              <Field labelHidden className={cardStyles.fieldTitle}>
+                {node.title}
+              </Field>
             )
 
             const renderedLink = (
