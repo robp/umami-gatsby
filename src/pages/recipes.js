@@ -49,6 +49,13 @@ const RecipesPage = ({ data }) => {
                 {edges.map(edge => {
                   const node = edge.node
 
+                  const renderedTitle = (
+                    <Field
+                      labelHidden
+                      item={node.title}
+                      className={cardStyles.fieldTitle}
+                    />
+                  )
                   const renderedLink = (
                     <Link
                       to={`/${node.langcode}${normalizeString(
@@ -88,10 +95,10 @@ const RecipesPage = ({ data }) => {
                   return (
                     <li key={node.id}>
                       <Card
-                        title={node.title}
+                        title={renderedTitle}
                         link={renderedLink}
-                        linkClassName={cardStyles.link}
                         content={[difficulty, renderedImage]}
+                        styles={cardStyles}
                       />
                     </li>
                   )
@@ -132,35 +139,41 @@ export const query = graphql`
     ) {
       edges {
         node {
-          langcode
-          id
-          path {
-            alias
-          }
-          title
-          field_difficulty
-          relationships {
-            field_media_image {
-              relationships {
-                field_media_image {
-                  localFile {
-                    childImageSharp {
-                      gatsbyImageData(
-                        width: 1536
-                        aspectRatio: 1.5
-                        transformOptions: { cropFocus: CENTER }
-                        placeholder: BLURRED
-                        formats: [AUTO, WEBP, AVIF]
-                      )
-                    }
-                  }
-                }
-              }
-              field_media_image {
-                alt
+          ...RecipeCardQuery
+        }
+      }
+    }
+  }
+`
+
+export const RecipeCardQuery = graphql`
+  fragment RecipeCardQuery on node__recipe {
+    langcode
+    id
+    path {
+      alias
+    }
+    title
+    field_difficulty
+    relationships {
+      field_media_image {
+        relationships {
+          field_media_image {
+            localFile {
+              childImageSharp {
+                gatsbyImageData(
+                  width: 1536
+                  aspectRatio: 1.5
+                  transformOptions: { cropFocus: CENTER }
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
               }
             }
           }
+        }
+        field_media_image {
+          alt
         }
       }
     }

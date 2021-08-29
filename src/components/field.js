@@ -25,13 +25,15 @@ const Field = ({
       )}
       {...rest}
     >
-      <div
-        className={classNames(styles.label, labelClassName, {
-          "visually-hidden": labelHidden,
-        })}
-      >
-        {label}
-      </div>
+      {label ? (
+        <div
+          className={classNames(styles.label, labelClassName, {
+            "visually-hidden": labelHidden,
+          })}
+        >
+          {label}
+        </div>
+      ) : null}
       <div className={classNames(styles.item, itemClassName)}>{item}</div>
     </div>
   )

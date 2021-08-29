@@ -6,6 +6,7 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import { normalizeString } from "../../utils/functions"
 
+import Field from "../field"
 import Block from "../block"
 import Card from "../card"
 import Link from "../link"
@@ -14,7 +15,7 @@ import PromotedItemsAttachment from "./promoted-items-attachment"
 import { container } from "../../styles/layout.module.scss"
 import * as styles from "../../styles/blocks/promoted-items.module.scss"
 import * as readMoreStyles from "../../styles/read-more.module.scss"
-import * as cardStyles from "../../styles/card-common.module.scss"
+import * as cardStyles from "../../styles/card.module.scss"
 
 const PromotedItemsBlock = () => {
   const { t, language } = useI18next()
@@ -76,6 +77,14 @@ const PromotedItemsBlock = () => {
       <div className={classNames(container, styles.container)}>
         <ul className={styles.list}>
           {nodes.map(node => {
+            const renderedTitle = (
+              <Field
+                labelHidden
+                item={node.title}
+                className={cardStyles.fieldTitle}
+              />
+            )
+
             const renderedLink = (
               <Link
                 to={`/${node.langcode}${normalizeString(node.path.alias)}`}
@@ -95,9 +104,8 @@ const PromotedItemsBlock = () => {
             return (
               <li key={node.id}>
                 <Card
-                  title={node.title}
+                  title={renderedTitle}
                   link={renderedLink}
-                  linkClassName={cardStyles.link}
                   content={renderedImage}
                 />
               </li>

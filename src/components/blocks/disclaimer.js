@@ -14,20 +14,7 @@ const DisclaimerBlock = () => {
       allBlockContentDisclaimerBlock {
         edges {
           node {
-            id
-            langcode
-            status
-            field_copyright {
-              processed
-              value
-              format
-            }
-            field_disclaimer {
-              processed
-              value
-              format
-            }
-            info
+            ...DisclaimerBlockQuery
           }
         }
       }
@@ -64,3 +51,22 @@ const DisclaimerBlock = () => {
 }
 
 export default DisclaimerBlock
+
+export const DisclaimerBlockQuery = graphql`
+  fragment DisclaimerBlockQuery on block_content__disclaimer_block {
+    id
+    langcode
+    status
+    field_copyright {
+      processed
+      value
+      format
+    }
+    field_disclaimer {
+      processed
+      value
+      format
+    }
+    info
+  }
+`

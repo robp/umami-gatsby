@@ -2,27 +2,28 @@ import React from "react"
 import PropTypes from "prop-types"
 import classNames from "classnames"
 
-import * as styles from "../styles/card.module.scss"
+import * as defaultStyles from "../styles/card.module.scss"
 import * as nodeStyles from "../styles/node.module.scss"
 
-const Card = ({ title, titleClassName, link, linkClassName, content, contentClassName }) => {
+const Card = ({ title, link, content, styles, ...rest }) => {
   return (
-    <div className={classNames(nodeStyles.node, styles.card)}>
-      <h2 className={classNames(styles.title, titleClassName)}>{title}</h2>
-      <div className={classNames(styles.link, linkClassName)}>{link}</div>
-      <div className={classNames(styles.content, contentClassName)}>{content}</div>
+    <div className={classNames(nodeStyles.node, styles.card)} {...rest}>
+      <h2 className={styles.title}>{title}</h2>
+      <div className={styles.link}>{link}</div>
+      <div className={styles.content}>{content}</div>
     </div>
   )
 }
 
 Card.propTypes = {
-  title: PropTypes.string.isRequired,
-  titleClassName: PropTypes.string,
+  title: PropTypes.node.isRequired,
   link: PropTypes.node.isRequired,
-  linkClassName: PropTypes.string,
   content: PropTypes.node.isRequired,
-  contentClassName: PropTypes.string,
-  layout: PropTypes.string,
+  styles: PropTypes.object,
+}
+
+Card.defaultProps = {
+  styles: defaultStyles,
 }
 
 export default Card

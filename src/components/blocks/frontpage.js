@@ -5,13 +5,16 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import { normalizeString } from "../../utils/functions"
 
+// import { RecipeCardQuery } from "../../pages/recipes"
+
+import Field from "../field"
 import Block from "../block"
 import Card from "../card"
 import Link from "../link"
 
 import * as styles from "../../styles/blocks/frontpage.module.scss"
 import * as readMoreStyles from "../../styles/read-more.module.scss"
-import * as cardStyles from "../../styles/card-common.module.scss"
+import * as cardStyles from "../../styles/card.module.scss"
 
 const FrontpageBlock = () => {
   const { t, language } = useI18next()
@@ -24,34 +27,7 @@ const FrontpageBlock = () => {
       ) {
         edges {
           node {
-            langcode
-            id
-            path {
-              alias
-            }
-            title
-            relationships {
-              field_media_image {
-                relationships {
-                  field_media_image {
-                    localFile {
-                      childImageSharp {
-                        gatsbyImageData(
-                          width: 1536
-                          aspectRatio: 1.5
-                          transformOptions: { cropFocus: CENTER }
-                          placeholder: BLURRED
-                          formats: [AUTO, WEBP, AVIF]
-                        )
-                      }
-                    }
-                  }
-                }
-                field_media_image {
-                  alt
-                }
-              }
-            }
+            ...RecipeCardQuery
           }
         }
       }
@@ -82,6 +58,14 @@ const FrontpageBlock = () => {
       >
         <ul className={styles.list}>
           {nodes.map(node => {
+            const renderedTitle = (
+              <Field
+                labelHidden
+                item={node.title}
+                className={cardStyles.fieldTitle}
+              />
+            )
+
             const renderedLink = (
               <Link
                 to={`/${node.langcode}${normalizeString(node.path.alias)}`}
@@ -101,10 +85,10 @@ const FrontpageBlock = () => {
             return (
               <li key={node.id}>
                 <Card
-                  title={node.title}
+                  title={renderedTitle}
                   link={renderedLink}
-                  linkClassName={cardStyles.link}
                   content={renderedImage}
+                  styles={cardStyles}
                 />
               </li>
             )

@@ -11,6 +11,7 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Card from "../components/card"
 import Link from "../components/link"
+import Field from "../components/field"
 
 import * as styles from "../styles/pages/articles.module.scss"
 import * as readMoreStyles from "../styles/read-more.module.scss"
@@ -48,6 +49,13 @@ const ArticlesPage = ({ data }) => {
                 {edges.map(edge => {
                   const node = edge.node
 
+                  const renderedTitle = (
+                    <Field
+                      labelHidden
+                      item={node.title}
+                      className={cardStyles.fieldTitle}
+                    />
+                  )
                   const renderedLink = (
                     <Link
                       to={`/${node.langcode}${normalizeString(
@@ -72,10 +80,10 @@ const ArticlesPage = ({ data }) => {
                   return (
                     <li key={node.id}>
                       <Card
-                        title={node.title}
+                        title={renderedTitle}
                         link={renderedLink}
-                        linkClassName={cardStyles.link}
                         content={renderedImage}
+                        styles={cardStyles}
                       />
                     </li>
                   )
@@ -116,34 +124,40 @@ export const query = graphql`
     ) {
       edges {
         node {
-          langcode
-          id
-          path {
-            alias
-          }
-          title
-          relationships {
-            field_media_image {
-              relationships {
-                field_media_image {
-                  localFile {
-                    childImageSharp {
-                      gatsbyImageData(
-                        width: 1536
-                        aspectRatio: 1.5
-                        transformOptions: { cropFocus: CENTER }
-                        placeholder: BLURRED
-                        formats: [AUTO, WEBP, AVIF]
-                      )
-                    }
-                  }
-                }
-              }
-              field_media_image {
-                alt
+          ...ArticleCardQuery
+        }
+      }
+    }
+  }
+`
+
+export const ArticleCardQuery = graphql`
+  fragment ArticleCardQuery on node__article {
+    langcode
+    id
+    path {
+      alias
+    }
+    title
+    relationships {
+      field_media_image {
+        relationships {
+          field_media_image {
+            localFile {
+              childImageSharp {
+                gatsbyImageData(
+                  width: 1536
+                  aspectRatio: 1.5
+                  transformOptions: { cropFocus: CENTER }
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
               }
             }
           }
+        }
+        field_media_image {
+          alt
         }
       }
     }

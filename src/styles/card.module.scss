@@ -10,16 +10,10 @@
 
 .title {
   flex-grow: 1;
-  text-decoration: none;
-  color: black;
-  font-size: 1.424rem;
-  font-weight: 400;
 }
 
 .link {
-  .zzz {
-    color: red;
-  }
+  margin-bottom: 1em;
 }
 
 .content {
@@ -34,6 +28,13 @@
 }
 
 .labelItems {
-  color: #5f635d;
+  color: $mediumDarkGrey;
   font-size: 0.889rem;
+}
+
+.fieldTitle {
+  text-decoration: none;
+  color: black;
+  font-size: 1.424rem;
+  font-weight: 400;
 }

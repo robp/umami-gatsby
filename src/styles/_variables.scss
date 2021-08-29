@@ -1,15 +1,17 @@
-$colorPrimary: #464646;
-$backgroundColorPrimary: #fbf5ee;
-$colorSecondary: white;
-$backgroundColorSecondary: rebeccapurple;
 $darkGrey: #464646;
 $mediumDarkGrey: #5f665b;
 $mediumGrey: #767775;
 $lightGrey: #e6eee0;
+$lighterGrey: #fbf5ee;
+$umamiGreen: #008068;
 $umamiOrange: #da3c13;
 $umamiPink: #d93760;
 $lightPink: #fcece7;
-$umamiGreen: #008068;
+
+$colorPrimary: $darkGrey;
+$backgroundColorPrimary: $lighterGrey;
+$colorSecondary: white;
+$backgroundColorSecondary: rebeccapurple;
 $backgroundColorModal: rgba(0, 0, 0, 0.42);
 
 $fontFamily: "Open Sans", Verdana, sans-serif;

@@ -34,10 +34,11 @@
     min-height: 54vw;
     margin: 0 auto;
     padding: 0 4%;
+    width: 100%;
   }
 
   @media all and ($breakpointWide) {
-    min-height: 42.75vw;
+    min-height: 43vw;
   }
 
   @media all and ($breakpointFull) {
