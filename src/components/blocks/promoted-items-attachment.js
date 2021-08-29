@@ -61,7 +61,7 @@ const PromotedItemsAttachment = () => {
   for (const [, edge] of query.allNodeRecipe.edges.entries()) {
     if (edge.node.langcode === language) {
       nodes.push(edge.node)
-      // Only save the first two node.
+      // Only save two nodes.
       if (nodes.length === 2) {
         break
       }

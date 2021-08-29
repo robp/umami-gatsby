@@ -9,21 +9,20 @@ import { normalizeString } from "../../utils/functions"
 import Block from "../block"
 import Card from "../card"
 import Link from "../link"
-import PromotedItemsAttachment from "./promoted-items-attachment"
 
 import { container } from "../../styles/layout.module.scss"
-import * as styles from "../../styles/blocks/promoted-items.module.scss"
+import * as styles from "../../styles/blocks/frontpage.module.scss"
 import * as readMoreStyles from "../../styles/read-more.module.scss"
 import * as cardStyles from "../../styles/card-common.module.scss"
 
-const PromotedItemsBlock = () => {
+const FrontpageBlock = () => {
   const { t, language } = useI18next()
 
   const query = useStaticQuery(graphql`
     query {
-      allNodeArticle(
+      allNodeRecipe(
         filter: { promote: { eq: true } }
-        sort: { fields: created, order: DESC }
+        sort: { fields: [sticky, created], order: [DESC, DESC] }
       ) {
         edges {
           node {
@@ -63,16 +62,25 @@ const PromotedItemsBlock = () => {
 
   let nodes = []
 
-  for (const [, edge] of query.allNodeArticle.edges.entries()) {
+  for (const [, edge] of query.allNodeRecipe.edges.entries()) {
     if (edge.node.langcode === language) {
       nodes.push(edge.node)
-      // Only save the first node.
-      break
+      // Only save four nodes.
+      if (nodes.length === 4) {
+        break
+      }
     }
   }
 
   return (
-    <Block className={classNames(container, styles.block)} locations={["/"]}>
+    <Block
+      title={t(
+        "Explore recipes across every type of occasion, ingredient, and skill level"
+      )}
+      titleClassName={styles.blockTitle}
+      className={classNames(container, styles.block)}
+      locations={["/"]}
+    >
       <div className={classNames(container, styles.container)}>
         <ul className={styles.list}>
           {nodes.map(node => {
@@ -81,7 +89,7 @@ const PromotedItemsBlock = () => {
                 to={`/${node.langcode}${normalizeString(node.path.alias)}`}
                 className={readMoreStyles.link}
               >
-                {t("View article")}
+                {t("View recipe")}
               </Link>
             )
             const media = node.relationships.field_media_image
@@ -104,10 +112,9 @@ const PromotedItemsBlock = () => {
             )
           })}
         </ul>
-        <PromotedItemsAttachment />
       </div>
     </Block>
   )
 }
 
-export default PromotedItemsBlock
+export default FrontpageBlock

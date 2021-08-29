@@ -2,6 +2,10 @@
 
 .block {
   padding: 0 4%;
+
+  @media all and ($breakpointFull) {
+    padding: 0;
+  }
 }
 
 .container {

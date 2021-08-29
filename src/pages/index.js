@@ -5,6 +5,7 @@ import { useI18next } from "gatsby-plugin-react-i18next"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import PageTitle from "../components/page-title"
+import FrontpageBlock from "../components/blocks/frontpage"
 
 import { container } from "../styles/layout.module.scss"
 // import * as styles from "../styles/pages/index.module.scss"
@@ -17,6 +18,7 @@ const IndexPage = ({ data }) => {
       <Seo title={t("Home")} />
       <div className={container}>
         <PageTitle title={t("Home")} className="visually-hidden" />
+        <FrontpageBlock />
       </div>
     </Layout>
   )
