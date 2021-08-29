@@ -6,7 +6,6 @@ import { normalizeString } from "../utils/functions"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import PageTitle from "../components/page-title"
 import Link from "../components/link"
 
 const NodeType = ({ data }) => {
@@ -39,9 +38,8 @@ const NodeType = ({ data }) => {
   ) : null
 
   return (
-    <Layout>
+    <Layout title={`Node Type: ${node.name}`}>
       <Seo title={`Node Type: ${node.name}`} />
-      <PageTitle title={`Node Type: ${node.name}`} />
       {node.description ? (
         <p dangerouslySetInnerHTML={{ __html: node.description }} />
       ) : null}

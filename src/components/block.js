@@ -12,15 +12,19 @@ const Block = ({
   titleClassName,
   className,
   locations,
+  locationsExcept,
   ...rest
 }) => {
   const { originalPath } = useI18next()
 
-  // Display the block if no locations are provided, or if the current
+  // Display the block if the wildcard is provided, or if the current
   // originalPath matches one of the locations provided.
-  const display =
+  let display =
     locations &&
     (locations.indexOf("*") !== -1 || locations.indexOf(originalPath) !== -1)
+
+  // Don't display the block if the path is in the locationsExcept array.
+  display = display && locationsExcept.indexOf(originalPath) === -1
 
   const Element = `${element}`
 
@@ -43,10 +47,12 @@ Block.propTypes = {
   titleClassName: PropTypes.string,
   className: PropTypes.string,
   locations: PropTypes.array,
+  locationsExcept: PropTypes.array,
 }
 
 Block.defaultProps = {
   element: "div",
+  locationsExcept: [],
 }
 
 export default Block

@@ -5,7 +5,7 @@ import BottomRegion from "../regions/bottom"
 import { container } from "../../styles/layout.module.scss"
 import { styles } from "../../styles/layout/bottom.module.scss"
 
-const Bottom = () => {
+const BottomLayout = () => {
   return (
     <div className={styles}>
       <div className={container}>
@@ -15,4 +15,4 @@ const Bottom = () => {
   )
 }
 
-export default Bottom
+export default BottomLayout

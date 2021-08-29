@@ -1,7 +1,6 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
-import classNames from "classnames"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import { normalizeString } from "../../utils/functions"
@@ -10,7 +9,6 @@ import Block from "../block"
 import Card from "../card"
 import Link from "../link"
 
-import { container } from "../../styles/layout.module.scss"
 import * as styles from "../../styles/blocks/frontpage.module.scss"
 import * as readMoreStyles from "../../styles/read-more.module.scss"
 import * as cardStyles from "../../styles/card-common.module.scss"
@@ -73,15 +71,15 @@ const FrontpageBlock = () => {
   }
 
   return (
-    <Block
-      title={t(
-        "Explore recipes across every type of occasion, ingredient, and skill level"
-      )}
-      titleClassName={styles.blockTitle}
-      className={classNames(container, styles.block)}
-      locations={["/"]}
-    >
-      <div className={classNames(container, styles.container)}>
+    <div>
+      <Block
+        title={t(
+          "Explore recipes across every type of occasion, ingredient, and skill level"
+        )}
+        titleClassName={styles.blockTitle}
+        className={styles.block}
+        locations={["/"]}
+      >
         <ul className={styles.list}>
           {nodes.map(node => {
             const renderedLink = (
@@ -106,14 +104,14 @@ const FrontpageBlock = () => {
                   title={node.title}
                   link={renderedLink}
                   linkClassName={cardStyles.link}
-                  image={renderedImage}
+                  content={renderedImage}
                 />
               </li>
             )
           })}
         </ul>
-      </div>
-    </Block>
+      </Block>
+    </div>
   )
 }
 

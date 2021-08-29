@@ -1,6 +1,10 @@
 // Normalize characters in URLs or else Gatsby will complain on prod build.
-var normalizeString = function (str) {
+const normalizeString = str => {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
 }
 
-module.exports = { normalizeString }
+const capitalizeFirstLetter = str => {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+module.exports = { normalizeString, capitalizeFirstLetter }

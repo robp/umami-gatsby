@@ -93,8 +93,8 @@ const PromotedItemsAttachment = () => {
               <Card
                 title={node.title}
                 link={renderedLink}
-                image={renderedImage}
-                imageClassName={cardStyles.image}
+                content={renderedImage}
+                contentClassName={cardStyles.content}
               />
             </li>
           )

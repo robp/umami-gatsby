@@ -8,7 +8,7 @@ import HighlightedRegion from "../regions/highlighted"
 import { container } from "../../styles/layout.module.scss"
 import { styles } from "../../styles/layout/header.module.scss"
 
-const Header = ({ siteTitle }) => (
+const HeaderLayout = ({ siteTitle }) => (
   <header className={styles}>
     <div className={container}>
       <PreHeaderRegion />
@@ -18,12 +18,12 @@ const Header = ({ siteTitle }) => (
   </header>
 )
 
-Header.propTypes = {
+HeaderLayout.propTypes = {
   siteTitle: PropTypes.string,
 }
 
-Header.defaultProps = {
+HeaderLayout.defaultProps = {
   siteTitle: ``,
 }
 
-export default Header
+export default HeaderLayout

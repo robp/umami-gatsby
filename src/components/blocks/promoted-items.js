@@ -98,7 +98,7 @@ const PromotedItemsBlock = () => {
                   title={node.title}
                   link={renderedLink}
                   linkClassName={cardStyles.link}
-                  image={renderedImage}
+                  content={renderedImage}
                 />
               </li>
             )

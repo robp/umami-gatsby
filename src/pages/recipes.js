@@ -1,25 +1,26 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
-import { normalizeString } from "../utils/functions"
+import { normalizeString, capitalizeFirstLetter } from "../utils/functions"
 
 import LanguageSwitcherContextProvider from "../components/context/language-switcher-context"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import PageTitle from "../components/page-title"
+import Card from "../components/card"
 import Link from "../components/link"
+import Field from "../components/field"
 
-import { container } from "../styles/layout.module.scss"
+import * as styles from "../styles/pages/recipes.module.scss"
+import * as readMoreStyles from "../styles/read-more.module.scss"
+import * as cardStyles from "../styles/card-view.module.scss"
 
 const RecipesPage = ({ data }) => {
   const { t, languages, originalPath } = useI18next()
 
-  const nodeType = data.nodeTypeNodeType
-  const recipeCategories = data.allTaxonomyTermRecipeCategory.edges
-  const recipes = data.allNodeRecipe.edges
-  const recipeCount = data.allNodeRecipe.totalCount
+  const edges = data.allNodeRecipe.edges
 
   /**
    * @todo Use i18next to handle this, somehow.
@@ -39,57 +40,67 @@ const RecipesPage = ({ data }) => {
 
   return (
     <LanguageSwitcherContextProvider translations={translations}>
-      <Layout>
+      <Layout title={t("Recipes")}>
         <Seo title={t("Recipes")} />
-        <div className={container}>
-          <PageTitle title={t("Recipes")} />
-          {nodeType.description ? (
-            <p
-              dangerouslySetInnerHTML={{
-                __html: nodeType.description,
-              }}
-            />
-          ) : null}
-          <h2>{t("Recipe Categories")}</h2>
-          <div className="recipe-categories">
-            <ul>
-              {recipeCategories?.map(edge => {
-                return (
-                  <li key={edge.node.id}>
+        <div>
+          <div className={styles.view}>
+            {edges ? (
+              <ul className={styles.list}>
+                {edges.map(edge => {
+                  const node = edge.node
+
+                  const renderedLink = (
                     <Link
-                      to={`/${edge.node.langcode}${normalizeString(
-                        edge.node.path.alias
+                      to={`/${node.langcode}${normalizeString(
+                        node.path.alias
                       )}`}
+                      className={readMoreStyles.link}
                     >
-                      {edge.node.name}
+                      {t("View recipe")}
                     </Link>
-                  </li>
-                )
-              })}
-            </ul>
+                  )
+                  const media = node.relationships.field_media_image
+                  const image = getImage(
+                    media.relationships?.field_media_image?.localFile
+                  )
+                  const renderedImage = (
+                    <Field
+                      label={t("Image")}
+                      labelHidden
+                      item={
+                        <GatsbyImage
+                          image={image}
+                          alt={media.field_media_image.alt}
+                        />
+                      }
+                    />
+                  )
+                  const difficulty = (
+                    <Field
+                      labelItems
+                      labelInline
+                      label={`${t("Difficulty")}:`}
+                      item={capitalizeFirstLetter(t(node.field_difficulty))}
+                      className={cardStyles.labelItems}
+                    />
+                  )
+
+                  return (
+                    <li key={node.id}>
+                      <Card
+                        title={node.title}
+                        link={renderedLink}
+                        linkClassName={cardStyles.link}
+                        content={[difficulty, renderedImage]}
+                      />
+                    </li>
+                  )
+                })}{" "}
+              </ul>
+            ) : (
+              `<p>${t("No recipes.")}</p>`
+            )}
           </div>
-          <h2>
-            {t(data.nodeTypeNodeType.name)} ({recipeCount})
-          </h2>
-          {recipes ? (
-            <ul>
-              {recipes.map(edge => {
-                return (
-                  <li key={edge.node.id}>
-                    <Link
-                      to={`/${edge.node.langcode}${normalizeString(
-                        edge.node.path.alias
-                      )}`}
-                    >
-                      {edge.node.title}
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
-          ) : (
-            `<p>${t("No recipes.")}</p>`
-          )}
         </div>
       </Layout>
     </LanguageSwitcherContextProvider>
@@ -115,28 +126,41 @@ export const query = graphql`
       description
       drupal_internal__type
     }
-    allNodeRecipe(filter: { langcode: { eq: $language } }) {
+    allNodeRecipe(
+      filter: { langcode: { eq: $language }, promote: { eq: true } }
+      sort: { order: [DESC, ASC], fields: [created, drupal_internal__nid] }
+    ) {
       edges {
         node {
+          langcode
           id
+          path {
+            alias
+          }
           title
-          path {
-            alias
+          field_difficulty
+          relationships {
+            field_media_image {
+              relationships {
+                field_media_image {
+                  localFile {
+                    childImageSharp {
+                      gatsbyImageData(
+                        width: 1536
+                        aspectRatio: 1.5
+                        transformOptions: { cropFocus: CENTER }
+                        placeholder: BLURRED
+                        formats: [AUTO, WEBP, AVIF]
+                      )
+                    }
+                  }
+                }
+              }
+              field_media_image {
+                alt
+              }
+            }
           }
-          langcode
-        }
-      }
-      totalCount
-    }
-    allTaxonomyTermRecipeCategory(filter: { langcode: { eq: $language } }) {
-      edges {
-        node {
-          id
-          name
-          path {
-            alias
-          }
-          langcode
         }
       }
     }

@@ -1,0 +1,41 @@
+.field {
+  .zzz {
+    color: red;
+  }
+}
+
+.label {
+  font-weight: bold;
+}
+
+.item {
+  .zzz {
+    color: red;
+  }
+}
+
+.items {
+  .zzz {
+    color: red;
+  }
+}
+
+.labelInline {
+  display: flex;
+  flex-wrap: wrap;
+
+  .label,
+  > .item,
+  .items {
+    padding-right: 0.5em;
+  }
+}
+
+.labelItems {
+  margin-bottom: 1.2em;
+
+  .label,
+  .item {
+    padding-right: 0.6rem;
+  }
+}

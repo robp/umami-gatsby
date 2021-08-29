@@ -1,6 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import { normalizeString } from "../utils/functions"
 
@@ -8,17 +9,17 @@ import LanguageSwitcherContextProvider from "../components/context/language-swit
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import PageTitle from "../components/page-title"
+import Card from "../components/card"
 import Link from "../components/link"
 
-import { container } from "../styles/layout.module.scss"
+import * as styles from "../styles/pages/articles.module.scss"
+import * as readMoreStyles from "../styles/read-more.module.scss"
+import * as cardStyles from "../styles/card-view.module.scss"
 
 const ArticlesPage = ({ data }) => {
   const { t, languages, originalPath } = useI18next()
 
-  const nodeType = data.nodeTypeNodeType
-  const articles = data.allNodeArticle.edges
-  const articleCount = data.allNodeArticle.totalCount
+  const edges = data.allNodeArticle.edges
 
   /**
    * @todo Use i18next to handle this, somehow.
@@ -38,42 +39,52 @@ const ArticlesPage = ({ data }) => {
 
   return (
     <LanguageSwitcherContextProvider translations={translations}>
-      <Layout>
+      <Layout title={t("Articles")}>
         <Seo title={t("Articles")} />
-        <div className={container}>
-          <PageTitle title={t("Articles")} />
+        <div>
+          <div className={styles.view}>
+            {edges ? (
+              <ul className={styles.list}>
+                {edges.map(edge => {
+                  const node = edge.node
 
-          {nodeType.description ? (
-            <p
-              dangerouslySetInnerHTML={{
-                __html: nodeType.description,
-              }}
-            />
-          ) : null}
-
-          <h2>
-            {t(data.nodeTypeNodeType.name)} ({articleCount})
-          </h2>
-
-          {articles ? (
-            <ul>
-              {articles.map(edge => {
-                return (
-                  <li key={edge.node.id}>
+                  const renderedLink = (
                     <Link
-                      to={`/${edge.node.langcode}${normalizeString(
-                        edge.node.path.alias
+                      to={`/${node.langcode}${normalizeString(
+                        node.path.alias
                       )}`}
+                      className={readMoreStyles.link}
                     >
-                      {edge.node.title}
+                      {t("View article")}
                     </Link>
-                  </li>
-                )
-              })}
-            </ul>
-          ) : (
-            `<p>${t("No articles.")}</p>`
-          )}
+                  )
+                  const media = node.relationships.field_media_image
+                  const image = getImage(
+                    media.relationships?.field_media_image?.localFile
+                  )
+                  const renderedImage = (
+                    <GatsbyImage
+                      image={image}
+                      alt={media.field_media_image.alt}
+                    />
+                  )
+
+                  return (
+                    <li key={node.id}>
+                      <Card
+                        title={node.title}
+                        link={renderedLink}
+                        linkClassName={cardStyles.link}
+                        content={renderedImage}
+                      />
+                    </li>
+                  )
+                })}{" "}
+              </ul>
+            ) : (
+              `<p>${t("No articles.")}</p>`
+            )}
+          </div>
         </div>
       </Layout>
     </LanguageSwitcherContextProvider>
@@ -99,18 +110,42 @@ export const query = graphql`
       description
       drupal_internal__type
     }
-    allNodeArticle(filter: { langcode: { eq: $language } }) {
+    allNodeArticle(
+      filter: { langcode: { eq: $language }, promote: { eq: true } }
+      sort: { order: [DESC, ASC], fields: [created, drupal_internal__nid] }
+    ) {
       edges {
         node {
+          langcode
           id
-          title
           path {
             alias
           }
-          langcode
+          title
+          relationships {
+            field_media_image {
+              relationships {
+                field_media_image {
+                  localFile {
+                    childImageSharp {
+                      gatsbyImageData(
+                        width: 1536
+                        aspectRatio: 1.5
+                        transformOptions: { cropFocus: CENTER }
+                        placeholder: BLURRED
+                        formats: [AUTO, WEBP, AVIF]
+                      )
+                    }
+                  }
+                }
+              }
+              field_media_image {
+                alt
+              }
+            }
+          }
         }
       }
-      totalCount
     }
   }
 `

@@ -6,7 +6,6 @@ import LanguageSwitcherContextProvider from "../components/context/language-swit
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import PageTitle from "../components/page-title"
 import RecipeCategories from "../components/recipe/categories"
 import Tags from "../components/tags"
 import FeatureImage from "../components/feature-image"
@@ -19,13 +18,12 @@ const Recipe = ({ data }) => {
 
   return (
     <LanguageSwitcherContextProvider translations={translations}>
-      <Layout>
+      <Layout title={node.title}>
         <Seo
           lang={node.langcode}
           title={node.title}
           description={node.field_summary.value}
         />
-        <PageTitle title={node.title} />
         <RecipeCategories
           lang={node.langcode}
           data={node.relationships.field_recipe_category}

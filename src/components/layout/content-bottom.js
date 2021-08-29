@@ -4,7 +4,7 @@ import ContentBottomRegion from "../regions/content-bottom"
 
 import { styles } from "../../styles/layout/content-bottom.module.scss"
 
-const ContentBottom = () => {
+const ContentBottomLayout = () => {
   return (
     <div className={styles}>
       <ContentBottomRegion />
@@ -12,4 +12,4 @@ const ContentBottom = () => {
   )
 }
 
-export default ContentBottom
+export default ContentBottomLayout

@@ -11,10 +11,9 @@ const NotFoundPage = () => {
   const { t } = useTranslation()
 
   return (
-    <Layout>
+    <Layout title={`404: ${t("Not found")}`}>
       <Seo title={`404: ${t("Not found")}`} />
       <div className={container}>
-        <h1>404: {t("Not found")}</h1>
         <p>
           {t("You just hit a route that doesn&#39;t exist... the sadness.")}
         </p>

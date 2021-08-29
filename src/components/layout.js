@@ -2,42 +2,43 @@ import * as React from "react"
 import PropTypes from "prop-types"
 import { useSiteMetadata } from "../hooks/use-site-metadata"
 import { useTranslation } from "gatsby-plugin-react-i18next"
-import classNames from "classnames"
 
 import UserContextProvider from "./context/user-context"
 import Header from "./layout/header"
-import Highlighted from "./layout/highlighted"
-import BannerTop from "./layout/banner-top"
-import Main from "./layout/main"
-import ContentBottom from "./layout/content-bottom"
-import Footer from "./layout/footer"
-import Bottom from "./layout/bottom"
+import HighlightedLayout from "./layout/highlighted"
+import BannerTopLayout from "./layout/banner-top"
+import PageTitleLayout from "./layout/page-title"
+import PageTitleBlock from "./blocks/page-title"
+import ContentLayout from "./layout/content"
+import ContentBottomLayout from "./layout/content-bottom"
+import FooterLayout from "./layout/footer"
+import BottomLayout from "./layout/bottom"
 
 import "../styles/_base.scss"
-import { styles } from "../styles/main.module.scss"
-import { container } from "../styles/layout.module.scss"
 
-const Layout = ({ children }) => {
+const Layout = ({ children, title }) => {
   const { t } = useTranslation()
-  const { title } = useSiteMetadata()
+  const { siteTitle } = useSiteMetadata()
 
   return (
     <UserContextProvider>
-      <Header siteTitle={t(title || `Title`)} />
-      <Highlighted />
-      <BannerTop />
-      <main className={classNames(styles, container)}>
-        <Main>{children}</Main>
-      </main>
-      <ContentBottom />
-      <Footer />
-      <Bottom />
+      <Header siteTitle={t(siteTitle || `Title`)} />
+      <HighlightedLayout />
+      <BannerTopLayout />
+      <PageTitleLayout>
+        <PageTitleBlock title={title} />
+      </PageTitleLayout>
+      <ContentLayout>{children}</ContentLayout>
+      <ContentBottomLayout />
+      <FooterLayout />
+      <BottomLayout />
     </UserContextProvider>
   )
 }
 
 Layout.propTypes = {
   children: PropTypes.node,
+  title: PropTypes.string,
 }
 
 export default Layout

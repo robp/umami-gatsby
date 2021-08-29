@@ -9,7 +9,6 @@ import { normalizeString } from "../utils/functions"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import PageTitle from "../components/page-title"
 import Link from "../components/link"
 
 const RecipeCategory = ({ data }) => {
@@ -41,9 +40,8 @@ const RecipeCategory = ({ data }) => {
 
   return (
     <LanguageSwitcherContextProvider translations={translations}>
-      <Layout>
+      <Layout title={`${t("Recipe Category")}: ${node.name}`}>
         <Seo title={`${t("Recipe Category")}: ${node.name}`} />
-        <PageTitle title={`${t("Recipe Category")}: ${node.name}`} />
         {recipes}
       </Layout>
     </LanguageSwitcherContextProvider>

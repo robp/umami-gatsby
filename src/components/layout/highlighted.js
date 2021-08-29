@@ -5,7 +5,7 @@ import HighlightedRegion from "../regions/highlighted"
 import { container } from "../../styles/layout.module.scss"
 import { styles } from "../../styles/layout/highlighted.module.scss"
 
-const Highlighted = () => {
+const HighlightedLayout = () => {
   return (
     <div className={styles}>
       <div className={container}>
@@ -15,4 +15,4 @@ const Highlighted = () => {
   )
 }
 
-export default Highlighted
+export default HighlightedLayout

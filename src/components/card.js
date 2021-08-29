@@ -5,12 +5,12 @@ import classNames from "classnames"
 import * as styles from "../styles/card.module.scss"
 import * as nodeStyles from "../styles/node.module.scss"
 
-const Card = ({ title, titleClassName, link, linkClassName, image, imageClassName }) => {
+const Card = ({ title, titleClassName, link, linkClassName, content, contentClassName }) => {
   return (
     <div className={classNames(nodeStyles.node, styles.card)}>
       <h2 className={classNames(styles.title, titleClassName)}>{title}</h2>
       <div className={classNames(styles.link, linkClassName)}>{link}</div>
-      <div className={classNames(styles.image, imageClassName)}>{image}</div>
+      <div className={classNames(styles.content, contentClassName)}>{content}</div>
     </div>
   )
 }
@@ -20,8 +20,8 @@ Card.propTypes = {
   titleClassName: PropTypes.string,
   link: PropTypes.node.isRequired,
   linkClassName: PropTypes.string,
-  image: PropTypes.node.isRequired,
-  imageClassName: PropTypes.string,
+  content: PropTypes.node.isRequired,
+  contentClassName: PropTypes.string,
   layout: PropTypes.string,
 }
 

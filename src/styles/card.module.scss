@@ -22,12 +22,18 @@
   }
 }
 
-.image {
+.content {
   flex-shrink: 0;
   margin-bottom: 1.2em;
 
-  img, picture {
+  img,
+  picture {
     display: block;
     width: 100%;
   }
+}
+
+.labelItems {
+  color: #5f635d;
+  font-size: 0.889rem;
 }

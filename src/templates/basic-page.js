@@ -6,7 +6,6 @@ import LanguageSwitcherContextProvider from "../components/context/language-swit
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import PageTitle from "../components/page-title"
 import Sections from "../components/sections"
 
 const BasicPage = ({ data }) => {
@@ -15,9 +14,8 @@ const BasicPage = ({ data }) => {
 
   return (
     <LanguageSwitcherContextProvider translations={translations}>
-      <Layout>
+      <Layout title={node.title}>
         <Seo title={node.title} />
-        <PageTitle title={node.title} />
         {node.body ? (
           <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
         ) : null}

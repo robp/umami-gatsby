@@ -4,7 +4,6 @@ import { useI18next } from "gatsby-plugin-react-i18next"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import PageTitle from "../components/page-title"
 import Link from "../components/link"
 
 import { container } from "../styles/layout.module.scss"
@@ -31,11 +30,9 @@ const IndexPage = ({ data }) => {
   }
 
   return (
-    <Layout>
+    <Layout title={t("Hi people")}>
       <Seo title={t("Home")} />
       <div className={container}>
-        <PageTitle title={t("Hi people")} />
-
         <h2>
           {t("Pages")} ({filteredPagesCount})
         </h2>

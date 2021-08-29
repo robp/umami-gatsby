@@ -6,7 +6,6 @@ import LanguageSwitcherContextProvider from "../components/context/language-swit
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import PageTitle from "../components/page-title"
 import Tags from "../components/tags"
 import FeatureImage from "../components/feature-image"
 
@@ -16,9 +15,8 @@ const Article = ({ data }) => {
 
   return (
     <LanguageSwitcherContextProvider translations={translations}>
-      <Layout>
+      <Layout title={node.title}>
         <Seo title={node.title} />
-        <PageTitle title={node.title} />
         <Tags lang={node.langcode} data={node.relationships.field_tags} />
         <FeatureImage media={node.relationships.field_media_image} />
         {node.body ? (
