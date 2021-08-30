@@ -10,7 +10,7 @@ import Layout from "../components/layout/layout-node"
 import Seo from "../components/seo"
 import Field from "../components/field"
 import Tags from "../components/tags"
-import FeatureImage from "../components/feature-image"
+import MediaImage from "../components/media-image"
 
 import * as nodeStyles from "../styles/node.module.scss"
 import * as layoutStyles from "../styles/layout.module.scss"
@@ -59,15 +59,14 @@ const Article = ({ location, data }) => {
             <div className={layoutStyles.oneCol}>
               <div className={layoutStyles.region}>
                 <Tags lang={language} data={node.relationships?.field_tags} />
+                <Field labelHidden className={nodeStyles.mediaImage}>
+                  <MediaImage media={node.relationships.field_media_image} />
+                </Field>
+                <Field labelHidden property="schema:text" html={node.body?.processed} />
               </div>
             </div>
           </div>
         </article>
-        <FeatureImage media={node.relationships.field_media_image} />
-        {/*
-        {node.body ? (
-          <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
-        ) : null} */}
       </Layout>
     </LanguageSwitcherContextProvider>
   )

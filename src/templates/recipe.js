@@ -8,7 +8,7 @@ import Layout from "../components/layout/layout-node"
 import Seo from "../components/seo"
 import RecipeCategories from "../components/recipe/categories"
 import Tags from "../components/tags"
-import FeatureImage from "../components/feature-image"
+import MediaImage from "../components/media-image"
 import Ingredients from "../components/recipe/ingredients"
 import Instructions from "../components/recipe/instructions"
 
@@ -29,7 +29,7 @@ const Recipe = ({ data }) => {
           data={node.relationships.field_recipe_category}
         />
         <Tags lang={node.langcode} data={node.relationships.field_tags} />
-        <FeatureImage media={node.relationships.field_media_image} />
+        <MediaImage media={node.relationships.field_media_image} />
         {node.field_summary ? (
           <div
             dangerouslySetInnerHTML={{ __html: node.field_summary.processed }}

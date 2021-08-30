@@ -2,9 +2,9 @@ import React from "react"
 import PropTypes from "prop-types"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
-import { styles } from "../styles/feature-image.module.scss"
+import { styles } from "../styles/media-image.module.scss"
 
-function FeatureImage({ media }) {
+function MediaImage({ media }) {
   if (!media) return null
 
   const featureImage = getImage(
@@ -21,8 +21,8 @@ function FeatureImage({ media }) {
   return null
 }
 
-FeatureImage.propTypes = {
+MediaImage.propTypes = {
   media: PropTypes.object.isRequired,
 }
 
-export default FeatureImage
+export default MediaImage

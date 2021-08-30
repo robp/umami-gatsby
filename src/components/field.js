@@ -5,6 +5,7 @@ import classNames from "classnames"
 import * as styles from "../styles/field.module.scss"
 
 const Field = ({
+  html,
   children,
   items,
   element,
@@ -19,7 +20,18 @@ const Field = ({
 }) => {
   const Element = `${element}`
 
-  return (
+  return html ? (
+    <Element
+      className={classNames(
+        styles.field,
+        { [styles.labelItems]: labelItems },
+        { [styles.labelInline]: labelInline },
+        className
+      )}
+      {...rest}
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  ) : (
     <Element
       className={classNames(
         styles.field,
@@ -58,6 +70,7 @@ const Field = ({
 }
 
 Field.propTypes = {
+  html: PropTypes.node,
   element: PropTypes.string,
   items: PropTypes.array,
   labelItems: PropTypes.bool,
