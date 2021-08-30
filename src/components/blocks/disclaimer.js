@@ -14,7 +14,7 @@ const DisclaimerBlock = () => {
       allBlockContentDisclaimerBlock {
         edges {
           node {
-            ...DisclaimerBlockQuery
+            ...DisclaimerBlock
           }
         }
       }
@@ -37,7 +37,7 @@ const DisclaimerBlock = () => {
   block = block || defaultBlock
 
   return (
-    <Block className={styles.block} locations={["*"]}>
+    <Block className={styles.block} locations={[/.*/]}>
       <div
         className={styles.disclaimer}
         dangerouslySetInnerHTML={{ __html: block.field_disclaimer.processed }}
@@ -51,22 +51,3 @@ const DisclaimerBlock = () => {
 }
 
 export default DisclaimerBlock
-
-export const DisclaimerBlockQuery = graphql`
-  fragment DisclaimerBlockQuery on block_content__disclaimer_block {
-    id
-    langcode
-    status
-    field_copyright {
-      processed
-      value
-      format
-    }
-    field_disclaimer {
-      processed
-      value
-      format
-    }
-    info
-  }
-`

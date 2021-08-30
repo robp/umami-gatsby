@@ -110,52 +110,13 @@ export const query = graphql`
         }
       }
     }
-    nodeTypeNodeType(drupal_internal__type: { eq: "article" }) {
-      id
-      name
-      description
-      drupal_internal__type
-    }
     allNodeArticle(
       filter: { langcode: { eq: $language }, promote: { eq: true } }
-      sort: { order: [DESC, ASC], fields: [created, drupal_internal__nid] }
+      sort: { fields: [created, drupal_internal__nid], order: [DESC, ASC] }
     ) {
       edges {
         node {
-          ...ArticleCardQuery
-        }
-      }
-    }
-  }
-`
-
-export const ArticleCardQuery = graphql`
-  fragment ArticleCardQuery on node__article {
-    langcode
-    id
-    path {
-      alias
-    }
-    title
-    relationships {
-      field_media_image {
-        relationships {
-          field_media_image {
-            localFile {
-              childImageSharp {
-                gatsbyImageData(
-                  width: 1536
-                  aspectRatio: 1.5
-                  transformOptions: { cropFocus: CENTER }
-                  placeholder: BLURRED
-                  formats: [AUTO, WEBP, AVIF]
-                )
-              }
-            }
-          }
-        }
-        field_media_image {
-          alt
+          ...ArticleCard
         }
       }
     }

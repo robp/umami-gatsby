@@ -22,34 +22,7 @@ const PromotedItemsAttachment = () => {
       ) {
         edges {
           node {
-            langcode
-            id
-            path {
-              alias
-            }
-            title
-            relationships {
-              field_media_image {
-                relationships {
-                  field_media_image {
-                    localFile {
-                      childImageSharp {
-                        gatsbyImageData(
-                          width: 900
-                          aspectRatio: 1
-                          transformOptions: { cropFocus: CENTER }
-                          placeholder: BLURRED
-                          formats: [AUTO, WEBP, AVIF]
-                        )
-                      }
-                    }
-                  }
-                }
-                field_media_image {
-                  alt
-                }
-              }
-            }
+            ...RecipeCardSquare
           }
         }
       }

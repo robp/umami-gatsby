@@ -122,53 +122,13 @@ export const query = graphql`
         }
       }
     }
-    nodeTypeNodeType(drupal_internal__type: { eq: "recipe" }) {
-      id
-      name
-      description
-      drupal_internal__type
-    }
     allNodeRecipe(
       filter: { langcode: { eq: $language }, promote: { eq: true } }
-      sort: { order: [DESC, ASC], fields: [created, drupal_internal__nid] }
+      sort: { fields: [created, drupal_internal__nid], order: [DESC, ASC] }
     ) {
       edges {
         node {
-          ...RecipeCardQuery
-        }
-      }
-    }
-  }
-`
-
-export const RecipeCardQuery = graphql`
-  fragment RecipeCardQuery on node__recipe {
-    langcode
-    id
-    path {
-      alias
-    }
-    title
-    field_difficulty
-    relationships {
-      field_media_image {
-        relationships {
-          field_media_image {
-            localFile {
-              childImageSharp {
-                gatsbyImageData(
-                  width: 1536
-                  aspectRatio: 1.5
-                  transformOptions: { cropFocus: CENTER }
-                  placeholder: BLURRED
-                  formats: [AUTO, WEBP, AVIF]
-                )
-              }
-            }
-          }
-        }
-        field_media_image {
-          alt
+          ...RecipeCard
         }
       }
     }

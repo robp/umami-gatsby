@@ -1,0 +1,29 @@
+@import "../_variables";
+
+.block {
+  .zzz {
+    color: red;
+  }
+}
+
+.blockTitle {
+  h2 {
+    margin: 0 0 1.562rem;
+  }
+}
+
+.container {
+  .zzz {
+    color: red;
+  }
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    margin-bottom: 1.562rem;
+  }
+}

@@ -69,4 +69,10 @@
   .mediaImage {
     margin-bottom: 1.184rem;
   }
+
+  @media all and ($breakpointWide) {
+    padding: 2.37rem;
+    border-right: 1px solid $lightPink;
+    border-left: 1px solid $lightPink;
+  }
 }

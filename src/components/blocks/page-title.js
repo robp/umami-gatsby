@@ -7,7 +7,11 @@ import * as styles from "../../styles/blocks/page-title.module.scss"
 
 function PageTitleBlock({ title, ...rest }) {
   return (
-    <Block className={styles.block} locations={["*"]} locationsExcept={["/"]}>
+    <Block
+      className={styles.block}
+      locations={[/.*/]}
+      locationsExcept={[/^\/$/]}
+    >
       <h1 {...rest}>{title}</h1>
     </Block>
   )

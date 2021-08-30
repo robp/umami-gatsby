@@ -5,8 +5,6 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import { normalizeString } from "../../utils/functions"
 
-// import { RecipeCardQuery } from "../../pages/recipes"
-
 import Field from "../field"
 import Block from "../block"
 import Card from "../card"
@@ -27,7 +25,7 @@ const FrontpageBlock = () => {
       ) {
         edges {
           node {
-            ...RecipeCardQuery
+            ...RecipeCard
           }
         }
       }
@@ -54,7 +52,7 @@ const FrontpageBlock = () => {
         )}
         titleClassName={styles.blockTitle}
         className={styles.block}
-        locations={["/"]}
+        locations={[/^\/$/]}
       >
         <ul className={styles.list}>
           {nodes.map(node => {

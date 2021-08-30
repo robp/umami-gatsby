@@ -10,21 +10,19 @@ import Field from "../field"
 import Block from "../block"
 import Card from "../card"
 import Link from "../link"
-import PromotedItemsAttachment from "./promoted-items-attachment"
 
 import { container } from "../../styles/layout.module.scss"
-import * as styles from "../../styles/blocks/promoted-items.module.scss"
+import * as styles from "../../styles/blocks/articles-aside.module.scss"
 import * as readMoreStyles from "../../styles/read-more.module.scss"
-import * as cardStyles from "../../styles/card.module.scss"
+import * as cardStyles from "../../styles/card-view.module.scss"
 
-const PromotedItemsBlock = () => {
-  const { t, language } = useI18next()
+const ArticlesAsideBlock = () => {
+  const { t, language, originalPath } = useI18next()
 
   const query = useStaticQuery(graphql`
     query {
       allNodeArticle(
-        filter: { promote: { eq: true } }
-        sort: { fields: created, order: DESC }
+        sort: { fields: [created, drupal_internal__nid], order: [DESC, ASC] }
       ) {
         edges {
           node {
@@ -38,15 +36,22 @@ const PromotedItemsBlock = () => {
   let nodes = []
 
   for (const [, edge] of query.allNodeArticle.edges.entries()) {
-    if (edge.node.langcode === language) {
+    if (edge.node.langcode === language && edge.node.path.alias !== originalPath) {
       nodes.push(edge.node)
-      // Only save the first node.
-      break
+      // Only save three nodes.
+      if (nodes.length === 3) {
+        break
+      }
     }
   }
 
   return (
-    <Block className={classNames(container, styles.block)} locations={[/^\/$/]}>
+    <Block
+      title={t("More featured articles")}
+      titleClassName={styles.blockTitle}
+      className={classNames(container, styles.block)}
+      locations={[/^\/articles\/.+/]}
+    >
       <div className={classNames(container, styles.container)}>
         <ul className={styles.list}>
           {nodes.map(node => {
@@ -78,15 +83,15 @@ const PromotedItemsBlock = () => {
                   title={renderedTitle}
                   link={renderedLink}
                   content={renderedImage}
+                  styles={cardStyles}
                 />
               </li>
             )
           })}
         </ul>
-        <PromotedItemsAttachment />
       </div>
     </Block>
   )
 }
 
-export default PromotedItemsBlock
+export default ArticlesAsideBlock

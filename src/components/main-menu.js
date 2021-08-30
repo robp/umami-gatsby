@@ -38,7 +38,7 @@ const MainMenu = menu => {
     <Block
       element="nav"
       className={styles.block}
-      locations={["*"]}
+      locations={[/.*/]}
       role="navigation"
       data-gatsby-selector="menu-main"
     >

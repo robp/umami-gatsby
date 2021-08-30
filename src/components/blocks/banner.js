@@ -16,7 +16,7 @@ const BannerBlock = ({ data }) => {
       allBlockContentBannerBlock {
         edges {
           node {
-            ...BannerBlockQuery
+            ...BannerBlock
           }
         }
       }
@@ -25,11 +25,11 @@ const BannerBlock = ({ data }) => {
 
   // Array of URLs this block is to be displayed on.
   const locations = {
-    3: ["/"],
-    4: ["/recipes/"],
+    3: [/^\/$/],
+    4: [/^\/recipes\/$/],
   }
 
-  const renderData = (data) => {
+  const renderData = data => {
     if (data.langcode === language) {
       const uri = data.field_content_link.uri.replace(/^internal:/, "")
       const media = data.relationships.field_media_image
@@ -70,46 +70,8 @@ const BannerBlock = ({ data }) => {
 
   // Otherwise, render the results of the query.
   return query.allBlockContentBannerBlock.edges?.map(edge => {
-    return renderData(edge.node);
+    return renderData(edge.node)
   })
 }
 
 export default BannerBlock
-
-export const BannerBlockQuery = graphql`
-  fragment BannerBlockQuery on block_content__banner_block {
-    id
-    drupal_internal__id
-    langcode
-    status
-    info
-    field_summary
-    field_title
-    field_content_link {
-      title
-      uri
-    }
-    relationships {
-      field_media_image {
-        field_media_image {
-          alt
-        }
-        relationships {
-          field_media_image {
-            localFile {
-              childImageSharp {
-                gatsbyImageData(
-                  layout: FULL_WIDTH
-                  aspectRatio: 1.8519
-                  transformOptions: { cropFocus: CENTER }
-                  placeholder: BLURRED
-                  formats: [AUTO, WEBP, AVIF]
-                )
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`

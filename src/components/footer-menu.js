@@ -38,7 +38,7 @@ const FooterMenu = menu => {
     <Block
       title={t("Tell us what you think")}
       className={styles.block}
-      locations={["*"]}
+      locations={[/.*/]}
     >
       <Menu
         name="footer"

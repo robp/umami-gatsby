@@ -56,7 +56,7 @@ const Article = ({ location, data }) => {
             </div>
           </footer>
           <div className={nodeStyles.content}>
-            <div className={layoutStyles.oneCol}>
+            <div className={layoutStyles.oneColumn}>
               <div className={layoutStyles.region}>
                 <Tags lang={language} data={node.relationships?.field_tags} />
                 <Field labelHidden className={nodeStyles.mediaImage}>
@@ -90,45 +90,8 @@ export const query = graphql`
       }
     }
     nodeArticle(id: { eq: $nodeId }) {
-      langcode
-      id
-      drupal_internal__nid
-      created
       createdFormatted: created(formatString: "Do MMMM YYYY", locale: $language)
-      title
-      body {
-        processed
-      }
-      relationships {
-        field_media_image {
-          relationships {
-            field_media_image {
-              localFile {
-                childImageSharp {
-                  gatsbyImageData(
-                    width: 960
-                    placeholder: BLURRED
-                    formats: [AUTO, WEBP, AVIF]
-                  )
-                }
-              }
-            }
-          }
-          field_media_image {
-            alt
-          }
-        }
-        field_tags {
-          id
-          name
-          path {
-            alias
-          }
-        }
-        uid {
-          display_name
-        }
-      }
+      ...ArticleNode
     }
     allNodeArticle(filter: { drupal_internal__nid: { eq: $internalNid } }) {
       edges {

@@ -19,12 +19,20 @@ const Block = ({
 
   // Display the block if the wildcard is provided, or if the current
   // originalPath matches one of the locations provided.
-  let display =
-    locations &&
-    (locations.indexOf("*") !== -1 || locations.indexOf(originalPath) !== -1)
+  let display = false
+
+  locations.forEach(pattern => {
+    if (originalPath.match(pattern)) {
+      display = true
+    }
+  })
 
   // Don't display the block if the path is in the locationsExcept array.
-  display = display && locationsExcept.indexOf(originalPath) === -1
+  locationsExcept.forEach(pattern => {
+    if (originalPath.match(pattern)) {
+      display = false
+    }
+  })
 
   const Element = `${element}`
 
@@ -46,7 +54,7 @@ Block.propTypes = {
   title: PropTypes.string,
   titleClassName: PropTypes.string,
   className: PropTypes.string,
-  locations: PropTypes.array,
+  locations: PropTypes.array.isRequired,
   locationsExcept: PropTypes.array,
 }
 

@@ -16,7 +16,7 @@ const FooterPromoBlock = ({ data }) => {
       allBlockContentFooterPromoBlock {
         edges {
           node {
-            ...FooterPromoBlockQuery
+            ...FooterPromoBlock
           }
         }
       }
@@ -25,7 +25,7 @@ const FooterPromoBlock = ({ data }) => {
 
   // Array of URLs this block is to be displayed on.
   const locations = {
-    2: ["*"],
+    2: [/.*/],
   }
 
   const renderData = data => {
@@ -49,9 +49,7 @@ const FooterPromoBlock = ({ data }) => {
           <div className={styles.content}>
             <div className={styles.summary}>{data.field_summary}</div>
             <div>
-              <Link to={uri}>
-                {data.field_content_link.title}
-              </Link>
+              <Link to={uri}>{data.field_content_link.title}</Link>
             </div>
           </div>
         </Block>
@@ -72,39 +70,3 @@ const FooterPromoBlock = ({ data }) => {
 }
 
 export default FooterPromoBlock
-
-export const FooterPromoBlockQuery = graphql`
-  fragment FooterPromoBlockQuery on block_content__footer_promo_block {
-    id
-    drupal_internal__id
-    langcode
-    status
-    info
-    field_summary
-    field_title
-    field_content_link {
-      title
-      uri
-    }
-    relationships {
-      field_media_image {
-        field_media_image {
-          alt
-        }
-        relationships {
-          field_media_image {
-            localFile {
-              childImageSharp {
-                gatsbyImageData(
-                  width: 266
-                  placeholder: BLURRED
-                  formats: [AUTO, WEBP, AVIF]
-                )
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`

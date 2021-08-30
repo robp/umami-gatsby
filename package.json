@@ -7,7 +7,7 @@
   "dependencies": {
     "classnames": "^2.3.1",
     "dotenv": "^10.0.0",
-    "gatsby": "^3.11.1",
+    "gatsby": "^3.12.1",
     "gatsby-plugin-gatsby-cloud": "^2.11.0",
     "gatsby-plugin-image": "^1.11.0",
     "gatsby-plugin-manifest": "^3.11.0",
@@ -22,7 +22,7 @@
     "gatsby-source-drupal-menu-links": "git+https://github.com/robp/gatsby-source-drupal-menu-links.git#feature/add-i18n",
     "gatsby-source-filesystem": "^3.11.0",
     "gatsby-transformer-sharp": "^3.11.0",
-    "i18next": "^20.4.0",
+    "i18next": "^19.9.2",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

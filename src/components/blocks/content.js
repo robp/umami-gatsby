@@ -7,7 +7,7 @@ import * as styles from "../../styles/blocks/content.module.scss"
 
 const ContentBlock = ({ children }) => {
   return (
-    <Block className={styles.block} locations={["*"]}>
+    <Block className={styles.block} locations={[/.*/]}>
       {children}
     </Block>
   )

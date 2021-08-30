@@ -5,8 +5,29 @@
   margin: auto;
 }
 
-.oneCol {
+.oneColumn {
   .region {
     width: 100%;
+  }
+}
+
+.twoColumns {
+  @media all and ($breakpointWide) {
+    display: flex;
+    flex-wrap: wrap;
+
+    .content,
+    .sidebar {
+      flex: 0 1 100%;
+    }
+
+    .content {
+      flex: 0 1 72%;
+      margin-right: 3%;
+    }
+
+    .sidebar {
+      flex: 0 1 25%;
+    }
   }
 }
