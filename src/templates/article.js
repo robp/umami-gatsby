@@ -23,7 +23,7 @@ const Article = ({ location, data }) => {
 
   return (
     <LanguageSwitcherContextProvider translations={translations}>
-      <Layout>
+      <Layout sidebar>
         <Seo title={node.title} />
         <article
           about={location.pathname}

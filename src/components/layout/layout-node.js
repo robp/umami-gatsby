@@ -15,7 +15,7 @@ import BottomLayout from "./bottom"
 
 import "../../styles/_base.scss"
 
-const Layout = ({ children }) => {
+const Layout = ({ children, sidebar }) => {
   const { t } = useTranslation()
   const { siteTitle } = useSiteMetadata()
 
@@ -25,7 +25,7 @@ const Layout = ({ children }) => {
       <HighlightedLayout />
       <BannerTopLayout />
       <BreadcrumbsLayout />
-      <ContentLayout>{children}</ContentLayout>
+      <ContentLayout sidebar={sidebar}>{children}</ContentLayout>
       <ContentBottomLayout />
       <FooterLayout />
       <BottomLayout />
@@ -35,6 +35,11 @@ const Layout = ({ children }) => {
 
 Layout.propTypes = {
   children: PropTypes.node,
+  sidebar: PropTypes.bool,
+}
+
+Layout.defaultProps = {
+  sidebar: false,
 }
 
 export default Layout

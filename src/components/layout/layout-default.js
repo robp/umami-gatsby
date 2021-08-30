@@ -17,7 +17,7 @@ import BottomLayout from "./bottom"
 
 import "../../styles/_base.scss"
 
-const Layout = ({ children, title }) => {
+const Layout = ({ children, title, sidebar }) => {
   const { t } = useTranslation()
   const { siteTitle } = useSiteMetadata()
 
@@ -30,7 +30,7 @@ const Layout = ({ children, title }) => {
       <PageTitleLayout>
         <PageTitleBlock title={title} />
       </PageTitleLayout>
-      <ContentLayout>{children}</ContentLayout>
+      <ContentLayout sidebar={sidebar}>{children}</ContentLayout>
       <ContentBottomLayout />
       <FooterLayout />
       <BottomLayout />
@@ -41,6 +41,11 @@ const Layout = ({ children, title }) => {
 Layout.propTypes = {
   children: PropTypes.node,
   title: PropTypes.string,
+  sidebar: PropTypes.bool,
+}
+
+Layout.defaultProps = {
+  sidebar: false,
 }
 
 export default Layout

@@ -11,21 +11,37 @@ import * as layoutStyles from "../../styles/layout.module.scss"
 import * as contentStyles from "../../styles/layout/content.module.scss"
 import * as sidebarStyles from "../../styles/layout/sidebar.module.scss"
 
-const ContentLayout = ({ children }) => {
+const ContentLayout = ({ children, sidebar }) => {
   return (
-    <main className={classNames(mainStyles.styles, container, layoutStyles.twoColumns)}>
+    <main
+      className={classNames(
+        mainStyles.styles,
+        container,
+        { [layoutStyles.oneColumn]: !sidebar },
+        { [layoutStyles.twoColumns]: sidebar }
+      )}
+    >
       <div className={classNames(contentStyles.styles, layoutStyles.content)}>
         <ContentRegion>{children}</ContentRegion>
       </div>
-      <aside className={classNames(sidebarStyles.styles, layoutStyles.sidebar)}>
-        <SidebarRegion />
-      </aside>
+      {sidebar ? (
+        <aside
+          className={classNames(sidebarStyles.styles, layoutStyles.sidebar)}
+        >
+          <SidebarRegion />
+        </aside>
+      ) : null}
     </main>
   )
 }
 
 ContentLayout.propTypes = {
   children: PropTypes.node,
+  sidebar: PropTypes.bool,
+}
+
+ContentLayout.defaultProps = {
+  sidebar: false,
 }
 
 export default ContentLayout
