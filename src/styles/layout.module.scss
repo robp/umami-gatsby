@@ -6,7 +6,7 @@
 }
 
 .oneColumn {
-  .region {
+  > .region {
     width: 100%;
   }
 }
@@ -29,5 +29,29 @@
     .sidebar {
       flex: 0 1 25%;
     }
+  }
+}
+
+.onePlusFourGridSection {
+  display: flex;
+  flex-wrap: wrap;
+
+  > .region {
+    flex: 0 1 100%;
+  }
+
+  .fourGridGroup {
+    .zzz {
+      color: red;
+    }
+  }
+}
+
+.twoColSection {
+  display: flex;
+  flex-wrap: wrap;
+
+  > .region {
+    flex: 0 1 100%;
   }
 }

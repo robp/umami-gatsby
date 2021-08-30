@@ -12,35 +12,30 @@ const Field = ({
   labelItems,
   label,
   labelHidden,
+  labelAbove,
   labelInline,
   className,
   labelClassName,
+  itemsClassName,
   itemClassName,
   ...rest
 }) => {
   const Element = `${element}`
 
+  const props = {
+    className: classNames(
+      styles.field,
+      { [styles.labelItems]: labelItems },
+      { [styles.labelAbove]: labelAbove },
+      { [styles.labelInline]: labelInline },
+      className
+    ),
+  }
+
   return html ? (
-    <Element
-      className={classNames(
-        styles.field,
-        { [styles.labelItems]: labelItems },
-        { [styles.labelInline]: labelInline },
-        className
-      )}
-      {...rest}
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
+    <Element {...props} {...rest} dangerouslySetInnerHTML={{ __html: html }} />
   ) : (
-    <Element
-      className={classNames(
-        styles.field,
-        { [styles.labelItems]: labelItems },
-        { [styles.labelInline]: labelInline },
-        className
-      )}
-      {...rest}
-    >
+    <Element {...props} {...rest}>
       {label ? (
         <Element
           className={classNames(styles.label, labelClassName, {
@@ -51,10 +46,10 @@ const Field = ({
         </Element>
       ) : null}
       {items ? (
-        <Element className={classNames(styles.items, itemClassName)}>
+        <Element className={classNames(styles.items, itemsClassName)}>
           {items.map((item, index) => {
             return (
-              <Element key={`item-${index}`} className={styles.item}>
+              <Element key={`item-${index}`} className={classNames(styles.item, itemClassName)}>
                 {item}
               </Element>
             )
@@ -77,9 +72,11 @@ Field.propTypes = {
   label: PropTypes.string,
   item: PropTypes.node,
   labelHidden: PropTypes.bool,
+  labelAbove: PropTypes.bool,
   labelInline: PropTypes.bool,
   fieldClassName: PropTypes.string,
   labelClassName: PropTypes.string,
+  itemsClassName: PropTypes.string,
   itemClassName: PropTypes.string,
 }
 
@@ -87,6 +84,7 @@ Field.defaultProps = {
   element: "div",
   labelItems: false,
   labelHidden: false,
+  labelAbove: false,
   labelInline: false,
 }
 

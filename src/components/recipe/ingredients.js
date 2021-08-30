@@ -2,22 +2,22 @@ import React from "react"
 import PropTypes from "prop-types"
 import { useTranslation } from "gatsby-plugin-react-i18next"
 
+import Field from "../field"
+
+import * as styles from "../../styles/recipe/ingredients.module.scss"
+
 function Ingredients({ data }) {
   const { t } = useTranslation()
 
   return (
-    <div className="ingredients">
-      <h2>{t("Ingredients")}</h2>
-      <ul>
-        {data.map((ingredient, index) => {
-          return (
-            <li key={`ingredient-${index}`}>
-              {ingredient}
-            </li>
-          )
-        })}
-      </ul>
-    </div>
+    <Field
+      labelAbove
+      label={t("Ingredients")}
+      items={data}
+      className={styles.field}
+      labelClassName={styles.label}
+      itemClassName={styles.item}
+    />
   )
 }
 

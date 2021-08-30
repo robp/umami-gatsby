@@ -20,6 +20,12 @@
   }
 }
 
+.labelAbove {
+  .zzz {
+    color: red;
+  }
+}
+
 .labelInline {
   display: flex;
   flex-wrap: wrap;
@@ -47,4 +53,8 @@
   .item {
     padding-right: 0.6rem;
   }
+}
+
+.summary {
+  margin-bottom: 1.28rem;
 }

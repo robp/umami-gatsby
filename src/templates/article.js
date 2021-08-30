@@ -2,10 +2,8 @@ import React from "react"
 import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 import classNames from "classnames"
-import { useI18next } from "gatsby-plugin-react-i18next"
 
 import LanguageSwitcherContextProvider from "../components/context/language-switcher-context"
-
 import Layout from "../components/layout/layout-node"
 import Seo from "../components/seo"
 import Field from "../components/field"
@@ -16,8 +14,6 @@ import * as nodeStyles from "../styles/node.module.scss"
 import * as layoutStyles from "../styles/layout.module.scss"
 
 const Article = ({ location, data }) => {
-  const { language } = useI18next()
-
   const node = data.nodeArticle
   const translations = data.allNodeArticle.edges
 
@@ -58,7 +54,7 @@ const Article = ({ location, data }) => {
           <div className={nodeStyles.content}>
             <div className={layoutStyles.oneColumn}>
               <div className={layoutStyles.region}>
-                <Tags lang={language} data={node.relationships?.field_tags} />
+                <Tags lang={node.langcode} data={node.relationships?.field_tags} />
                 <Field labelHidden className={nodeStyles.mediaImage}>
                   <MediaImage media={node.relationships.field_media_image} />
                 </Field>

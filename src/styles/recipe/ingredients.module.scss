@@ -1,0 +1,24 @@
+@import "../variables";
+
+.field {
+  margin-bottom: 1.184rem;
+  padding: 1.266rem;
+  background-color: $lighterGrey;
+}
+
+.label {
+  margin: 0 0 1em 0;
+  padding: 0 0 0.6em 0;
+  border-bottom: 1px solid $mediumPink;
+  font-family: $headingFontFamily;
+  font-size: 1.266rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.item {
+  margin: 0 0 0.6em 0;
+  padding: 0 0 0.6em 0;
+  border-bottom: 1px solid $mediumPink;
+  break-inside: avoid-column;
+}
