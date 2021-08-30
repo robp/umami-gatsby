@@ -52,6 +52,34 @@
   border-left: none;
   background-color: white;
 
+  @media all and ($breakpointWide) {
+    padding: 2.37rem;
+    border-right: 1px solid $lightPink;
+    border-left: 1px solid $lightPink;
+
+    .onePlusFourGridSection {
+      .zzz {
+        color: red;
+      }
+
+      .fieldPreperationTime,
+      .fieldCookingTime {
+        margin-top: 0.96em;
+      }
+
+      .fieldPreperationTime,
+      .fieldCookingTime,
+      .fieldNumberOfServings,
+      .fieldDifficulty {
+        .label,
+        .item {
+          width: 100%;
+          padding-right: 0;
+        }
+      }
+    }
+  }
+
   .submitted {
     margin-bottom: 1.2em;
     font-size: 0.889em;
@@ -68,11 +96,9 @@
 
   .mediaImage {
     margin-bottom: 1.184rem;
-  }
 
-  @media all and ($breakpointWide) {
-    padding: 2.37rem;
-    border-right: 1px solid $lightPink;
-    border-left: 1px solid $lightPink;
+    @media all and ($breakpointWide) {
+      margin-bottom: 2.369rem;
+    }
   }
 }

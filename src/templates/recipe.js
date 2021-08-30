@@ -17,6 +17,7 @@ import Ingredients from "../components/recipe/ingredients"
 import Instructions from "../components/recipe/instructions"
 
 import * as nodeStyles from "../styles/node.module.scss"
+import * as recipeStyles from "../styles/templates/recipe.module.scss"
 import * as fieldStyles from "../styles/field.module.scss"
 import * as layoutStyles from "../styles/layout.module.scss"
 
@@ -63,45 +64,99 @@ const Recipe = ({ location, data }) => {
                 />
               </div>
             </div>
-            <div className={layoutStyles.onePlusFourGridSection}>
-              <div className={layoutStyles.region}>
+            <div
+              className={classNames(
+                layoutStyles.onePlusFourGridSection,
+                nodeStyles.onePlusFourGridSection
+              )}
+            >
+              <div
+                className={classNames(
+                  layoutStyles.region,
+                  layoutStyles.regionFirst
+                )}
+              >
                 <Field labelHidden className={nodeStyles.mediaImage}>
                   <MediaImage media={node.relationships.field_media_image} />
                 </Field>
               </div>
               <div className={layoutStyles.fourGridGroup}>
-                <div className={layoutStyles.region}>
+                <div
+                  className={classNames(
+                    layoutStyles.region,
+                    layoutStyles.regionSecond
+                  )}
+                >
                   <Field
                     labelInline
                     label={t("Preparation time")}
-                    className="clearfix"
+                    className={classNames(
+                      "clearfix",
+                      recipeStyles.fieldPreperationTime,
+                      nodeStyles.fieldPreperationTime
+                    )}
+                    labelClassName={nodeStyles.label}
+                    itemClassName={nodeStyles.item}
                   >
-                    {node.field_preparation_time} {t("Minutes")}
+                    {node.field_preparation_time} {t("minutes")}
                   </Field>
                 </div>
-                <div className={layoutStyles.region}>
+                <div
+                  className={classNames(
+                    layoutStyles.region,
+                    layoutStyles.regionThird
+                  )}
+                >
                   <Field
                     labelInline
                     label={t("Cooking time")}
-                    className="clearfix"
+                    className={classNames(
+                      "clearfix",
+                      recipeStyles.fieldCookingTime,
+                      nodeStyles.fieldCookingTime
+                    )}
+                    labelClassName={nodeStyles.label}
+                    itemClassName={nodeStyles.item}
                   >
-                    {node.field_cooking_time} {t("Minutes")}
+                    {node.field_cooking_time} {t("minutes")}
                   </Field>
                 </div>
-                <div className={layoutStyles.region}>
+                <div
+                  className={classNames(
+                    layoutStyles.region,
+                    layoutStyles.regionFourth
+                  )}
+                >
                   <Field
                     labelInline
                     label={t("Number of servings")}
-                    className="clearfix"
+                    className={classNames(
+                      "clearfix",
+                      recipeStyles.fieldNumberOfServings,
+                      nodeStyles.fieldNumberOfServings
+                    )}
+                    labelClassName={nodeStyles.label}
+                    itemClassName={nodeStyles.item}
                   >
                     {node.field_number_of_servings}
                   </Field>
                 </div>
-                <div className={layoutStyles.region}>
+                <div
+                  className={classNames(
+                    layoutStyles.region,
+                    layoutStyles.regionFifth
+                  )}
+                >
                   <Field
                     labelInline
                     label={t("Difficulty")}
-                    className="clearfix"
+                    className={classNames(
+                      "clearfix",
+                      recipeStyles.fieldDifficulty,
+                      nodeStyles.fieldDifficulty
+                    )}
+                    labelClassName={nodeStyles.label}
+                    itemClassName={nodeStyles.item}
                   >
                     {capitalizeFirstLetter(node.field_difficulty)}
                   </Field>
@@ -109,11 +164,26 @@ const Recipe = ({ location, data }) => {
               </div>
             </div>
 
-            <div className={layoutStyles.twoColSection}>
-              <div className={layoutStyles.region}>
+            <div
+              className={classNames(
+                layoutStyles.twoColSection,
+                layoutStyles.twoColSection3367
+              )}
+            >
+              <div
+                className={classNames(
+                  layoutStyles.region,
+                  layoutStyles.regionFirst
+                )}
+              >
                 <Ingredients data={node.field_ingredients} />
               </div>
-              <div className={layoutStyles.region}>
+              <div
+                className={classNames(
+                  layoutStyles.region,
+                  layoutStyles.regionSecond
+                )}
+              >
                 <Instructions data={node.field_recipe_instruction} />
               </div>
             </div>

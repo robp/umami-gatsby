@@ -1,0 +1,38 @@
+@import "../variables";
+
+.fieldPreperationTime {
+  background-image: url(../../images/svg/knife.svg);
+}
+
+.fieldCookingTime {
+  background-image: url(../../images/svg/timer.svg);
+}
+
+.fieldNumberOfServings {
+  background-image: url(../../images/svg/serves.svg);
+}
+
+.fieldDifficulty {
+  background-image: url(../../images/svg/difficulty.svg);
+}
+
+.fieldPreperationTime,
+.fieldCookingTime,
+.fieldNumberOfServings,
+.fieldDifficulty {
+  align-items: center;
+  min-height: 40px;
+  margin-bottom: 0.96em;
+  padding-left: 48px;
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 40px 40px;
+
+  @media all and ($breakpointWide) {
+    padding-top: 64px;
+    padding-left: 0;
+    text-align: center;
+    background-position: center top;
+    background-size: 56px 56px;
+  }
+}
