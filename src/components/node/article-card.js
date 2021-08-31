@@ -11,13 +11,13 @@ import Link from "../link"
 import Field from "../field"
 
 import * as readMoreStyles from "../../styles/read-more.module.scss"
-import * as cardStyles from "../../styles/card-view.module.scss"
+import * as defaultStyles from "../../styles/card-view.module.scss"
 
-const ArticleCard = ({ node }) => {
+const ArticleCard = ({ node, styles }) => {
   const { t } = useTranslation()
 
   const renderedTitle = (
-    <Field labelHidden className={cardStyles.fieldTitle}>
+    <Field labelHidden className={styles.fieldTitle}>
       {node.title}
     </Field>
   )
@@ -40,13 +40,18 @@ const ArticleCard = ({ node }) => {
       title={renderedTitle}
       link={renderedLink}
       content={renderedImage}
-      styles={cardStyles}
+      styles={styles}
     />
   )
 }
 
 ArticleCard.propTypes = {
   node: PropTypes.object.isRequired,
+  styles: PropTypes.string,
+}
+
+ArticleCard.defaultProps = {
+  styles: defaultStyles,
 }
 
 export default ArticleCard

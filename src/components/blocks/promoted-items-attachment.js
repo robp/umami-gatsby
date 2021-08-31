@@ -1,19 +1,14 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
-import { normalizeString } from "../../utils/functions"
-
-import Card from "../card"
-import Link from "../link"
+import RecipeCard from "../node/recipe-card"
 
 import * as styles from "../../styles/blocks/promoted-items-attachment.module.scss"
-import * as readMoreStyles from "../../styles/read-more.module.scss"
 import * as cardStyles from "../../styles/card-alt.module.scss"
 
 const PromotedItemsAttachment = () => {
-  const { t, language } = useI18next()
+  const { language } = useI18next()
   const query = useStaticQuery(graphql`
     query {
       allNodeRecipe(
@@ -45,30 +40,9 @@ const PromotedItemsAttachment = () => {
     <div className={styles.attachment}>
       <ul className={styles.list}>
         {nodes.map(node => {
-          const renderedLink = (
-            <Link
-              to={`/${node.langcode}${normalizeString(node.path.alias)}`}
-              className={readMoreStyles.link}
-            >
-              {t("View recipe")}
-            </Link>
-          )
-          const media = node.relationships.field_media_image
-          const image = getImage(
-            media.relationships?.field_media_image?.localFile
-          )
-          const renderedImage = (
-            <GatsbyImage image={image} alt={media.field_media_image.alt} />
-          )
-
           return (
             <li key={node.id}>
-              <Card
-                title={node.title}
-                link={renderedLink}
-                content={renderedImage}
-                styles={cardStyles}
-              />
+              <RecipeCard node={node} styles={cardStyles} />
             </li>
           )
         })}

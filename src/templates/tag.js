@@ -11,7 +11,7 @@ import Seo from "../components/seo"
 import ArticleCard from "../components/node/article-card"
 import RecipeCard from "../components/node/recipe-card"
 
-import * as styles from "../styles/templates/tag.module.scss"
+import * as layoutStyles from "../styles/layout.module.scss"
 
 const Tag = ({ pageContext, data }) => {
   const { t } = useTranslation()
@@ -36,26 +36,30 @@ const Tag = ({ pageContext, data }) => {
       <LanguageSwitcherContextProvider translations={translations}>
         <Layout title={node.name}>
           <Seo title={node.name} />
-          {nodes ? (
-            <ul className={styles.list}>
-              {nodes.map(node => {
-                if (node.internal.type === "node__recipe") {
-                  return (
-                    <li key={node.id}>
-                      <RecipeCard node={node} />
-                    </li>
-                  )
-                }
-                return (
-                  <li key={node.id}>
-                    <ArticleCard node={node} />
-                  </li>
-                )
-              })}
-            </ul>
-          ) : (
-            `<p>${t("No content.")}</p>`
-          )}
+          <div>
+            <div className={layoutStyles.grid4}>
+              {nodes ? (
+                <ul className={layoutStyles.list}>
+                  {nodes.map(node => {
+                    if (node.internal.type === "node__recipe") {
+                      return (
+                        <li key={node.id} className={layoutStyles.item}>
+                          <RecipeCard node={node} />
+                        </li>
+                      )
+                    }
+                    return (
+                      <li key={node.id} className={layoutStyles.item}>
+                        <ArticleCard node={node} />
+                      </li>
+                    )
+                  })}
+                </ul>
+              ) : (
+                `<p>${t("No content.")}</p>`
+              )}
+            </div>
+          </div>
         </Layout>
       </LanguageSwitcherContextProvider>
     </PageContextProvider>

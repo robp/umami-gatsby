@@ -9,7 +9,7 @@ import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import ArticleCard from "../components/node/article-card"
 
-import * as styles from "../styles/pages/articles.module.scss"
+import * as layoutStyles from "../styles/layout.module.scss"
 
 const ArticlesPage = ({ pageContext, data }) => {
   const { t, languages, originalPath } = useI18next()
@@ -37,12 +37,12 @@ const ArticlesPage = ({ pageContext, data }) => {
         <Layout title={t("Articles")}>
           <Seo title={t("Articles")} />
           <div>
-            <div className={styles.view}>
+            <div className={layoutStyles.grid3}>
               {edges ? (
-                <ul className={styles.list}>
+                <ul className={layoutStyles.list}>
                   {edges.map(edge => {
                     return (
-                      <li key={edge.node.id}>
+                      <li key={edge.node.id} className={layoutStyles.item}>
                         <ArticleCard node={edge.node} />
                       </li>
                     )

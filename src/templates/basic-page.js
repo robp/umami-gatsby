@@ -7,7 +7,6 @@ import LanguageSwitcherContextProvider from "../components/context/language-swit
 
 import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
-import Sections from "../components/sections"
 
 const BasicPage = ({ pageContext, data }) => {
   const node = data.nodePage
@@ -22,9 +21,6 @@ const BasicPage = ({ pageContext, data }) => {
           <Seo title={node.title} />
           {node.body ? (
             <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
-          ) : null}
-          {node.relationships?.field_sections ? (
-            <Sections data={node.relationships.field_sections} />
           ) : null}
         </Layout>
       </LanguageSwitcherContextProvider>
@@ -56,16 +52,6 @@ export const query = graphql`
       body {
         processed
       }
-      # relationships {
-      #   field_sections {
-      #     id
-      #     field_number
-      #     field_title
-      #     field_body {
-      #       processed
-      #     }
-      #   }
-      # }
     }
     allNodePage(filter: { drupal_internal__nid: { eq: $internalNid } }) {
       edges {

@@ -11,13 +11,13 @@ import Link from "../link"
 import Field from "../field"
 
 import * as readMoreStyles from "../../styles/read-more.module.scss"
-import * as cardStyles from "../../styles/card-view.module.scss"
+import * as defaultStyles from "../../styles/card-view.module.scss"
 
-const RecipeCard = ({ node }) => {
+const RecipeCard = ({ node, styles }) => {
   const { t } = useTranslation()
 
   const renderedTitle = (
-    <Field labelHidden className={cardStyles.fieldTitle}>
+    <Field labelHidden className={styles.fieldTitle}>
       {node.title}
     </Field>
   )
@@ -36,36 +36,41 @@ const RecipeCard = ({ node }) => {
       <GatsbyImage image={image} alt={media.field_media_image.alt} />
     </Field>
   )
-  const difficulty = (
+  const difficulty = node.field_difficulty ? (
     <Field
       key={`${node.id}-difficulty`}
       labelItems
       labelInline
       label={t("Difficulty")}
-      className={cardStyles.labelItems}
+      className={styles.labelItems}
     >
       {capitalizeFirstLetter(t(node.field_difficulty))}
     </Field>
-  )
+  ) : null
 
   return (
     <Card
       title={renderedTitle}
       link={renderedLink}
       content={[difficulty, renderedImage]}
-      styles={cardStyles}
+      styles={styles}
     />
   )
 }
 
 RecipeCard.propTypes = {
   node: PropTypes.object.isRequired,
+  styles: PropTypes.string,
+}
+
+RecipeCard.defaultProps = {
+  styles: defaultStyles,
 }
 
 export default RecipeCard
 
 export const RecipeCardFragments = graphql`
-  fragment RecipeCard on node__recipe {
+  fragment RecipeCardCommon on node__recipe {
     langcode
     id
     created
@@ -73,22 +78,25 @@ export const RecipeCardFragments = graphql`
       alias
     }
     title
-    field_difficulty
     internal {
       type
     }
+  }
+
+  fragment RecipeCard on node__recipe {
+    field_difficulty
+    ...RecipeCardCommon
     ...RecipeCardImage
   }
 
   fragment RecipeCardSquare on node__recipe {
-    langcode
-    id
-    path {
-      alias
-    }
-    title
-    field_difficulty
+    ...RecipeCardCommon
     ...RecipeCardImageSquare
+  }
+
+  fragment RecipeCardHomepage on node__recipe {
+    ...RecipeCardCommon
+    ...RecipeCardImage
   }
 
   fragment RecipeCardImage on node__recipe {

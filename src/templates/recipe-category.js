@@ -10,7 +10,7 @@ import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import RecipeCard from "../components/node/recipe-card"
 
-import * as styles from "../styles/templates/recipe-category.module.scss"
+import * as layoutStyles from "../styles/layout.module.scss"
 
 const RecipeCategory = ({ pageContext, data }) => {
   const { t } = useTranslation()
@@ -24,19 +24,23 @@ const RecipeCategory = ({ pageContext, data }) => {
       <LanguageSwitcherContextProvider translations={translations}>
         <Layout title={node.name}>
           <Seo title={node.name} />
-          {node.relationships?.node__recipe ? (
-            <ul className={styles.list}>
-              {node.relationships.node__recipe.map(node => {
-                return (
-                  <li key={node.id}>
-                    <RecipeCard node={node} />
-                  </li>
-                )
-              })}
-            </ul>
-          ) : (
-            `<p>${t("No recipes.")}</p>`
-          )}
+          <div>
+            <div className={layoutStyles.grid4}>
+              {node.relationships?.node__recipe ? (
+                <ul className={layoutStyles.list}>
+                  {node.relationships.node__recipe.map(node => {
+                    return (
+                      <li key={node.id} className={layoutStyles.item}>
+                        <RecipeCard node={node} />
+                      </li>
+                    )
+                  })}
+                </ul>
+              ) : (
+                `<p>${t("No recipes.")}</p>`
+              )}
+            </div>
+          </div>
         </Layout>
       </LanguageSwitcherContextProvider>
     </PageContextProvider>
