@@ -1,6 +1,6 @@
 import { graphql } from "gatsby"
 
-export const CardImageFragment = graphql`
+export const CardImageFragments = graphql`
   fragment RecipeCardImage on node__recipe {
     relationships {
       field_media_image {

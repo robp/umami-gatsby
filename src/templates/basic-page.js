@@ -2,28 +2,31 @@ import React from "react"
 import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 
+import PageContextProvider from "../components/context/page-context"
 import LanguageSwitcherContextProvider from "../components/context/language-switcher-context"
 
 import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import Sections from "../components/sections"
 
-const BasicPage = ({ data }) => {
+const BasicPage = ({ pageContext, data }) => {
   const node = data.nodePage
   const translations = data.allNodePage.edges
 
   return (
-    <LanguageSwitcherContextProvider translations={translations}>
-      <Layout title={node.title}>
-        <Seo title={node.title} />
-        {node.body ? (
-          <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
-        ) : null}
-        {node.relationships?.field_sections ? (
-          <Sections data={node.relationships.field_sections} />
-        ) : null}
-      </Layout>
-    </LanguageSwitcherContextProvider>
+    <PageContextProvider pageContext={pageContext}>
+      <LanguageSwitcherContextProvider translations={translations}>
+        <Layout title={node.title}>
+          <Seo title={node.title} />
+          {node.body ? (
+            <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
+          ) : null}
+          {node.relationships?.field_sections ? (
+            <Sections data={node.relationships.field_sections} />
+          ) : null}
+        </Layout>
+      </LanguageSwitcherContextProvider>
+    </PageContextProvider>
   )
 }
 

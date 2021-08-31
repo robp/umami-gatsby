@@ -1,6 +1,6 @@
 import { graphql } from "gatsby"
 
-export const BannerBlockFragment = graphql`
+export const BannerBlockFragments = graphql`
   fragment BannerBlock on block_content__banner_block {
     id
     drupal_internal__id

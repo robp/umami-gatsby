@@ -4,11 +4,12 @@ import { graphql } from "gatsby"
 
 import { normalizeString } from "../utils/functions"
 
+import PageContextProvider from "../components/context/page-context"
 import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import Link from "../components/link"
 
-const NodeType = ({ data }) => {
+const NodeType = ({ pageContext, data }) => {
   const node = data.nodeTypeNodeType
 
   const capitalizeFirstLetter = string => {
@@ -38,13 +39,15 @@ const NodeType = ({ data }) => {
   ) : null
 
   return (
-    <Layout title={`Node Type: ${node.name}`}>
-      <Seo title={`Node Type: ${node.name}`} />
-      {node.description ? (
-        <p dangerouslySetInnerHTML={{ __html: node.description }} />
-      ) : null}
-      {nodes}
-    </Layout>
+    <PageContextProvider pageContext={pageContext}>
+      <Layout title={`Node Type: ${node.name}`}>
+        <Seo title={`Node Type: ${node.name}`} />
+        {node.description ? (
+          <p dangerouslySetInnerHTML={{ __html: node.description }} />
+        ) : null}
+        {nodes}
+      </Layout>
+    </PageContextProvider>
   )
 }
 

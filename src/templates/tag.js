@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 import { useTranslation } from "gatsby-plugin-react-i18next"
 
+import PageContextProvider from "../components/context/page-context"
 import LanguageSwitcherContextProvider from "../components/context/language-switcher-context"
 
 import { normalizeString } from "../utils/functions"
@@ -11,7 +12,7 @@ import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import Link from "../components/link"
 
-const Tag = ({ data }) => {
+const Tag = ({ pageContext, data }) => {
   const { t } = useTranslation()
 
   const node = data.taxonomyTermTags
@@ -60,13 +61,15 @@ const Tag = ({ data }) => {
   ) : null
 
   return (
-    <LanguageSwitcherContextProvider translations={translations}>
-      <Layout title={`${t("Tag")}: ${node.name}`}>
-        <Seo title={`${t("Tag")}: ${node.name}`} />
-        {articles}
-        {recipes}
-      </Layout>
-    </LanguageSwitcherContextProvider>
+    <PageContextProvider pageContext={pageContext}>
+      <LanguageSwitcherContextProvider translations={translations}>
+        <Layout title={`${t("Tag")}: ${node.name}`}>
+          <Seo title={`${t("Tag")}: ${node.name}`} />
+          {articles}
+          {recipes}
+        </Layout>
+      </LanguageSwitcherContextProvider>
+    </PageContextProvider>
   )
 }
 

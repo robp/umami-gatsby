@@ -5,6 +5,7 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import { normalizeString, capitalizeFirstLetter } from "../utils/functions"
 
+import PageContextProvider from "../components/context/page-context"
 import LanguageSwitcherContextProvider from "../components/context/language-switcher-context"
 
 import Layout from "../components/layout/layout-default"
@@ -17,7 +18,7 @@ import * as styles from "../styles/pages/recipes.module.scss"
 import * as readMoreStyles from "../styles/read-more.module.scss"
 import * as cardStyles from "../styles/card-view.module.scss"
 
-const RecipesPage = ({ data }) => {
+const RecipesPage = ({ pageContext, data }) => {
   const { t, languages, originalPath } = useI18next()
 
   const edges = data.allNodeRecipe.edges
@@ -39,73 +40,75 @@ const RecipesPage = ({ data }) => {
   })
 
   return (
-    <LanguageSwitcherContextProvider translations={translations}>
-      <Layout title={t("Recipes")}>
-        <Seo title={t("Recipes")} />
-        <div>
-          <div className={styles.view}>
-            {edges ? (
-              <ul className={styles.list}>
-                {edges.map(edge => {
-                  const node = edge.node
+    <PageContextProvider pageContext={pageContext}>
+      <LanguageSwitcherContextProvider translations={translations}>
+        <Layout title={t("Recipes")}>
+          <Seo title={t("Recipes")} />
+          <div>
+            <div className={styles.view}>
+              {edges ? (
+                <ul className={styles.list}>
+                  {edges.map(edge => {
+                    const node = edge.node
 
-                  const renderedTitle = (
-                    <Field labelHidden className={cardStyles.fieldTitle}>
-                      {node.title}
-                    </Field>
-                  )
-                  const renderedLink = (
-                    <Link
-                      to={`/${node.langcode}${normalizeString(
-                        node.path.alias
-                      )}`}
-                      className={readMoreStyles.link}
-                    >
-                      {t("View recipe")}
-                    </Link>
-                  )
-                  const media = node.relationships.field_media_image
-                  const image = getImage(
-                    media.relationships?.field_media_image?.localFile
-                  )
-                  const renderedImage = (
-                    <Field label={t("Image")} labelHidden>
-                      <GatsbyImage
-                        image={image}
-                        alt={media.field_media_image.alt}
-                      />
-                    </Field>
-                  )
-                  const difficulty = (
-                    <Field
-                      labelItems
-                      labelInline
-                      label={`${t("Difficulty")}:`}
-                      className={cardStyles.labelItems}
-                    >
-                      {capitalizeFirstLetter(t(node.field_difficulty))}
-                    </Field>
-                  )
+                    const renderedTitle = (
+                      <Field labelHidden className={cardStyles.fieldTitle}>
+                        {node.title}
+                      </Field>
+                    )
+                    const renderedLink = (
+                      <Link
+                        to={`/${node.langcode}${normalizeString(
+                          node.path.alias
+                        )}`}
+                        className={readMoreStyles.link}
+                      >
+                        {t("View recipe")}
+                      </Link>
+                    )
+                    const media = node.relationships.field_media_image
+                    const image = getImage(
+                      media.relationships?.field_media_image?.localFile
+                    )
+                    const renderedImage = (
+                      <Field label={t("Image")} labelHidden>
+                        <GatsbyImage
+                          image={image}
+                          alt={media.field_media_image.alt}
+                        />
+                      </Field>
+                    )
+                    const difficulty = (
+                      <Field
+                        labelItems
+                        labelInline
+                        label={`${t("Difficulty")}:`}
+                        className={cardStyles.labelItems}
+                      >
+                        {capitalizeFirstLetter(t(node.field_difficulty))}
+                      </Field>
+                    )
 
-                  return (
-                    <li key={node.id}>
-                      <Card
-                        title={renderedTitle}
-                        link={renderedLink}
-                        content={[difficulty, renderedImage]}
-                        styles={cardStyles}
-                      />
-                    </li>
-                  )
-                })}{" "}
-              </ul>
-            ) : (
-              `<p>${t("No recipes.")}</p>`
-            )}
+                    return (
+                      <li key={node.id}>
+                        <Card
+                          title={renderedTitle}
+                          link={renderedLink}
+                          content={[difficulty, renderedImage]}
+                          styles={cardStyles}
+                        />
+                      </li>
+                    )
+                  })}{" "}
+                </ul>
+              ) : (
+                `<p>${t("No recipes.")}</p>`
+              )}
+            </div>
           </div>
-        </div>
-      </Layout>
-    </LanguageSwitcherContextProvider>
+        </Layout>
+      </LanguageSwitcherContextProvider>
+    </PageContextProvider>
   )
 }
 

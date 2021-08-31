@@ -2,13 +2,14 @@ import * as React from "react"
 import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 
+import PageContextProvider from "../components/context/page-context"
 import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import Link from "../components/link"
 
 import { container } from "../styles/layout.module.scss"
 
-const IndexPage = ({ data }) => {
+const IndexPage = ({ pageContext, data }) => {
   const { t, language } = useI18next()
 
   const pages = data.allSitePage.edges
@@ -30,15 +31,17 @@ const IndexPage = ({ data }) => {
   }
 
   return (
-    <Layout title={t("Hi people")}>
-      <Seo title={t("Home")} />
-      <div className={container}>
-        <h2>
-          {t("Pages")} ({filteredPagesCount})
-        </h2>
-        <ul>{filteredPages()}</ul>
-      </div>
-    </Layout>
+    <PageContextProvider pageContext={pageContext}>
+      <Layout title={t("Hi people")}>
+        <Seo title={t("Home")} />
+        <div className={container}>
+          <h2>
+            {t("Pages")} ({filteredPagesCount})
+          </h2>
+          <ul>{filteredPages()}</ul>
+        </div>
+      </Layout>
+    </PageContextProvider>
   )
 }
 

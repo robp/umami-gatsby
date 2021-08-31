@@ -1,6 +1,6 @@
 import { graphql } from "gatsby"
 
-export const DisclaimerBlockFragment = graphql`
+export const DisclaimerBlockFragments = graphql`
   fragment DisclaimerBlock on block_content__disclaimer_block {
     id
     langcode

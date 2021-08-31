@@ -36,3 +36,21 @@ body {
 .hidden {
   display: none;
 }
+
+.breadcrumb__list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb__list__item {
+  display: inline-block;
+
+  &:first-of-type {
+    display: none;
+  }
+}
+
+.breadcrumb__separator:first-of-type {
+  display: none;
+}

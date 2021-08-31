@@ -1,6 +1,6 @@
 import { graphql } from "gatsby"
 
-export const FooterPromoBlockFragment = graphql`
+export const FooterPromoBlockFragments = graphql`
   fragment FooterPromoBlock on block_content__footer_promo_block {
     id
     drupal_internal__id

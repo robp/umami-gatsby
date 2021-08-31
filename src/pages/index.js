@@ -2,18 +2,22 @@ import * as React from "react"
 import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 
+import PageContextProvider from "../components/context/page-context"
+
 import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import FrontpageBlock from "../components/blocks/frontpage"
 
-const IndexPage = ({ data }) => {
+const IndexPage = ({ pageContext, data }) => {
   const { t } = useI18next()
 
   return (
-    <Layout title={t("Home")}>
-      <Seo title={t("Home")} />
-      <FrontpageBlock />
-    </Layout>
+    <PageContextProvider pageContext={pageContext}>
+      <Layout title={t("Home")}>
+        <Seo title={t("Home")} />
+        <FrontpageBlock />
+      </Layout>
+    </PageContextProvider>
   )
 }
 
