@@ -1,52 +1,42 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { graphql } from "gatsby"
-import { useTranslation } from "gatsby-plugin-react-i18next"
+import { useTranslation } from "react-i18next"
 
 import PageContextProvider from "../components/context/page-context"
 import LanguageSwitcherContextProvider from "../components/context/language-switcher-context"
 
-import { normalizeString } from "../utils/functions"
-
 import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
-import Link from "../components/link"
+import RecipeCard from "../components/node/recipe-card"
+
+import * as styles from "../styles/templates/recipe-category.module.scss"
 
 const RecipeCategory = ({ pageContext, data }) => {
   const { t } = useTranslation()
-
   const node = data.taxonomyTermRecipeCategory
   const translations = data.allTaxonomyTermRecipeCategory.edges
 
   pageContext.pageTitle = node.name
 
-  const recipes = node.relationships.node__recipe ? (
-    <>
-      <h2>
-        {t("Recipes")} ({node.relationships.node__recipe.length})
-      </h2>
-      <ul>
-        {node.relationships.node__recipe.map(recipe => {
-          return (
-            <li key={recipe.id}>
-              <Link
-                to={`/${node.langcode}${normalizeString(recipe.path.alias)}`}
-              >
-                {recipe.title}
-              </Link>
-            </li>
-          )
-        })}
-      </ul>
-    </>
-  ) : null
-
   return (
     <PageContextProvider pageContext={pageContext}>
       <LanguageSwitcherContextProvider translations={translations}>
-        <Layout title={`${t("Recipe Category")}: ${node.name}`}>
-          <Seo title={`${t("Recipe Category")}: ${node.name}`} />
-          {recipes}
+        <Layout title={node.name}>
+          <Seo title={node.name} />
+          {node.relationships?.node__recipe ? (
+            <ul className={styles.list}>
+              {node.relationships.node__recipe.map(node => {
+                return (
+                  <li key={node.id}>
+                    <RecipeCard node={node} />
+                  </li>
+                )
+              })}
+            </ul>
+          ) : (
+            `<p>${t("No recipes.")}</p>`
+          )}
         </Layout>
       </LanguageSwitcherContextProvider>
     </PageContextProvider>
@@ -79,11 +69,7 @@ export const query = graphql`
       }
       relationships {
         node__recipe {
-          id
-          title
-          path {
-            alias
-          }
+          ...RecipeCard
         }
       }
     }

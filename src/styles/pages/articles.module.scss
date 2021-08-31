@@ -1,40 +1,7 @@
-@import "../variables";
+@import "../list-card.module.scss";
 
 .view {
   .zzz {
     color: red;
-  }
-}
-
-.list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-  li {
-    margin-bottom: 28px;
-  }
-
-  @media all and ($breakpointTiny) {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -14px;
-
-    li {
-      display: flex;
-      flex-basis: calc(50% - 28px);
-      flex-grow: 0;
-      flex-shrink: 0;
-      margin: 0 14px 28px;
-      padding: 0;
-    }
-  }
-
-  @media all and ($breakpointWide) {
-    li {
-      flex-basis: calc(33.3% - 28px);
-      flex-grow: 0;
-      flex-shrink: 0;
-    }
   }
 }

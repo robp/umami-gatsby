@@ -6,11 +6,12 @@ import { useTranslation } from "gatsby-plugin-react-i18next"
 import PageContextProvider from "../components/context/page-context"
 import LanguageSwitcherContextProvider from "../components/context/language-switcher-context"
 
-import { normalizeString } from "../utils/functions"
-
 import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
-import Link from "../components/link"
+import ArticleCard from "../components/node/article-card"
+import RecipeCard from "../components/node/recipe-card"
+
+import * as styles from "../styles/templates/tag.module.scss"
 
 const Tag = ({ pageContext, data }) => {
   const { t } = useTranslation()
@@ -20,55 +21,41 @@ const Tag = ({ pageContext, data }) => {
 
   pageContext.pageTitle = node.name
 
-  const articles = node.relationships.node__article ? (
-    <>
-      <h2>
-        {t("Articles")} ({node.relationships.node__article.length})
-      </h2>
-      <ul>
-        {node.relationships.node__article.map(article => {
-          return (
-            <li key={article.id}>
-              <Link
-                to={`/${node.langcode}${normalizeString(article.path.alias)}`}
-              >
-                {article.title}
-              </Link>
-            </li>
-          )
-        })}
-      </ul>
-    </>
-  ) : null
+  const nodes = [
+    ...node.relationships.node__article,
+    ...node.relationships.node__recipe,
+  ]
 
-  const recipes = node.relationships.node__recipe ? (
-    <>
-      <h2>
-        {t("Recipes")} ({node.relationships.node__recipe.length})
-      </h2>
-      <ul>
-        {node.relationships.node__recipe.map(recipe => {
-          return (
-            <li key={recipe.id}>
-              <Link
-                to={`/${node.langcode}${normalizeString(recipe.path.alias)}`}
-              >
-                {recipe.title}
-              </Link>
-            </li>
-          )
-        })}
-      </ul>
-    </>
-  ) : null
+  // Sort nodes in DESC order.
+  nodes.sort((a, b) => {
+    return a.created < b.created ? 1 : -1
+  })
 
   return (
     <PageContextProvider pageContext={pageContext}>
       <LanguageSwitcherContextProvider translations={translations}>
-        <Layout title={`${t("Tag")}: ${node.name}`}>
-          <Seo title={`${t("Tag")}: ${node.name}`} />
-          {articles}
-          {recipes}
+        <Layout title={node.name}>
+          <Seo title={node.name} />
+          {nodes ? (
+            <ul className={styles.list}>
+              {nodes.map(node => {
+                if (node.internal.type === "node__recipe") {
+                  return (
+                    <li key={node.id}>
+                      <RecipeCard node={node} />
+                    </li>
+                  )
+                }
+                return (
+                  <li key={node.id}>
+                    <ArticleCard node={node} />
+                  </li>
+                )
+              })}
+            </ul>
+          ) : (
+            `<p>${t("No content.")}</p>`
+          )}
         </Layout>
       </LanguageSwitcherContextProvider>
     </PageContextProvider>
@@ -101,18 +88,10 @@ export const query = graphql`
       }
       relationships {
         node__article {
-          id
-          title
-          path {
-            alias
-          }
+          ...ArticleCard
         }
         node__recipe {
-          id
-          title
-          path {
-            alias
-          }
+          ...RecipeCard
         }
       }
     }
