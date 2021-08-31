@@ -18,9 +18,9 @@ function RecipeCategories({ lang, data }) {
     })
   }
 
-  return (
+  return terms.length ? (
     <Field labelItems labelInline label={t("Recipe Category")} items={terms} />
-  )
+  ) : null
 }
 
 RecipeCategories.propTypes = {

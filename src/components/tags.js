@@ -17,7 +17,9 @@ function Tags({ lang, data }) {
     })
   }
 
-  return <Field labelItems labelInline label={t("Tags")} items={terms} />
+  return terms.length ? (
+    <Field labelItems labelInline label={t("Tags")} items={terms} />
+  ) : null
 }
 
 Tags.propTypes = {
