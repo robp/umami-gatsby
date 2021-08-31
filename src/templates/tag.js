@@ -22,8 +22,8 @@ const Tag = ({ pageContext, data }) => {
   pageContext.pageTitle = node.name
 
   const nodes = [
-    ...(node.relationships?.node__article ? node.relationships.node__article : []),
-    ...(node.relationships?.node__recipe ? node.relationships.node__recipe : []),
+    ...(node.relationships?.node__article || []),
+    ...(node.relationships?.node__recipe || []),
   ]
 
   // Sort nodes in DESC order.
