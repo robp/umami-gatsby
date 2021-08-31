@@ -18,6 +18,8 @@ const Tag = ({ pageContext, data }) => {
   const node = data.taxonomyTermTags
   const translations = data.allTaxonomyTermTags.edges
 
+  pageContext.pageTitle = node.name
+
   const articles = node.relationships.node__article ? (
     <>
       <h2>

@@ -27,6 +27,8 @@ const Recipe = ({ pageContext, location, data }) => {
   const node = data.nodeRecipe
   const translations = data.allNodeRecipe.edges
 
+  pageContext.pageTitle = node.title
+
   return (
     <PageContextProvider pageContext={pageContext}>
       <LanguageSwitcherContextProvider translations={translations}>

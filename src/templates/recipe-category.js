@@ -18,6 +18,8 @@ const RecipeCategory = ({ pageContext, data }) => {
   const node = data.taxonomyTermRecipeCategory
   const translations = data.allTaxonomyTermRecipeCategory.edges
 
+  pageContext.pageTitle = node.name
+
   const recipes = node.relationships.node__recipe ? (
     <>
       <h2>

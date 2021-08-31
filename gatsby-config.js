@@ -164,7 +164,6 @@ module.exports = {
         // exclude: optional, include this array to exclude paths you don't want to
         // generate breadcrumbs for (see below for details).
         exclude: [
-          ``,
           `**/dev-404-page/**`,
           `**/404/**`,
           `**/404.html`,
@@ -184,12 +183,28 @@ module.exports = {
             pathname: "/es",
             crumbLabel: "Inicio",
           },
+          {
+            pathname: "/en/articles",
+            crumbLabel: "Articles",
+          },
+          {
+            pathname: "/es/articles",
+            crumbLabel: "Artículos",
+          },
+          {
+            pathname: "/en/recipes",
+            crumbLabel: "Recipes",
+          },
+          {
+            pathname: "/es/recipes",
+            crumbLabel: "Recetas",
+          },
         ],
         // trailingSlashes: optional, will add trailing slashes to the end
         // of crumb pathnames. default is false
         // trailingSlashes: true,
         // usePathPrefix: optional, if you are using pathPrefix above
-        usePathPrefix: "/",
+        // usePathPrefix: "/",
       },
     },
   ],

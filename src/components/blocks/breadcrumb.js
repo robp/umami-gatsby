@@ -12,11 +12,10 @@ const BreadcrumbBlock = () => {
 
   if (!pageContext) return null
 
+  const crumbLabel = pageContext.pageTitle || null
   const {
     breadcrumb: { crumbs },
   } = pageContext
-
-  console.log("Breadcumb pageContext:", pageContext)
 
   return (
     <Block
@@ -24,7 +23,18 @@ const BreadcrumbBlock = () => {
       locations={[/.*/]}
       locationsExcept={[/^\/$/]}
     >
-      <Breadcrumb crumbs={crumbs} crumbSeparator=" » " />
+      <Breadcrumb
+        crumbs={crumbs.slice(1)}
+        crumbSeparator=" » "
+        crumbLabel={crumbLabel}
+        disableLinks={[crumbs[crumbs.length - 1].pathname]}
+        hiddenCrumbs={[
+          "/en/tags",
+          "/es/tags",
+          "/en/recipe-category",
+          "/es/recipe-category",
+        ]}
+      />
     </Block>
   )
 }

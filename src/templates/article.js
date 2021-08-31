@@ -18,6 +18,8 @@ const Article = ({ pageContext, location, data }) => {
   const node = data.nodeArticle
   const translations = data.allNodeArticle.edges
 
+  pageContext.pageTitle = node.title
+
   return (
     <PageContextProvider pageContext={pageContext}>
       <LanguageSwitcherContextProvider translations={translations}>
