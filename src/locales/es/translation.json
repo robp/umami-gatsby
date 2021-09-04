@@ -1,7 +1,7 @@
 {
   "en": "English",
   "es": "Español",
-  "Umami Food Magazine": "Umami Food Magazine",
+  "Umami Food Magazine": "",
   "Built with": "Construido con",
   "Not found": "Extraviado",
   "You just hit a route that doesn&#39;t exist... the sadness.": "Acabas de llegar a una ruta que no existe ... la tristeza.",
@@ -23,5 +23,15 @@
   "Instructions": "Instrucciones",
   "Tell us what you think": "Dinos qué piensas",
   "View article": "Ver artículo",
-  "View recipe": "Ver receta"
+  "View recipe": "Ver receta",
+  "More featured articles": "Mas artículos destacados",
+  "Explore recipes across every type of occasion, ingredient, and skill level": "Explorez des recettes pour tous les types d'occasions, d'ingrédients et de niveaux de compétence",
+  "Image": "Image",
+  "Difficulty": "Dificultad",
+  "Preparation time": "Tiempo de preparación",
+  "minutes": "minutos",
+  "Cooking time": "Tiempo de cocción",
+  "Number of servings": "Cantidad de porciones",
+  "Recipe instruction": "Instrucciones de la receta",
+  "No content.": "Pas de contenu."
 }

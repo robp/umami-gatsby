@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "gatsby-plugin-remove-trailing-slashes": "^3.11.0",
+    "i18next-scanner": "^3.0.0",
     "prettier": "2.3.2"
   },
   "keywords": [
