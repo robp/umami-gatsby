@@ -1,0 +1,62 @@
+{
+  "id": "umami",
+  "viewports": [
+    {
+      "label": "mobile",
+      "width": 360,
+      "height": 640
+    },
+    {
+      "label": "tablet (portrait)",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "label": "tablet (landscape)",
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "label": "desktop",
+      "width": 1920,
+      "height": 1080
+    }
+  ],
+  "onBeforeScript": "puppet/onBefore.js",
+  "onReadyScript": "puppet/onReady.js",
+  "scenarios": [
+    {
+      "label": "Banner Button (hover) - vs. Prod",
+      "url": "http://localhost:8000/en",
+      "referenceUrl": "https://umami.pinciuc.com/en",
+      "delay": 5000,
+      "hoverSelector": "a[class*=banner-module--button]",
+      "postInteractionWait": 500,
+      "selectors": ["a[class*=banner-module--button]"],
+      "viewports": [
+        {
+          "label": "tablet",
+          "width": 1024,
+          "height": 768
+        }
+      ]
+    }
+  ],
+  "paths": {
+    "bitmaps_reference": "backstop_data/bitmaps_reference",
+    "bitmaps_test": "backstop_data/bitmaps_test",
+    "engine_scripts": "backstop_data/engine_scripts",
+    "html_report": "backstop_data/html_report",
+    "ci_report": "backstop_data/ci_report"
+  },
+  "report": ["browser"],
+  "engine": "puppeteer",
+  "engineOptions": {
+    "headless": true,
+    "args": ["--no-sandbox"]
+  },
+  "asyncCaptureLimit": 5,
+  "asyncCompareLimit": 50,
+  "debug": false,
+  "debugWindow": false
+}

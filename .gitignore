@@ -70,3 +70,6 @@ yarn-error.log
 
 # Editor files
 /.vscode/
+
+# Backstop files
+/backstop_data/
