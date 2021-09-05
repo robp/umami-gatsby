@@ -1,5 +1,4 @@
 var fs = require('fs');
-var chalk = require('chalk');
 
 const languages = require('./src/data/languages');
 
@@ -8,12 +7,12 @@ module.exports = {
     "src/**/*.{js,jsx}",
     // Use ! to filter out files or directories
     "!src/**/*.spec.{js,jsx}",
-    "!src/i18n/**",
+    "!src/locales/**",
     "!**/node_modules/**",
   ],
   output: "./",
   options: {
-    debug: true,
+    debug: false,
     removeUnusedKeys: false,
     sort: false,
     attr: {

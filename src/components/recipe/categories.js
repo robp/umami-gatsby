@@ -5,8 +5,6 @@ import { useTranslation } from "gatsby-plugin-react-i18next"
 import Term from "../term"
 import Field from "../field"
 
-import "../../styles/recipe-categories.scss"
-
 function RecipeCategories({ lang, data }) {
   const { t } = useTranslation()
 

@@ -594,30 +594,3 @@ pre tt:before,
 pre tt:after {
   content: "";
 }
-
-/* My overrides */
-*:focus {
-  outline-width: 1px;
-  outline-style: dotted;
-  outline-color: #008068;
-  outline-offset: 2px;
-}
-
-a:hover,
-a:focus {
-  color: $umamiOrange;
-  background-color: $lightGrey;
-}
-
-button:hover,
-button:active,
-button:focus,
-.button:hover,
-.button:active,
-.button:focus {
-  transition: background-color 0.5s ease;
-  text-decoration: none;
-  color: black;
-  border: 2px solid $umamiGreen;
-  background-color: $lightGrey;
-}
