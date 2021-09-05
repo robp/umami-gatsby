@@ -19,7 +19,6 @@ const Recipe = ({ pageContext, location, data }) => {
       <LanguageSwitcherContextProvider translations={translations}>
         <Layout>
           <Seo
-            lang={node.langcode}
             title={node.title}
             description={node.field_summary.value}
           />

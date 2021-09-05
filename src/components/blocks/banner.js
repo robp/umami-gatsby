@@ -43,7 +43,11 @@ const BannerBlock = ({ data }) => {
         >
           {image ? (
             <div className={styles.image}>
-              <GatsbyImage image={image} alt={media.field_media_image.alt} />
+              <GatsbyImage
+                image={image}
+                alt={media.field_media_image.alt}
+                loading="eager"
+              />
             </div>
           ) : null}
           <div className={styles.content}>

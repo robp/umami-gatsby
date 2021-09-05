@@ -4,17 +4,21 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import { styles } from "../styles/media-image.module.scss"
 
-function MediaImage({ media }) {
+function MediaImage({ media, ...rest }) {
   if (!media) return null
 
-  const featureImage = getImage(
+  const theImage = getImage(
     media.relationships.field_media_image?.localFile
   )
 
-  if (featureImage) {
+  if (theImage) {
     return (
       <div className={styles}>
-        <GatsbyImage image={featureImage} alt={media.field_media_image.alt} />
+        <GatsbyImage
+          image={theImage}
+          alt={media.field_media_image.alt}
+          {...rest}
+        />
       </div>
     )
   }

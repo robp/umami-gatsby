@@ -47,7 +47,10 @@ const ArticleNode = ({ node, canonicalUrl }) => {
           <div className={layoutStyles.region}>
             <Tags lang={node.langcode} data={node.relationships?.field_tags} />
             <Field labelHidden className={nodeStyles.mediaImage}>
-              <MediaImage media={node.relationships.field_media_image} />
+              <MediaImage
+                media={node.relationships.field_media_image}
+                loading="eager"
+              />
             </Field>
             <Field
               labelHidden

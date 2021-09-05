@@ -61,7 +61,10 @@ const RecipeNode = ({ node, canonicalUrl }) => {
             )}
           >
             <Field labelHidden className={nodeStyles.mediaImage}>
-              <MediaImage media={node.relationships.field_media_image} />
+              <MediaImage
+                media={node.relationships.field_media_image}
+                loading="eager"
+              />
             </Field>
           </div>
           <div className={layoutStyles.fourGridGroup}>
