@@ -44,6 +44,7 @@ module.exports = {
         theme_color: `#663399`,
         display: `minimal-ui`,
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        include_favicon: false, // This will exclude favicon link tag
         localize: [
           {
             name: `Revista Umami Food`,
