@@ -1,5 +1,4 @@
 import * as React from "react"
-import PropTypes from "prop-types"
 
 import PreHeaderRegion from "../regions/pre-header"
 import HeaderRegion from "../regions/header"
@@ -8,22 +7,14 @@ import HighlightedRegion from "../regions/highlighted"
 import { container } from "../../styles/layout.module.scss"
 import { styles } from "../../styles/layout/header.module.scss"
 
-const HeaderLayout = ({ siteTitle }) => (
+const HeaderLayout = () => (
   <header className={styles}>
     <div className={container}>
       <PreHeaderRegion />
-      <HeaderRegion siteTitle={siteTitle} />
+      <HeaderRegion />
       <HighlightedRegion />
     </div>
   </header>
 )
-
-HeaderLayout.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-HeaderLayout.defaultProps = {
-  siteTitle: ``,
-}
 
 export default HeaderLayout

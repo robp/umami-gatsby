@@ -1,5 +1,4 @@
 import * as React from "react"
-import PropTypes from "prop-types"
 
 import Region from "../region"
 import SiteBranding from "../site-branding"
@@ -8,20 +7,12 @@ import MainMenu from "../main-menu"
 
 import { styles } from "../../styles/regions/header.module.scss"
 
-const HeaderRegion = ({ siteTitle }) => (
+const HeaderRegion = () => (
   <Region className={styles}>
-    <SiteBranding siteTitle={siteTitle} />
+    <SiteBranding />
     <MainMenuToggle />
     <MainMenu />
   </Region>
 )
-
-HeaderRegion.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-HeaderRegion.defaultProps = {
-  siteTitle: ``,
-}
 
 export default HeaderRegion

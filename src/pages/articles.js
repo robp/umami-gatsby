@@ -4,7 +4,6 @@ import { useI18next } from "gatsby-plugin-react-i18next"
 
 import PageContextProvider from "../components/context/page-context"
 import LanguageSwitcherContextProvider from "../components/context/language-switcher-context"
-
 import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import ArticleCard from "../components/node/article-card"
@@ -31,10 +30,12 @@ const ArticlesPage = ({ pageContext, data }) => {
     })
   })
 
+  pageContext.title = t("Articles");
+
   return (
     <PageContextProvider pageContext={pageContext}>
       <LanguageSwitcherContextProvider translations={translations}>
-        <Layout title={t("Articles")}>
+        <Layout>
           <Seo title={t("Articles")} />
           <div>
             <div className={layoutStyles.grid3}>

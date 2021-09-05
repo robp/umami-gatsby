@@ -47,7 +47,7 @@ const ArticleCard = ({ node, styles }) => {
 
 ArticleCard.propTypes = {
   node: PropTypes.object.isRequired,
-  styles: PropTypes.string,
+  styles: PropTypes.object,
 }
 
 ArticleCard.defaultProps = {

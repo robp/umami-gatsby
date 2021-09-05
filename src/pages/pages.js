@@ -30,9 +30,11 @@ const IndexPage = ({ pageContext, data }) => {
     })
   }
 
+  pageContext.title = t("Hi people")
+
   return (
     <PageContextProvider pageContext={pageContext}>
-      <Layout title={t("Hi people")}>
+      <Layout>
         <Seo title={t("Home")} />
         <div className={container}>
           <h2>

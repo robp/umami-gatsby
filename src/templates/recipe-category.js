@@ -22,7 +22,7 @@ const RecipeCategory = ({ pageContext, data }) => {
   return (
     <PageContextProvider pageContext={pageContext}>
       <LanguageSwitcherContextProvider translations={translations}>
-        <Layout title={node.name}>
+        <Layout>
           <Seo title={node.name} />
           <div>
             <div className={layoutStyles.grid4}>

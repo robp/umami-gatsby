@@ -17,7 +17,7 @@ const Recipe = ({ pageContext, location, data }) => {
   return (
     <PageContextProvider pageContext={pageContext}>
       <LanguageSwitcherContextProvider translations={translations}>
-        <Layout title={node.title}>
+        <Layout>
           <Seo
             lang={node.langcode}
             title={node.title}

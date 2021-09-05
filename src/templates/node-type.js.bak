@@ -42,7 +42,7 @@ const NodeType = ({ pageContext, data }) => {
 
   return (
     <PageContextProvider pageContext={pageContext}>
-      <Layout title={`Node Type: ${node.name}`}>
+      <Layout>
         <Seo title={`Node Type: ${node.name}`} />
         {node.description ? (
           <p dangerouslySetInnerHTML={{ __html: node.description }} />

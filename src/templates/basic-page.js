@@ -17,7 +17,7 @@ const BasicPage = ({ pageContext, data }) => {
   return (
     <PageContextProvider pageContext={pageContext}>
       <LanguageSwitcherContextProvider translations={translations}>
-        <Layout title={node.title}>
+        <Layout>
           <Seo title={node.title} />
           {node.body ? (
             <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />

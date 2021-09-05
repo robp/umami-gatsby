@@ -1,7 +1,5 @@
 import * as React from "react"
 import PropTypes from "prop-types"
-import { useSiteMetadata } from "../../hooks/use-site-metadata"
-import { useTranslation } from "gatsby-plugin-react-i18next"
 
 import UserContextProvider from "../context/user-context"
 import Header from "./header"
@@ -17,18 +15,15 @@ import BottomLayout from "./bottom"
 
 import "../../styles/_base.scss"
 
-const Layout = ({ children, title, sidebar }) => {
-  const { t } = useTranslation()
-  const { siteTitle } = useSiteMetadata()
-
+const Layout = ({ children, sidebar }) => {
   return (
     <UserContextProvider>
-      <Header siteTitle={t(siteTitle || `Title`)} />
+      <Header />
       <HighlightedLayout />
       <BannerTopLayout />
       <BreadcrumbsLayout />
       <PageTitleLayout>
-        <PageTitleBlock title={title} />
+        <PageTitleBlock />
       </PageTitleLayout>
       <ContentLayout sidebar={sidebar}>{children}</ContentLayout>
       <ContentBottomLayout />
@@ -40,7 +35,6 @@ const Layout = ({ children, title, sidebar }) => {
 
 Layout.propTypes = {
   children: PropTypes.node,
-  title: PropTypes.string,
   sidebar: PropTypes.bool,
 }
 
