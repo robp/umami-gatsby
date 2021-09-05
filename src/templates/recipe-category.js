@@ -17,7 +17,7 @@ const RecipeCategory = ({ pageContext, data }) => {
   const node = data.taxonomyTermRecipeCategory
   const translations = data.allTaxonomyTermRecipeCategory.edges
 
-  pageContext.pageTitle = node.name
+  pageContext.title = node.name
 
   return (
     <PageContextProvider pageContext={pageContext}>

@@ -22,7 +22,7 @@ function Seo({ description, meta, title }) {
       htmlAttributes={{
         lang: language,
       }}
-      title={title}
+      title={title || t("Untitled")}
       titleTemplate={defaultTitle ? `%s | ${t(defaultTitle)}` : null}
       meta={[
         {

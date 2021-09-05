@@ -1,4 +1,5 @@
 import React, { useContext } from "react"
+import { useTranslation } from "react-i18next"
 
 import { PageContext } from "../context/page-context"
 
@@ -8,11 +9,12 @@ import { Breadcrumb } from "gatsby-plugin-breadcrumb"
 import * as styles from "../../styles/blocks/breadcrumb.module.scss"
 
 const BreadcrumbBlock = () => {
+  const { t } = useTranslation()
   const pageContext = useContext(PageContext)
 
-  if (!pageContext) return null
+  if (!pageContext?.breadcrumb) return null
 
-  const crumbLabel = pageContext.pageTitle || null
+  const crumbLabel = pageContext.title || t("Untitled")
   const {
     breadcrumb: { crumbs },
   } = pageContext

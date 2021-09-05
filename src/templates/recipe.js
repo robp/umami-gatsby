@@ -12,7 +12,7 @@ const Recipe = ({ pageContext, location, data }) => {
   const node = data.nodeRecipe
   const translations = data.allNodeRecipe.edges
 
-  pageContext.pageTitle = node.title
+  pageContext.title = node.title
 
   return (
     <PageContextProvider pageContext={pageContext}>

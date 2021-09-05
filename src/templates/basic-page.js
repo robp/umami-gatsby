@@ -12,7 +12,7 @@ const BasicPage = ({ pageContext, data }) => {
   const node = data.nodePage
   const translations = data.allNodePage.edges
 
-  pageContext.pageTitle = node.title
+  pageContext.title = node.title
 
   return (
     <PageContextProvider pageContext={pageContext}>

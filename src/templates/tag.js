@@ -19,7 +19,7 @@ const Tag = ({ pageContext, data }) => {
   const node = data.taxonomyTermTags
   const translations = data.allTaxonomyTermTags.edges
 
-  pageContext.pageTitle = node.name
+  pageContext.title = node.name
 
   const nodes = [
     ...(node.relationships?.node__article || []),
