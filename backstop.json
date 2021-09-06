@@ -26,12 +26,34 @@
   "onReadyScript": "puppet/onReady.js",
   "scenarios": [
     {
+      "label": "Homepage (en) vs. Prod",
+      "url": "http://localhost:8000/en",
+      "referenceUrl": "https://umami.pinciuc.com/en",
+      "delay": 5000
+    },
+    {
+      "label": "Main Menu Link (hover) - vs. Prod",
+      "url": "http://localhost:8000/en",
+      "referenceUrl": "https://umami.pinciuc.com/en",
+      "delay": 5000,
+      "hoverSelector": "a[class*=main-menu-module--menuLink]",
+      "postInteractionWait": 500,
+      "selectors": ["a[class*=main-menu-module--menuLink]"],
+      "viewports": [
+        {
+          "label": "tablet",
+          "width": 1024,
+          "height": 768
+        }
+      ]
+    },
+    {
       "label": "Banner Button (hover) - vs. Prod",
       "url": "http://localhost:8000/en",
       "referenceUrl": "https://umami.pinciuc.com/en",
       "delay": 5000,
       "hoverSelector": "a[class*=banner-module--button]",
-      "postInteractionWait": 500,
+      "postInteractionWait": 1000,
       "selectors": ["a[class*=banner-module--button]"],
       "viewports": [
         {
@@ -40,6 +62,42 @@
           "height": 768
         }
       ]
+    },
+    {
+      "label": "Articles (en) - vs. Prod",
+      "url": "http://localhost:8000/en/articles",
+      "referenceUrl": "https://umami.pinciuc.com/en/articles",
+      "delay": 5000
+    },
+    {
+      "label": "Recipes (en) - vs. Prod",
+      "url": "http://localhost:8000/en/recipes",
+      "referenceUrl": "https://umami.pinciuc.com/en/recipes",
+      "delay": 5000
+    },
+    {
+      "label": "Article (en) - vs. Prod",
+      "url": "http://localhost:8000/en/articles/give-your-oatmeal-the-ultimate-makeover",
+      "referenceUrl": "https://umami.pinciuc.com/en/articles/give-your-oatmeal-the-ultimate-makeover",
+      "delay": 5000
+    },
+    {
+      "label": "Recipe (en) - vs. Prod",
+      "url": "http://localhost:8000/en/recipes/vegan-chocolate-and-nut-brownies",
+      "referenceUrl": "https://umami.pinciuc.com/en/recipes/vegan-chocolate-and-nut-brownies",
+      "delay": 5000
+    },
+    {
+      "label": "Recipe Category (en) - vs. Prod",
+      "url": "http://localhost:8000/en/recipe-category/main-courses",
+      "referenceUrl": "https://umami.pinciuc.com/en/recipe-category/main-courses",
+      "delay": 5000
+    },
+    {
+      "label": "Tag (en) - vs. Prod",
+      "url": "http://localhost:8000/en/tags/vegetarian",
+      "referenceUrl": "https://umami.pinciuc.com/en/tags/vegetarian",
+      "delay": 5000
     }
   ],
   "paths": {
