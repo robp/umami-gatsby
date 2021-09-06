@@ -1,0 +1,118 @@
+@import "../variables";
+
+.block {
+  display: none;
+
+  @media all and ($breakpointNarrow) {
+    display: block;
+  }
+
+  form {
+    display: flex;
+    margin-top: 1.3rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .formTypeSearch {
+    margin-top: 0;
+    margin-bottom: 0;
+    border: 1px solid $mediumLightGrey;
+    border-top-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+
+    .formSearch {
+      box-sizing: border-box;
+    }
+  }
+
+  .formSearch {
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 7px 8px 7px 32px;
+    color: $darkGrey;
+    border: 2px solid white;
+    background: url(../../images/svg/search.svg) no-repeat 0.5em center white;
+    font-size: 0.875rem;
+    line-height: normal;
+
+    &:focus {
+      border: 2px solid $umamiGreen;
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px;
+    }
+
+    @media all and ($breakpointNarrow) {
+      width: 20rem;
+    }
+  }
+
+  .formActions {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid $mediumLightGrey;
+    border-right: 1px solid $mediumLightGrey;
+    border-bottom: 1px solid $mediumLightGrey;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+
+    .button {
+      line-height: normal;
+      margin: 0;
+    }
+  }
+
+  .formSubmit {
+    margin: 0;
+    padding: 0.6em 1.25em 0.4em;
+    transition: background-color 0.5s ease;
+    transition: border 0.5s ease;
+    color: black;
+    border: 2px solid white;
+    background-color: white;
+    font-size: 0.875rem;
+
+    &:focus,
+    &:hover {
+      margin: 0;
+      border: 2px solid $umamiGreen;
+      outline-offset: 2px;
+      background-color: $lightGrey;
+    }
+
+    @media all and ($breakpointNarrow) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}
+
+.iconWrap {
+  margin-left: -7px;
+
+  @media all and ($breakpointNarrow) {
+    display: none;
+  }
+}
+
+.searchLink {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 40px;
+  height: 40px;
+  margin-right: -7px;
+  padding-right: 7px;
+
+  &:focus,
+  &:hover {
+    background-color: white;
+  }
+
+  svg {
+    display: block;
+    width: 26px;
+    height: auto;
+  }
+}

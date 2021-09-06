@@ -5,6 +5,19 @@
   margin: auto;
 }
 
+.containerInline {
+  div,
+  label {
+    display: inline;
+  }
+
+  .formActions,
+  &.formActions {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
 .oneColumn {
   > .region {
     width: 100%;

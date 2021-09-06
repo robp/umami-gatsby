@@ -1,0 +1,8 @@
+@import "./_variables";
+
+.block {
+  @media all and ($breakpointNarrow) {
+    display: block;
+    text-align: right;
+  }
+}
