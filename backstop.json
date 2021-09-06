@@ -1,0 +1,120 @@
+{
+  "id": "umami",
+  "viewports": [
+    {
+      "label": "mobile",
+      "width": 360,
+      "height": 640
+    },
+    {
+      "label": "tablet (portrait)",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "label": "tablet (landscape)",
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "label": "desktop",
+      "width": 1920,
+      "height": 1080
+    }
+  ],
+  "onBeforeScript": "puppet/onBefore.js",
+  "onReadyScript": "puppet/onReady.js",
+  "scenarios": [
+    {
+      "label": "Homepage (en) vs. Prod",
+      "url": "http://localhost:8000/en",
+      "referenceUrl": "https://umami.pinciuc.com/en",
+      "delay": 5000
+    },
+    {
+      "label": "Main Menu Link (hover) - vs. Prod",
+      "url": "http://localhost:8000/en",
+      "referenceUrl": "https://umami.pinciuc.com/en",
+      "delay": 5000,
+      "hoverSelector": "a[class*=main-menu-module--menuLink]",
+      "postInteractionWait": 500,
+      "selectors": ["a[class*=main-menu-module--menuLink]"],
+      "viewports": [
+        {
+          "label": "tablet",
+          "width": 1024,
+          "height": 768
+        }
+      ]
+    },
+    {
+      "label": "Banner Button (hover) - vs. Prod",
+      "url": "http://localhost:8000/en",
+      "referenceUrl": "https://umami.pinciuc.com/en",
+      "delay": 5000,
+      "hoverSelector": "a[class*=banner-module--button]",
+      "postInteractionWait": 1000,
+      "selectors": ["a[class*=banner-module--button]"],
+      "viewports": [
+        {
+          "label": "tablet",
+          "width": 1024,
+          "height": 768
+        }
+      ]
+    },
+    {
+      "label": "Articles (en) - vs. Prod",
+      "url": "http://localhost:8000/en/articles",
+      "referenceUrl": "https://umami.pinciuc.com/en/articles",
+      "delay": 5000
+    },
+    {
+      "label": "Recipes (en) - vs. Prod",
+      "url": "http://localhost:8000/en/recipes",
+      "referenceUrl": "https://umami.pinciuc.com/en/recipes",
+      "delay": 5000
+    },
+    {
+      "label": "Article (en) - vs. Prod",
+      "url": "http://localhost:8000/en/articles/give-your-oatmeal-the-ultimate-makeover",
+      "referenceUrl": "https://umami.pinciuc.com/en/articles/give-your-oatmeal-the-ultimate-makeover",
+      "delay": 5000
+    },
+    {
+      "label": "Recipe (en) - vs. Prod",
+      "url": "http://localhost:8000/en/recipes/vegan-chocolate-and-nut-brownies",
+      "referenceUrl": "https://umami.pinciuc.com/en/recipes/vegan-chocolate-and-nut-brownies",
+      "delay": 5000
+    },
+    {
+      "label": "Recipe Category (en) - vs. Prod",
+      "url": "http://localhost:8000/en/recipe-category/main-courses",
+      "referenceUrl": "https://umami.pinciuc.com/en/recipe-category/main-courses",
+      "delay": 5000
+    },
+    {
+      "label": "Tag (en) - vs. Prod",
+      "url": "http://localhost:8000/en/tags/vegetarian",
+      "referenceUrl": "https://umami.pinciuc.com/en/tags/vegetarian",
+      "delay": 5000
+    }
+  ],
+  "paths": {
+    "bitmaps_reference": "backstop_data/bitmaps_reference",
+    "bitmaps_test": "backstop_data/bitmaps_test",
+    "engine_scripts": "backstop_data/engine_scripts",
+    "html_report": "backstop_data/html_report",
+    "ci_report": "backstop_data/ci_report"
+  },
+  "report": ["browser"],
+  "engine": "puppeteer",
+  "engineOptions": {
+    "headless": true,
+    "args": ["--no-sandbox"]
+  },
+  "asyncCaptureLimit": 5,
+  "asyncCompareLimit": 50,
+  "debug": false,
+  "debugWindow": false
+}

@@ -71,5 +71,5 @@ yarn-error.log
 # Editor files
 /.vscode/
 
-# BackstopJS files
+# Backstop files
 /backstop_data/

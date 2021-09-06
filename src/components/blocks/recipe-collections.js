@@ -30,7 +30,7 @@ const RecipeCollectionsBlock = () => {
     }
   `)
 
-  let terms = []
+  const terms = []
 
   query.allTaxonomyTermTags.edges.forEach(edge => {
     if (edge.node.langcode === language) {
