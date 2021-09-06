@@ -27,15 +27,31 @@
   "scenarios": [
     {
       "label": "Homepage (en) vs. Prod",
-      "url": "http://localhost:8000/en",
-      "referenceUrl": "https://umami.pinciuc.com/en",
-      "delay": 5000
+      "url": "http://localhost:8000/en/",
+      "referenceUrl": "https://umami.pinciuc.com/en/",
+      "delay": 3000
     },
     {
-      "label": "Main Menu Link (hover) - vs. Prod",
-      "url": "http://localhost:8000/en",
-      "referenceUrl": "https://umami.pinciuc.com/en",
-      "delay": 5000,
+      "label": "Main Menu open (mobile) - vs. Prod",
+      "url": "http://localhost:8000/en/",
+      "referenceUrl": "https://umami.pinciuc.com/en/",
+      "delay": 3000,
+      "clickSelector": "button[name=menu_toggle]",
+      "postInteractionWait": 1000,
+      "selectors": ["div[class*=\" header-module--styles\"]"],
+      "viewports": [
+        {
+          "label": "mobile",
+          "width": 360,
+          "height": 640
+        }
+      ]
+    },
+    {
+      "label": "Main Menu link (hover) - vs. Prod",
+      "url": "http://localhost:8000/en/",
+      "referenceUrl": "https://umami.pinciuc.com/en/",
+      "delay": 3000,
       "hoverSelector": "a[class*=main-menu-module--menuLink]",
       "postInteractionWait": 500,
       "selectors": ["a[class*=main-menu-module--menuLink]"],
@@ -48,10 +64,26 @@
       ]
     },
     {
+      "label": "Regular link (hover) - vs. Prod",
+      "url": "http://localhost:8000/en/articles",
+      "referenceUrl": "https://umami.pinciuc.com/en/articles",
+      "delay": 3000,
+      "hoverSelector": ".breadcrumb__link",
+      "postInteractionWait": 500,
+      "selectors": [".breadcrumb__link"],
+      "viewports": [
+        {
+          "label": "tablet",
+          "width": 1024,
+          "height": 768
+        }
+      ]
+    },
+    {
       "label": "Banner Button (hover) - vs. Prod",
-      "url": "http://localhost:8000/en",
-      "referenceUrl": "https://umami.pinciuc.com/en",
-      "delay": 5000,
+      "url": "http://localhost:8000/en/",
+      "referenceUrl": "https://umami.pinciuc.com/en/",
+      "delay": 3000,
       "hoverSelector": "a[class*=banner-module--button]",
       "postInteractionWait": 1000,
       "selectors": ["a[class*=banner-module--button]"],
@@ -64,40 +96,72 @@
       ]
     },
     {
+      "label": "Read More link (hover) - vs. Prod",
+      "url": "http://localhost:8000/en/articles",
+      "referenceUrl": "https://umami.pinciuc.com/en/articles",
+      "delay": 3000,
+      "hoverSelector": "a[class*=read-more-module--link]",
+      "postInteractionWait": 1000,
+      "selectors": ["a[class*=read-more-module--link]"],
+      "viewports": [
+        {
+          "label": "tablet",
+          "width": 1024,
+          "height": 768
+        }
+      ]
+    },
+    {
+      "label": "Footer Menu link (hover) - vs. Prod",
+      "url": "http://localhost:8000/en/",
+      "referenceUrl": "https://umami.pinciuc.com/en/",
+      "delay": 3000,
+      "hoverSelector": "a[class*=footer-menu-module--menuLink]",
+      "postInteractionWait": 1000,
+      "selectors": ["a[class*=footer-menu-module--menuLink]"],
+      "viewports": [
+        {
+          "label": "tablet",
+          "width": 1024,
+          "height": 768
+        }
+      ]
+    },
+    {
       "label": "Articles (en) - vs. Prod",
       "url": "http://localhost:8000/en/articles",
       "referenceUrl": "https://umami.pinciuc.com/en/articles",
-      "delay": 5000
+      "delay": 3000
     },
     {
       "label": "Recipes (en) - vs. Prod",
       "url": "http://localhost:8000/en/recipes",
       "referenceUrl": "https://umami.pinciuc.com/en/recipes",
-      "delay": 5000
+      "delay": 3000
     },
     {
       "label": "Article (en) - vs. Prod",
       "url": "http://localhost:8000/en/articles/give-your-oatmeal-the-ultimate-makeover",
       "referenceUrl": "https://umami.pinciuc.com/en/articles/give-your-oatmeal-the-ultimate-makeover",
-      "delay": 5000
+      "delay": 3000
     },
     {
       "label": "Recipe (en) - vs. Prod",
       "url": "http://localhost:8000/en/recipes/vegan-chocolate-and-nut-brownies",
       "referenceUrl": "https://umami.pinciuc.com/en/recipes/vegan-chocolate-and-nut-brownies",
-      "delay": 5000
+      "delay": 3000
     },
     {
       "label": "Recipe Category (en) - vs. Prod",
       "url": "http://localhost:8000/en/recipe-category/main-courses",
       "referenceUrl": "https://umami.pinciuc.com/en/recipe-category/main-courses",
-      "delay": 5000
+      "delay": 3000
     },
     {
       "label": "Tag (en) - vs. Prod",
       "url": "http://localhost:8000/en/tags/vegetarian",
       "referenceUrl": "https://umami.pinciuc.com/en/tags/vegetarian",
-      "delay": 5000
+      "delay": 3000
     }
   ],
   "paths": {
