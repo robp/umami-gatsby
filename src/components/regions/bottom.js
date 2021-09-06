@@ -11,8 +11,9 @@ const BottomRegion = () => {
 
   return (
     <Region className={styles}>
-      <DisclaimerBlock />© {new Date().getFullYear()}, {t("Built with")}{" "}
-      <a href="https://www.gatsbyjs.com">Gatsby</a>
+      <DisclaimerBlock />
+      {t("Built with")} <a href="https://www.gatsbyjs.com">Gatsby</a>.{" "}
+      <a href="https://github.com/robp/umami-gatsby">Source code</a>.
     </Region>
   )
 }
