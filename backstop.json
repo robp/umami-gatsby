@@ -26,15 +26,21 @@
   "onReadyScript": "puppet/onReady.js",
   "scenarios": [
     {
+      "label": "Homepage (en) - vs. Drupal",
+      "url": "http://localhost:8000/en",
+      "referenceUrl": "https://umami/en",
+      "delay": 3000
+    },
+    {
       "label": "Homepage (en) vs. Prod",
-      "url": "http://localhost:8000/en/",
-      "referenceUrl": "https://umami.pinciuc.com/en/",
+      "url": "http://localhost:8000/en",
+      "referenceUrl": "https://umami.pinciuc.com/en",
       "delay": 3000
     },
     {
       "label": "Main Menu open (mobile) - vs. Prod",
-      "url": "http://localhost:8000/en/",
-      "referenceUrl": "https://umami.pinciuc.com/en/",
+      "url": "http://localhost:8000/en",
+      "referenceUrl": "https://umami.pinciuc.com/en",
       "delay": 3000,
       "clickSelector": "button[name=menu_toggle]",
       "postInteractionWait": 1000,
@@ -49,8 +55,8 @@
     },
     {
       "label": "Main Menu link (hover) - vs. Prod",
-      "url": "http://localhost:8000/en/",
-      "referenceUrl": "https://umami.pinciuc.com/en/",
+      "url": "http://localhost:8000/en",
+      "referenceUrl": "https://umami.pinciuc.com/en",
       "delay": 3000,
       "hoverSelector": "a[class*=main-menu-module--menuLink]",
       "postInteractionWait": 500,
@@ -81,8 +87,8 @@
     },
     {
       "label": "Banner Button (hover) - vs. Prod",
-      "url": "http://localhost:8000/en/",
-      "referenceUrl": "https://umami.pinciuc.com/en/",
+      "url": "http://localhost:8000/en",
+      "referenceUrl": "https://umami.pinciuc.com/en",
       "delay": 3000,
       "hoverSelector": "a[class*=banner-module--button]",
       "postInteractionWait": 1000,
@@ -113,8 +119,8 @@
     },
     {
       "label": "Footer Menu link (hover) - vs. Prod",
-      "url": "http://localhost:8000/en/",
-      "referenceUrl": "https://umami.pinciuc.com/en/",
+      "url": "http://localhost:8000/en",
+      "referenceUrl": "https://umami.pinciuc.com/en",
       "delay": 3000,
       "hoverSelector": "a[class*=footer-menu-module--menuLink]",
       "postInteractionWait": 1000,
