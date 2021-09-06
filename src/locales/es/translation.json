@@ -34,5 +34,8 @@
   "Number of servings": "Cantidad de porciones",
   "Recipe instruction": "Instrucciones de la receta",
   "No content.": "Pas de contenu.",
-  "Untitled": "Sans titre"
+  "Untitled": "Sans titre",
+  "easy": "fácil",
+  "medium": "medio",
+  "hard": "duro"
 }
