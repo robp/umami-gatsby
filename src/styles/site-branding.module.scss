@@ -1,11 +1,23 @@
 @import "./variables";
 
-.styles {
+.block {
   flex: 0 1 40%;
 
   @media all and ($breakpointNarrow) {
     flex: 0 1 220px;
     margin: 2.5rem 0;
     text-align: left;
+  }
+}
+
+.siteLogo {
+  display: inline-block;
+  width: 100%;
+  max-width: 205px;
+  background-color: inherit;
+
+  &:hover,
+  &:focus {
+    background-color: inherit;
   }
 }

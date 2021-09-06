@@ -1,13 +1,15 @@
 import React, { useContext } from "react"
-import Link from "./link"
+import Link from "../link"
 import { useI18next } from "gatsby-plugin-react-i18next"
-import { LanguageSwitcherContext } from "./context/language-switcher-context"
+import { LanguageSwitcherContext } from "../context/language-switcher-context"
 
-import { normalizeString } from "../utils/functions"
+import { normalizeString } from "../../utils/functions"
 
-import { styles, activeTrail } from "../styles/language-switcher.module.scss"
+import Block from "../block"
 
-const LanguageSwitcher = () => {
+import { styles, activeTrail } from "../../styles/language-switcher.module.scss"
+
+const LanguageSwitcherBlock = () => {
   const { t, languages } = useI18next()
   const translations =
     useContext(LanguageSwitcherContext) ||
@@ -28,7 +30,7 @@ const LanguageSwitcher = () => {
   }
 
   return (
-    <div className={styles}>
+    <Block className={styles} locations={[/.*/]}>
       <ul>
         {translations.map(edge => {
           return (
@@ -46,8 +48,8 @@ const LanguageSwitcher = () => {
           )
         })}
       </ul>
-    </div>
+    </Block>
   )
 }
 
-export default LanguageSwitcher
+export default LanguageSwitcherBlock

@@ -2,12 +2,12 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 
-import Block from "./block"
-import Menu from "./menu"
+import Block from "../block"
+import Menu from "../menu"
 
-import * as styles from "../styles/footer-menu.module.scss"
+import * as styles from "../../styles/footer-menu.module.scss"
 
-const FooterMenu = menu => {
+const FooterMenuBlock = menu => {
   const { t, language } = useI18next()
 
   const menuItems = useStaticQuery(graphql`
@@ -53,4 +53,4 @@ const FooterMenu = menu => {
   )
 }
 
-export default FooterMenu
+export default FooterMenuBlock

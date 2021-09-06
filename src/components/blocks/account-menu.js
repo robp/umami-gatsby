@@ -1,11 +1,11 @@
 import React from "react"
 import { useTranslation } from "gatsby-plugin-react-i18next"
 
-import Block from "./block"
+import Block from "../block"
 
-import * as styles from "../styles/account-menu.module.scss"
+import * as styles from "../../styles/account-menu.module.scss"
 
-const AccountMenu = menu => {
+const AccountMenuBlock = menu => {
   const { t } = useTranslation()
 
   return (
@@ -20,4 +20,4 @@ const AccountMenu = menu => {
   )
 }
 
-export default AccountMenu
+export default AccountMenuBlock

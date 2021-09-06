@@ -1,17 +1,17 @@
 import * as React from "react"
 
 import Region from "../region"
-import SiteBranding from "../site-branding"
+import SiteBrandingBlock from "../blocks/site-branding"
 import MainMenuToggle from "../main-menu-toggle"
-import MainMenu from "../main-menu"
+import MainMenuBlock from "../blocks/main-menu"
 
 import { styles } from "../../styles/regions/header.module.scss"
 
 const HeaderRegion = () => (
   <Region className={styles}>
-    <SiteBranding />
+    <SiteBrandingBlock />
     <MainMenuToggle />
-    <MainMenu />
+    <MainMenuBlock />
   </Region>
 )
 
