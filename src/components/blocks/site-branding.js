@@ -13,7 +13,7 @@ const SiteBrandingBlock = () => {
   return (
     <Block className={styles.block} locations={[/.*/]}>
       <Link to="/" className={styles.siteLogo}>
-        <StaticImage src="../images/logo.svg" alt={title} loading="eager" />
+        <StaticImage src="../../images/logo.svg" alt={title} loading="eager" />
         <span className="visually-hidden">{title}</span>
       </Link>
     </Block>

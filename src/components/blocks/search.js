@@ -1,5 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
+import { navigate } from "gatsby"
 import classNames from "classnames"
 
 import Block from "../block"
@@ -10,6 +11,13 @@ import * as styles from "../../styles/blocks/search.module.scss"
 
 const SearchBlock = () => {
   const { t } = useTranslation()
+
+  const doSearch = event => {
+    event.preventDefault()
+    const data = new FormData(event.target)
+    const keys = data.get("keys")
+    navigate(`${event.target.action}?keys=${keys}`)
+  }
 
   return (
     <>
@@ -82,10 +90,11 @@ const SearchBlock = () => {
           action="/en/search"
           method="get"
           id="search-block-form"
-          accept-charset="UTF-8"
+          acceptCharset="UTF-8"
+          onSubmit={doSearch}
         >
           <div className={styles.formTypeSearch}>
-            <label for="edit-keys" className="visually-hidden">
+            <label htmlFor="edit-keys" className="visually-hidden">
               Search
             </label>
             <input
@@ -95,9 +104,8 @@ const SearchBlock = () => {
               type="search"
               id="edit-keys"
               name="keys"
-              value=""
               size="15"
-              maxlength="128"
+              maxLength="128"
               className={styles.formSearch}
             />
           </div>

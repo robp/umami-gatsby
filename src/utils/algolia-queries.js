@@ -1,7 +1,7 @@
 // const escapeStringRegexp = require("escape-string-regexp")
 
 // const pagePath = `content`
-const indexName = `Pages`
+const indexName = process.env.ALGOLIA_INDEX_NAME
 
 // const pageQuery = `{
 //   pages: allMarkdownRemark(
