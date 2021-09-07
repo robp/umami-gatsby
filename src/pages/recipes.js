@@ -10,7 +10,7 @@ import RecipeCard from "../components/node/recipe-card"
 
 import * as layoutStyles from "../styles/layout.module.scss"
 
-const RecipesPage = ({ pageContext, data }) => {
+const Page = ({ pageContext, data }) => {
   const { t, languages, originalPath } = useI18next()
   const edges = data.allNodeRecipe.edges
 
@@ -60,7 +60,7 @@ const RecipesPage = ({ pageContext, data }) => {
   )
 }
 
-export default RecipesPage
+export default Page
 
 export const query = graphql`
   query ($language: String!) {

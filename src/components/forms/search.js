@@ -1,27 +1,34 @@
-import React, { useRef } from "react"
+import React, { useState, forwardRef, useImperativeHandle } from "react"
 import PropTypes from "prop-types"
 import classNames from "classnames"
 import { useI18next } from "gatsby-plugin-react-i18next"
 import { navigate } from "gatsby"
 
+import { Link } from "gatsby-plugin-react-i18next"
+
 import * as layoutStyles from "../../styles/layout.module.scss"
 import * as styles from "../../styles/forms/search.module.scss"
 
-const SearchForm = ({ keys }) => {
-  const { path } = useI18next()
+const SearchForm = forwardRef(({ keys }, ref) => {
+  const { t, path } = useI18next()
+  const [query, setQuery] = useState(keys)
+
+  useImperativeHandle(ref, () => {
+    return {
+      setQuery: setQuery
+    }
+  })
 
   const doSearch = event => {
     event.preventDefault()
-    const data = new FormData(event.target)
-    const keys = data.get("keys")
-    navigate(`${event.target.action}?keys=${keys}`)
+    navigate(`${event.target.action}?keys=${query}`)
   }
 
   return (
     <form
       className={styles.form}
       data-drupal-selector="search-form"
-      action="/en/search"
+      action={`/${path}`}
       method="get"
       id="search-form"
       acceptCharset="UTF-8"
@@ -37,13 +44,14 @@ const SearchForm = ({ keys }) => {
         id="edit-basic"
       >
         <div className={styles.formTypeSearch}>
-          <label htmlFor="edit-keys">Enter your keywords</label>
+          <label htmlFor="edit-keys">{t("Enter your keywords")}</label>
           <input
             data-drupal-selector="edit-keys"
             type="search"
             id="edit-keys"
             name="keys"
-            defaultValue={keys}
+            value={query}
+            onChange={e => setQuery(e.target.value)}
             size="30"
             maxLength="255"
             className={styles.formSearch}
@@ -54,21 +62,21 @@ const SearchForm = ({ keys }) => {
           type="submit"
           id="edit-submit"
           name="op"
-          value="Search"
+          value={t("Search")}
           className="button js-form-submit form-submit"
         />
       </div>
-      <a
-        href="/en/search/node/help"
+      <Link
+        to="/search/help"
         className={styles.searchHelpLink}
         data-drupal-selector="edit-help-link"
         id="edit-help-link"
       >
-        About searching
-      </a>
+        {t("About searching")}
+      </Link>
     </form>
   )
-}
+})
 
 SearchForm.propTypes = {
   keys: PropTypes.string,

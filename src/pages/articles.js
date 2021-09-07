@@ -10,7 +10,7 @@ import ArticleCard from "../components/node/article-card"
 
 import * as layoutStyles from "../styles/layout.module.scss"
 
-const ArticlesPage = ({ pageContext, data }) => {
+const Page = ({ pageContext, data }) => {
   const { t, languages, originalPath } = useI18next()
   const edges = data.allNodeArticle.edges
 
@@ -30,7 +30,7 @@ const ArticlesPage = ({ pageContext, data }) => {
     })
   })
 
-  pageContext.title = t("Articles");
+  pageContext.title = t("Articles")
 
   return (
     <PageContextProvider pageContext={pageContext}>
@@ -60,7 +60,7 @@ const ArticlesPage = ({ pageContext, data }) => {
   )
 }
 
-export default ArticlesPage
+export default Page
 
 export const query = graphql`
   query ($language: String!) {

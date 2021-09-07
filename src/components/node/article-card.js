@@ -31,9 +31,9 @@ const ArticleCard = ({ node, styles }) => {
   )
   const media = node.relationships.field_media_image
   const image = getImage(media.relationships?.field_media_image?.localFile)
-  const renderedImage = (
+  const renderedImage = image ? (
     <GatsbyImage image={image} alt={media.field_media_image.alt} />
-  )
+  ) : null
 
   return (
     <Card

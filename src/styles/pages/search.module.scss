@@ -3,3 +3,19 @@
 .resultsHeading {
   margin: 0 1.28rem 1.28rem;
 }
+
+.noResultsHeading {
+  margin: 1.28rem;
+}
+
+.searchResults {
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin: 0 0 1rem 0;
+    padding: 1.28rem;
+    border: 1px solid $lightPink;
+    background: white;
+  }
+}

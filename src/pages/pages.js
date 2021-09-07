@@ -9,7 +9,7 @@ import Link from "../components/link"
 
 import { container } from "../styles/layout.module.scss"
 
-const IndexPage = ({ pageContext, data }) => {
+const Page = ({ pageContext, data }) => {
   const { t, language } = useI18next()
 
   const pages = data.allSitePage.edges
@@ -47,7 +47,7 @@ const IndexPage = ({ pageContext, data }) => {
   )
 }
 
-export default IndexPage
+export default Page
 
 export const query = graphql`
   query ($language: String!) {

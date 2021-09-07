@@ -1,34 +1,13 @@
-// const escapeStringRegexp = require("escape-string-regexp")
+const { stripTags } = require("./functions")
 
-// const pagePath = `content`
 const indexName = process.env.ALGOLIA_INDEX_NAME
-
-// const pageQuery = `{
-//   pages: allMarkdownRemark(
-//     filter: {
-//       fileAbsolutePath: { regex: "/${escapeStringRegexp(pagePath)}/" },
-//     }
-//   ) {
-//     edges {
-//       node {
-//         id
-//         frontmatter {
-//           title
-//         }
-//         fields {
-//           slug
-//         }
-//         excerpt(pruneLength: 5000)
-//       }
-//     }
-//   }
-// }`
 
 const pageQuery = `{
   nodes: allNodePage(filter: { status: { eq: true } }) {
     edges {
       node {
         id
+        created
         changed
         langcode
         path {
@@ -37,6 +16,14 @@ const pageQuery = `{
         title
         body {
           excerpt: processed
+        }
+        relationships {
+          uid {
+            author: display_name
+          }
+        }
+        internal {
+          type
         }
       }
     }
@@ -48,6 +35,7 @@ const articleQuery = `{
     edges {
       node {
         id
+        created
         changed
         langcode
         path {
@@ -55,7 +43,15 @@ const articleQuery = `{
         }
         title
         body {
-          excerpt: processed
+          processed
+        }
+        relationships {
+          uid {
+            author: display_name
+          }
+        }
+        internal {
+          type
         }
       }
     }
@@ -67,6 +63,7 @@ const recipeQuery = `{
     edges {
       node {
         id
+        created
         changed
         langcode
         path {
@@ -74,7 +71,7 @@ const recipeQuery = `{
         }
         title
         field_summary {
-          excerpt: processed
+          processed
         }
         field_ingredients
         field_recipe_instruction {
@@ -83,28 +80,52 @@ const recipeQuery = `{
         field_difficulty
         field_cooking_time
         field_preparation_time
+        relationships {
+          uid {
+            author: display_name
+          }
+        }
+        internal {
+          type
+        }
       }
     }
   }
 }`
 
-function pageToAlgoliaRecord({ node: { id, path, body, ...rest } }) {
+function pageToAlgoliaRecord({
+  node: { id, path, relationships, body, internal, ...rest },
+}) {
+  const excerpt = stripTags(body.processed)
   return {
     objectID: id,
     ...path,
-    ...body,
+    ...relationships.uid,
+    excerpt: excerpt,
+    ...internal,
     ...rest,
   }
 }
 
 function recipeToAlgoliaRecord({
-  node: { id, path, field_summary, field_recipe_instruction, ...rest },
+  node: {
+    id,
+    path,
+    relationships,
+    field_summary,
+    field_recipe_instruction,
+    internal,
+    ...rest
+  },
 }) {
+  const excerpt = stripTags(field_summary.processed)
   return {
     objectID: id,
     ...path,
-    ...field_summary,
+    ...relationships.uid,
+    excerpt: excerpt,
     ...field_recipe_instruction,
+    ...internal,
     ...rest,
   }
 }
@@ -114,19 +135,19 @@ const queries = [
     query: pageQuery,
     transformer: ({ data }) => data.nodes.edges.map(pageToAlgoliaRecord),
     indexName,
-    settings: { attributesToSnippet: [`excerpt:20`] },
+    settings: { attributesToSnippet: [`excerpt:30`] },
   },
   {
     query: articleQuery,
     transformer: ({ data }) => data.nodes.edges.map(pageToAlgoliaRecord),
     indexName,
-    settings: { attributesToSnippet: [`excerpt:20`] },
+    settings: { attributesToSnippet: [`excerpt:30`] },
   },
   {
     query: recipeQuery,
     transformer: ({ data }) => data.nodes.edges.map(recipeToAlgoliaRecord),
     indexName,
-    settings: { attributesToSnippet: [`excerpt:20`] },
+    settings: { attributesToSnippet: [`excerpt:30`] },
   },
 ]
 

@@ -186,18 +186,18 @@ exports.createPages = ({ graphql, actions }) => {
     })
 
     // Create redirects for `/` based on browser language, plus a fallback.
-    languages.langs.map(langcode => {
-      createRedirect({
-        fromPath: `/`,
-        toPath: `/${langcode}`,
-        Language: langcode,
-        isPermanent: true,
-      })
-    })
-    createRedirect({
-      fromPath: `/`,
-      toPath: `/${languages.defaultLangKey}`,
-      isPermanent: true,
-    })
+    // languages.langs.map(langcode => {
+    //   createRedirect({
+    //     fromPath: `/`,
+    //     toPath: `/${langcode}`,
+    //     Language: langcode,
+    //     isPermanent: true,
+    //   })
+    // })
+    // createRedirect({
+    //   fromPath: `/`,
+    //   toPath: `/${languages.defaultLangKey}`,
+    //   isPermanent: true,
+    // })
   })
 }

@@ -2,21 +2,28 @@ import * as React from "react"
 import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 
-import PageContextProvider from "../components/context/page-context"
-import Layout from "../components/layout/layout-default"
-import Seo from "../components/seo"
-import FrontpageBlock from "../components/blocks/frontpage"
+import PageContextProvider from "../../components/context/page-context"
+import Layout from "../../components/layout/layout-default"
+import Seo from "../../components/seo"
 
 const Page = ({ pageContext, data }) => {
   const { t } = useI18next()
 
-  pageContext.title = t("Home")
+  pageContext.title = t("About searching")
 
   return (
     <PageContextProvider pageContext={pageContext}>
       <Layout>
-        <Seo title={t("Home")} />
-        <FrontpageBlock />
+        <Seo title={pageContext.title} />
+        <div class="item-list">
+          <ul>
+            <li>{t("search.help.keywords")}</li>
+            <li>{t("search.help.or")}</li>
+            <li>{t("search.help.and")}</li>
+            <li>{t("search.help.quotes")}</li>
+            <li>{t("search.help.exclude")}</li>
+          </ul>
+        </div>
       </Layout>
     </PageContextProvider>
   )
