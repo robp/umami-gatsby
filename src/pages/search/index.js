@@ -21,10 +21,15 @@ const Page = ({ pageContext, location, data }) => {
 
   const searchClient = useMemo(
     () =>
-      algoliasearch(process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_SEARCH_KEY),
+      algoliasearch(
+        process.env.GATSBY_ALGOLIA_APP_ID,
+        process.env.GATSBY_ALGOLIA_SEARCH_KEY
+      ),
     []
   )
-  const searchIndex = searchClient.initIndex(process.env.ALGOLIA_INDEX_NAME)
+  const searchIndex = searchClient.initIndex(
+    process.env.GATSBY_ALGOLIA_INDEX_NAME
+  )
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search)
