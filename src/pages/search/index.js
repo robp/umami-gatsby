@@ -38,7 +38,9 @@ const Page = ({ pageContext, location, data }) => {
   const doSearch = () => {
     if (keys?.length) {
       searchIndex
-        .search(keys) //{ filters: `langcode:${language}` }
+        .search(keys, {
+          facetFilters: [`langcode:${language}`],
+        })
         .then(({ hits }) => {
           setResults(hits)
           setLoading(false)
