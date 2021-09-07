@@ -27,4 +27,18 @@ const stripTags = str => {
   return str.replace(/(<([^>]+)>)/gi, "")
 }
 
-module.exports = { normalizeString, capitalizeFirstLetter, stripTags }
+/**
+ * Remove a trailing slash from the supplied string.
+ * @param {string} str
+ * @returns {string}
+ */
+const removeTrailingSlash = str => {
+  return str.replace(/\/$/, "")
+}
+
+module.exports = {
+  normalizeString,
+  capitalizeFirstLetter,
+  stripTags,
+  removeTrailingSlash,
+}

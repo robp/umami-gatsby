@@ -15,7 +15,7 @@ const Page = ({ pageContext, data }) => {
     <PageContextProvider pageContext={pageContext}>
       <Layout>
         <Seo title={pageContext.title} />
-        <div class="item-list">
+        <div className="item-list">
           <ul>
             <li>{t("search.help.keywords")}</li>
             <li>{t("search.help.or")}</li>

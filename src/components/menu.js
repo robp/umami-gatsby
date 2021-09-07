@@ -2,6 +2,8 @@ import React from "react"
 import PropTypes from "prop-types"
 import classNames from "classnames"
 
+import { removeTrailingSlash } from "../utils/functions"
+
 import MenuItem from "./menu-item"
 
 import * as styles from "../styles/menu.module.scss"
@@ -28,12 +30,16 @@ const Menu = ({
   }
 
   // this link will be active when itself or deeper routes are current
-  const getPropsCallback = ({ isPartiallyCurrent, isCurrent }) => {
-    let className = menuLinkClassName
-    className += isPartiallyCurrent ? ` ${activeTrailClassName}` : ""
-    className += isCurrent ? ` ${activeClassName}` : ""
+  const getPropsCallback = ({ href, location: { pathname } }) => {
+    const re = new RegExp(`^${removeTrailingSlash(href)}`)
+    const isPartialMatch = removeTrailingSlash(pathname).match(re)
+    const isMatch = removeTrailingSlash(pathname) === removeTrailingSlash(href)
     return {
-      className: className,
+      className: classNames(
+        menuLinkClassName,
+        { [activeTrailClassName]: isPartialMatch },
+        { [activeClassName]: isMatch }
+      ),
     }
   }
 
@@ -61,7 +67,8 @@ const Menu = ({
     // Return if we've gone below the specified depth.
     if (currentDepth > depth) return
 
-    const menuClass = currentDepth > 1 ? styles.submenu : classNames(styles.menu, className)
+    const menuClass =
+      currentDepth > 1 ? styles.submenu : classNames(styles.menu, className)
     const menuItems = getMenuItems(parentId, currentDepth).filter(filterEmpty)
 
     if (menuItems.length) {

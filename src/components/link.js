@@ -26,7 +26,6 @@ const Link = ({
         to={to}
         language={language}
         activeClassName={activeClassName}
-        partiallyActive={partiallyActive}
         getProps={getProps}
         {...rest}
       >
@@ -36,7 +35,6 @@ const Link = ({
       <GatsbyLink
         to={to}
         activeClassName={activeClassName}
-        partiallyActive={partiallyActive}
         getProps={getProps}
         {...rest}
       >

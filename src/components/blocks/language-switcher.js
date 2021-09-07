@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import { useI18next } from "gatsby-plugin-react-i18next"
 
-import { normalizeString } from "../../utils/functions"
+import { normalizeString, removeTrailingSlash } from "../../utils/functions"
 
 import { LanguageSwitcherContext } from "../context/language-switcher-context"
 import Block from "../block"
@@ -24,9 +24,10 @@ const LanguageSwitcherBlock = () => {
       }
     })
 
-  // this link will be active when itself or deeper routes are current
-  const getPropsCallback = ({ isPartiallyCurrent }) => {
-    return isPartiallyCurrent ? { className: styles.activeTrail } : {}
+  const getPropsCallback = ({ href, location: { pathname } }) => {
+    const re = new RegExp(`^${removeTrailingSlash(href)}`)
+    const isPartialMatch = removeTrailingSlash(pathname).match(re)
+    return isPartialMatch ? { className: styles.activeTrail } : {}
   }
 
   return (
@@ -36,9 +37,7 @@ const LanguageSwitcherBlock = () => {
           return (
             <li key={edge.node.langcode}>
               <Link
-                to={`${normalizeString(
-                  edge.node.path.alias
-                )}`}
+                to={`${normalizeString(edge.node.path.alias)}`}
                 language={edge.node.langcode}
                 activeClassName={styles.active}
                 getProps={getPropsCallback}
