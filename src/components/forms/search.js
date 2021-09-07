@@ -1,6 +1,7 @@
 import React, { useState, forwardRef, useImperativeHandle } from "react"
 import { useI18next } from "gatsby-plugin-react-i18next"
 import { navigate } from "@reach/router"
+import { StaticImage } from "gatsby-plugin-image"
 import classNames from "classnames"
 
 import { Link } from "gatsby-plugin-react-i18next"
@@ -10,11 +11,11 @@ import * as styles from "../../styles/forms/search.module.scss"
 
 const SearchForm = forwardRef((props, ref) => {
   const { t, path } = useI18next()
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState("")
 
   useImperativeHandle(ref, () => {
     return {
-      setQuery: setQuery
+      setQuery: setQuery,
     }
   })
 
@@ -64,6 +65,19 @@ const SearchForm = forwardRef((props, ref) => {
           value={t("Search")}
           className="button js-form-submit form-submit"
         />
+        <div className={styles.algoliaAttribution}>
+          <a
+            href="https://www.algolia.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <StaticImage
+              src="../../images/search-by-algolia-light-background.svg"
+              alt="Search by algolia"
+              width="150" height="21"
+            />
+          </a>
+        </div>
       </div>
       <Link
         to="/search/help"

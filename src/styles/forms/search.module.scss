@@ -32,3 +32,18 @@
   display: inline-block;
   margin: 1.28rem;
 }
+
+.algoliaAttribution {
+  display: flex !important;
+  justify-content: flex-end;
+
+  a {
+    display: block;
+    margin-top: 1em;
+
+    &:hover,
+    &:focus {
+      background: inherit;
+    }
+  }
+}

@@ -1,13 +1,13 @@
 import React, { useContext } from "react"
-import Link from "../link"
 import { useI18next } from "gatsby-plugin-react-i18next"
-import { LanguageSwitcherContext } from "../context/language-switcher-context"
 
 import { normalizeString } from "../../utils/functions"
 
+import { LanguageSwitcherContext } from "../context/language-switcher-context"
 import Block from "../block"
+import Link from "../link"
 
-import { styles, activeTrail } from "../../styles/language-switcher.module.scss"
+import * as styles from "../../styles/blocks/language-switcher.module.scss"
 
 const LanguageSwitcherBlock = () => {
   const { t, languages } = useI18next()
@@ -26,11 +26,11 @@ const LanguageSwitcherBlock = () => {
 
   // this link will be active when itself or deeper routes are current
   const getPropsCallback = ({ isPartiallyCurrent }) => {
-    return isPartiallyCurrent ? { className: activeTrail } : {}
+    return isPartiallyCurrent ? { className: styles.activeTrail } : {}
   }
 
   return (
-    <Block className={styles} locations={[/.*/]}>
+    <Block className={styles.block} locations={[/.*/]}>
       <ul>
         {translations.map(edge => {
           return (
@@ -39,7 +39,7 @@ const LanguageSwitcherBlock = () => {
                 to={`/${edge.node.langcode}${normalizeString(
                   edge.node.path.alias
                 )}`}
-                activeClassName="active"
+                activeClassName={styles.active}
                 getProps={getPropsCallback}
               >
                 {t(edge.node.langcode)}

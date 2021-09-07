@@ -5,7 +5,7 @@ import { useI18next } from "gatsby-plugin-react-i18next"
 import Block from "../block"
 import Menu from "../menu"
 
-import * as styles from "../../styles/main-menu.module.scss"
+import * as styles from "../../styles/blocks/main-menu.module.scss"
 
 const MainMenuBlock = menu => {
   const { language } = useI18next()

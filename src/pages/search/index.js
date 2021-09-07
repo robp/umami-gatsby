@@ -42,6 +42,7 @@ const Page = ({ pageContext, location, data }) => {
           facetFilters: [`langcode:${language}`],
         })
         .then(({ hits }) => {
+          console.log(hits)
           setResults(hits)
           setLoading(false)
         })

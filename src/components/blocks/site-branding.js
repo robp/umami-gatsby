@@ -5,7 +5,7 @@ import { useSiteMetadata } from "../../hooks/use-site-metadata"
 
 import Block from "../block"
 
-import * as styles from "../../styles/site-branding.module.scss"
+import * as styles from "../../styles/blocks/site-branding.module.scss"
 
 const SiteBrandingBlock = () => {
   const { title } = useSiteMetadata()

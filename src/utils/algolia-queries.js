@@ -75,7 +75,7 @@ const recipeQuery = `{
         }
         field_ingredients
         field_recipe_instruction {
-          field_recipe_instruction: processed
+          processed
         }
         field_difficulty
         field_cooking_time
@@ -119,12 +119,13 @@ function recipeToAlgoliaRecord({
   },
 }) {
   const excerpt = stripTags(field_summary.processed)
+  const instructions = stripTags(field_recipe_instruction.processed)
   return {
     objectID: id,
     ...path,
     ...relationships.uid,
     excerpt: excerpt,
-    ...field_recipe_instruction,
+    field_recipe_instruction: instructions,
     ...internal,
     ...rest,
   }
@@ -135,19 +136,16 @@ const queries = [
     query: pageQuery,
     transformer: ({ data }) => data.nodes.edges.map(pageToAlgoliaRecord),
     indexName,
-    settings: { attributesToSnippet: [`excerpt:30`] },
   },
   {
     query: articleQuery,
     transformer: ({ data }) => data.nodes.edges.map(pageToAlgoliaRecord),
     indexName,
-    settings: { attributesToSnippet: [`excerpt:30`] },
   },
   {
     query: recipeQuery,
     transformer: ({ data }) => data.nodes.edges.map(recipeToAlgoliaRecord),
     indexName,
-    settings: { attributesToSnippet: [`excerpt:30`] },
   },
 ]
 

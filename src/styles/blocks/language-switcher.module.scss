@@ -1,6 +1,6 @@
-@import "./_variables";
+@import "../_variables";
 
-.styles {
+.block {
   ul {
     display: inline-flex;
     margin: 0;
@@ -21,6 +21,7 @@
     text-decoration: none;
   }
 
+  .active,
   .activeTrail {
     font-weight: bold;
     color: black;

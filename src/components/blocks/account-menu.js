@@ -3,7 +3,7 @@ import { useTranslation } from "gatsby-plugin-react-i18next"
 
 import Block from "../block"
 
-import * as styles from "../../styles/account-menu.module.scss"
+import * as styles from "../../styles/blocks/account-menu.module.scss"
 
 const AccountMenuBlock = menu => {
   const { t } = useTranslation()
