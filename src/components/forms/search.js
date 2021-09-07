@@ -4,13 +4,13 @@ import { navigate } from "@reach/router"
 import { StaticImage } from "gatsby-plugin-image"
 import classNames from "classnames"
 
-import { Link } from "gatsby-plugin-react-i18next"
+import Link from "../link"
 
 import * as layoutStyles from "../../styles/layout.module.scss"
 import * as styles from "../../styles/forms/search.module.scss"
 
 const SearchForm = forwardRef((props, ref) => {
-  const { t, path } = useI18next()
+  const { t, language, path } = useI18next()
   const [query, setQuery] = useState("")
 
   useImperativeHandle(ref, () => {
@@ -81,6 +81,7 @@ const SearchForm = forwardRef((props, ref) => {
       </div>
       <Link
         to="/search/help"
+        language={language}
         className={styles.searchHelpLink}
         data-drupal-selector="edit-help-link"
         id="edit-help-link"

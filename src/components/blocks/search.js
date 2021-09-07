@@ -4,7 +4,7 @@ import { navigate } from "@reach/router"
 import classNames from "classnames"
 
 import Block from "../block"
-import { Link } from "gatsby-plugin-react-i18next"
+import Link from "../link"
 
 import * as layoutStyles from "../../styles/layout.module.scss"
 import * as styles from "../../styles/blocks/search.module.scss"
@@ -23,6 +23,7 @@ const SearchBlock = () => {
       <div className={styles.iconWrap}>
         <Link
           className={styles.searchLink}
+          language={language}
           title="Go to the search page"
           to="/search"
         >

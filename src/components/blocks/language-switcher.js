@@ -36,9 +36,10 @@ const LanguageSwitcherBlock = () => {
           return (
             <li key={edge.node.langcode}>
               <Link
-                to={`/${edge.node.langcode}${normalizeString(
+                to={`${normalizeString(
                   edge.node.path.alias
                 )}`}
+                language={edge.node.langcode}
                 activeClassName={styles.active}
                 getProps={getPropsCallback}
               >

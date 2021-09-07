@@ -4,6 +4,7 @@ import { useI18next } from "gatsby-plugin-react-i18next"
 import algoliasearch from "algoliasearch/lite"
 
 import PageContextProvider from "../../components/context/page-context"
+import LanguageSwitcherContextProvider from "../../components/context/language-switcher-context"
 import Layout from "../../components/layout/layout-default"
 import Seo from "../../components/seo"
 import SearchForm from "../../components/forms/search"
@@ -12,7 +13,7 @@ import SearchResult from "../../components/search/result"
 import * as styles from "../../styles/pages/search.module.scss"
 
 const Page = ({ pageContext, location, data }) => {
-  const { t, language } = useI18next()
+  const { t, languages, originalPath, language } = useI18next()
   const searchFormRef = useRef()
   const [results, setResults] = useState([])
   const [isLoading, setLoading] = useState(true)
@@ -90,13 +91,31 @@ const Page = ({ pageContext, location, data }) => {
     noResults
   )
 
+  /**
+   * @todo Use i18next to handle this, somehow.
+   */
+  const translations = []
+
+  languages.forEach(langcode => {
+    translations.push({
+      node: {
+        langcode,
+        path: {
+          alias: originalPath,
+        },
+      },
+    })
+  })
+
   return (
     <PageContextProvider pageContext={pageContext}>
-      <Layout>
-        <Seo title={pageContext.title} />
-        <SearchForm ref={searchFormRef} />
-        {isLoading ? resultsLoading : renderedResults}
-      </Layout>
+      <LanguageSwitcherContextProvider translations={translations}>
+        <Layout>
+          <Seo title={pageContext.title} />
+          <SearchForm ref={searchFormRef} />
+          {isLoading ? resultsLoading : renderedResults}
+        </Layout>
+      </LanguageSwitcherContextProvider>
     </PageContextProvider>
   )
 }
