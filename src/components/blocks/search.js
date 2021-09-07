@@ -1,5 +1,5 @@
-import React from "react"
-import { useTranslation } from "react-i18next"
+import React, { useState } from "react"
+import { useI18next } from "gatsby-plugin-react-i18next"
 import { navigate } from "gatsby"
 import classNames from "classnames"
 
@@ -10,13 +10,12 @@ import * as layoutStyles from "../../styles/layout.module.scss"
 import * as styles from "../../styles/blocks/search.module.scss"
 
 const SearchBlock = () => {
-  const { t } = useTranslation()
+  const { t, language } = useI18next()
+  const [query, setQuery] = useState('')
 
   const doSearch = event => {
     event.preventDefault()
-    const data = new FormData(event.target)
-    const keys = data.get("keys")
-    navigate(`${event.target.action}?keys=${keys}`)
+    navigate(`${event.target.action}?keys=${query}`)
   }
 
   return (
@@ -87,7 +86,7 @@ const SearchBlock = () => {
         locations={[/.*/]}
       >
         <form
-          action="/en/search"
+          action={`/${language}/search`}
           method="get"
           id="search-block-form"
           acceptCharset="UTF-8"
@@ -104,6 +103,8 @@ const SearchBlock = () => {
               type="search"
               id="edit-keys"
               name="keys"
+              value={query}
+              onChange={e => setQuery(e.target.value)}
               size="15"
               maxLength="128"
               className={styles.formSearch}
