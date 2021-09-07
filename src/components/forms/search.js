@@ -1,17 +1,16 @@
 import React, { useState, forwardRef, useImperativeHandle } from "react"
-import PropTypes from "prop-types"
-import classNames from "classnames"
 import { useI18next } from "gatsby-plugin-react-i18next"
-import { navigate } from "gatsby"
+import { navigate } from "@reach/router"
+import classNames from "classnames"
 
 import { Link } from "gatsby-plugin-react-i18next"
 
 import * as layoutStyles from "../../styles/layout.module.scss"
 import * as styles from "../../styles/forms/search.module.scss"
 
-const SearchForm = forwardRef(({ keys }, ref) => {
+const SearchForm = forwardRef((props, ref) => {
   const { t, path } = useI18next()
-  const [query, setQuery] = useState(keys)
+  const [query, setQuery] = useState('')
 
   useImperativeHandle(ref, () => {
     return {
@@ -77,9 +76,5 @@ const SearchForm = forwardRef(({ keys }, ref) => {
     </form>
   )
 })
-
-SearchForm.propTypes = {
-  keys: PropTypes.string,
-}
 
 export default SearchForm

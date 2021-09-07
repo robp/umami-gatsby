@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useI18next } from "gatsby-plugin-react-i18next"
-import { navigate } from "gatsby"
+import { navigate } from "@reach/router"
 import classNames from "classnames"
 
 import Block from "../block"
