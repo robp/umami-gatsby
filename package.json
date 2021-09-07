@@ -5,9 +5,11 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "algoliasearch": "^4.10.5",
     "classnames": "^2.3.1",
     "dotenv": "^10.0.0",
     "gatsby": "^3.12.1",
+    "gatsby-plugin-algolia": "^0.22.1",
     "gatsby-plugin-breadcrumb": "^12.1.1",
     "gatsby-plugin-gatsby-cloud": "^2.11.0",
     "gatsby-plugin-google-tagmanager": "^3.13.0",
@@ -30,6 +32,7 @@
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
     "react-i18next": "^11.11.4",
+    "react-instantsearch-dom": "^6.12.1",
     "react-intl": "^5.20.7",
     "sass": "^1.37.5"
   },

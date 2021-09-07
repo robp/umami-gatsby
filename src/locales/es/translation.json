@@ -37,5 +37,19 @@
   "Untitled": "Sans titre",
   "easy": "fácil",
   "medium": "medio",
-  "hard": "duro"
+  "hard": "duro",
+  "User account menu": "Menú de cuenta de usuario",
+  "Log in": "Iniciar sesión",
+  "Search": "Buscar",
+  "Search for": "Buscar por",
+  "Enter your keywords": "Escriba las palabras clave",
+  "Loading...": "Cargando...",
+  "Your search yielded no results.": "Su búsqueda no produjo resultados",
+  "Search results": "Resultados de la búsqueda",
+  "About searching": "Acerca de la búsqueda",
+  "search.help.keywords": "La búsqueda se realiza con palabras clave exactas y sin importar la mayúsculas; las palabras clave más cortas que las de longitud mínima son ignoradas",
+  "search.help.or": "Utilice OR en mayúsculas para obtener más resultados. Por ejemplo: gato OR perro (contenido que incluya \"gato\" o \"perro\")",
+  "search.help.and": "Puede utilizar AND en mayúsculas para incluir todas las palabras, pero será lo mismo que el comportamiento predeterminado. Por ejemplo: gato AND perro (lo mismo que \"gato perro\", contenido debe incluir \"gato\" y \"perro\")",
+  "search.help.quotes": "Utilice comillas para buscar una frase. Por ejemplo: \"El gato come ratones\"",
+  "search.help.exclude": "Puede restringir palabras claves con - para excluirlos; debe todavía tener al menos una palabra clave \"positiva\". Por ejemplo: gato -perro (contenido debe incluir gato pero no puede contener perro)"
 }

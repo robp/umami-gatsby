@@ -16,4 +16,15 @@ const capitalizeFirstLetter = str => {
   return str[0].toUpperCase() + str.slice(1)
 }
 
-module.exports = { normalizeString, capitalizeFirstLetter }
+/**
+ * Strip HTML tags from the supplied string.
+ * @param {string} str
+ * @returns {string}
+ */
+const stripTags = str => {
+  if (str === null || str === undefined) return ""
+  str = str.toString()
+  return str.replace(/(<([^>]+)>)/gi, "")
+}
+
+module.exports = { normalizeString, capitalizeFirstLetter, stripTags }

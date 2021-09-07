@@ -31,11 +31,11 @@ const RecipeCard = ({ node, styles }) => {
   )
   const media = node.relationships.field_media_image
   const image = getImage(media.relationships?.field_media_image?.localFile)
-  const renderedImage = (
+  const renderedImage = image ?  (
     <Field key={`${node.id}-image`} label={t("Image")} labelHidden>
       <GatsbyImage image={image} alt={media.field_media_image.alt} />
     </Field>
-  )
+  ) : null
   const difficulty = node.field_difficulty ? (
     <Field
       key={`${node.id}-difficulty`}
@@ -60,7 +60,7 @@ const RecipeCard = ({ node, styles }) => {
 
 RecipeCard.propTypes = {
   node: PropTypes.object.isRequired,
-  styles: PropTypes.string,
+  styles: PropTypes.object,
 }
 
 RecipeCard.defaultProps = {

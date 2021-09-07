@@ -134,12 +134,20 @@ module.exports = {
         },
         pages: [
           {
-            matchPath: "/:lang/:slug+",
+            matchPath: "/:lang/recipes/:slug",
             getLanguageFromPath: true,
           },
           {
-            matchPath: "/:slug/",
-            getLanguageFromPath: false,
+            matchPath: "/:lang/articles/:slug",
+            getLanguageFromPath: true,
+          },
+          {
+            matchPath: "/:lang/recipe-category/:slug",
+            getLanguageFromPath: true,
+          },
+          {
+            matchPath: "/:lang/tags/:slug",
+            getLanguageFromPath: true,
           },
         ],
       },
@@ -183,6 +191,14 @@ module.exports = {
           {
             pathname: "/es",
             crumbLabel: "Inicio",
+          },
+          {
+            pathname: "/en/search",
+            crumbLabel: "Search",
+          },
+          {
+            pathname: "/es/search",
+            crumbLabel: "Buscar",
           },
           {
             pathname: "/en/articles",
@@ -236,6 +252,17 @@ module.exports = {
         routeChangeEventName: "gatsby-route-change",
         // Defaults to false
         enableWebVitalsTracking: true,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-algolia`,
+      options: {
+        appId: process.env.ALGOLIA_APP_ID,
+        apiKey: process.env.ALGOLIA_ADMIN_KEY,
+        queries: require("./src/utils/algolia-queries"),
+        enablePartialUpdates: process.env.ALGOLIA_PARTIAL_UPDATES,
+        matchFields: ["changed"],
+        skipIndexing: process.env.ALGOLIA_SKIP_INDEXING,
       },
     },
   ],

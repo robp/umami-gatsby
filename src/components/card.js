@@ -18,7 +18,7 @@ const Card = ({ title, link, content, styles, ...rest }) => {
 Card.propTypes = {
   title: PropTypes.node.isRequired,
   link: PropTypes.node.isRequired,
-  content: PropTypes.node.isRequired,
+  content: PropTypes.node,
   styles: PropTypes.object,
 }
 
