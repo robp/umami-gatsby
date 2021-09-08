@@ -3,14 +3,13 @@ import { useTranslation } from "react-i18next"
 
 import { MessagesContext } from "../context/messages-context"
 import Block from "../block"
-import Message, { MESSAGE_SEVERITY_STATUS } from "../message"
+import Message from "../message"
 
 import * as styles from "../../styles/blocks/messages.module.scss"
 
 const MessagesBlock = () => {
   const { t } = useTranslation()
-  const { messages, updateMessages } = useContext(MessagesContext)
-  console.log("messages:", messages)
+  const { messages } = useContext(MessagesContext)
 
   return (
     <Block

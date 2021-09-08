@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import classNames from "classnames"
 import { useTranslation } from "react-i18next"
-import { navigate } from "@reach/router"
+// import { navigate } from "@reach/router"
 
 import { MessagesContext } from "../context/messages-context"
 import { MESSAGE_SEVERITY_STATUS } from "../message"
