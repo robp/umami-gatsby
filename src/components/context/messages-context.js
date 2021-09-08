@@ -1,20 +1,19 @@
 import React, { createContext, useState } from "react"
 import PropTypes from "prop-types"
+import { MESSAGE_SEVERITY_STATUS } from "../message"
 
 export const MessagesContext = createContext()
 
 const MessagesContextProvider = ({ children }) => {
   const [messages, setMessages] = useState([])
 
-  setMessages([
-    {
-      severity: "status",
-      content: "Your message has been sent.",
-    },
-  ])
-
   return (
-    <MessagesContext.Provider value={messages}>
+    <MessagesContext.Provider
+      value={{
+        messages,
+        updateMessages: newMessages => setMessages(newMessages),
+      }}
+    >
       {children}
     </MessagesContext.Provider>
   )
