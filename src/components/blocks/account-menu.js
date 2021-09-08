@@ -11,7 +11,7 @@ const AccountMenuBlock = menu => {
   return (
     <Block
       title={t("User account menu")}
-      titleClassName="visually-hidden"
+      titleHidden
       className={styles.block}
       locations={[/.*/]}
     >

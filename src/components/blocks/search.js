@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { useI18next } from "gatsby-plugin-react-i18next"
 import { navigate } from "@reach/router"
 import classNames from "classnames"
+import VisuallyHidden from "@reach/visually-hidden"
 
 import Block from "../block"
 import Link from "../link"
@@ -11,7 +12,7 @@ import * as styles from "../../styles/blocks/search.module.scss"
 
 const SearchBlock = () => {
   const { t, language } = useI18next()
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState("")
 
   const doSearch = event => {
     event.preventDefault()
@@ -77,13 +78,13 @@ const SearchBlock = () => {
               </g>
             </svg>
           </span>
-          <span className="visually-hidden">Search</span>
+          <VisuallyHidden>Search</VisuallyHidden>
         </Link>
       </div>
       <Block
         title={t("Search")}
+        titleHidden
         className={classNames(layoutStyles.containerInline, styles.block)}
-        titleClassName="visually-hidden"
         locations={[/.*/]}
       >
         <form
@@ -94,9 +95,11 @@ const SearchBlock = () => {
           onSubmit={doSearch}
         >
           <div className={styles.formTypeSearch}>
-            <label htmlFor="edit-keys" className="visually-hidden">
-              Search
-            </label>
+            <VisuallyHidden>
+              <label htmlFor="edit-keys">
+                Search
+              </label>
+            </VisuallyHidden>
             <input
               title="Enter the terms you wish to search for."
               placeholder="Search by keyword, ingredient, dish"

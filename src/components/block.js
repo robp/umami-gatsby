@@ -2,6 +2,9 @@ import React from "react"
 import PropTypes from "prop-types"
 import classNames from "classnames"
 import { useI18next } from "gatsby-plugin-react-i18next"
+import VisuallyHidden from "@reach/visually-hidden"
+
+import ConditionalWrapper from "./conditional-wrapper"
 
 import { styles } from "../styles/block.module.scss"
 
@@ -9,6 +12,7 @@ const Block = ({
   children,
   element,
   title,
+  titleHidden,
   titleClassName,
   className,
   locations,
@@ -39,9 +43,11 @@ const Block = ({
   return display ? (
     <Element className={classNames(styles, className)} {...rest}>
       {title ? (
-        <div className={titleClassName}>
-          <h2>{title}</h2>
-        </div>
+        <ConditionalWrapper condition={titleHidden} wrapper={children => <VisuallyHidden>{children}</VisuallyHidden>}>
+          <div className={titleClassName}>
+            <h2>{title}</h2>
+          </div>
+        </ConditionalWrapper>
       ) : null}
       {children}
     </Element>

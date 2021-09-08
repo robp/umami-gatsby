@@ -1,6 +1,7 @@
 import * as React from "react"
 import PropTypes from "prop-types"
 import classNames from "classnames"
+import { SkipNavContent } from "@reach/skip-nav"
 
 import ContentRegion from "../regions/content"
 import SidebarRegion from "../regions/sidebar"
@@ -13,25 +14,28 @@ import * as sidebarStyles from "../../styles/layout/sidebar.module.scss"
 
 const ContentLayout = ({ children, sidebar }) => {
   return (
-    <main
-      className={classNames(
-        mainStyles.styles,
-        container,
-        { [layoutStyles.oneColumn]: !sidebar },
-        { [layoutStyles.twoColumns]: sidebar }
-      )}
-    >
-      <div className={classNames(contentStyles.styles, layoutStyles.content)}>
-        <ContentRegion>{children}</ContentRegion>
-      </div>
-      {sidebar ? (
-        <aside
-          className={classNames(sidebarStyles.styles, layoutStyles.sidebar)}
-        >
-          <SidebarRegion />
-        </aside>
-      ) : null}
-    </main>
+    <>
+      <SkipNavContent />
+      <main
+        className={classNames(
+          mainStyles.styles,
+          container,
+          { [layoutStyles.oneColumn]: !sidebar },
+          { [layoutStyles.twoColumns]: sidebar }
+        )}
+      >
+        <div className={classNames(contentStyles.styles, layoutStyles.content)}>
+          <ContentRegion>{children}</ContentRegion>
+        </div>
+        {sidebar ? (
+          <aside
+            className={classNames(sidebarStyles.styles, layoutStyles.sidebar)}
+          >
+            <SidebarRegion />
+          </aside>
+        ) : null}
+      </main>
+    </>
   )
 }
 

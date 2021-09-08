@@ -1,6 +1,9 @@
 import React from "react"
 import PropTypes from "prop-types"
 import classNames from "classnames"
+import VisuallyHidden from "@reach/visually-hidden"
+
+import ConditionalWrapper from "./conditional-wrapper"
 
 import * as styles from "../styles/field.module.scss"
 
@@ -37,19 +40,25 @@ const Field = ({
   ) : (
     <Element {...props} {...rest}>
       {label ? (
-        <Element
-          className={classNames(styles.label, labelClassName, {
-            "visually-hidden": labelHidden,
-          })}
+        <ConditionalWrapper
+          condition={labelHidden}
+          wrapper={children => <VisuallyHidden>{children}</VisuallyHidden>}
         >
-          {label}
-        </Element>
+          <Element
+            className={classNames(styles.label, labelClassName)}
+          >
+            {label}
+          </Element>
+        </ConditionalWrapper>
       ) : null}
       {items ? (
         <Element className={classNames(styles.items, itemsClassName)}>
           {items.map((item, index) => {
             return (
-              <Element key={`item-${index}`} className={classNames(styles.item, itemClassName)}>
+              <Element
+                key={`item-${index}`}
+                className={classNames(styles.item, itemClassName)}
+              >
                 {item}
               </Element>
             )

@@ -3,6 +3,7 @@ import { useI18next } from "gatsby-plugin-react-i18next"
 import Link from "../link"
 import { StaticImage } from "gatsby-plugin-image"
 import { useSiteMetadata } from "../../hooks/use-site-metadata"
+import VisuallyHidden from "@reach/visually-hidden"
 
 import Block from "../block"
 
@@ -16,7 +17,7 @@ const SiteBrandingBlock = () => {
     <Block className={styles.block} locations={[/.*/]}>
       <Link to="/" language={language} className={styles.siteLogo}>
         <StaticImage src="../../images/logo.svg" alt={title} loading="eager" />
-        <span className="visually-hidden">{title}</span>
+        <VisuallyHidden>{title}</VisuallyHidden>
       </Link>
     </Block>
   )

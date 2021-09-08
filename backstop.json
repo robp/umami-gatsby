@@ -168,6 +168,12 @@
       "url": "http://localhost:8000/en/tags/vegetarian",
       "referenceUrl": "https://umami.pinciuc.com/en/tags/vegetarian",
       "delay": 3000
+    },
+    {
+      "label": "Search (en) - vs. Prod",
+      "url": "http://localhost:8000/en/search?keys=chocolate",
+      "referenceUrl": "https://umami.pinciuc.com/en/search?keys=chocolate",
+      "delay": 3000
     }
   ],
   "paths": {

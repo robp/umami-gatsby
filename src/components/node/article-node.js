@@ -38,7 +38,7 @@ const ArticleNode = ({ node, canonicalUrl }) => {
           <span
             property="schema:dateCreated"
             content={node.created}
-            className="rdf-meta hidden"
+            className="rdf-meta" hidden
           ></span>
         </div>
       </footer>
