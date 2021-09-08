@@ -1,0 +1,19 @@
+.resizeNone {
+  resize: none;
+}
+
+.resizeVertical {
+  min-height: 2em;
+  resize: vertical;
+}
+
+.resizeHorizontal {
+  max-width: 100%;
+  resize: horizontal;
+}
+
+.resizeBoth {
+  max-width: 100%;
+  min-height: 2em;
+  resize: both;
+}

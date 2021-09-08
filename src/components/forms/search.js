@@ -27,7 +27,6 @@ const SearchForm = forwardRef((props, ref) => {
   return (
     <form
       className={styles.form}
-      data-drupal-selector="search-form"
       action={`/${path}`}
       method="get"
       id="search-form"
@@ -40,13 +39,11 @@ const SearchForm = forwardRef((props, ref) => {
           styles.containerInline,
           styles.formWrapper
         )}
-        data-drupal-selector="edit-basic"
         id="edit-basic"
       >
         <div className={styles.formTypeSearch}>
           <label htmlFor="edit-keys">{t("Enter your keywords")}</label>
           <input
-            data-drupal-selector="edit-keys"
             type="search"
             id="edit-keys"
             name="keys"
@@ -58,7 +55,6 @@ const SearchForm = forwardRef((props, ref) => {
           />
         </div>
         <input
-          data-drupal-selector="edit-submit"
           type="submit"
           id="edit-submit"
           name="op"
@@ -74,7 +70,8 @@ const SearchForm = forwardRef((props, ref) => {
             <StaticImage
               src="../../images/search-by-algolia-light-background.svg"
               alt="Search by algolia"
-              width="150" height="21"
+              width="150"
+              height="21"
             />
           </a>
         </div>
@@ -83,7 +80,6 @@ const SearchForm = forwardRef((props, ref) => {
         to="/search/help"
         language={language}
         className={styles.searchHelpLink}
-        data-drupal-selector="edit-help-link"
         id="edit-help-link"
       >
         {t("About searching")}

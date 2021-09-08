@@ -51,5 +51,12 @@
   "search.help.or": "Use upper-case OR to get more results. Example: cat OR dog (content contains either \"cat\" or \"dog\").",
   "search.help.and": "You can use upper-case AND to require all words, but this is the same as the default behavior. Example: cat AND dog (same as cat dog, content must contain both \"cat\" and \"dog\").",
   "search.help.quotes": "Use quotes to search for a phrase. Example: \"the cat eats mice\".",
-  "search.help.exclude": "You can precede keywords by - to exclude them; you must still have at least one \"positive\" keyword. Example: cat -dog (content must contain cat and cannot contain dog)."
+  "search.help.exclude": "You can precede keywords by - to exclude them; you must still have at least one \"positive\" keyword. Example: cat -dog (content must contain cat and cannot contain dog).",
+  "Your name": "Your name",
+  "Your email address": "Your email address",
+  "Subject": "Subject",
+  "Message": "Message",
+  "Send message": "Send message",
+  "Contact": "Contact",
+  "Website feedback": "Website feedback"
 }

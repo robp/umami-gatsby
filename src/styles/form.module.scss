@@ -1,0 +1,36 @@
+@import "./variables";
+
+.formActions {
+  > .button,
+  > .formWrapper {
+    margin: 0.5rem;
+    line-height: normal;
+  }
+}
+
+.formItem,
+.formActions {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.formRequired::after {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin: 0 0.3em;
+  content: "";
+  vertical-align: super;
+  background-image: url(../images/required.svg);
+  background-repeat: no-repeat;
+  background-size: 6px 6px;
+}
+
+.formTextareaWrapper {
+  textarea {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+  }
+}

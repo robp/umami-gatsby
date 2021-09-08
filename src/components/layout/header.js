@@ -3,7 +3,6 @@ import { SkipNavLink } from "@reach/skip-nav"
 
 import PreHeaderRegion from "../regions/pre-header"
 import HeaderRegion from "../regions/header"
-import HighlightedRegion from "../regions/highlighted"
 
 import "@reach/skip-nav/styles.css"
 import { container } from "../../styles/layout.module.scss"
@@ -16,7 +15,6 @@ const HeaderLayout = () => (
       <div className={container}>
         <PreHeaderRegion />
         <HeaderRegion />
-        <HighlightedRegion />
       </div>
     </header>
   </>

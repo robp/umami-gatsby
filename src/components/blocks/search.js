@@ -96,14 +96,11 @@ const SearchBlock = () => {
         >
           <div className={styles.formTypeSearch}>
             <VisuallyHidden>
-              <label htmlFor="edit-keys">
-                Search
-              </label>
+              <label htmlFor="edit-keys">Search</label>
             </VisuallyHidden>
             <input
               title="Enter the terms you wish to search for."
               placeholder="Search by keyword, ingredient, dish"
-              data-drupal-selector="edit-keys"
               type="search"
               id="edit-keys"
               name="keys"
@@ -115,12 +112,10 @@ const SearchBlock = () => {
             />
           </div>
           <div
-            data-drupal-selector="edit-actions"
             className={classNames(layoutStyles.formActions, styles.formActions)}
             id="edit-actions"
           >
             <input
-              data-drupal-selector="edit-submit"
               type="submit"
               id="edit-submit"
               value="Search"
