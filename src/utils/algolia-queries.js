@@ -1,6 +1,6 @@
 const { stripTags } = require("./functions")
 
-const indexName = process.env.ALGOLIA_INDEX_NAME
+const indexName = process.env.GATSBY_ALGOLIA_INDEX_NAME
 
 const pageQuery = `{
   nodes: allNodePage(filter: { status: { eq: true } }) {
