@@ -15,7 +15,6 @@ import * as sidebarStyles from "../../styles/layout/sidebar.module.scss"
 const ContentLayout = ({ children, sidebar }) => {
   return (
     <>
-      <SkipNavContent />
       <main
         className={classNames(
           mainStyles.styles,
@@ -25,6 +24,7 @@ const ContentLayout = ({ children, sidebar }) => {
         )}
       >
         <div className={classNames(contentStyles.styles, layoutStyles.content)}>
+          <SkipNavContent />
           <ContentRegion>{children}</ContentRegion>
         </div>
         {sidebar ? (

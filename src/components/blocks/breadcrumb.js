@@ -22,7 +22,7 @@ const BreadcrumbBlock = () => {
   // homepage
   const breadcrumbs = crumbs.slice(1)
   const crumbSeparator = " » "
-  const crumbLabel = pageContext.title || t("Untitled")
+  const crumbLabel = pageContext.crumbLabel || pageContext.title || t("Untitled")
   // Don't generate a link for the last crumb (the current page)
   const disableLinks = [crumbs[crumbs.length - 1].pathname]
   const hiddenPaths = ["tags", "recipe-category"]

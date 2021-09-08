@@ -51,5 +51,12 @@
   "search.help.or": "Utilice OR en mayúsculas para obtener más resultados. Por ejemplo: gato OR perro (contenido que incluya \"gato\" o \"perro\")",
   "search.help.and": "Puede utilizar AND en mayúsculas para incluir todas las palabras, pero será lo mismo que el comportamiento predeterminado. Por ejemplo: gato AND perro (lo mismo que \"gato perro\", contenido debe incluir \"gato\" y \"perro\")",
   "search.help.quotes": "Utilice comillas para buscar una frase. Por ejemplo: \"El gato come ratones\"",
-  "search.help.exclude": "Puede restringir palabras claves con - para excluirlos; debe todavía tener al menos una palabra clave \"positiva\". Por ejemplo: gato -perro (contenido debe incluir gato pero no puede contener perro)"
+  "search.help.exclude": "Puede restringir palabras claves con - para excluirlos; debe todavía tener al menos una palabra clave \"positiva\". Por ejemplo: gato -perro (contenido debe incluir gato pero no puede contener perro)",
+  "Your name": "Su nombre",
+  "Your email address": "Su dirección de correo electrónico",
+  "Subject": "Asunto",
+  "Message": "Mensaje",
+  "Send message": "Enviar mensaje",
+  "Contact": "Contacto",
+  "Website feedback": "Comentarios sobre el sitio web"
 }
