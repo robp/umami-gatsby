@@ -69,6 +69,7 @@ module.exports = {
         languageConfig: {
           defaultLanguage: languages.defaultLangKey,
           enabledLanguages: languages.langs,
+          nonTranslatableEntities: [`file--file`],
           translatableEntities: [
             "node--article",
             "node--recipe",
@@ -77,7 +78,6 @@ module.exports = {
             "taxonomy_term--tags",
             "taxonomy_vocabulary--taxonomy_vocabulary",
             "media--image",
-            "file--file",
             "media_type--media_type",
             "menu_link_content--menu_link_content",
             "menu_items",
