@@ -69,7 +69,7 @@ module.exports = {
         languageConfig: {
           defaultLanguage: languages.defaultLangKey,
           enabledLanguages: languages.langs,
-          nonTranslatableEntities: [`file--file`],
+          nonTranslatableEntities: ["file--file", "user--user"],
           translatableEntities: [
             "node--article",
             "node--recipe",
