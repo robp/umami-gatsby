@@ -152,14 +152,6 @@ module.exports = {
         ],
       },
     },
-    {
-      resolve: "gatsby-plugin-web-font-loader",
-      options: {
-        google: {
-          families: ["Open Sans:400,400i,700,700i", "Scope One"],
-        },
-      },
-    },
     `gatsby-plugin-remove-trailing-slashes`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-netlify`, // make sure to keep it last in the array
