@@ -5,6 +5,8 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@fontsource/open-sans": "^4.5.0",
+    "@fontsource/scope-one": "^4.5.0",
     "@reach/skip-nav": "^0.16.0",
     "@reach/visually-hidden": "^0.16.0",
     "algoliasearch": "^4.10.5",
@@ -23,7 +25,6 @@
     "gatsby-plugin-react-i18next": "^1.1.1",
     "gatsby-plugin-sass": "^4.11.0",
     "gatsby-plugin-sharp": "^3.11.0",
-    "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-source-drupal": "^4.11.0",
     "gatsby-source-drupal-menu-links": "git+https://github.com/robp/gatsby-source-drupal-menu-links.git#feature/add-i18n",
     "gatsby-source-filesystem": "^3.11.0",
