@@ -9,8 +9,8 @@ import { capitalizeFirstLetter } from "../utils/functions"
 import * as layoutStyles from "../styles/layout.module.scss"
 import * as styles from "../styles/message.module.scss"
 
-export const MESSAGE_SEVERITY_STATUS = "status"
 export const MESSAGE_SEVERITY_NOTICE = "notice"
+export const MESSAGE_SEVERITY_SUCCESS = "success"
 export const MESSAGE_SEVERITY_WARNING = "warning"
 export const MESSAGE_SEVERITY_ERROR = "error"
 
@@ -21,7 +21,7 @@ const Message = ({ severity, content }) => {
     <div
       role="contentinfo"
       aria-label="Status message"
-      className={classNames(styles.message, styles.status)}
+      className={classNames(styles.message, styles[severity])}
     >
       <div className={classNames(styles.content, layoutStyles.container)}>
         <VisuallyHidden>

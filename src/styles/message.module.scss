@@ -13,25 +13,40 @@
   background: no-repeat 0 center;
 }
 
-.status {
-  border: 1px solid #cbdebc;
-  background-color: $lightGrey;
+.notice {
+  border: 1px solid #d9d9d9;
+  background-color: #eeeeee;
 
   .content {
-    background-image: url(../images/check.svg);
+    background-image: url(../images/icons/puzzlepiece.svg);
   }
 }
 
-.notice {
-  background-color: lightgrey;
+.success {
+  border: 1px solid #cbdebc;
+  background-color: #e6eee0;
+
+  .content {
+    background-image: url(../images/icons/check.svg);
+  }
 }
 
 .warning {
-  background-color: lightyellow;
+  border: 1px solid #fae2a4;
+  background-color: #fcf1d4;
+
+  .content {
+    background-image: url(../images/icons/warning.svg);
+  }
 }
 
 .error {
-  background-color: lightcoral;
+  border: 1px solid #f8c8d5;
+  background-color: #f9e6eb;
+
+  .content {
+    background-image: url(../images/icons/error.svg);
+  }
 }
 
 .item {
