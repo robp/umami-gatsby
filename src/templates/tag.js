@@ -1,11 +1,10 @@
-import React from "react"
+import React, { useContext, useEffect } from "react"
 import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 import { useTranslation } from "gatsby-plugin-react-i18next"
 
-import PageContextProvider from "../components/context/page-context"
-import LanguageSwitcherContextProvider from "../components/context/language-switcher-context"
-
+import { PageContext } from "../components/context/page-context"
+import { LanguageSwitcherContext } from "../components/context/language-switcher-context"
 import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import ArticleCard from "../components/node/article-card"
@@ -15,11 +14,20 @@ import * as layoutStyles from "../styles/layout.module.scss"
 
 const Tag = ({ pageContext, data }) => {
   const { t } = useTranslation()
-
+  const { setStoredPageContext } = useContext(PageContext)
+  const { setTranslations } = useContext(LanguageSwitcherContext)
   const node = data.taxonomyTermTags
-  const translations = data.allTaxonomyTermTags.edges
+  const nodeTranslations = data.allTaxonomyTermTags.edges
+
+  useEffect(() => {
+    setTranslations(nodeTranslations)
+  }, [nodeTranslations, setTranslations])
 
   pageContext.title = node.name
+
+  useEffect(() => {
+    setStoredPageContext(pageContext)
+  }, [pageContext, setStoredPageContext])
 
   const nodes = [
     ...(node.relationships?.node__article || []),
@@ -32,37 +40,33 @@ const Tag = ({ pageContext, data }) => {
   })
 
   return (
-    <PageContextProvider pageContext={pageContext}>
-      <LanguageSwitcherContextProvider translations={translations}>
-        <Layout>
-          <Seo title={node.name} />
-          <div>
-            <div className={layoutStyles.grid4}>
-              {nodes ? (
-                <ul className={layoutStyles.list}>
-                  {nodes.map(node => {
-                    if (node.internal.type === "node__recipe") {
-                      return (
-                        <li key={node.id} className={layoutStyles.item}>
-                          <RecipeCard node={node} />
-                        </li>
-                      )
-                    }
-                    return (
-                      <li key={node.id} className={layoutStyles.item}>
-                        <ArticleCard node={node} />
-                      </li>
-                    )
-                  })}
-                </ul>
-              ) : (
-                `<p>${t("No content.")}</p>`
-              )}
-            </div>
-          </div>
-        </Layout>
-      </LanguageSwitcherContextProvider>
-    </PageContextProvider>
+    <Layout>
+      <Seo title={node.name} />
+      <div>
+        <div className={layoutStyles.grid4}>
+          {nodes ? (
+            <ul className={layoutStyles.list}>
+              {nodes.map(node => {
+                if (node.internal.type === "node__recipe") {
+                  return (
+                    <li key={node.id} className={layoutStyles.item}>
+                      <RecipeCard node={node} />
+                    </li>
+                  )
+                }
+                return (
+                  <li key={node.id} className={layoutStyles.item}>
+                    <ArticleCard node={node} />
+                  </li>
+                )
+              })}
+            </ul>
+          ) : (
+            `<p>${t("No content.")}</p>`
+          )}
+        </div>
+      </div>
+    </Layout>
   )
 }
 

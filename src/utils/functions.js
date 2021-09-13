@@ -36,9 +36,32 @@ const removeTrailingSlash = str => {
   return str.replace(/\/$/, "")
 }
 
+/**
+ *
+ * @param {array} languages
+ * @param {string} originalPath
+ */
+const getDefaultTranslations = (languages, originalPath) => {
+  const translations = []
+
+  languages?.forEach(langcode => {
+    translations.push({
+      node: {
+        langcode,
+        path: {
+          alias: originalPath,
+        },
+      },
+    })
+  })
+
+  return translations
+}
+
 module.exports = {
   normalizeString,
   capitalizeFirstLetter,
   stripTags,
   removeTrailingSlash,
+  getDefaultTranslations,
 }

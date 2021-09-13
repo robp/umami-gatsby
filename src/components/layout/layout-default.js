@@ -1,8 +1,6 @@
 import * as React from "react"
 import PropTypes from "prop-types"
 
-import UserContextProvider from "../context/user-context"
-import MessagesContextProvider from "../context/messages-context"
 import Header from "./header"
 import HighlightedLayout from "./highlighted"
 import BannerTopLayout from "./banner-top"
@@ -18,21 +16,19 @@ import "../../styles/_base.scss"
 
 const Layout = ({ children, sidebar }) => {
   return (
-    <UserContextProvider>
-      <MessagesContextProvider>
-        <Header />
-        <HighlightedLayout />
-        <BannerTopLayout />
-        <BreadcrumbsLayout />
-        <PageTitleLayout>
-          <PageTitleBlock />
-        </PageTitleLayout>
-        <ContentLayout sidebar={sidebar}>{children}</ContentLayout>
-        <ContentBottomLayout />
-        <FooterLayout />
-        <BottomLayout />
-      </MessagesContextProvider>
-    </UserContextProvider>
+    <>
+      <Header />
+      <HighlightedLayout />
+      <BannerTopLayout />
+      <BreadcrumbsLayout />
+      <PageTitleLayout>
+        <PageTitleBlock />
+      </PageTitleLayout>
+      <ContentLayout sidebar={sidebar}>{children}</ContentLayout>
+      <ContentBottomLayout />
+      <FooterLayout />
+      <BottomLayout />
+    </>
   )
 }
 

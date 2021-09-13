@@ -1,24 +1,40 @@
-import * as React from "react"
+import React, { useContext, useEffect, useMemo } from "react"
 import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 
-import PageContextProvider from "../components/context/page-context"
+import { PageContext } from "../components/context/page-context"
+import { LanguageSwitcherContext } from "../components/context/language-switcher-context"
 import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import FrontpageBlock from "../components/blocks/frontpage"
 
+import { getDefaultTranslations } from "../utils/functions"
+
 const Page = ({ pageContext, data }) => {
-  const { t } = useI18next()
+  const { t, languages, originalPath } = useI18next()
+  const { setStoredPageContext } = useContext(PageContext)
+  const { setTranslations } = useContext(LanguageSwitcherContext)
+
+  const nodeTranslations = useMemo(
+    () => getDefaultTranslations(languages, originalPath),
+    [languages, originalPath]
+  )
+
+  useEffect(() => {
+    setTranslations(nodeTranslations)
+  }, [nodeTranslations, setTranslations])
 
   pageContext.title = t("Home")
 
+  useEffect(() => {
+    setStoredPageContext(pageContext)
+  }, [pageContext, setStoredPageContext])
+
   return (
-    <PageContextProvider pageContext={pageContext}>
-      <Layout>
-        <Seo title={t("Home")} />
-        <FrontpageBlock />
-      </Layout>
-    </PageContextProvider>
+    <Layout>
+      <Seo title={pageContext.title} />
+      <FrontpageBlock />
+    </Layout>
   )
 }
 

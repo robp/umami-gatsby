@@ -1,44 +1,41 @@
-import React from "react"
+import React, { useContext, useEffect, useMemo } from "react"
 import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 
-import PageContextProvider from "../components/context/page-context"
-import LanguageSwitcherContextProvider from "../components/context/language-switcher-context"
+import { PageContext } from "../components/context/page-context"
+import { LanguageSwitcherContext } from "../components/context/language-switcher-context"
 import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import ContactForm from "../components/forms/contact"
 
+import { getDefaultTranslations } from "../utils/functions"
+
 const Page = ({ pageContext, data }) => {
   const { t, languages, originalPath } = useI18next()
+  const { setStoredPageContext } = useContext(PageContext)
+  const { setTranslations } = useContext(LanguageSwitcherContext)
 
-  /**
-   * @todo Use i18next to handle this, somehow.
-   */
-  const translations = []
+  const nodeTranslations = useMemo(
+    () => getDefaultTranslations(languages, originalPath),
+    [languages, originalPath]
+  )
 
-  languages.forEach(langcode => {
-    translations.push({
-      node: {
-        langcode,
-        path: {
-          alias: originalPath,
-        },
-      },
-    })
-  })
+  useEffect(() => {
+    setTranslations(nodeTranslations)
+  }, [nodeTranslations, setTranslations])
 
   pageContext.crumbLabel = t("Contact")
   pageContext.title = t("Website feedback")
 
+  useEffect(() => {
+    setStoredPageContext(pageContext)
+  }, [pageContext, setStoredPageContext])
+
   return (
-    <PageContextProvider pageContext={pageContext}>
-      <LanguageSwitcherContextProvider translations={translations}>
-        <Layout>
-          <Seo title={pageContext.title} />
-          <ContactForm />
-        </Layout>
-      </LanguageSwitcherContextProvider>
-    </PageContextProvider>
+    <Layout>
+      <Seo title={pageContext.title} />
+      <ContactForm />
+    </Layout>
   )
 }
 

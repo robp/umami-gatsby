@@ -18,8 +18,12 @@ const MessagesBlock = () => {
       title={t("Messages")}
       titleHidden
     >
-      {messages?.map(message => (
-        <Message severity={message.severity} content={message.content} />
+      {messages?.map((message, index) => (
+        <Message
+          key={`message-${index}`}
+          severity={message.severity}
+          content={message.content}
+        />
       ))}
     </Block>
   )

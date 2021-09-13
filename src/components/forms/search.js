@@ -10,7 +10,7 @@ import * as layoutStyles from "../../styles/layout.module.scss"
 import * as styles from "../../styles/forms/search.module.scss"
 
 const SearchForm = forwardRef((props, ref) => {
-  const { t, language, path } = useI18next()
+  const { t, language } = useI18next()
   const [query, setQuery] = useState("")
 
   useImperativeHandle(ref, () => {
@@ -21,13 +21,12 @@ const SearchForm = forwardRef((props, ref) => {
 
   const doSearch = event => {
     event.preventDefault()
-    navigate(`${event.target.action}?keys=${query}`)
+    navigate(`?keys=${query}`)
   }
 
   return (
     <form
       className={styles.form}
-      action={`/${path}`}
       method="get"
       id="search-form"
       acceptCharset="UTF-8"
@@ -70,8 +69,8 @@ const SearchForm = forwardRef((props, ref) => {
             <StaticImage
               src="../../images/search-by-algolia-light-background.svg"
               alt="Search by algolia"
-              width="150"
-              height="21"
+              width={150}
+              height={21}
             />
           </a>
         </div>
