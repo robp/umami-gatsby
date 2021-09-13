@@ -1,5 +1,9 @@
+@import "../variables";
+
 .styles {
-  .zzz {
-    color: red;
+  padding: 0 4%;
+
+  @media all and ($breakpointFull) {
+    padding: 0;
   }
 }

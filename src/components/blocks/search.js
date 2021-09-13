@@ -16,7 +16,7 @@ const SearchBlock = () => {
 
   const doSearch = event => {
     event.preventDefault()
-    navigate(`${event.target.action}?keys=${query}`)
+    navigate(`/${language}/search?keys=${query}`)
   }
 
   return (
@@ -88,7 +88,6 @@ const SearchBlock = () => {
         locations={[/.*/]}
       >
         <form
-          action={`/${language}/search`}
           method="get"
           id="search-block-form"
           acceptCharset="UTF-8"
@@ -99,8 +98,8 @@ const SearchBlock = () => {
               <label htmlFor="edit-keys">Search</label>
             </VisuallyHidden>
             <input
-              title="Enter the terms you wish to search for."
-              placeholder="Search by keyword, ingredient, dish"
+              title={t("Enter the terms you wish to search for.")}
+              placeholder={t("Search by keyword, ingredient, dish")}
               type="search"
               id="edit-keys"
               name="keys"
@@ -118,7 +117,7 @@ const SearchBlock = () => {
             <input
               type="submit"
               id="edit-submit"
-              value="Search"
+              value={t("Search")}
               className={classNames(styles.formSubmit, styles.button)}
             />
           </div>

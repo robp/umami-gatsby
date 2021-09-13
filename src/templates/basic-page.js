@@ -1,30 +1,35 @@
-import React from "react"
+import React, { useContext, useEffect } from "react"
 import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 
-import PageContextProvider from "../components/context/page-context"
-import LanguageSwitcherContextProvider from "../components/context/language-switcher-context"
-
+import { PageContext } from "../components/context/page-context"
+import { LanguageSwitcherContext } from "../components/context/language-switcher-context"
 import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 
 const BasicPage = ({ pageContext, data }) => {
+  const { setStoredPageContext } = useContext(PageContext)
+  const { setTranslations } = useContext(LanguageSwitcherContext)
   const node = data.nodePage
-  const translations = data.allNodePage.edges
+  const nodeTranslations = data.allNodePage.edges
+
+  useEffect(() => {
+    setTranslations(nodeTranslations)
+  }, [nodeTranslations, setTranslations])
 
   pageContext.title = node.title
 
+  useEffect(() => {
+    setStoredPageContext(pageContext)
+  }, [pageContext, setStoredPageContext])
+
   return (
-    <PageContextProvider pageContext={pageContext}>
-      <LanguageSwitcherContextProvider translations={translations}>
-        <Layout>
-          <Seo title={node.title} />
-          {node.body ? (
-            <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
-          ) : null}
-        </Layout>
-      </LanguageSwitcherContextProvider>
-    </PageContextProvider>
+    <Layout>
+      <Seo title={node.title} />
+      {node.body ? (
+        <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
+      ) : null}
+    </Layout>
   )
 }
 

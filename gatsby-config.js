@@ -123,6 +123,7 @@ module.exports = {
         // pass following options to allow message content as a key
         i18nextOptions: {
           debug: process.env.I18NEXT_DEBUG,
+          resources: {}, // Avoids a lengthy list of console warnings about no backend.
           interpolation: {
             escapeValue: false, // not needed for react as it escapes by default
           },
@@ -154,7 +155,6 @@ module.exports = {
     },
     `gatsby-plugin-remove-trailing-slashes`,
     `gatsby-plugin-sass`,
-    `gatsby-plugin-netlify`, // make sure to keep it last in the array
     {
       resolve: `gatsby-plugin-breadcrumb`,
       options: {
@@ -257,5 +257,6 @@ module.exports = {
         skipIndexing: process.env.ALGOLIA_SKIP_INDEXING,
       },
     },
+    `gatsby-plugin-netlify`, // make sure to keep it last in the array
   ],
 }

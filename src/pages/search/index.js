@@ -1,19 +1,23 @@
-import React, { useRef, useMemo, useState, useEffect } from "react"
+import React, { useContext, useRef, useMemo, useState, useEffect } from "react"
 import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 import algoliasearch from "algoliasearch/lite"
 
-import PageContextProvider from "../../components/context/page-context"
-import LanguageSwitcherContextProvider from "../../components/context/language-switcher-context"
+import { PageContext } from "../../components/context/page-context"
+import { LanguageSwitcherContext } from "../../components/context/language-switcher-context"
 import Layout from "../../components/layout/layout-default"
 import Seo from "../../components/seo"
 import SearchForm from "../../components/forms/search"
 import SearchResult from "../../components/search/result"
 
+import { getDefaultTranslations } from "../../utils/functions"
+
 import * as styles from "../../styles/pages/search.module.scss"
 
 const Page = ({ pageContext, location, data }) => {
   const { t, languages, originalPath, language } = useI18next()
+  const { setStoredPageContext } = useContext(PageContext)
+  const { setTranslations } = useContext(LanguageSwitcherContext)
   const searchFormRef = useRef()
   const [results, setResults] = useState([])
   const [isLoading, setLoading] = useState(true)
@@ -27,8 +31,9 @@ const Page = ({ pageContext, location, data }) => {
       ),
     []
   )
-  const searchIndex = searchClient.initIndex(
-    process.env.GATSBY_ALGOLIA_INDEX_NAME
+  const searchIndex = useMemo(
+    () => searchClient.initIndex(process.env.GATSBY_ALGOLIA_INDEX_NAME),
+    [searchClient]
   )
 
   useEffect(() => {
@@ -37,34 +42,27 @@ const Page = ({ pageContext, location, data }) => {
   }, [location])
 
   useEffect(() => {
+    const doSearch = () => {
+      if (keys?.length) {
+        searchIndex
+          .search(keys, {
+            facetFilters: [`langcode:${language}`],
+          })
+          .then(({ hits }) => {
+            setResults(hits)
+            setLoading(false)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      } else {
+        setResults([])
+        setLoading(false)
+      }
+    }
     searchFormRef.current.setQuery(keys)
     doSearch()
-  }, [keys])
-
-  const doSearch = () => {
-    if (keys?.length) {
-      searchIndex
-        .search(keys, {
-          facetFilters: [`langcode:${language}`],
-        })
-        .then(({ hits }) => {
-          setResults(hits)
-          setLoading(false)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    } else {
-      setResults([])
-      setLoading(false)
-    }
-  }
-
-  if (keys?.length) {
-    pageContext.title = `${t("Search for")} ${keys}`
-  } else {
-    pageContext.title = t("Search")
-  }
+  }, [keys, language, searchIndex])
 
   const resultsLoading = (
     <h3 className={styles.noResultsHeading}>{t("Loading...")}</h3>
@@ -95,32 +93,31 @@ const Page = ({ pageContext, location, data }) => {
     noResults
   )
 
-  /**
-   * @todo Use i18next to handle this, somehow.
-   */
-  const translations = []
+  const nodeTranslations = useMemo(
+    () => getDefaultTranslations(languages, originalPath),
+    [languages, originalPath]
+  )
 
-  languages.forEach(langcode => {
-    translations.push({
-      node: {
-        langcode,
-        path: {
-          alias: originalPath,
-        },
-      },
-    })
-  })
+  useEffect(() => {
+    setTranslations(nodeTranslations)
+  }, [nodeTranslations, setTranslations])
+
+  if (keys?.length) {
+    pageContext.title = `${t("Search for")} ${keys}`
+  } else {
+    pageContext.title = t("Search")
+  }
+
+  useEffect(() => {
+    setStoredPageContext(pageContext)
+  }, [pageContext, setStoredPageContext])
 
   return (
-    <PageContextProvider pageContext={pageContext}>
-      <LanguageSwitcherContextProvider translations={translations}>
-        <Layout>
-          <Seo title={pageContext.title} />
-          <SearchForm ref={searchFormRef} />
-          {isLoading ? resultsLoading : renderedResults}
-        </Layout>
-      </LanguageSwitcherContextProvider>
-    </PageContextProvider>
+    <Layout>
+      <Seo title={pageContext.title} />
+      <SearchForm ref={searchFormRef} />
+      {isLoading ? resultsLoading : renderedResults}
+    </Layout>
   )
 }
 

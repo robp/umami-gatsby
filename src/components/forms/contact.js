@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import classNames from "classnames"
-import { useTranslation } from "react-i18next"
-// import { navigate } from "@reach/router"
+import { useI18next } from "gatsby-plugin-react-i18next"
+import { navigate } from "gatsby"
 
 import { MessagesContext } from "../context/messages-context"
 import { MESSAGE_SEVERITY_STATUS } from "../message"
@@ -12,8 +12,8 @@ import * as resizeStyles from "../../styles/resize.module.scss"
 import * as styles from "../../styles/forms/contact.module.scss"
 
 const ContactForm = () => {
-  const { t } = useTranslation()
-  const { messages, updateMessages } = useContext(MessagesContext)
+  const { t, language } = useI18next()
+  const { addMessage } = useContext(MessagesContext)
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -23,17 +23,15 @@ const ContactForm = () => {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams(formData).toString(),
-      // method: "GET",
     })
       .then(() => {
-        console.log("Form successfully submitted")
-        updateMessages([
+        addMessage(
           {
             severity: MESSAGE_SEVERITY_STATUS,
-            content: "Form successfully submitted",
+            content: t("Your message has been sent."),
           },
-        ])
-        // navigate("/en/")
+        )
+        navigate(`/${language}`)
       })
       .catch(error => alert(error))
   }
@@ -45,8 +43,8 @@ const ContactForm = () => {
       id="contact-message-feedback-form"
       acceptCharset="UTF-8"
       className={styles.form}
-      data-netlify="true"
       onSubmit={handleSubmit}
+      data-netlify="true"
     >
       <div className={formStyles.formItem}>
         <label htmlFor="edit-name" className={formStyles.formRequired}>

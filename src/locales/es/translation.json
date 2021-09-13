@@ -58,5 +58,11 @@
   "Message": "Mensaje",
   "Send message": "Enviar mensaje",
   "Contact": "Contacto",
-  "Website feedback": "Comentarios sobre el sitio web"
+  "Website feedback": "Comentarios sobre el sitio web",
+  "Messages": "Mensajes",
+  "message": "mensaje",
+  "Your message has been sent.": "Su mensaje ha sido enviado.",
+  "Enter the terms you wish to search for.": "Escriba lo que quiere buscar.",
+  "Search by keyword, ingredient, dish": "Buscar por palabra clave, ingrediente, plato",
+  "Source code": "Código fuente"
 }

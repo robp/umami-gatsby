@@ -9,7 +9,7 @@ import * as styles from "../../styles/blocks/page-title.module.scss"
 
 function PageTitleBlock({ title, ...rest }) {
   const { t } = useTranslation()
-  const pageContext = useContext(PageContext)
+  const { storedPageContext } = useContext(PageContext)
 
   return (
     <Block
@@ -18,7 +18,7 @@ function PageTitleBlock({ title, ...rest }) {
       locationsExcept={[/^\/$/]}
       {...rest}
     >
-      <h1>{title || pageContext?.title || t("Untitled")}</h1>
+      <h1>{title || storedPageContext?.title || t("Untitled")}</h1>
     </Block>
   )
 }

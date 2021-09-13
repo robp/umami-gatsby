@@ -1,28 +1,34 @@
-import React from "react"
+import React, { useContext, useEffect } from "react"
 import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 
-import PageContextProvider from "../components/context/page-context"
-import LanguageSwitcherContextProvider from "../components/context/language-switcher-context"
+import { PageContext } from "../components/context/page-context"
+import { LanguageSwitcherContext } from "../components/context/language-switcher-context"
 import Layout from "../components/layout/layout-node"
 import Seo from "../components/seo"
 import ArticleNode from "../components/node/article-node"
 
 const Article = ({ pageContext, location, data }) => {
+  const { setStoredPageContext } = useContext(PageContext)
+  const { setTranslations } = useContext(LanguageSwitcherContext)
   const node = data.nodeArticle
-  const translations = data.allNodeArticle.edges
+  const nodeTranslations = data.allNodeArticle.edges
+
+  useEffect(() => {
+    setTranslations(nodeTranslations)
+  }, [nodeTranslations, setTranslations])
 
   pageContext.title = node.title
 
+  useEffect(() => {
+    setStoredPageContext(pageContext)
+  }, [pageContext, setStoredPageContext])
+
   return (
-    <PageContextProvider pageContext={pageContext}>
-      <LanguageSwitcherContextProvider translations={translations}>
-        <Layout sidebar>
-          <Seo title={node.title} />
-          <ArticleNode node={node} canonicalUrl={location.pathname} />
-        </Layout>
-      </LanguageSwitcherContextProvider>
-    </PageContextProvider>
+    <Layout sidebar>
+      <Seo title={node.title} />
+      <ArticleNode node={node} canonicalUrl={location.pathname} />
+    </Layout>
   )
 }
 

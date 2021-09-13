@@ -10,19 +10,20 @@ import * as styles from "../../styles/blocks/breadcrumb.module.scss"
 
 const BreadcrumbBlock = () => {
   const { t, languages } = useI18next()
-  const pageContext = useContext(PageContext)
+  const { storedPageContext } = useContext(PageContext)
 
-  if (!pageContext?.breadcrumb) return null
+  if (!storedPageContext?.breadcrumb) return null
 
   const {
     breadcrumb: { crumbs },
-  } = pageContext
+  } = storedPageContext
 
   // Slice off the first crumb `/` since we'll have a language crumb for the
   // homepage
   const breadcrumbs = crumbs.slice(1)
   const crumbSeparator = " » "
-  const crumbLabel = pageContext.crumbLabel || pageContext.title || t("Untitled")
+  const crumbLabel =
+    storedPageContext.crumbLabel || storedPageContext.title || t("Untitled")
   // Don't generate a link for the last crumb (the current page)
   const disableLinks = [crumbs[crumbs.length - 1].pathname]
   const hiddenPaths = ["tags", "recipe-category"]

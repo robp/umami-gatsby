@@ -1,21 +1,28 @@
-import React, { createContext } from "react"
+import React, { createContext, useState, useMemo } from "react"
 import PropTypes from "prop-types"
 
-export const PageContext = createContext()
+export const PageContext = createContext({
+  storedPageContext: {},
+  setStoredPageContext: () => {},
+})
 
-const PageContextProvider = ({ pageContext, children }) => {
-  return (
-    <PageContext.Provider value={pageContext}>{children}</PageContext.Provider>
+const PageContextProvider = ({ children }) => {
+  const [storedPageContext, setStoredPageContext] = useState({})
+
+  const value = useMemo(
+    () => ({
+      storedPageContext,
+      setStoredPageContext: newPageContext =>
+        setStoredPageContext(newPageContext),
+    }),
+    [storedPageContext]
   )
+
+  return <PageContext.Provider value={value}>{children}</PageContext.Provider>
 }
 
 PageContextProvider.propTypes = {
-  pageContext: PropTypes.object,
   children: PropTypes.node.isRequired,
-}
-
-PageContextProvider.defaultProps = {
-  pageContext: {},
 }
 
 export default PageContextProvider

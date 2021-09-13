@@ -58,5 +58,11 @@
   "Message": "Message",
   "Send message": "Send message",
   "Contact": "Contact",
-  "Website feedback": "Website feedback"
+  "Website feedback": "Website feedback",
+  "Messages": "Messages",
+  "message": "message",
+  "Your message has been sent.": "Your message has been sent.",
+  "Enter the terms you wish to search for.": "Enter the terms you wish to search for.",
+  "Search by keyword, ingredient, dish": "Search by keyword, ingredient, dish",
+  "Source code": "Source code"
 }

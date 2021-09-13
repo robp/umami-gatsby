@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useMemo } from "react"
 import { useI18next } from "gatsby-plugin-react-i18next"
 
 import { normalizeString, removeTrailingSlash } from "../../utils/functions"
@@ -11,18 +11,24 @@ import * as styles from "../../styles/blocks/language-switcher.module.scss"
 
 const LanguageSwitcherBlock = () => {
   const { t, languages } = useI18next()
-  const translations =
-    useContext(LanguageSwitcherContext) ||
-    languages.map(langcode => {
-      return {
+  let { translations } = useContext(LanguageSwitcherContext)
+
+  const defaultTranslations = useMemo(
+    () =>
+      languages.map(langcode => ({
         node: {
           langcode: langcode,
           path: {
             alias: `/`,
           },
         },
-      }
-    })
+      })),
+    [languages]
+  )
+
+  const theTranslations = translations?.length
+    ? translations
+    : defaultTranslations
 
   const getPropsCallback = ({ href, location: { pathname } }) => {
     const re = new RegExp(`^${removeTrailingSlash(href)}`)
@@ -33,7 +39,7 @@ const LanguageSwitcherBlock = () => {
   return (
     <Block className={styles.block} locations={[/.*/]}>
       <ul>
-        {translations.map(edge => {
+        {theTranslations.map(edge => {
           return (
             <li key={edge.node.langcode}>
               <Link

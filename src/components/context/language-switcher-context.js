@@ -1,25 +1,31 @@
-import React, { createContext } from "react"
+import React, { createContext, useState, useMemo } from "react"
 import PropTypes from "prop-types"
 
-export const LanguageSwitcherContext = createContext()
+export const LanguageSwitcherContext = createContext({
+  translations: [],
+  setTranslations: () => {},
+})
 
-const LanguageSwitcherContextProvider = ({ translations, children }) => {
-  // const [translations, setTranslations] = useState([])
+const LanguageSwitcherContextProvider = ({ children }) => {
+  const [translations, setTranslations] = useState([])
+
+  const value = useMemo(
+    () => ({
+      translations,
+      setTranslations: newTranslations => setTranslations(newTranslations),
+    }),
+    [translations]
+  )
 
   return (
-    <LanguageSwitcherContext.Provider value={translations}>
+    <LanguageSwitcherContext.Provider value={value}>
       {children}
     </LanguageSwitcherContext.Provider>
   )
 }
 
 LanguageSwitcherContextProvider.propTypes = {
-  translations: PropTypes.array,
   children: PropTypes.node.isRequired,
-}
-
-LanguageSwitcherContextProvider.defaultProps = {
-  translations: [],
 }
 
 export default LanguageSwitcherContextProvider
