@@ -2,6 +2,7 @@ import React, { useContext } from "react"
 import classNames from "classnames"
 import { useI18next } from "gatsby-plugin-react-i18next"
 import { navigate } from "gatsby"
+import VisuallyHidden from "@reach/visually-hidden"
 
 import { MessagesContext } from "../context/messages-context"
 import { MESSAGE_SEVERITY_STATUS } from "../message"
@@ -25,12 +26,10 @@ const ContactForm = () => {
       body: new URLSearchParams(formData).toString(),
     })
       .then(() => {
-        addMessage(
-          {
-            severity: MESSAGE_SEVERITY_STATUS,
-            content: t("Your message has been sent."),
-          },
-        )
+        addMessage({
+          severity: MESSAGE_SEVERITY_STATUS,
+          content: t("Your message has been sent."),
+        })
         navigate(`/${language}`)
       })
       .catch(error => alert(error))
@@ -45,8 +44,21 @@ const ContactForm = () => {
       className={styles.form}
       onSubmit={handleSubmit}
       data-netlify="true"
+      netlify-honeypot="bot-field"
     >
       <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="netlify-honeypot" value="bot-field" />
+      <VisuallyHidden>
+        <div className={formStyles.formItem} aria-hidden="true">
+          <input
+            type="text"
+            id="edit-bot-field"
+            name="bot-field"
+            size="60"
+            maxLength="255"
+          />
+        </div>
+      </VisuallyHidden>
       <div className={formStyles.formItem}>
         <label htmlFor="edit-name" className={formStyles.formRequired}>
           {t("Your name")}
