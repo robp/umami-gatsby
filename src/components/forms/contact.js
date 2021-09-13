@@ -46,6 +46,7 @@ const ContactForm = () => {
       onSubmit={handleSubmit}
       data-netlify="true"
     >
+      <input type="hidden" name="form-name" value="contact" />
       <div className={formStyles.formItem}>
         <label htmlFor="edit-name" className={formStyles.formRequired}>
           {t("Your name")}
