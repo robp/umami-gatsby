@@ -44,7 +44,7 @@ const removeTrailingSlash = str => {
 const getDefaultTranslations = (languages, originalPath) => {
   const translations = []
 
-  languages?.forEach(langcode => {
+  languages.forEach(langcode => {
     translations.push({
       node: {
         langcode,
