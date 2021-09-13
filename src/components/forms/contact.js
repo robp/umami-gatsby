@@ -5,7 +5,7 @@ import { navigate } from "gatsby"
 import VisuallyHidden from "@reach/visually-hidden"
 
 import { MessagesContext } from "../context/messages-context"
-import { MESSAGE_SEVERITY_STATUS } from "../message"
+import { MESSAGE_SEVERITY_SUCCESS, MESSAGE_SEVERITY_ERROR } from "../message"
 
 import * as formStyles from "../../styles/form.module.scss"
 import * as buttonStyles from "../../styles/buttons.module.scss"
@@ -27,12 +27,18 @@ const ContactForm = () => {
     })
       .then(() => {
         addMessage({
-          severity: MESSAGE_SEVERITY_STATUS,
+          severity: MESSAGE_SEVERITY_SUCCESS,
           content: t("Your message has been sent."),
         })
         navigate(`/${language}`)
       })
-      .catch(error => alert(error))
+      .catch(error => {
+        addMessage({
+          severity: MESSAGE_SEVERITY_ERROR,
+          content: error,
+        })
+        navigate(`/${language}`)
+      })
   }
 
   return (
@@ -83,7 +89,7 @@ const ContactForm = () => {
           name="mail"
           size="60"
           maxLength="254"
-          required="required"
+          // required="required"
           aria-required="true"
         />
       </div>
@@ -103,7 +109,7 @@ const ContactForm = () => {
             size="60"
             maxLength="100"
             placeholder=""
-            required="required"
+            // required="required"
             aria-required="true"
           />
         </div>
@@ -124,7 +130,7 @@ const ContactForm = () => {
               rows="12"
               cols="60"
               placeholder=""
-              required="required"
+              // required="required"
               aria-required="true"
               className={resizeStyles.resizeVertical}
             ></textarea>

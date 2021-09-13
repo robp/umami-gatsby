@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 
 import { MessagesContext } from "../context/messages-context"
@@ -9,7 +9,11 @@ import * as styles from "../../styles/blocks/messages.module.scss"
 
 const MessagesBlock = () => {
   const { t } = useTranslation()
-  const { messages } = useContext(MessagesContext)
+  const { messages, clearMessages } = useContext(MessagesContext)
+
+  useEffect(() => {
+    return () => clearMessages({ type: "reset" })
+  }, [clearMessages])
 
   return (
     <Block
