@@ -23,7 +23,7 @@ const initialState = {
   routes: 0,
 }
 
-export const MessagesContext = createContext(initialState)
+export const MessagesContext = createContext()
 
 const MessagesContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)

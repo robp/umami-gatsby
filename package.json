@@ -12,6 +12,7 @@
     "algoliasearch": "^4.10.5",
     "classnames": "^2.3.1",
     "dotenv": "^10.0.0",
+    "firebase": "^9.0.2",
     "gatsby": "^3.12.1",
     "gatsby-plugin-algolia": "^0.22.1",
     "gatsby-plugin-breadcrumb": "^12.1.1",

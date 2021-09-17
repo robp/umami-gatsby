@@ -1,10 +1,7 @@
 import React, { createContext, useState, useMemo } from "react"
 import PropTypes from "prop-types"
 
-export const PageContext = createContext({
-  storedPageContext: {},
-  setStoredPageContext: () => {},
-})
+export const PageContext = createContext()
 
 const PageContextProvider = ({ children }) => {
   const [storedPageContext, setStoredPageContext] = useState({})
