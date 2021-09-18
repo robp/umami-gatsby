@@ -64,5 +64,10 @@
   "Your message has been sent.": "Su mensaje ha sido enviado.",
   "Enter the terms you wish to search for.": "Escriba lo que quiere buscar.",
   "Search by keyword, ingredient, dish": "Buscar por palabra clave, ingrediente, plato",
-  "Source code": "Código fuente"
+  "Source code": "Código fuente",
+  "Logged in.": "Conectado.",
+  "Username": "Nombre de usuario",
+  "Enter your {{siteName}} username.": "Escriba su nombre de usuario en {{siteName}}.",
+  "Password": "Contraseña",
+  "Enter the password that accompanies your username.": "Escriba la contraseña asignada a su nombre de usuario."
 }

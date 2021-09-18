@@ -64,5 +64,10 @@
   "Your message has been sent.": "Your message has been sent.",
   "Enter the terms you wish to search for.": "Enter the terms you wish to search for.",
   "Search by keyword, ingredient, dish": "Search by keyword, ingredient, dish",
-  "Source code": "Source code"
+  "Source code": "Source code",
+  "Logged in.": "Logged in.",
+  "Username": "Username",
+  "Enter your {{siteName}} username.": "Enter your {{siteName}} username.",
+  "Password": "Password",
+  "Enter the password that accompanies your username.": "Enter the password that accompanies your username."
 }

@@ -16,15 +16,8 @@ const firebaseConfig = {
   appId: process.env.GATSBY_FIREBASE_APP_ID,
 }
 
-const initialState = {
-  id: "alkdsjflasdfj",
-  username: "robp",
-  emailAddress: "rob@pinciuc.com",
-}
-
 const UserContextProvider = ({ children }) => {
-  const [user, setUser] = useState(initialState)
-  // const [app, setApp] = useState({})
+  const [user, setUser] = useState(null)
 
   const app = useMemo(() => initializeApp(firebaseConfig), [])
   console.log("app", app)
@@ -34,28 +27,33 @@ const UserContextProvider = ({ children }) => {
       return
     }
 
-    return localStorage.getItem("isLoggedIn") === "true"
+    return user ? true : false
   }
 
-  const login = (email, password) => {
+  let login = async (username, password) => {
     if (!isBrowser) {
       return
     }
 
     const auth = getAuth()
-    signInWithEmailAndPassword(auth, email, password)
+
+    let response = await signInWithEmailAndPassword(auth, username, password)
       .then(userCredential => {
         // Signed in
         console.log("Signed In", userCredential)
-        // const user = userCredential.user
-        // setUser(userCredential.user)
-        // ...
+        const user = userCredential.user
+        setUser(user)
+        return user
       })
       .catch(error => {
+        // Failure
         const errorCode = error.code
         const errorMessage = error.message
-        console.log("Login error", errorCode, errorMessage)
+        console.log("Login error:", errorCode, errorMessage)
+        throw new Error(error)
       })
+
+    return await response
   }
 
   const logout = () => {
@@ -73,7 +71,7 @@ const UserContextProvider = ({ children }) => {
       .catch(error => {
         const errorCode = error.code
         const errorMessage = error.message
-        console.log("Logout error", errorCode, errorMessage)
+        console.log("Logout error:", errorCode, errorMessage)
       })
   }
 
@@ -81,8 +79,8 @@ const UserContextProvider = ({ children }) => {
     () => ({
       user,
       isAuthenticated: () => isAuthenticated(),
-      login: (email, password) => login(email, password),
-      logout: () => logout(),
+      authLogin: (username, password) => login(username, password),
+      authLogout: () => logout(),
     }),
     [user]
   )

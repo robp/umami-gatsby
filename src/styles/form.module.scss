@@ -1,5 +1,11 @@
 @import "./variables";
 
+.formItem {
+  .description {
+    font-size: 0.85em;
+  }
+}
+
 .formActions {
   > .button,
   > .formWrapper {

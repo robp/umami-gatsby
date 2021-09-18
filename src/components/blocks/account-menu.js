@@ -2,6 +2,7 @@ import React from "react"
 import { useTranslation } from "gatsby-plugin-react-i18next"
 
 import Block from "../block"
+import Link from "../link"
 
 import * as styles from "../../styles/blocks/account-menu.module.scss"
 
@@ -15,7 +16,7 @@ const AccountMenuBlock = menu => {
       className={styles.block}
       locations={[/.*/]}
     >
-      {t("Log in")}
+      <Link to="/user/login">{t("Log in")}</Link>
     </Block>
   )
 }

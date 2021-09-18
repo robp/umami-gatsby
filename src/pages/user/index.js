@@ -7,23 +7,20 @@ import { LanguageSwitcherContext } from "../../components/context/language-switc
 import { UserContext } from "../../components/context/user-context"
 import Layout from "../../components/layout/layout-default"
 import Seo from "../../components/seo"
-import LoginForm from "../../components/forms/login"
 
 import { getDefaultTranslations } from "../../utils/functions"
 
 const Page = ({ pageContext, data }) => {
-  const { t, languages, language, originalPath } = useI18next()
+  const { t, languages, originalPath } = useI18next()
   const { setStoredPageContext } = useContext(PageContext)
   const { setTranslations } = useContext(LanguageSwitcherContext)
-  const { isAuthenticated } = useContext(UserContext)
+  const { user, isAuthenticated } = useContext(UserContext)
 
   useEffect(() => {
-    console.log('useEffect')
-    if (isAuthenticated()) {
-      console.log('redirect')
-      navigate(`/${language}/user`)
+    if (!isAuthenticated()) {
+      navigate("login")
     }
-  }, [])
+  }, [user])
 
   const nodeTranslations = useMemo(
     () => getDefaultTranslations(languages, originalPath),
@@ -34,16 +31,21 @@ const Page = ({ pageContext, data }) => {
     setTranslations(nodeTranslations)
   }, [nodeTranslations, setTranslations])
 
-  pageContext.title = t("Log in")
-
   useEffect(() => {
     setStoredPageContext(pageContext)
   }, [pageContext, setStoredPageContext])
 
-  return isAuthenticated() ? null : (
+  console.log("isAuthenticated", isAuthenticated())
+  console.log("user", user)
+
+  pageContext.title = user.email
+
+  // const regDate = new Date(user.createdAt)
+
+  return (
     <Layout>
       <Seo title={pageContext.title} />
-      <LoginForm />
+      <p>Member for 3 weeks</p>
     </Layout>
   )
 }
