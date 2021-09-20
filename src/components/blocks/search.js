@@ -116,7 +116,6 @@ const SearchBlock = () => {
           >
             <input
               type="submit"
-              id="edit-submit"
               value={t("Search")}
               className={classNames(styles.formSubmit, styles.button)}
             />

@@ -1,10 +1,19 @@
 import React, { createContext, useReducer, useMemo } from "react"
 import PropTypes from "prop-types"
 
+const initialState = {
+  messages: [],
+  routes: 0,
+}
+
 const reducer = (state, action) => {
   if (action.type === "reset") {
-    if (state.routes >= 1) return { messages: [], routes: 0 }
-    else {
+    if (state.routes > 0) {
+      return {
+        messages: [],
+        routes: 0,
+      }
+    } else {
       state.routes++
       return state
     }
@@ -16,11 +25,6 @@ const reducer = (state, action) => {
     return result
   }
   return state
-}
-
-const initialState = {
-  messages: [],
-  routes: 0,
 }
 
 export const MessagesContext = createContext()

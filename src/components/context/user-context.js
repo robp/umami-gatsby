@@ -20,15 +20,6 @@ const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState(null)
 
   const app = useMemo(() => initializeApp(firebaseConfig), [])
-  console.log("app", app)
-
-  const isAuthenticated = () => {
-    if (!isBrowser) {
-      return
-    }
-
-    return user ? true : false
-  }
 
   let login = async (username, password) => {
     if (!isBrowser) {
@@ -40,45 +31,44 @@ const UserContextProvider = ({ children }) => {
     let response = await signInWithEmailAndPassword(auth, username, password)
       .then(userCredential => {
         // Signed in
-        console.log("Signed In", userCredential)
         const user = userCredential.user
         setUser(user)
+        localStorage.setItem("isLoggedIn", true)
         return user
       })
       .catch(error => {
-        // Failure
-        const errorCode = error.code
-        const errorMessage = error.message
-        console.log("Login error:", errorCode, errorMessage)
-        throw new Error(error)
+        throw new Error(error.message, { cause: error.code })
       })
 
     return await response
   }
 
-  const logout = () => {
-    localStorage.setItem("isLoggedIn", false)
-
-    // const { protocol, host } = window.location;
-    // const returnTo = `${protocol}//${host}`;
+  const logout = async () => {
+    if (!isBrowser) {
+      return
+    }
 
     const auth = getAuth()
-    signOut(auth)
+    let response = await signOut(auth)
       .then(() => {
-        // navigate("/")
-        console.log("Signed Out")
+        // Signed out
+        setUser(null)
+        localStorage.setItem("isLoggedIn", false)
+        return true
       })
       .catch(error => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        console.log("Logout error:", errorCode, errorMessage)
+        throw new Error(error.message, { cause: error.code })
       })
+
+    return await response
   }
 
   const value = useMemo(
     () => ({
       user,
-      isAuthenticated: () => isAuthenticated(),
+      isAuthenticated: () => {
+        return user ? true : false
+      },
       authLogin: (username, password) => login(username, password),
       authLogout: () => logout(),
     }),

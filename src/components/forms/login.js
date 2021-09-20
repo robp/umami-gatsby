@@ -7,6 +7,7 @@ import { useSiteMetadata } from "../../hooks/use-site-metadata"
 import { MessagesContext } from "../context/messages-context"
 import { MESSAGE_SEVERITY_SUCCESS, MESSAGE_SEVERITY_ERROR } from "../message"
 import { UserContext } from "../context/user-context"
+import Link from "../link"
 
 import * as formStyles from "../../styles/form.module.scss"
 import * as buttonStyles from "../../styles/buttons.module.scss"
@@ -16,19 +17,14 @@ const LoginForm = () => {
   const { t, language } = useI18next()
   const { addMessage } = useContext(MessagesContext)
   const { title } = useSiteMetadata()
-  const { isAuthenticated, authLogin } = useContext(UserContext)
+  const { authLogin } = useContext(UserContext)
   const usernameRef = useRef()
   const passwordRef = useRef()
 
-  console.log("isAuthenticated", isAuthenticated())
-
   const handleSubmit = e => {
     e.preventDefault()
-    console.log("username", usernameRef.current.value)
-    console.log("password", passwordRef.current.value)
     authLogin(usernameRef.current.value, passwordRef.current.value)
       .then(() => {
-        console.log("SUCCESS")
         addMessage({
           severity: MESSAGE_SEVERITY_SUCCESS,
           content: t("Logged in."),
@@ -36,12 +32,23 @@ const LoginForm = () => {
         navigate(`/${language}/user`)
       })
       .catch(error => {
-        console.log("ERROR", error)
-        // addMessage({
-        //   severity: MESSAGE_SEVERITY_ERROR,
-        //   content: error,
-        // })
-        // navigate(`/${language}`)
+        let errorMessage = t("Unknown error")
+        switch (error.cause) {
+          case "auth/invalid-emailx":
+            errorMessage = (
+              <>
+                {t("Unrecognized username or password.")}{" "}
+                <Link to={`/${language}/user/password`}>{t("Forgot your password?")}</Link>
+              </>
+            )
+            break
+          default:
+            errorMessage = error.message
+        }
+        addMessage({
+          severity: MESSAGE_SEVERITY_ERROR,
+          content: errorMessage,
+        })
       })
   }
 
@@ -54,14 +61,13 @@ const LoginForm = () => {
       onSubmit={handleSubmit}
     >
       <div className={formStyles.formItem}>
-        <label for="edit-name" className={formStyles.formRequired}>
+        <label htmlFor="edit-name" className={formStyles.formRequired}>
           {t("Username")}
         </label>
         <input
-          autocorrect="none"
-          autocapitalize="none"
-          spellcheck="false"
-          autofocus="autofocus"
+          autoCorrect="none"
+          autoCapitalize="none"
+          spellCheck="false"
           aria-describedby="edit-name--description"
           type="text"
           id="edit-name"
@@ -77,7 +83,7 @@ const LoginForm = () => {
         </div>
       </div>
       <div className={formStyles.formItem}>
-        <label for="edit-pass" className={formStyles.formRequired}>
+        <label htmlFor="edit-pass" className={formStyles.formRequired}>
           {t("Password")}
         </label>
         <input
@@ -102,7 +108,6 @@ const LoginForm = () => {
       >
         <input
           type="submit"
-          id="edit-submit"
           name="op"
           value={t("Log in")}
           className={formStyles.button}

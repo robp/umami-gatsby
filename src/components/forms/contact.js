@@ -143,7 +143,6 @@ const ContactForm = () => {
       >
         <input
           type="submit"
-          id="edit-submit"
           name="op"
           value={t("Send message")}
           className={formStyles.button}
