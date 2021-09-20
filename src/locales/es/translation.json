@@ -69,5 +69,13 @@
   "Username": "Nombre de usuario",
   "Enter your {{siteName}} username.": "Escriba su nombre de usuario en {{siteName}}.",
   "Password": "Contraseña",
-  "Enter the password that accompanies your username.": "Escriba la contraseña asignada a su nombre de usuario."
+  "Enter the password that accompanies your username.": "Escriba la contraseña asignada a su nombre de usuario.",
+  "My account": "Mi cuenta",
+  "Log out": "Cerrar sesión",
+  "Unknown error": "Error desconocido",
+  "Unrecognized username or password.": "Usuario o contraseña no reconocidos.",
+  "Forgot your password?": "¿Olvidaste tu contraseña?",
+  "Member for {{howLong}}": "Miembro desde hace {{howLong}}",
+  "Logged out.": "Desconectado.",
+  "Reset your password": "Reinicializar su contraseña"
 }

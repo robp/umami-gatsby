@@ -17,8 +17,14 @@
   }
 
   li a {
-    color: inherit;
     text-decoration: none;
+    color: inherit;
+    background-color: inherit;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
   }
 
   .active,

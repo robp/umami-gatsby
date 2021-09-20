@@ -69,5 +69,13 @@
   "Username": "Username",
   "Enter your {{siteName}} username.": "Enter your {{siteName}} username.",
   "Password": "Password",
-  "Enter the password that accompanies your username.": "Enter the password that accompanies your username."
+  "Enter the password that accompanies your username.": "Enter the password that accompanies your username.",
+  "My account": "My account",
+  "Log out": "Log out",
+  "Unknown error": "Unknown error",
+  "Unrecognized username or password.": "Unrecognized username or password.",
+  "Forgot your password?": "Forgot your password?",
+  "Member for {{howLong}}": "Member for {{howLong}}",
+  "Logged out.": "Logged out.",
+  "Reset your password": "Reset your password"
 }

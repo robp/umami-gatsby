@@ -25,4 +25,11 @@
   text-decoration: none;
   color: inherit;
   background-color: inherit;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+    color: inherit;
+    background-color: inherit;
+  }
 }
