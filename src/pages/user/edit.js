@@ -1,12 +1,15 @@
 import React, { useContext, useEffect, useMemo } from "react"
 import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
+import { Redirect } from "@reach/router"
 
 import { PageContext } from "../../components/context/page-context"
 import { LanguageSwitcherContext } from "../../components/context/language-switcher-context"
-import { LocalTasksContext } from "../../components/context/local-tasks-context"// import { UserContext } from "../../components/context/user-context"
+import { UserContext } from "../../components/context/user-context"
+import { LocalTasksContext } from "../../components/context/local-tasks-context" // import { UserContext } from "../../components/context/user-context"
 import Layout from "../../components/layout/layout-default"
 import Seo from "../../components/seo"
+import UserEditForm from "../../components/forms/user-edit"
 
 import { getDefaultTranslations } from "../../utils/functions"
 
@@ -14,8 +17,8 @@ const Page = ({ pageContext, data }) => {
   const { t, languages, language, originalPath } = useI18next()
   const { setStoredPageContext } = useContext(PageContext)
   const { setTranslations } = useContext(LanguageSwitcherContext)
+  const { user, isAuthenticated } = useContext(UserContext)
   const { setLocalTasks } = useContext(LocalTasksContext)
-  // const { isAuthenticated } = useContext(UserContext)
 
   const nodeTranslations = useMemo(
     () => getDefaultTranslations(languages, originalPath),
@@ -26,28 +29,30 @@ const Page = ({ pageContext, data }) => {
     setTranslations(nodeTranslations)
   }, [nodeTranslations, setTranslations])
 
-  pageContext.title = t("Reset your password")
-
   useEffect(() => {
     setStoredPageContext(pageContext)
   }, [pageContext, setStoredPageContext])
+
+  if (user) {
+    pageContext.title = user.email
+  }
 
   useEffect(() => {
     setLocalTasks([
       {
         node: {
-          id: "log-in",
-          title: t("Log in"),
-          url: `/${language}/user/login`,
+          id: "view",
+          title: t("View"),
+          url: `/${language}/user`,
           parent: null,
           langcode: language,
         },
       },
       {
         node: {
-          id: "reset-password",
-          title: t("Reset your password"),
-          url: `/${language}/user/password`,
+          id: "edit",
+          title: t("Edit"),
+          url: `/${language}/user/edit`,
           parent: null,
           langcode: language,
         },
@@ -58,10 +63,15 @@ const Page = ({ pageContext, data }) => {
     }
   }, [language, setLocalTasks, t])
 
-  return (
+  // const regDate = new Date(user.createdAt)
+
+  return isAuthenticated() ? (
     <Layout>
       <Seo title={pageContext.title} />
+      <UserEditForm />
     </Layout>
+  ) : (
+    <Redirect to={`/${language}/user/login`} />
   )
 }
 

@@ -6,6 +6,7 @@ import { Redirect } from "@reach/router"
 import { PageContext } from "../../components/context/page-context"
 import { LanguageSwitcherContext } from "../../components/context/language-switcher-context"
 import { UserContext } from "../../components/context/user-context"
+import { LocalTasksContext } from "../../components/context/local-tasks-context"
 import Layout from "../../components/layout/layout-default"
 import Seo from "../../components/seo"
 import LoginForm from "../../components/forms/login"
@@ -17,6 +18,7 @@ const Page = ({ pageContext, data }) => {
   const { setStoredPageContext } = useContext(PageContext)
   const { setTranslations } = useContext(LanguageSwitcherContext)
   const { isAuthenticated } = useContext(UserContext)
+  const { setLocalTasks } = useContext(LocalTasksContext)
 
   const nodeTranslations = useMemo(
     () => getDefaultTranslations(languages, originalPath),
@@ -32,6 +34,32 @@ const Page = ({ pageContext, data }) => {
   useEffect(() => {
     setStoredPageContext(pageContext)
   }, [pageContext, setStoredPageContext])
+
+  useEffect(() => {
+    setLocalTasks([
+      {
+        node: {
+          id: "log-in",
+          title: t("Log in"),
+          url: `/${language}/user/login`,
+          parent: null,
+          langcode: language,
+        },
+      },
+      {
+        node: {
+          id: "reset-password",
+          title: t("Reset your password"),
+          url: `/${language}/user/password`,
+          parent: null,
+          langcode: language,
+        },
+      },
+    ])
+    return () => {
+      setLocalTasks([])
+    }
+  }, [language, setLocalTasks, t])
 
   return isAuthenticated() ? (
     <Redirect to={`/${language}/user`} noThrow />

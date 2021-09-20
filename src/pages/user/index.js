@@ -6,6 +6,7 @@ import { Redirect } from "@reach/router"
 import { PageContext } from "../../components/context/page-context"
 import { LanguageSwitcherContext } from "../../components/context/language-switcher-context"
 import { UserContext } from "../../components/context/user-context"
+import { LocalTasksContext } from "../../components/context/local-tasks-context"// import { UserContext } from "../../components/context/user-context"
 import Layout from "../../components/layout/layout-default"
 import Seo from "../../components/seo"
 
@@ -16,6 +17,7 @@ const Page = ({ pageContext, data }) => {
   const { setStoredPageContext } = useContext(PageContext)
   const { setTranslations } = useContext(LanguageSwitcherContext)
   const { user, isAuthenticated } = useContext(UserContext)
+  const { setLocalTasks } = useContext(LocalTasksContext)
 
   const nodeTranslations = useMemo(
     () => getDefaultTranslations(languages, originalPath),
@@ -34,12 +36,38 @@ const Page = ({ pageContext, data }) => {
     pageContext.title = user.email
   }
 
+  useEffect(() => {
+    setLocalTasks([
+      {
+        node: {
+          id: "view",
+          title: t("View"),
+          url: `/${language}/user`,
+          parent: null,
+          langcode: language,
+        },
+      },
+      {
+        node: {
+          id: "edit",
+          title: t("Edit"),
+          url: `/${language}/user/edit`,
+          parent: null,
+          langcode: language,
+        },
+      },
+    ])
+    return () => {
+      setLocalTasks([])
+    }
+  }, [language, setLocalTasks, t])
+
   // const regDate = new Date(user.createdAt)
 
   return isAuthenticated() ? (
     <Layout>
       <Seo title={pageContext.title} />
-      <p>{t("Member for {{howLong}}", "3 weeks")}</p>
+      <p>{t("Member for {{howLong}}", { howLong: "3 weeks" })}</p>
     </Layout>
   ) : (
     <Redirect to={`/${language}/user/login`} />

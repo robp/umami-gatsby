@@ -1,11 +1,9 @@
 import React, { useContext } from "react"
-import { useStaticQuery, graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 
 import { UserContext } from "../context/user-context"
 import Block from "../block"
 import Menu from "../menu"
-import Link from "../link"
 
 import * as styles from "../../styles/blocks/account-menu.module.scss"
 

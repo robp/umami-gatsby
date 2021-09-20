@@ -169,6 +169,7 @@ module.exports = {
           `**/404/**`,
           `**/404.html`,
           `**/offline-plugin-app-shell-fallback/**`,
+          `**/user/`,
         ],
         // isMatchOptions: optional, include this object to configure the wildcard-match library.
         excludeOptions: {

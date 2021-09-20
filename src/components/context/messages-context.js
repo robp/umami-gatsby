@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useMemo } from "react"
+import React, { createContext, useReducer } from "react"
 import PropTypes from "prop-types"
 
 const initialState = {
@@ -41,14 +41,11 @@ const MessagesContextProvider = ({ children }) => {
     dispatch({ type: "reset" })
   }
 
-  const value = useMemo(
-    () => ({
-      messages,
-      addMessage: newMessage => addMessage(newMessage),
-      clearMessages: () => clearMessages(),
-    }),
-    [messages]
-  )
+  const value = {
+    messages,
+    addMessage,
+    clearMessages,
+  }
 
   return (
     <MessagesContext.Provider value={value}>
