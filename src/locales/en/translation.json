@@ -77,5 +77,17 @@
   "Forgot your password?": "Forgot your password?",
   "Member for {{howLong}}": "Member for {{howLong}}",
   "Logged out.": "Logged out.",
-  "Reset your password": "Reset your password"
+  "Reset your password": "Reset your password",
+  "Current password": "Current password",
+  "edit-current-pass--description": "Required if you want to change the <1>Email address</1> or <4>Password</4> below. <7>Reset your password</7>.",
+  "Email address": "Email address",
+  "edit-mail--description": "A valid email address. All emails from the system will be sent to this address. The email address is not made public and will only be used if you wish to receive a new password or wish to receive certain news or notifications by email.",
+  "Password strength": "Password strength",
+  "Confirm password": "Confirm password",
+  "Passwords match": "Passwords match",
+  "edit-pass--description": "To change the current user password, enter the new password in both fields.",
+  "Picture": "Picture",
+  "Upload": "Upload",
+  "edit-user-picture-0--description": "Your virtual face or picture.<br/>One file only.<br/>8 MB limit.<br/>Allowed types: png gif jpg jpeg.",
+  "Save": "Save"
 }

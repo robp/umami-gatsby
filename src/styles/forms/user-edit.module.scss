@@ -5,3 +5,17 @@
     color: red;
   }
 }
+
+.invisible {
+  visibility: hidden;
+}
+
+.passwordsMatch {
+  color: #325e1c;
+  font-weight: bold;
+}
+
+.passwordsNotMatch {
+  color: #a51b00;
+  font-weight: bold;
+}
