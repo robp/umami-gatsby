@@ -1,6 +1,6 @@
 import React from "react"
-import PageContextProvider from "./context/page-context"
 import LanguageSwitcherContextProvider from "./context/language-switcher-context"
+import PageContextProvider from "./context/page-context"
 
 export const wrapPageElement = ({ element, props }) => (
   <PageContextProvider>

@@ -3,13 +3,11 @@ import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 
 import { PageContext } from "../components/context/page-context"
-import { LanguageSwitcherContext } from "../components/context/language-switcher-context"
 import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 
 const BasicPage = ({ pageContext, data }) => {
-  const { setStoredPageContext } = useContext(PageContext)
-  const { setTranslations } = useContext(LanguageSwitcherContext)
+  const { setStoredPageContext, setTranslations } = useContext(PageContext)
   const node = data.nodePage
   const nodeTranslations = data.allNodePage.edges
 

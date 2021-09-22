@@ -1,0 +1,9 @@
+@import "../variables";
+
+.styles {
+  padding: 0 4%;
+
+  @media all and ($breakpointFull) {
+    padding: 0;
+  }
+}

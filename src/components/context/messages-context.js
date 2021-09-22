@@ -1,10 +1,19 @@
-import React, { createContext, useReducer, useMemo } from "react"
+import React, { createContext, useReducer } from "react"
 import PropTypes from "prop-types"
+
+const initialState = {
+  messages: [],
+  routes: 0,
+}
 
 const reducer = (state, action) => {
   if (action.type === "reset") {
-    if (state.routes >= 1) return { messages: [], routes: 0 }
-    else {
+    if (state.routes > 0) {
+      return {
+        messages: [],
+        routes: 0,
+      }
+    } else {
       state.routes++
       return state
     }
@@ -18,12 +27,7 @@ const reducer = (state, action) => {
   return state
 }
 
-const initialState = {
-  messages: [],
-  routes: 0,
-}
-
-export const MessagesContext = createContext(initialState)
+export const MessagesContext = createContext()
 
 const MessagesContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -37,14 +41,11 @@ const MessagesContextProvider = ({ children }) => {
     dispatch({ type: "reset" })
   }
 
-  const value = useMemo(
-    () => ({
-      messages,
-      addMessage: newMessage => addMessage(newMessage),
-      clearMessages: () => clearMessages(),
-    }),
-    [messages]
-  )
+  const value = {
+    messages,
+    addMessage,
+    clearMessages,
+  }
 
   return (
     <MessagesContext.Provider value={value}>

@@ -9,8 +9,10 @@ import Seo from "../../components/seo"
 import { getDefaultTranslations } from "../../utils/functions"
 
 const Page = ({ pageContext, data }) => {
-  const { t, languages, originalPath } = useI18next()
-  const { setStoredPageContext, setTranslations } = useContext(PageContext)
+  const { t, languages, language, originalPath } = useI18next()
+  const { setStoredPageContext, setTranslations, setLocalTasks } =
+    useContext(PageContext)
+  // const { isAuthenticated } = useContext(UserContext)
 
   const nodeTranslations = useMemo(
     () => getDefaultTranslations(languages, originalPath),
@@ -21,24 +23,41 @@ const Page = ({ pageContext, data }) => {
     setTranslations(nodeTranslations)
   }, [nodeTranslations, setTranslations])
 
-  pageContext.title = t("About searching")
+  pageContext.title = t("Reset your password")
 
   useEffect(() => {
     setStoredPageContext(pageContext)
   }, [pageContext, setStoredPageContext])
 
+  useEffect(() => {
+    setLocalTasks([
+      {
+        node: {
+          id: "log-in",
+          title: t("Log in"),
+          url: `/${language}/user/login`,
+          parent: null,
+          langcode: language,
+        },
+      },
+      {
+        node: {
+          id: "reset-password",
+          title: t("Reset your password"),
+          url: `/${language}/user/password`,
+          parent: null,
+          langcode: language,
+        },
+      },
+    ])
+    return () => {
+      setLocalTasks([])
+    }
+  }, [language, setLocalTasks, t])
+
   return (
     <Layout>
       <Seo title={pageContext.title} />
-      <div className="item-list">
-        <ul>
-          <li>{t("search.help.keywords")}</li>
-          <li>{t("search.help.or")}</li>
-          <li>{t("search.help.and")}</li>
-          <li>{t("search.help.quotes")}</li>
-          <li>{t("search.help.exclude")}</li>
-        </ul>
-      </div>
     </Layout>
   )
 }

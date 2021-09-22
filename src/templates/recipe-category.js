@@ -4,7 +4,6 @@ import { graphql } from "gatsby"
 import { useTranslation } from "react-i18next"
 
 import { PageContext } from "../components/context/page-context"
-import { LanguageSwitcherContext } from "../components/context/language-switcher-context"
 import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import RecipeCard from "../components/node/recipe-card"
@@ -13,8 +12,7 @@ import * as layoutStyles from "../styles/layout.module.scss"
 
 const RecipeCategory = ({ pageContext, data }) => {
   const { t } = useTranslation()
-  const { setStoredPageContext } = useContext(PageContext)
-  const { setTranslations } = useContext(LanguageSwitcherContext)
+  const { setStoredPageContext, setTranslations } = useContext(PageContext)
   const node = data.taxonomyTermRecipeCategory
   const nodeTranslations = data.allTaxonomyTermRecipeCategory.edges
 

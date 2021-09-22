@@ -3,14 +3,18 @@ import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 
 import { PageContext } from "../../components/context/page-context"
+import { UserContext } from "../../components/context/user-context"
 import Layout from "../../components/layout/layout-default"
 import Seo from "../../components/seo"
+import LoginForm from "../../components/forms/login"
 
 import { getDefaultTranslations } from "../../utils/functions"
 
 const Page = ({ pageContext, data }) => {
-  const { t, languages, originalPath } = useI18next()
-  const { setStoredPageContext, setTranslations } = useContext(PageContext)
+  const { t, languages, language, originalPath, navigate } = useI18next()
+  const { setStoredPageContext, setTranslations, setLocalTasks } =
+    useContext(PageContext)
+  const { isAuthLoading, isAuthenticated } = useContext(UserContext)
 
   const nodeTranslations = useMemo(
     () => getDefaultTranslations(languages, originalPath),
@@ -21,24 +25,50 @@ const Page = ({ pageContext, data }) => {
     setTranslations(nodeTranslations)
   }, [nodeTranslations, setTranslations])
 
-  pageContext.title = t("About searching")
+  pageContext.title = t("Log in")
 
   useEffect(() => {
     setStoredPageContext(pageContext)
   }, [pageContext, setStoredPageContext])
 
+  useEffect(() => {
+    setLocalTasks([
+      {
+        node: {
+          id: "log-in",
+          title: t("Log in"),
+          url: `/${language}/user/login`,
+          parent: null,
+          langcode: language,
+        },
+      },
+      {
+        node: {
+          id: "reset-password",
+          title: t("Reset your password"),
+          url: `/${language}/user/password`,
+          parent: null,
+          langcode: language,
+        },
+      },
+    ])
+    return () => {
+      setLocalTasks([])
+    }
+  }, [language, setLocalTasks, t])
+
+  if (isAuthLoading) {
+    return null
+  }
+
+  if (isAuthenticated()) {
+    navigate("/")
+  }
+
   return (
     <Layout>
       <Seo title={pageContext.title} />
-      <div className="item-list">
-        <ul>
-          <li>{t("search.help.keywords")}</li>
-          <li>{t("search.help.or")}</li>
-          <li>{t("search.help.and")}</li>
-          <li>{t("search.help.quotes")}</li>
-          <li>{t("search.help.exclude")}</li>
-        </ul>
-      </div>
+      <LoginForm />
     </Layout>
   )
 }

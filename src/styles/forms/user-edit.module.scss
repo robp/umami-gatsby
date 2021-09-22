@@ -1,0 +1,81 @@
+@import "../variables";
+
+.form {
+  .zzz {
+    color: red;
+  }
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.confirmParent,
+.passwordParent {
+  clear: left;
+  overflow: hidden;
+  max-width: 33em;
+  margin: 0;
+}
+
+.passwordConfirm,
+.passwordField,
+.passwordStrength,
+.passwordConfirmMatch {
+  width: 55%;
+}
+
+.passwordStrengthMeter {
+  height: 0.75em;
+  margin-top: 0.5em;
+  background-color: lightgray;
+}
+
+.passwordStrengthMeter {
+  margin-top: 0.5em;
+  background-color: #ebeae4;
+}
+
+.passwordStrengthIndicator {
+  width: 0;
+  height: 100%;
+  background-color: gray;
+}
+
+.passwordStrengthIndicator {
+  transition: width 0.5s ease-out;
+  background-color: #77b259;
+}
+
+.passwordsMatch {
+  color: #325e1c;
+  font-weight: bold;
+}
+
+.passwordsNotMatch {
+  color: #a51b00;
+  font-weight: bold;
+}
+
+.passwordWeak {
+  background-color: #e62600;
+}
+
+.passwordFair {
+  background-color: #e09600;
+}
+
+.passwordGood {
+  background-color: #0074bd;
+}
+
+.passwordStrong {
+  background-color: #77b259;
+}
+
+.passwordSuggestions {
+  max-width: 34.7em;
+  margin: 0.7em 0;
+  padding: 0.2em 0.5em;
+  border: 1px solid #b4b4b4;
+}

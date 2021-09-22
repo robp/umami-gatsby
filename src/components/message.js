@@ -29,10 +29,7 @@ const Message = ({ severity, content }) => {
             {capitalizeFirstLetter(severity)} {t("message")}
           </h2>
         </VisuallyHidden>
-        <span
-          className={styles.item}
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
+        <span className={styles.item}>{content}</span>
       </div>
     </div>
   )
@@ -40,7 +37,7 @@ const Message = ({ severity, content }) => {
 
 Message.propTypes = {
   severity: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
+  content: PropTypes.node.isRequired,
 }
 
 export default Message

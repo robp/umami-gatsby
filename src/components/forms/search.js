@@ -55,7 +55,6 @@ const SearchForm = forwardRef((props, ref) => {
         </div>
         <input
           type="submit"
-          id="edit-submit"
           name="op"
           value={t("Search")}
           className="button js-form-submit form-submit"

@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 
 import Header from "./header"
 import HighlightedLayout from "./highlighted"
+import TabsLayout from "./tabs"
 import BannerTopLayout from "./banner-top"
 import BreadcrumbsLayout from "./breadcrumbs"
 import ContentLayout from "./content"
@@ -17,6 +18,7 @@ const Layout = ({ children, sidebar }) => {
     <>
       <Header />
       <HighlightedLayout />
+      <TabsLayout />
       <BannerTopLayout />
       <BreadcrumbsLayout />
       <ContentLayout sidebar={sidebar}>{children}</ContentLayout>

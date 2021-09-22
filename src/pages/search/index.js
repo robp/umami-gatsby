@@ -4,7 +4,6 @@ import { useI18next } from "gatsby-plugin-react-i18next"
 import algoliasearch from "algoliasearch/lite"
 
 import { PageContext } from "../../components/context/page-context"
-import { LanguageSwitcherContext } from "../../components/context/language-switcher-context"
 import Layout from "../../components/layout/layout-default"
 import Seo from "../../components/seo"
 import SearchForm from "../../components/forms/search"
@@ -16,8 +15,7 @@ import * as styles from "../../styles/pages/search.module.scss"
 
 const Page = ({ pageContext, location, data }) => {
   const { t, languages, originalPath, language } = useI18next()
-  const { setStoredPageContext } = useContext(PageContext)
-  const { setTranslations } = useContext(LanguageSwitcherContext)
+  const { setStoredPageContext, setTranslations } = useContext(PageContext)
   const searchFormRef = useRef()
   const [results, setResults] = useState([])
   const [isLoading, setLoading] = useState(true)

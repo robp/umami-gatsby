@@ -4,7 +4,6 @@ import { graphql } from "gatsby"
 import { useTranslation } from "gatsby-plugin-react-i18next"
 
 import { PageContext } from "../components/context/page-context"
-import { LanguageSwitcherContext } from "../components/context/language-switcher-context"
 import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import ArticleCard from "../components/node/article-card"
@@ -14,8 +13,7 @@ import * as layoutStyles from "../styles/layout.module.scss"
 
 const Tag = ({ pageContext, data }) => {
   const { t } = useTranslation()
-  const { setStoredPageContext } = useContext(PageContext)
-  const { setTranslations } = useContext(LanguageSwitcherContext)
+  const { setStoredPageContext, setTranslations } = useContext(PageContext)
   const node = data.taxonomyTermTags
   const nodeTranslations = data.allTaxonomyTermTags.edges
 

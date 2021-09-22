@@ -3,7 +3,7 @@ import { useI18next } from "gatsby-plugin-react-i18next"
 
 import { normalizeString, removeTrailingSlash } from "../../utils/functions"
 
-import { LanguageSwitcherContext } from "../context/language-switcher-context"
+import { PageContext } from "../../components/context/page-context"
 import Block from "../block"
 import Link from "../link"
 
@@ -11,7 +11,7 @@ import * as styles from "../../styles/blocks/language-switcher.module.scss"
 
 const LanguageSwitcherBlock = () => {
   const { t, languages } = useI18next()
-  let { translations } = useContext(LanguageSwitcherContext)
+  let { translations } = useContext(PageContext)
 
   const defaultTranslations = useMemo(
     () =>
