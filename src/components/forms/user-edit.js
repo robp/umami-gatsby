@@ -8,6 +8,8 @@ import { MESSAGE_SEVERITY_SUCCESS, MESSAGE_SEVERITY_ERROR } from "../message"
 import { UserContext } from "../context/user-context"
 import Link from "../link"
 
+import { evaluatePasswordStrength } from "../../utils/functions"
+
 import * as formStyles from "../../styles/form.module.scss"
 import * as buttonStyles from "../../styles/buttons.module.scss"
 import * as styles from "../../styles/forms/user-edit.module.scss"
@@ -17,6 +19,7 @@ const UserEditForm = () => {
   // const { addMessage } = useContext(MessagesContext)
   const { getCurrentUser } = useContext(UserContext)
   const user = getCurrentUser()
+  console.log(user)
   const [emailAddress, setEmailAddress] = useState(user.email)
   const currentPasswordRef = useRef()
   const emailAddressRef = useRef()
@@ -26,11 +29,50 @@ const UserEditForm = () => {
 
   const passwordConfirmMessageRef = useRef()
   const passwordMatchStatusRef = useRef()
+  const passwordSuggestionsRef = useRef()
+  const passwordStrengthTextRef = useRef()
+  const passwordStrengthIndicatorRef = useRef()
 
+  const passwordSettings = {
+    addLowerCase: t("Add lowercase letters"),
+    addNumbers: t("Add numbers"),
+    addPunctuation: t("Add punctuation"),
+    addUpperCase: t("Add uppercase letters"),
+    confirmFailure: t("no"),
+    confirmSuccess: t("yes"),
+    confirmTitle: t("Passwords match:"),
+    fair: t("Fair"),
+    good: t("Good"),
+    hasWeaknesses: t("Recommendations to make your password stronger:"),
+    sameAsUsername: t("Make it different from your username"),
+    showStrengthIndicator: true,
+    strengthTitle: t("Password strength:"),
+    strong: t("Strong"),
+    tooShort: t("Make it at least 12 characters"),
+    username: getCurrentUser().email,
+    weak: t("Weak"),
+    cssClasses: {
+      passwordWeak: styles.passwordWeak,
+      passwordFair: styles.passwordFair,
+      passwordGood: styles.passwordGood,
+      passwordStrong: styles.passwordStrong,
+    },
+  }
+
+  const passwordStrengthBarClassesToRemove = [
+    styles.passwordWeak || "",
+    styles.passwordFair || "",
+    styles.passwordGood || "",
+    styles.passwordStrong || "",
+  ]
   const confirmTextWrapperClassesToRemove = [
     styles.passwordsMatch || "",
     styles.passwordsNotMatch || "",
   ]
+
+  useEffect(() => {
+    passwordSuggestionsRef.current.setAttribute("hidden", "true")
+  }, [passwordSuggestionsRef])
 
   const passwordCheckMatch = () => {
     const passwordsAreMatching =
@@ -56,71 +98,43 @@ const UserEditForm = () => {
   }
 
   const passwordCheck = () => {
+    const result = evaluatePasswordStrength(
+      passwordRef.current.value,
+      passwordSettings,
+      emailAddressRef
+    )
+    const currentPasswordSuggestions = result.message
+
+    if (
+      passwordSuggestionsRef.current.innerHTML !== currentPasswordSuggestions
+    ) {
+      passwordSuggestionsRef.current.innerHTML = currentPasswordSuggestions
+      passwordSuggestionsRef.current.toggleAttribute(
+        "hidden",
+        result.strength === 100
+      )
+    }
+
+    if (passwordStrengthBarClassesToRemove) {
+      passwordStrengthBarClassesToRemove.forEach(classToRemove => {
+        passwordStrengthIndicatorRef.current.classList.remove(classToRemove)
+      })
+    }
+
+    passwordStrengthIndicatorRef.current.style.width = `${result.strength}%`
+    passwordStrengthIndicatorRef.current.classList.add(result.indicatorClass)
+    passwordStrengthTextRef.current.innerHTML = result.indicatorText
+
     if (confirmPasswordRef.current.value) {
       passwordCheckMatch()
       passwordConfirmMessageRef.current.classList.remove(styles.invisible)
-    }
-    else {
+    } else {
       passwordConfirmMessageRef.current.classList.add(styles.invisible)
     }
   }
 
-  // var passwordCheck = function passwordCheck() {
-  //   if (settings.password.showStrengthIndicator) {
-  //     var result = Drupal.evaluatePasswordStrength(
-  //       $mainInput.val(),
-  //       settings.password
-  //     )
-  //     var $currentPasswordSuggestions = $(
-  //       Drupal.theme(
-  //         "passwordSuggestions",
-  //         settings.password,
-  //         result.messageTips
-  //       )
-  //     )
-
-  //     if (password.$suggestions.html() !== $currentPasswordSuggestions.html()) {
-  //       password.$suggestions.replaceWith($currentPasswordSuggestions)
-  //       password.$suggestions = $currentPasswordSuggestions.toggle(
-  //         result.strength !== 100
-  //       )
-  //     }
-
-  //     if (passwordStrengthBarClassesToRemove) {
-  //       password.$strengthBar.removeClass(passwordStrengthBarClassesToRemove)
-  //     }
-
-  //     password.$strengthBar
-  //       .css("width", "".concat(result.strength, "%"))
-  //       .addClass(result.indicatorClass)
-  //     password.$strengthTextWrapper.html(result.indicatorText)
-  //   }
-
-  //   if ($confirmInput.val()) {
-  //     passwordCheckMatch($confirmInput.val())
-  //     $passwordConfirmMessage.css({
-  //       visibility: "visible",
-  //     })
-  //   } else {
-  //     $passwordConfirmMessage.css({
-  //       visibility: "hidden",
-  //     })
-  //   }
-
-  //   if (widgetClassesToRemove) {
-  //     $passwordWidget.removeClass(widgetClassesToRemove)
-  //     addWidgetClasses()
-  //   }
-  // }
-
   const handleSubmit = e => {
     e.preventDefault()
-    console.log("email", emailAddressRef.current.value)
-    console.log("email changed?", emailAddressRef.current.value !== user.email)
-    console.log(
-      "passwords match?",
-      passwordRef.current.value === confirmPasswordRef.current.value
-    )
   }
 
   useEffect(() => {
@@ -190,9 +204,10 @@ const UserEditForm = () => {
         </div>
 
         <div id="edit-pass" className={formStyles.formItem}>
-          <div className={formStyles.formItem}>
+          <div className={(formStyles.formItem, styles.passwordParent)}>
             <label htmlFor="edit-pass-pass1">{t("Password")}</label>
             <input
+              className={styles.passwordField}
               autoComplete="new-password"
               type="password"
               id="edit-pass-pass1"
@@ -203,9 +218,12 @@ const UserEditForm = () => {
               onChange={passwordCheck}
             />
 
-            <div className="password-strength">
-              <div className="password-strength__meter">
-                <div className="password-strength__indicator"></div>
+            <div className={styles.passwordStrength}>
+              <div className={styles.passwordStrengthMeter}>
+                <div
+                  className={styles.passwordStrengthIndicator}
+                  ref={passwordStrengthIndicatorRef}
+                ></div>
               </div>
               <div
                 aria-live="polite"
@@ -213,14 +231,19 @@ const UserEditForm = () => {
                 className="password-strength__title"
               >
                 {t("Password strength")}:{" "}
-                <span className="password-strength__text"></span>
+                <span
+                  className="password-strength__text"
+                  ref={passwordStrengthTextRef}
+                ></span>
               </div>
             </div>
           </div>
-          <div className={formStyles.formItem}>
+          <div
+            className={classNames(formStyles.formItem, styles.confirmParent)}
+          >
             <label htmlFor="edit-pass-pass2">{t("Confirm password")}</label>
             <input
-              className="password-confirm js-password-confirm form-text"
+              className={styles.passwordConfirm}
               autoComplete="new-password"
               type="password"
               id="edit-pass-pass2"
@@ -240,9 +263,9 @@ const UserEditForm = () => {
               {t("Passwords match")}: <span ref={passwordMatchStatusRef}></span>
             </div>
             <div
-              className="password-suggestions"
-              style={{ display: "none" }}
-            ></div>
+              className={styles.passwordSuggestions}
+              ref={passwordSuggestionsRef}
+            />
 
             <div id="edit-pass--description" className={formStyles.description}>
               {t("edit-pass--description")}

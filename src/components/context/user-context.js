@@ -51,7 +51,6 @@ const UserContextProvider = ({ children }) => {
       .then(userCredential => {
         // Signed in
         const user = userCredential.user
-        // setUser(user)
         return user
       })
       .catch(error => {
@@ -65,7 +64,6 @@ const UserContextProvider = ({ children }) => {
     let response = await signOut(auth)
       .then(() => {
         // Signed out
-        // setUser(null)
         return true
       })
       .catch(error => {
