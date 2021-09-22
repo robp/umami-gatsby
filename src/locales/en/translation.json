@@ -89,5 +89,12 @@
   "Picture": "Picture",
   "Upload": "Upload",
   "edit-user-picture-0--description": "Your virtual face or picture.<br/>One file only.<br/>8 MB limit.<br/>Allowed types: png gif jpg jpeg.",
-  "Save": "Save"
+  "Save": "Save",
+  "Primary Tabs": "Primary Tabs",
+  "Tabs": "Tabs",
+  "yes": "yes",
+  "no": "no",
+  "Send password reset instructions via email.": "Send password reset instructions via email.",
+  "View": "View",
+  "Edit": "Edit"
 }

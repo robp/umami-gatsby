@@ -89,5 +89,12 @@
   "Picture": "Imagen",
   "Upload": "Subir al servidor",
   "edit-user-picture-0--description": "Su cara o foto virtual.<br/>Máximo 1 fichero.<br/>límite de 8 MB.<br/>Tipos permitidos: png gif jpg jpeg.",
-  "Save": "Guardar"
+  "Save": "Guardar",
+  "Primary Tabs": "Solapas principales",
+  "Tabs": "Pestañas",
+  "yes": "sí",
+  "no": "no",
+  "Send password reset instructions via email.": "Enviar por correo instrucciones para recuperar la contraseña.",
+  "View": "Ver",
+  "Edit": "Editar"
 }
