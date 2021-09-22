@@ -24,22 +24,23 @@ const UserContextProvider = ({ children }) => {
   const [isAuthLoading, setIsAuthLoading] = useState(true)
 
   const auth = useMemo(() => {
+    console.log("creating auth")
     initializeApp(firebaseConfig)
     return getAuth()
   }, [])
 
   onAuthStateChanged(auth, user => {
     setIsAuthLoading(false)
-    console.log('onAuthStateChanged', user)
+    console.log("onAuthStateChanged", user)
     if (user) {
-      console.log('signed in')
+      console.log("signed in")
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User
       // setUser(user)
       // localStorage.setItem("isLoggedIn", true)
       // ...
     } else {
-      console.log('signed out')
+      console.log("signed out")
       // setUser(null)
       // localStorage.setItem("isLoggedIn", false)
     }
