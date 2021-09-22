@@ -8,9 +8,10 @@ const capitalizeFirstLetter = str => {
 }
 
 /**
- * Drupal's function for evaluating password strengh.
+ * Drupal's function for evaluating password strengh, made to work in React.
  * @param {string} password
  * @param {object} passwordSettings
+ * @param {object} usernameRef
  * @returns {boolean}
  */
 const evaluatePasswordStrength = (password, passwordSettings, usernameRef) => {
