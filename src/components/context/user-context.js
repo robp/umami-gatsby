@@ -2,8 +2,12 @@ import React, { createContext, useState, useMemo } from "react"
 import PropTypes from "prop-types"
 import { initializeApp } from "firebase/app"
 
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth"
-import { isBrowser } from "../../utils/functions"
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth"
 
 export const UserContext = createContext()
 
@@ -17,23 +21,36 @@ const firebaseConfig = {
 }
 
 const UserContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null)
+  const [isAuthLoading, setIsAuthLoading] = useState(true)
 
-  const app = useMemo(() => initializeApp(firebaseConfig), [])
+  const auth = useMemo(() => {
+    initializeApp(firebaseConfig)
+    return getAuth()
+  }, [])
 
-  let login = async (username, password) => {
-    if (!isBrowser) {
-      return
+  onAuthStateChanged(auth, user => {
+    setIsAuthLoading(false)
+    console.log('onAuthStateChanged', user)
+    if (user) {
+      console.log('signed in')
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      // setUser(user)
+      // localStorage.setItem("isLoggedIn", true)
+      // ...
+    } else {
+      console.log('signed out')
+      // setUser(null)
+      // localStorage.setItem("isLoggedIn", false)
     }
+  })
 
-    const auth = getAuth()
-
+  let authLogin = async (username, password) => {
     let response = await signInWithEmailAndPassword(auth, username, password)
       .then(userCredential => {
         // Signed in
         const user = userCredential.user
-        setUser(user)
-        localStorage.setItem("isLoggedIn", true)
+        // setUser(user)
         return user
       })
       .catch(error => {
@@ -43,17 +60,11 @@ const UserContextProvider = ({ children }) => {
     return await response
   }
 
-  const logout = async () => {
-    if (!isBrowser) {
-      return
-    }
-
-    const auth = getAuth()
+  const authLogout = async () => {
     let response = await signOut(auth)
       .then(() => {
         // Signed out
-        setUser(null)
-        localStorage.setItem("isLoggedIn", false)
+        // setUser(null)
         return true
       })
       .catch(error => {
@@ -63,17 +74,22 @@ const UserContextProvider = ({ children }) => {
     return await response
   }
 
-  const value = useMemo(
-    () => ({
-      user,
-      isAuthenticated: () => {
-        return user ? true : false
-      },
-      authLogin: (username, password) => login(username, password),
-      authLogout: () => logout(),
-    }),
-    [user]
-  )
+  const isAuthenticated = () => {
+    const user = auth.currentUser
+    return user ? true : false
+  }
+
+  const getCurrentUser = () => {
+    return auth.currentUser
+  }
+
+  const value = {
+    isAuthLoading,
+    getCurrentUser,
+    isAuthenticated,
+    authLogin,
+    authLogout,
+  }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }

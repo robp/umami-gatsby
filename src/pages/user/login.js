@@ -1,12 +1,9 @@
 import React, { useContext, useEffect, useMemo } from "react"
 import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
-import { Redirect } from "@reach/router"
 
 import { PageContext } from "../../components/context/page-context"
-import { LanguageSwitcherContext } from "../../components/context/language-switcher-context"
 import { UserContext } from "../../components/context/user-context"
-import { LocalTasksContext } from "../../components/context/local-tasks-context"
 import Layout from "../../components/layout/layout-default"
 import Seo from "../../components/seo"
 import LoginForm from "../../components/forms/login"
@@ -14,11 +11,10 @@ import LoginForm from "../../components/forms/login"
 import { getDefaultTranslations } from "../../utils/functions"
 
 const Page = ({ pageContext, data }) => {
-  const { t, languages, language, originalPath } = useI18next()
-  const { setStoredPageContext } = useContext(PageContext)
-  const { setTranslations } = useContext(LanguageSwitcherContext)
-  const { isAuthenticated } = useContext(UserContext)
-  const { setLocalTasks } = useContext(LocalTasksContext)
+  const { t, languages, language, originalPath, navigate } = useI18next()
+  const { setStoredPageContext, setTranslations, setLocalTasks } =
+    useContext(PageContext)
+  const { isAuthLoading, isAuthenticated } = useContext(UserContext)
 
   const nodeTranslations = useMemo(
     () => getDefaultTranslations(languages, originalPath),
@@ -61,9 +57,15 @@ const Page = ({ pageContext, data }) => {
     }
   }, [language, setLocalTasks, t])
 
-  return isAuthenticated() ? (
-    <Redirect to={`/${language}/user`} noThrow />
-  ) : (
+  if (isAuthLoading) {
+    return null
+  }
+
+  if (isAuthenticated()) {
+    navigate("/")
+  }
+
+  return (
     <Layout>
       <Seo title={pageContext.title} />
       <LoginForm />

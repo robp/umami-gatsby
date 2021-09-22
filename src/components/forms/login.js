@@ -1,7 +1,6 @@
 import React, { useContext, useRef } from "react"
 import classNames from "classnames"
 import { useI18next } from "gatsby-plugin-react-i18next"
-import { navigate } from "gatsby"
 import { useSiteMetadata } from "../../hooks/use-site-metadata"
 
 import { MessagesContext } from "../context/messages-context"
@@ -14,7 +13,7 @@ import * as buttonStyles from "../../styles/buttons.module.scss"
 import * as styles from "../../styles/forms/login.module.scss"
 
 const LoginForm = () => {
-  const { t, language } = useI18next()
+  const { t, language, navigate } = useI18next()
   const { addMessage } = useContext(MessagesContext)
   const { title } = useSiteMetadata()
   const { authLogin } = useContext(UserContext)
@@ -29,7 +28,7 @@ const LoginForm = () => {
           severity: MESSAGE_SEVERITY_SUCCESS,
           content: t("Logged in."),
         })
-        navigate(`/${language}/user`)
+        navigate(`/user`)
       })
       .catch(error => {
         let errorMessage = t("Unknown error")
@@ -38,7 +37,9 @@ const LoginForm = () => {
             errorMessage = (
               <>
                 {t("Unrecognized username or password.")}{" "}
-                <Link to={`/${language}/user/password`}>{t("Forgot your password?")}</Link>
+                <Link to="/user/password" language={language}>
+                  {t("Forgot your password?")}
+                </Link>
               </>
             )
             break

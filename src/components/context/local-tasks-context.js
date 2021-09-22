@@ -6,8 +6,6 @@ export const LocalTasksContext = createContext()
 const LocalTasksContextProvider = ({ children }) => {
   const [localTasks, setLocalTasks] = useState([])
 
-  console.log('LocalTasksContext localTasks', localTasks)
-
   const value = {
     localTasks,
     setLocalTasks,

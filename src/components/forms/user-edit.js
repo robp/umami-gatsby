@@ -15,8 +15,8 @@ import * as styles from "../../styles/forms/user-edit.module.scss"
 const UserEditForm = () => {
   const { t, language } = useI18next()
   // const { addMessage } = useContext(MessagesContext)
-  const { user } = useContext(UserContext)
-  console.log(user)
+  const { getCurrentUser } = useContext(UserContext)
+  const user = getCurrentUser()
   const [emailAddress, setEmailAddress] = useState(user.email)
   const currentPasswordRef = useRef()
   const emailAddressRef = useRef()
@@ -54,27 +54,6 @@ const UserEditForm = () => {
       passwordMatchStatusRef.current.classList.add(confirmClass)
     }
   }
-
-  // var passwordCheckMatch = function passwordCheckMatch(confirmInputVal) {
-  //   var passwordsAreMatching = $mainInput.val() === confirmInputVal
-  //   var confirmClass = passwordsAreMatching
-  //     ? cssClasses.passwordsMatch
-  //     : cssClasses.passwordsNotMatch
-  //   var confirmMessage = passwordsAreMatching
-  //     ? settings.password.confirmSuccess
-  //     : settings.password.confirmFailure
-
-  //   if (
-  //     !$passwordMatchStatus.hasClass(confirmClass) ||
-  //     !$passwordMatchStatus.html() === confirmMessage
-  //   ) {
-  //     if (confirmTextWrapperClassesToRemove) {
-  //       $passwordMatchStatus.removeClass(confirmTextWrapperClassesToRemove)
-  //     }
-
-  //     $passwordMatchStatus.html(confirmMessage).addClass(confirmClass)
-  //   }
-  // }
 
   const passwordCheck = () => {
     if (confirmPasswordRef.current.value) {

@@ -1,12 +1,9 @@
 import React, { useContext, useEffect, useMemo } from "react"
 import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
-import { Redirect } from "@reach/router"
 
 import { PageContext } from "../../components/context/page-context"
-import { LanguageSwitcherContext } from "../../components/context/language-switcher-context"
 import { UserContext } from "../../components/context/user-context"
-import { LocalTasksContext } from "../../components/context/local-tasks-context" // import { UserContext } from "../../components/context/user-context"
 import Layout from "../../components/layout/layout-default"
 import Seo from "../../components/seo"
 import UserEditForm from "../../components/forms/user-edit"
@@ -14,11 +11,11 @@ import UserEditForm from "../../components/forms/user-edit"
 import { getDefaultTranslations } from "../../utils/functions"
 
 const Page = ({ pageContext, data }) => {
-  const { t, languages, language, originalPath } = useI18next()
-  const { setStoredPageContext } = useContext(PageContext)
-  const { setTranslations } = useContext(LanguageSwitcherContext)
-  const { user, isAuthenticated } = useContext(UserContext)
-  const { setLocalTasks } = useContext(LocalTasksContext)
+  const { t, languages, language, originalPath, navigate } = useI18next()
+  const { setStoredPageContext, setTranslations, setLocalTasks } =
+    useContext(PageContext)
+  const { isAuthLoading, getCurrentUser, isAuthenticated } =
+    useContext(UserContext)
 
   const nodeTranslations = useMemo(
     () => getDefaultTranslations(languages, originalPath),
@@ -32,6 +29,8 @@ const Page = ({ pageContext, data }) => {
   useEffect(() => {
     setStoredPageContext(pageContext)
   }, [pageContext, setStoredPageContext])
+
+  const user = getCurrentUser()
 
   if (user) {
     pageContext.title = user.email
@@ -65,13 +64,19 @@ const Page = ({ pageContext, data }) => {
 
   // const regDate = new Date(user.createdAt)
 
-  return isAuthenticated() ? (
+  if (isAuthLoading) {
+    return null
+  }
+
+  if (!isAuthenticated()) {
+    navigate("/user/login")
+  }
+
+  return (
     <Layout>
       <Seo title={pageContext.title} />
       <UserEditForm />
     </Layout>
-  ) : (
-    <Redirect to={`/${language}/user/login`} />
   )
 }
 

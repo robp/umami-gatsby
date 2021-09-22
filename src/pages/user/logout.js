@@ -1,7 +1,6 @@
-import React, { useContext, useState } from "react"
+import { useContext, useState } from "react"
 import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
-import { Redirect } from "@reach/router"
 
 import { UserContext } from "../../components/context/user-context"
 import { MessagesContext } from "../../components/context/messages-context"
@@ -11,9 +10,9 @@ import {
 } from "../../components/message"
 
 const Page = () => {
-  const { t, language } = useI18next()
+  const { t, navigate } = useI18next()
   const { addMessage } = useContext(MessagesContext)
-  const { isAuthenticated, authLogout } = useContext(UserContext)
+  const { isAuthLoading, isAuthenticated, authLogout } = useContext(UserContext)
   const [isLoading, setIsLoading] = useState(false)
 
   if (!isLoading && isAuthenticated()) {
@@ -25,6 +24,7 @@ const Page = () => {
           content: t("Logged out."),
         })
         setIsLoading(false)
+        navigate("/")
       })
       .catch(error => {
         addMessage({
@@ -32,12 +32,15 @@ const Page = () => {
           content: error.message,
         })
         setIsLoading(false)
+        navigate("/")
       })
   }
 
-  return isLoading || isAuthenticated() ? null : (
-    <Redirect to={`/${language}`} noThrow />
-  )
+  if (!isAuthLoading && !isLoading && !isAuthenticated()) {
+    navigate("/")
+  }
+
+  return null
 }
 
 export default Page

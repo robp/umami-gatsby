@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 import { useI18next } from "gatsby-plugin-react-i18next"
 import classNames from "classnames"
 
-import { LocalTasksContext } from "../context/local-tasks-context"
+import { PageContext } from "../context/page-context"
 import Block from "../block"
 import Menu from "../menu"
 
@@ -11,9 +11,7 @@ import * as styles from "../../styles/blocks/local-tasks.module.scss"
 
 const LocalTasksBlock = () => {
   const { t, language } = useI18next()
-  const { localTasks } = useContext(LocalTasksContext)
-
-  console.log("LocalTasksBlock localTasks", localTasks)
+  const { localTasks } = useContext(PageContext)
 
   return (
     <Block

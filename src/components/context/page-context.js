@@ -5,10 +5,16 @@ export const PageContext = createContext()
 
 const PageContextProvider = ({ children }) => {
   const [storedPageContext, setStoredPageContext] = useState({})
+  const [localTasks, setLocalTasks] = useState([])
+  const [translations, setTranslations] = useState([])
 
   const value = {
     storedPageContext,
     setStoredPageContext,
+    localTasks,
+    setLocalTasks,
+    translations,
+    setTranslations,
   }
 
   return <PageContext.Provider value={value}>{children}</PageContext.Provider>

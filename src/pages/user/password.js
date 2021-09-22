@@ -3,8 +3,6 @@ import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 
 import { PageContext } from "../../components/context/page-context"
-import { LanguageSwitcherContext } from "../../components/context/language-switcher-context"
-import { LocalTasksContext } from "../../components/context/local-tasks-context"// import { UserContext } from "../../components/context/user-context"
 import Layout from "../../components/layout/layout-default"
 import Seo from "../../components/seo"
 
@@ -12,9 +10,8 @@ import { getDefaultTranslations } from "../../utils/functions"
 
 const Page = ({ pageContext, data }) => {
   const { t, languages, language, originalPath } = useI18next()
-  const { setStoredPageContext } = useContext(PageContext)
-  const { setTranslations } = useContext(LanguageSwitcherContext)
-  const { setLocalTasks } = useContext(LocalTasksContext)
+  const { setStoredPageContext, setTranslations, setLocalTasks } =
+    useContext(PageContext)
   // const { isAuthenticated } = useContext(UserContext)
 
   const nodeTranslations = useMemo(
