@@ -101,7 +101,7 @@ const UserEditForm = () => {
     const result = evaluatePasswordStrength(
       passwordRef.current.value,
       passwordSettings,
-      emailAddressRef
+      emailAddressRef.current.value
     )
     const currentPasswordSuggestions = result.message
 

@@ -11,10 +11,14 @@ const capitalizeFirstLetter = str => {
  * Drupal's function for evaluating password strengh, made to work in React.
  * @param {string} password
  * @param {object} passwordSettings
- * @param {object} usernameRef
+ * @param {object} username
  * @returns {boolean}
  */
-const evaluatePasswordStrength = (password, passwordSettings, usernameRef) => {
+const evaluatePasswordStrength = (
+  password,
+  passwordSettings,
+  username = ""
+) => {
   password = password.trim()
   var indicatorText
   var indicatorClass
@@ -25,8 +29,7 @@ const evaluatePasswordStrength = (password, passwordSettings, usernameRef) => {
   var hasUppercase = /[A-Z]/.test(password)
   var hasNumbers = /[0-9]/.test(password)
   var hasPunctuation = /[^a-zA-Z0-9]/.test(password)
-  var username =
-    usernameRef?.current.value.length > 0 ? usernameRef.current.value : passwordSettings.username
+  var username = username.length > 0 ? username : passwordSettings.username
 
   if (password.length < 12) {
     msg.push(passwordSettings.tooShort)
@@ -71,7 +74,7 @@ const evaluatePasswordStrength = (password, passwordSettings, usernameRef) => {
       break
   }
 
-  if (password !== "" && password.toLowerCase() === username?.toLowerCase()) {
+  if (password !== "" && password.toLowerCase() === username.toLowerCase()) {
     msg.push(passwordSettings.sameAsUsername)
     strength = 5
   }
