@@ -82,8 +82,7 @@ const UserContextProvider = ({ children }) => {
   }
 
   const isAuthenticated = () => {
-    const user = auth?.currentUser
-    return user ? true : false
+    return auth?.currentUser ? true : false
   }
 
   const getCurrentUser = () => {
