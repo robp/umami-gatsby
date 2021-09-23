@@ -96,5 +96,18 @@
   "no": "no",
   "Send password reset instructions via email.": "Enviar por correo instrucciones para recuperar la contraseña.",
   "View": "Ver",
-  "Edit": "Editar"
+  "Edit": "Editar",
+  "Add lowercase letters": "Añadir letras minúsculas",
+  "Add numbers": "Añadir cifras",
+  "Add punctuation": "Añadir signos de puntuación",
+  "Add uppercase letters": "Añadir letras mayúsculas",
+  "Passwords match:": "Las contraseñas coinciden:",
+  "Fair": "Razonable",
+  "Good": "Bueno",
+  "Recommendations to make your password stronger:": "Recomendaciones para hacer su contraseña más fuerte:",
+  "Make it different from your username": "Hacer que sea distinta de su nombre de usuario",
+  "Password strength:": "Fortaleza de la contraseña:",
+  "Strong": "Fuerte",
+  "Make it at least 12 characters": "Que sea al menos de 12 caracteres",
+  "Weak": "Débil"
 }

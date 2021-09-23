@@ -9,6 +9,8 @@ import {
   signOut,
 } from "firebase/auth"
 
+import { isBrowser } from "../../utils/functions"
+
 export const UserContext = createContext()
 
 const firebaseConfig = {
@@ -25,26 +27,32 @@ const UserContextProvider = ({ children }) => {
 
   const auth = useMemo(() => {
     console.log("creating auth")
-    initializeApp(firebaseConfig)
-    return getAuth()
-  }, [])
-
-  onAuthStateChanged(auth, user => {
-    setIsAuthLoading(false)
-    console.log("onAuthStateChanged", user)
-    if (user) {
-      console.log("signed in")
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      // setUser(user)
-      // localStorage.setItem("isLoggedIn", true)
-      // ...
-    } else {
-      console.log("signed out")
-      // setUser(null)
-      // localStorage.setItem("isLoggedIn", false)
+    if (!isBrowser()) {
+      return null
     }
-  })
+
+    initializeApp(firebaseConfig)
+    const auth = getAuth()
+
+    onAuthStateChanged(auth, user => {
+      setIsAuthLoading(false)
+      console.log("onAuthStateChanged", user)
+      if (user) {
+        console.log("signed in")
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        // setUser(user)
+        // localStorage.setItem("isLoggedIn", true)
+        // ...
+      } else {
+        console.log("signed out")
+        // setUser(null)
+        // localStorage.setItem("isLoggedIn", false)
+      }
+    })
+
+    return auth
+  }, [])
 
   let authLogin = async (username, password) => {
     let response = await signInWithEmailAndPassword(auth, username, password)
@@ -74,12 +82,11 @@ const UserContextProvider = ({ children }) => {
   }
 
   const isAuthenticated = () => {
-    const user = auth.currentUser
-    return user ? true : false
+    return auth?.currentUser ? true : false
   }
 
   const getCurrentUser = () => {
-    return auth.currentUser
+    return auth?.currentUser
   }
 
   const value = {

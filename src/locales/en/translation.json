@@ -96,5 +96,18 @@
   "no": "no",
   "Send password reset instructions via email.": "Send password reset instructions via email.",
   "View": "View",
-  "Edit": "Edit"
+  "Edit": "Edit",
+  "Add lowercase letters": "Add lowercase letters",
+  "Add numbers": "Add numbers",
+  "Add punctuation": "Add punctuation",
+  "Add uppercase letters": "Add uppercase letters",
+  "Passwords match:": "Passwords match:",
+  "Fair": "Fair",
+  "Good": "Good",
+  "Recommendations to make your password stronger:": "Recommendations to make your password stronger:",
+  "Make it different from your username": "Make it different from your username",
+  "Password strength:": "Password strength:",
+  "Strong": "Strong",
+  "Make it at least 12 characters": "Make it at least 12 characters",
+  "Weak": "Weak"
 }

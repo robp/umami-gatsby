@@ -3,5 +3,5 @@
  *
  * See: https://www.gatsbyjs.com/docs/ssr-apis/
  */
-
-// You can delete this file if you're not using it
+export { wrapRootElement } from "./src/components/wrap-root-element"
+export { wrapPageElement } from "./src/components/wrap-page-element"
