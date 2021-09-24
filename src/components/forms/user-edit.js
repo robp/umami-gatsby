@@ -153,13 +153,6 @@ const UserEditForm = () => {
           let errorMessage = t("Unknown error")
           switch (error.cause) {
             case "auth/internal-error":
-              errorMessage = (
-                <Trans i18nKey="edit-mail--password-missing">
-                  Your current password is missing or incorrect; it's required
-                  to change the <em>Email</em>.
-                </Trans>
-              )
-              break
             case "auth/wrong-password":
               errorMessage = (
                 <Trans i18nKey="edit-mail--password-missing">
@@ -204,13 +197,6 @@ const UserEditForm = () => {
             let errorMessage = t("Unknown error")
             switch (error.cause) {
               case "auth/internal-error":
-                errorMessage = (
-                  <Trans i18nKey="edit-pass--password-missing">
-                    Your current password is missing or incorrect; it's required
-                    to change the <em>Password</em>.
-                  </Trans>
-                )
-                break
               case "auth/wrong-password":
                 errorMessage = (
                   <Trans i18nKey="edit-pass--password-missing">

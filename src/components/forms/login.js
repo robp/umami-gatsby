@@ -34,6 +34,7 @@ const LoginForm = () => {
         let errorMessage = t("Unknown error")
         switch (error.cause) {
           case "auth/invalid-email":
+          case "auth/auth/wrong-password":
             errorMessage = (
               <>
                 {t("Unrecognized username or password.")}{" "}
