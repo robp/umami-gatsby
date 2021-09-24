@@ -109,5 +109,16 @@
   "Password strength:": "Fortaleza de la contraseña:",
   "Strong": "Fuerte",
   "Make it at least 12 characters": "Que sea al menos de 12 caracteres",
-  "Weak": "Débil"
+  "Weak": "Débil",
+  "Username or email address": "Nombre de usuario o correo electrónico",
+  "Password reset instructions will be sent to your registered email address.": "Las instrucciones para restablecer la clave se enviarán a la dirección de correo electrónico con la que se registró como usuario.",
+  "Submit": "Enviar",
+  "user-pass--success": "Si <1>{{username}}</1> es una cuenta válida, se enviará un correo electrónico con instrucciones para restablecer su contraseña.",
+  "edit-name--logged-in": "Se enviarán instrucciones de restablecimiento de contraseña por correo electrónico a <2>{{emailAddress}}</2>. Debe cerrar la sesión para utilizar el enlace de restablecimiento de contraseña que se encuentra en el correo electrónico.",
+  "edit-mail--password-missing": "Su contraseña actual es incorrecta o bien la ha olvidado; es necesario cambiar el <1>Correo electrónico</1>.",
+  "edit-pass--password-missing": "Su contraseña actual es incorrecta o bien la ha olvidado; es necesario cambiar el <1>Contraseña</1>.",
+  "Email address updated.": "Dirección de correo electrónico actualizada.",
+  "Passwords do not match.": "Las contraseñas no coinciden.",
+  "Password is too weak.": "La contraseña es demasiado débil.",
+  "Password updated.": "Contraseña actualiza."
 }

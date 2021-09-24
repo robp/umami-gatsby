@@ -3,10 +3,15 @@ import PropTypes from "prop-types"
 import { initializeApp } from "firebase/app"
 
 import {
+  EmailAuthProvider,
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  reauthenticateWithCredential,
   signOut,
+  updateEmail,
+  updatePassword,
+  sendPasswordResetEmail,
 } from "firebase/auth"
 
 import { isBrowser } from "../../utils/functions"
@@ -26,7 +31,6 @@ const UserContextProvider = ({ children }) => {
   const [isAuthLoading, setIsAuthLoading] = useState(true)
 
   const auth = useMemo(() => {
-    console.log("creating auth")
     if (!isBrowser()) {
       return null
     }
@@ -36,18 +40,10 @@ const UserContextProvider = ({ children }) => {
 
     onAuthStateChanged(auth, user => {
       setIsAuthLoading(false)
-      console.log("onAuthStateChanged", user)
       if (user) {
-        console.log("signed in")
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
         // setUser(user)
-        // localStorage.setItem("isLoggedIn", true)
-        // ...
       } else {
-        console.log("signed out")
         // setUser(null)
-        // localStorage.setItem("isLoggedIn", false)
       }
     })
 
@@ -65,7 +61,7 @@ const UserContextProvider = ({ children }) => {
         throw new Error(error.message, { cause: error.code })
       })
 
-    return await response
+    return response
   }
 
   const authLogout = async () => {
@@ -78,7 +74,63 @@ const UserContextProvider = ({ children }) => {
         throw new Error(error.message, { cause: error.code })
       })
 
-    return await response
+    return response
+  }
+
+  const authUpdateEmail = async (emailAddress, password) => {
+    const user = getCurrentUser()
+    // Create an auth credential with the supplied password.
+    const credential = EmailAuthProvider.credential(user.email, password)
+    // Reauthenticate with the credential.
+    let response = await reauthenticateWithCredential(user, credential)
+      .then(() => {
+        updateEmail(user, emailAddress)
+          .then(() => {
+            return true
+          })
+          .catch(error => {
+            throw new Error(error.message, { cause: error.code })
+          })
+      })
+      .catch(error => {
+        throw new Error(error.message, { cause: error.code })
+      })
+
+    return response
+  }
+
+  const authUpdatePassword = async (newPassword, oldPassword) => {
+    const user = getCurrentUser()
+    // Create an auth credential with the supplied password.
+    const credential = EmailAuthProvider.credential(user.email, oldPassword)
+    // Reauthenticate with the credential.
+    let response = await reauthenticateWithCredential(user, credential)
+      .then(() => {
+        updatePassword(user, newPassword)
+          .then(() => {
+            return true
+          })
+          .catch(error => {
+            throw new Error(error.message, { cause: error.code })
+          })
+      })
+      .catch(error => {
+        throw new Error(error.message, { cause: error.code })
+      })
+
+    return response
+  }
+
+  const authResetPassword = async emailAddress => {
+    let response = await sendPasswordResetEmail(auth, emailAddress)
+      .then(() => {
+        return true
+      })
+      .catch(error => {
+        throw new Error(error.message, { cause: error.code })
+      })
+
+    return response
   }
 
   const isAuthenticated = () => {
@@ -95,6 +147,9 @@ const UserContextProvider = ({ children }) => {
     isAuthenticated,
     authLogin,
     authLogout,
+    authUpdateEmail,
+    authUpdatePassword,
+    authResetPassword,
   }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>

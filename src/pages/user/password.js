@@ -5,6 +5,7 @@ import { useI18next } from "gatsby-plugin-react-i18next"
 import { PageContext } from "../../components/context/page-context"
 import Layout from "../../components/layout/layout-default"
 import Seo from "../../components/seo"
+import PasswordResetForm from "../../components/forms/password-reset"
 
 import { getDefaultTranslations } from "../../utils/functions"
 
@@ -58,6 +59,7 @@ const Page = ({ pageContext, data }) => {
   return (
     <Layout>
       <Seo title={pageContext.title} />
+      <PasswordResetForm />
     </Layout>
   )
 }
