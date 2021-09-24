@@ -16,10 +16,10 @@ import * as styles from "../../styles/forms/user-edit.module.scss"
 
 const UserEditForm = () => {
   const { t, language } = useI18next()
-  // const { addMessage } = useContext(MessagesContext)
-  const { getCurrentUser } = useContext(UserContext)
+  const { addMessage, clearMessages } = useContext(MessagesContext)
+  const { getCurrentUser, authUpdateEmail, authUpdatePassword } =
+    useContext(UserContext)
   const user = getCurrentUser()
-  console.log(user)
   const [emailAddress, setEmailAddress] = useState(user.email)
   const currentPasswordRef = useRef()
   const emailAddressRef = useRef()
@@ -95,6 +95,8 @@ const UserEditForm = () => {
       passwordMatchStatusRef.current.innerHTML = confirmMessage
       passwordMatchStatusRef.current.classList.add(confirmClass)
     }
+
+    return passwordsAreMatching
   }
 
   const passwordCheck = () => {
@@ -131,10 +133,102 @@ const UserEditForm = () => {
     } else {
       passwordConfirmMessageRef.current.classList.add(styles.invisible)
     }
+
+    return result.strength
   }
 
   const handleSubmit = e => {
     e.preventDefault()
+    clearMessages()
+    if (emailAddress !== user.email) {
+      authUpdateEmail(emailAddress, currentPasswordRef.current.value)
+        .then(() => {
+          addMessage({
+            severity: MESSAGE_SEVERITY_SUCCESS,
+            content: t("Email address updated."),
+          })
+          // navigate(`/user`)
+        })
+        .catch(error => {
+          let errorMessage = t("Unknown error")
+          switch (error.cause) {
+            case "auth/internal-error":
+              errorMessage = (
+                <Trans i18nKey="edit-mail--password-missing">
+                  Your current password is missing or incorrect; it's required
+                  to change the <em>Email</em>.
+                </Trans>
+              )
+              break
+            case "auth/wrong-password":
+              errorMessage = (
+                <Trans i18nKey="edit-mail--password-missing">
+                  Your current password is missing or incorrect; it's required
+                  to change the <em>Email</em>.
+                </Trans>
+              )
+              break
+            default:
+              errorMessage = error.message
+          }
+          addMessage({
+            severity: MESSAGE_SEVERITY_ERROR,
+            content: errorMessage,
+          })
+        })
+    }
+    if (passwordRef.current.value) {
+      if (!passwordCheckMatch()) {
+        addMessage({
+          severity: MESSAGE_SEVERITY_ERROR,
+          content: t("Passwords do not match."),
+        })
+      } else if (passwordCheck() < 60) {
+        addMessage({
+          severity: MESSAGE_SEVERITY_ERROR,
+          content: t("Password is too weak."),
+        })
+      } else {
+        authUpdatePassword(
+          passwordRef.current.value,
+          currentPasswordRef.current.value
+        )
+          .then(() => {
+            addMessage({
+              severity: MESSAGE_SEVERITY_SUCCESS,
+              content: t("Password updated."),
+            })
+            // navigate(`/user`)
+          })
+          .catch(error => {
+            let errorMessage = t("Unknown error")
+            switch (error.cause) {
+              case "auth/internal-error":
+                errorMessage = (
+                  <Trans i18nKey="edit-pass--password-missing">
+                    Your current password is missing or incorrect; it's required
+                    to change the <em>Password</em>.
+                  </Trans>
+                )
+                break
+              case "auth/wrong-password":
+                errorMessage = (
+                  <Trans i18nKey="edit-pass--password-missing">
+                    Your current password is missing or incorrect; it's required
+                    to change the <em>Password</em>.
+                  </Trans>
+                )
+                break
+              default:
+                errorMessage = error.message
+            }
+            addMessage({
+              severity: MESSAGE_SEVERITY_ERROR,
+              content: errorMessage,
+            })
+          })
+      }
+    }
   }
 
   useEffect(() => {

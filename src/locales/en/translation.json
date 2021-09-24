@@ -109,5 +109,16 @@
   "Password strength:": "Password strength:",
   "Strong": "Strong",
   "Make it at least 12 characters": "Make it at least 12 characters",
-  "Weak": "Weak"
+  "Weak": "Weak",
+  "Username or email address": "Username or email address",
+  "Password reset instructions will be sent to your registered email address.": "Password reset instructions will be sent to your registered email address.",
+  "Submit": "Submit",
+  "user-pass--success": "If <1>{{username}}</1> is a valid account, an email will be sent with instructions to reset your password.",
+  "edit-name--logged-in": "Password reset instructions will be mailed to <2>{{emailAddress}}</2>. You must log out to use the password reset link in the email.",
+  "edit-mail--password-missing": "Your current password is missing or incorrect; it's required to change the <1>Email</1>.",
+  "edit-pass--password-missing": "Your current password is missing or incorrect; it's required to change the <1>Password</1>.",
+  "Email address updated.": "Email address updated.",
+  "Passwords do not match.": "Passwords do not match.",
+  "Password is too weak.": "Password is too weak.",
+  "Password updated.": "Password updated."
 }
