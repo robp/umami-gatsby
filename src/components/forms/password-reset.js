@@ -1,7 +1,6 @@
 import React, { useContext, useRef } from "react"
 import classNames from "classnames"
 import { useI18next, Trans } from "gatsby-plugin-react-i18next"
-import { useSiteMetadata } from "../../hooks/use-site-metadata"
 
 import { MessagesContext } from "../context/messages-context"
 import { MESSAGE_SEVERITY_SUCCESS, MESSAGE_SEVERITY_ERROR } from "../message"
@@ -12,7 +11,7 @@ import * as buttonStyles from "../../styles/buttons.module.scss"
 import * as styles from "../../styles/forms/login.module.scss"
 
 const PasswordResetForm = () => {
-  const { t, language, navigate } = useI18next()
+  const { t, navigate } = useI18next()
   const { addMessage } = useContext(MessagesContext)
   const { getCurrentUser, authResetPassword } = useContext(UserContext)
   const usernameRef = useRef()
@@ -20,8 +19,8 @@ const PasswordResetForm = () => {
   const user = getCurrentUser()
   const emailAddress = user?.email
 
-  const handleSubmit = e => {
-    e.preventDefault()
+  const handleSubmit = async event => {
+    event.preventDefault()
     const username = user ? user.email : usernameRef.current.value
     const successMessage = {
       severity: MESSAGE_SEVERITY_SUCCESS,
@@ -33,26 +32,25 @@ const PasswordResetForm = () => {
       ),
     }
 
-    authResetPassword(username)
-      .then(() => {
-        addMessage(successMessage)
-      })
-      .catch(error => {
-        let errorMessage = ""
-        switch (error.cause) {
-          case "auth/invalid-email":
-            addMessage(successMessage)
-            break
-          default:
-            errorMessage = error.message
-        }
-        if (errorMessage.length) {
-          addMessage({
-            severity: MESSAGE_SEVERITY_ERROR,
-            content: errorMessage,
-          })
-        }
-      })
+    try {
+      await authResetPassword(username)
+      addMessage(successMessage)
+    } catch (error) {
+      let errorMessage = ""
+      switch (error.cause) {
+        case "auth/invalid-email":
+          addMessage(successMessage)
+          break
+        default:
+          errorMessage = error.message
+      }
+      if (errorMessage.length) {
+        addMessage({
+          severity: MESSAGE_SEVERITY_ERROR,
+          content: errorMessage,
+        })
+      }
+    }
 
     navigate("/")
   }

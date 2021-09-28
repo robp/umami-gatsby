@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
 import classNames from "classnames"
 import { useI18next, Trans } from "gatsby-plugin-react-i18next"
-import { navigate } from "gatsby"
 
 import { MessagesContext } from "../context/messages-context"
 import { MESSAGE_SEVERITY_SUCCESS, MESSAGE_SEVERITY_ERROR } from "../message"
@@ -137,39 +136,46 @@ const UserEditForm = () => {
     return result.strength
   }
 
-  const handleSubmit = e => {
-    e.preventDefault()
+  const handleSubmit = async event => {
+    event.preventDefault()
     clearMessages()
+
     if (emailAddress !== user.email) {
-      authUpdateEmail(emailAddress, currentPasswordRef.current.value)
-        .then(() => {
-          addMessage({
-            severity: MESSAGE_SEVERITY_SUCCESS,
-            content: t("Email address updated."),
-          })
-          // navigate(`/user`)
+      try {
+        await authUpdateEmail(
+          emailAddress,
+          currentPasswordRef.current.value
+        )
+        addMessage({
+          severity: MESSAGE_SEVERITY_SUCCESS,
+          content: t("Email address updated."),
         })
-        .catch(error => {
-          let errorMessage = t("Unknown error")
-          switch (error.cause) {
-            case "auth/internal-error":
-            case "auth/wrong-password":
-              errorMessage = (
-                <Trans i18nKey="edit-mail--password-missing">
-                  Your current password is missing or incorrect; it's required
-                  to change the <em>Email</em>.
-                </Trans>
-              )
-              break
-            default:
-              errorMessage = error.message
-          }
-          addMessage({
-            severity: MESSAGE_SEVERITY_ERROR,
-            content: errorMessage,
-          })
+      } catch (error) {
+        let errorMessage = t("Unknown error")
+        switch (error.cause) {
+          case "auth/internal-error":
+          case "auth/wrong-password":
+            errorMessage = (
+              <Trans i18nKey="edit-mail--password-missing">
+                Your current password is missing or incorrect; it's required to
+                change the <em>Email</em>.
+              </Trans>
+            )
+            break
+          default:
+            errorMessage = error.message
+        }
+        addMessage({
+          severity: MESSAGE_SEVERITY_ERROR,
+          content: errorMessage,
         })
+      }
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      })
     }
+
     if (passwordRef.current.value) {
       if (!passwordCheckMatch()) {
         addMessage({
@@ -182,38 +188,40 @@ const UserEditForm = () => {
           content: t("Password is too weak."),
         })
       } else {
-        authUpdatePassword(
-          passwordRef.current.value,
-          currentPasswordRef.current.value
-        )
-          .then(() => {
-            addMessage({
-              severity: MESSAGE_SEVERITY_SUCCESS,
-              content: t("Password updated."),
-            })
-            // navigate(`/user`)
+        try {
+          await authUpdatePassword(
+            passwordRef.current.value,
+            currentPasswordRef.current.value
+          )
+          addMessage({
+            severity: MESSAGE_SEVERITY_SUCCESS,
+            content: t("Password updated."),
           })
-          .catch(error => {
-            let errorMessage = t("Unknown error")
-            switch (error.cause) {
-              case "auth/internal-error":
-              case "auth/wrong-password":
-                errorMessage = (
-                  <Trans i18nKey="edit-pass--password-missing">
-                    Your current password is missing or incorrect; it's required
-                    to change the <em>Password</em>.
-                  </Trans>
-                )
-                break
-              default:
-                errorMessage = error.message
-            }
-            addMessage({
-              severity: MESSAGE_SEVERITY_ERROR,
-              content: errorMessage,
-            })
+        } catch (error) {
+          let errorMessage = t("Unknown error")
+          switch (error.cause) {
+            case "auth/internal-error":
+            case "auth/wrong-password":
+              errorMessage = (
+                <Trans i18nKey="edit-pass--password-missing">
+                  Your current password is missing or incorrect; it's required
+                  to change the <em>Password</em>.
+                </Trans>
+              )
+              break
+            default:
+              errorMessage = error.message
+          }
+          addMessage({
+            severity: MESSAGE_SEVERITY_ERROR,
+            content: errorMessage,
           })
+        }
       }
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      })
     }
   }
 

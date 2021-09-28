@@ -16,29 +16,37 @@ const ContactForm = () => {
   const { t, language } = useI18next()
   const { addMessage } = useContext(MessagesContext)
 
-  const handleSubmit = e => {
-    e.preventDefault()
+  const handleSubmit = async event => {
+    event.preventDefault()
     let myForm = document.getElementById("contact-message-feedback-form")
     let formData = new FormData(myForm)
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData).toString(),
-    })
-      .then(() => {
-        addMessage({
-          severity: MESSAGE_SEVERITY_SUCCESS,
-          content: t("Your message has been sent."),
-        })
-        navigate(`/${language}`)
+    try {
+      let response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString(),
       })
-      .catch(error => {
-        addMessage({
-          severity: MESSAGE_SEVERITY_ERROR,
-          content: error,
-        })
-        navigate(`/${language}`)
+      if (!response.ok) {
+        throw new Error(
+          `${t("HTTP error")}: ${response.status} ${response.statusText}`,
+          { cause: response.status }
+        )
+      }
+      addMessage({
+        severity: MESSAGE_SEVERITY_SUCCESS,
+        content: t("Your message has been sent."),
       })
+      navigate(`/${language}`)
+    } catch (error) {
+      addMessage({
+        severity: MESSAGE_SEVERITY_ERROR,
+        content: error.message,
+      })
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      })
+    }
   }
 
   return (
@@ -89,7 +97,7 @@ const ContactForm = () => {
           name="mail"
           size="60"
           maxLength="254"
-          // required="required"
+          required="required"
           aria-required="true"
         />
       </div>
@@ -109,7 +117,7 @@ const ContactForm = () => {
             size="60"
             maxLength="100"
             placeholder=""
-            // required="required"
+            required="required"
             aria-required="true"
           />
         </div>
@@ -130,7 +138,7 @@ const ContactForm = () => {
               rows="12"
               cols="60"
               placeholder=""
-              // required="required"
+              required="required"
               aria-required="true"
               className={resizeStyles.resizeVertical}
             ></textarea>

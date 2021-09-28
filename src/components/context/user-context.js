@@ -51,86 +51,54 @@ const UserContextProvider = ({ children }) => {
   }, [])
 
   let authLogin = async (username, password) => {
-    let response = await signInWithEmailAndPassword(auth, username, password)
-      .then(userCredential => {
-        // Signed in
-        const user = userCredential.user
-        return user
-      })
-      .catch(error => {
-        throw new Error(error.message, { cause: error.code })
-      })
-
-    return response
+    try {
+      let response = await signInWithEmailAndPassword(auth, username, password)
+      return response.user
+    } catch (error) {
+      throw new Error(error.message, { cause: error.code })
+    }
   }
 
   const authLogout = async () => {
-    let response = await signOut(auth)
-      .then(() => {
-        // Signed out
-        return true
-      })
-      .catch(error => {
-        throw new Error(error.message, { cause: error.code })
-      })
-
-    return response
+    try {
+      await signOut(auth)
+      return true
+    } catch (error) {
+      throw new Error(error.message, { cause: error.code })
+    }
   }
 
   const authUpdateEmail = async (emailAddress, password) => {
     const user = getCurrentUser()
-    // Create an auth credential with the supplied password.
     const credential = EmailAuthProvider.credential(user.email, password)
-    // Reauthenticate with the credential.
-    let response = await reauthenticateWithCredential(user, credential)
-      .then(() => {
-        updateEmail(user, emailAddress)
-          .then(() => {
-            return true
-          })
-          .catch(error => {
-            throw new Error(error.message, { cause: error.code })
-          })
-      })
-      .catch(error => {
-        throw new Error(error.message, { cause: error.code })
-      })
-
-    return response
+    try {
+      await reauthenticateWithCredential(user, credential)
+      await updateEmail(user, emailAddress)
+      return true
+    } catch (error) {
+      throw new Error(error.message, { cause: error.code })
+    }
   }
 
   const authUpdatePassword = async (newPassword, oldPassword) => {
     const user = getCurrentUser()
-    // Create an auth credential with the supplied password.
     const credential = EmailAuthProvider.credential(user.email, oldPassword)
-    // Reauthenticate with the credential.
-    let response = await reauthenticateWithCredential(user, credential)
-      .then(() => {
-        updatePassword(user, newPassword)
-          .then(() => {
-            return true
-          })
-          .catch(error => {
-            throw new Error(error.message, { cause: error.code })
-          })
-      })
-      .catch(error => {
-        throw new Error(error.message, { cause: error.code })
-      })
-
-    return response
+    try {
+      await reauthenticateWithCredential(user, credential)
+      await updatePassword(user, newPassword)
+      return true
+    } catch (error) {
+      throw new Error(error.message, { cause: error.code })
+    }
   }
 
   const authResetPassword = async emailAddress => {
-    let response = await sendPasswordResetEmail(auth, emailAddress)
-      .then(() => {
-        return true
-      })
-      .catch(error => {
-        throw new Error(error.message, { cause: error.code })
-      })
-
-    return response
+    try {
+      await sendPasswordResetEmail(auth, emailAddress)
+      return true
+    } catch (error) {
+      throw new Error(error.message, { cause: error.code })
+    }
   }
 
   const isAuthenticated = () => {

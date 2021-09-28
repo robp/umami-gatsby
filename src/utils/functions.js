@@ -60,18 +60,17 @@ const evaluatePasswordStrength = (
     case 1:
       strength -= 12.5
       break
-
     case 2:
       strength -= 25
       break
-
     case 3:
       strength -= 40
       break
-
     case 4:
       strength -= 40
       break
+    default:
+      break;
   }
 
   if (password !== "" && password.toLowerCase() === username.toLowerCase()) {

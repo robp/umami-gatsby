@@ -14,44 +14,51 @@ import * as styles from "../../styles/forms/login.module.scss"
 
 const LoginForm = () => {
   const { t, language, navigate } = useI18next()
-  const { addMessage } = useContext(MessagesContext)
+  const { addMessage, clearMessages } = useContext(MessagesContext)
   const { title } = useSiteMetadata()
   const { authLogin } = useContext(UserContext)
   const usernameRef = useRef()
   const passwordRef = useRef()
 
-  const handleSubmit = e => {
-    e.preventDefault()
-    authLogin(usernameRef.current.value, passwordRef.current.value)
-      .then(() => {
-        addMessage({
-          severity: MESSAGE_SEVERITY_SUCCESS,
-          content: t("Logged in."),
-        })
-        navigate(`/user`)
+  const handleSubmit = async event => {
+    event.preventDefault()
+    try {
+      await authLogin(
+        usernameRef.current.value,
+        passwordRef.current.value
+      )
+      addMessage({
+        severity: MESSAGE_SEVERITY_SUCCESS,
+        content: t("Logged in."),
       })
-      .catch(error => {
-        let errorMessage = t("Unknown error")
-        switch (error.cause) {
-          case "auth/invalid-email":
-          case "auth/auth/wrong-password":
-            errorMessage = (
-              <>
-                {t("Unrecognized username or password.")}{" "}
-                <Link to="/user/password" language={language}>
-                  {t("Forgot your password?")}
-                </Link>
-              </>
-            )
-            break
-          default:
-            errorMessage = error.message
-        }
-        addMessage({
-          severity: MESSAGE_SEVERITY_ERROR,
-          content: errorMessage,
-        })
+      navigate(`/user`)
+    } catch (error) {
+      clearMessages()
+      let errorMessage = t("Unknown error")
+      switch (error.cause) {
+        case "auth/invalid-email":
+        case "auth/auth/wrong-password":
+          errorMessage = (
+            <>
+              {t("Unrecognized username or password.")}{" "}
+              <Link to="/user/password" language={language}>
+                {t("Forgot your password?")}
+              </Link>
+            </>
+          )
+          break
+        default:
+          errorMessage = error.message
+      }
+      addMessage({
+        severity: MESSAGE_SEVERITY_ERROR,
+        content: errorMessage,
       })
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      })
+    }
   }
 
   return (
