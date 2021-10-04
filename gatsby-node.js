@@ -38,6 +38,14 @@ exports.createSchemaCustomization = ({ actions }) => {
       title: String!
     }
 
+    interface CardInterface implements Node {
+      id: ID!
+      langcode: String!
+      created: Date! @dateformat
+      path: Path
+      title: String!
+    }
+
     interface LongTextInterface {
       format: String
       processed: String
@@ -85,7 +93,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       field_media_image: file__file @link(from: "field_media_image___NODE")
     }
 
-    type node__article implements Node & ContentInterface @dontInfer {
+    type node__article implements Node & ContentInterface & CardInterface @dontInfer {
       changed: Date! @dateformat
       created: Date! @dateformat
       drupal_id: String!
@@ -123,7 +131,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       uid: user__user @link(from: "uid___NODE")
     }
 
-    type node__recipe implements Node & ContentInterface @dontInfer {
+    type node__recipe implements Node & ContentInterface & CardInterface @dontInfer {
       changed: Date! @dateformat
       created: Date! @dateformat
       drupal_id: String!
