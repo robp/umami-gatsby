@@ -70,56 +70,26 @@ RecipeCard.defaultProps = {
 export default RecipeCard
 
 export const RecipeCardFragments = graphql`
-  fragment RecipeCardCommon on node__recipe {
-    langcode
-    id
-    created
-    path {
-      alias
-    }
-    title
-    internal {
-      type
-    }
-  }
-
   fragment RecipeCard on node__recipe {
+    ...CardFragment
     field_difficulty
-    ...RecipeCardCommon
     ...RecipeCardImage
   }
 
   fragment RecipeCardSquare on node__recipe {
-    ...RecipeCardCommon
+    ...CardFragment
     ...RecipeCardImageSquare
   }
 
   fragment RecipeCardHomepage on node__recipe {
-    ...RecipeCardCommon
+    ...CardFragment
     ...RecipeCardImage
   }
 
   fragment RecipeCardImage on node__recipe {
     relationships {
       field_media_image {
-        relationships {
-          field_media_image {
-            localFile {
-              childImageSharp {
-                gatsbyImageData(
-                  width: 1536
-                  aspectRatio: 1.5
-                  transformOptions: { cropFocus: CENTER }
-                  placeholder: BLURRED
-                  formats: [AUTO, WEBP, AVIF]
-                )
-              }
-            }
-          }
-        }
-        field_media_image {
-          alt
-        }
+        ...CardImageFragment
       }
     }
   }
@@ -127,24 +97,7 @@ export const RecipeCardFragments = graphql`
   fragment RecipeCardImageSquare on node__recipe {
     relationships {
       field_media_image {
-        relationships {
-          field_media_image {
-            localFile {
-              childImageSharp {
-                gatsbyImageData(
-                  width: 900
-                  aspectRatio: 1
-                  transformOptions: { cropFocus: CENTER }
-                  placeholder: BLURRED
-                  formats: [AUTO, WEBP, AVIF]
-                )
-              }
-            }
-          }
-        }
-        field_media_image {
-          alt
-        }
+        ...CardImageSquareFragment
       }
     }
   }

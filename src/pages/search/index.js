@@ -40,19 +40,17 @@ const Page = ({ pageContext, location, data }) => {
   }, [location])
 
   useEffect(() => {
-    const doSearch = () => {
+    const doSearch = async () => {
       if (keys?.length) {
-        searchIndex
-          .search(keys, {
+        try {
+          let hits = await searchIndex.search(keys, {
             facetFilters: [`langcode:${language}`],
           })
-          .then(({ hits }) => {
-            setResults(hits)
-            setLoading(false)
-          })
-          .catch(err => {
-            console.log(err)
-          })
+          setResults(hits)
+          setLoading(false)
+        } catch (error) {
+          console.log(error)
+        }
       } else {
         setResults([])
         setLoading(false)

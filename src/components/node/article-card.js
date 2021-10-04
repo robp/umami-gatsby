@@ -58,40 +58,10 @@ export default ArticleCard
 
 export const ArticleCardFragments = graphql`
   fragment ArticleCard on node__article {
-    langcode
-    id
-    created
-    path {
-      alias
-    }
-    title
-    internal {
-      type
-    }
-    ...ArticleCardImage
-  }
-
-  fragment ArticleCardImage on node__article {
+    ...CardFragment
     relationships {
       field_media_image {
-        relationships {
-          field_media_image {
-            localFile {
-              childImageSharp {
-                gatsbyImageData(
-                  width: 1536
-                  aspectRatio: 1.5
-                  transformOptions: { cropFocus: CENTER }
-                  placeholder: BLURRED
-                  formats: [AUTO, WEBP, AVIF]
-                )
-              }
-            }
-          }
-        }
-        field_media_image {
-          alt
-        }
+        ...CardImageFragment
       }
     }
   }
