@@ -15,7 +15,7 @@ const pageQuery = `{
         }
         title
         body {
-          excerpt: processed
+          processed
         }
         relationships {
           uid {
