@@ -9,6 +9,182 @@ const languages = require("./src/data/languages")
 
 const { normalizeString } = require("./src/utils/functions")
 
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions
+  const typeDefs = `
+    interface TaxonomyTermInterface implements Node {
+      id: ID!
+      drupal_id: String!
+      drupal_internal__tid: Int!
+      langcode: String!
+      path: Path
+      name: String!
+      description: LongText
+      status: Boolean!
+      weight: Int!
+    }
+
+    interface ContentInterface implements Node {
+      id: ID!
+      changed: Date! @dateformat
+      created: Date! @dateformat
+      drupal_id: String!
+      drupal_internal__nid: Int!
+      langcode: String!
+      path: Path
+      promote: Boolean!
+      status: Boolean!
+      sticky: Boolean!
+      title: String!
+    }
+
+    interface LongTextInterface {
+      format: String
+      processed: String
+      value: String
+    }
+
+    type LongText implements LongTextInterface @dontInfer {
+      format: String
+      processed: String
+      value: String
+    }
+
+    type LongTextWithSummary implements LongTextInterface @dontInfer {
+      format: String
+      processed: String
+      summary: String
+      value: String
+    }
+
+    type Image @dontInfer {
+      alt: String
+      height: Int
+      width: Int
+    }
+
+    type Path @dontInfer {
+      alias: String
+      langcode: String
+      pid: Int
+    }
+
+    type user__user implements Node @dontInfer {
+      drupal_id: String!
+      display_name: String!
+    }
+
+    type media__image implements Node @dontInfer {
+      drupal_id: String!
+      name: String
+      langcode: String!
+      field_media_image: Image
+      relationships: media__imageRelationships
+    }
+    type media__imageRelationships implements Node @dontInfer {
+      field_media_image: file__file @link(from: "field_media_image___NODE")
+    }
+
+    type node__article implements Node & ContentInterface @dontInfer {
+      changed: Date! @dateformat
+      created: Date! @dateformat
+      drupal_id: String!
+      drupal_internal__nid: Int!
+      langcode: String!
+      path: Path
+      title: String!
+      body: LongTextWithSummary
+      promote: Boolean!
+      status: Boolean!
+      sticky: Boolean!
+      relationships: node__articleRelationships
+    }
+    type node__articleRelationships implements Node @dontInfer {
+      field_media_image: media__image @link(from: "field_media_image___NODE")
+      field_tags: [taxonomy_term__tags] @link(from: "field_tags___NODE")
+      uid: user__user @link(from: "uid___NODE")
+    }
+
+    type node__page implements Node & ContentInterface @dontInfer {
+      changed: Date! @dateformat
+      created: Date! @dateformat
+      drupal_id: String!
+      drupal_internal__nid: Int!
+      langcode: String!
+      path: Path
+      title: String!
+      body: LongTextWithSummary
+      promote: Boolean!
+      status: Boolean!
+      sticky: Boolean!
+      relationships: node__pageRelationships
+    }
+    type node__pageRelationships implements Node @dontInfer {
+      uid: user__user @link(from: "uid___NODE")
+    }
+
+    type node__recipe implements Node & ContentInterface @dontInfer {
+      changed: Date! @dateformat
+      created: Date! @dateformat
+      drupal_id: String!
+      drupal_internal__nid: Int!
+      langcode: String!
+      path: Path
+      promote: Boolean!
+      status: Boolean!
+      sticky: Boolean!
+      title: String!
+      field_cooking_time: Int
+      field_difficulty: String
+      field_ingredients: [String]
+      field_number_of_servings: Int
+      field_preparation_time: Int
+      field_recipe_instruction: LongText
+      field_summary: LongText
+      relationships: node__recipeRelationships
+    }
+    type node__recipeRelationships implements Node @dontInfer {
+      field_media_image: media__image @link(from: "field_media_image___NODE")
+      field_recipe_category: taxonomy_term__recipe_category @link(from: "field_recipe_category___NODE")
+      field_tags: [taxonomy_term__tags] @link(from: "field_tags___NODE")
+      uid: user__user @link(from: "uid___NODE")
+    }
+
+    type taxonomy_term__recipe_category implements Node & TaxonomyTermInterface @dontInfer {
+      drupal_id: String!
+      drupal_internal__tid: Int!
+      langcode: String!
+      path: Path
+      name: String!
+      description: LongText
+      status: Boolean!
+      weight: Int!
+      relationships: taxonomy_term__recipeCategoryRelationships
+    }
+    type taxonomy_term__recipeCategoryRelationships implements Node @dontInfer {
+      node__recipe: [node__recipe] @link(from: "node__recipe___NODE")
+    }
+
+    type taxonomy_term__tags implements Node & TaxonomyTermInterface @dontInfer {
+      drupal_id: String!
+      drupal_internal__tid: Int!
+      langcode: String!
+      path: Path
+      name: String!
+      description: LongText
+      status: Boolean!
+      weight: Int!
+      relationships: taxonomy_term__tagsRelationships
+    }
+    type taxonomy_term__tagsRelationships implements Node @dontInfer {
+      node__article: [node__article] @link(from: "node__article___NODE")
+      node__page: [node__page] @link(from: "node__page___NODE")
+      node__recipe: [node__recipe] @link(from: "node__recipe___NODE")
+    }
+  `
+  createTypes(typeDefs)
+}
+
 exports.createPages = ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions
 
