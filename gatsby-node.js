@@ -153,7 +153,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
     type node__recipeRelationships implements Node @dontInfer {
       field_media_image: media__image @link(from: "field_media_image___NODE")
-      field_recipe_category: taxonomy_term__recipe_category @link(from: "field_recipe_category___NODE")
+      field_recipe_category: [taxonomy_term__recipe_category] @link(from: "field_recipe_category___NODE")
       field_tags: [taxonomy_term__tags] @link(from: "field_tags___NODE")
       uid: user__user @link(from: "uid___NODE")
     }
