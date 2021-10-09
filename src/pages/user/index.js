@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useMemo } from "react"
 import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
-import moment from "moment/min/moment-with-locales"
+import moment from "moment"
+import "moment/min/locales"
 
 import { PageContext } from "../../components/context/page-context"
 import { UserContext } from "../../components/context/user-context"
@@ -10,13 +11,14 @@ import Seo from "../../components/seo"
 
 import { getDefaultTranslations } from "../../utils/functions"
 
+import * as formStyles from "../../styles/form.module.scss"
+
 const Page = ({ pageContext, data }) => {
   const { t, languages, language, originalPath, navigate } = useI18next()
   const { setStoredPageContext, setTranslations, setLocalTasks } =
     useContext(PageContext)
   const { isAuthLoading, getCurrentUser, isAuthenticated } =
     useContext(UserContext)
-
   const nodeTranslations = useMemo(
     () => getDefaultTranslations(languages, originalPath),
     [languages, originalPath]
@@ -30,7 +32,11 @@ const Page = ({ pageContext, data }) => {
     setStoredPageContext(pageContext)
   }, [pageContext, setStoredPageContext])
 
+  pageContext.breadcrumb = null
+
   const user = getCurrentUser()
+
+  console.log(user)
 
   if (user) {
     pageContext.title = user.email
@@ -79,7 +85,22 @@ const Page = ({ pageContext, data }) => {
   return (
     <Layout>
       <Seo title={pageContext.title} />
-      <p>{t("Member for {{howLong}}", { howLong: howLong })}</p>
+      {user.photoURL ? (
+        <div className={formStyles.formItem}>
+          <img
+            src={user.photoURL}
+            width="100"
+            height="100"
+            alt={t("Profile picture for user {{username}}", { username: user.email })}
+            loading="lazy"
+            typeof="foaf:Image"
+            className="image-style-thumbnail"
+          />
+        </div>
+      ) : null}
+      <div className={formStyles.formItem}>
+        <h4 className={formStyles.label}>{t("Member for")}</h4> {howLong}
+      </div>
     </Layout>
   )
 }

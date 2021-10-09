@@ -1,4 +1,15 @@
 /**
+ * Returns the portion of the input string after the last occurrance of
+ * the supplied separator argument.
+ * @param {String} str
+ * @param {String} separator
+ * @returns {String}
+ */
+const basename = (str, separator = "/") => {
+  return str.replaceAll("%2F", "/").split(separator).pop().split("?")[0]
+}
+
+/**
  * Capitalize the first letter of a string.
  * @param {string} str
  * @returns {string}
@@ -29,7 +40,7 @@ const evaluatePasswordStrength = (
   var hasUppercase = /[A-Z]/.test(password)
   var hasNumbers = /[0-9]/.test(password)
   var hasPunctuation = /[^a-zA-Z0-9]/.test(password)
-  var username = username.length > 0 ? username : passwordSettings.username
+  username = username.length > 0 ? username : passwordSettings.username
 
   if (password.length < 12) {
     msg.push(passwordSettings.tooShort)
@@ -70,7 +81,7 @@ const evaluatePasswordStrength = (
       strength -= 40
       break
     default:
-      break;
+      break
   }
 
   if (password !== "" && password.toLowerCase() === username.toLowerCase()) {
@@ -169,6 +180,7 @@ const stripTags = str => {
 }
 
 module.exports = {
+  basename,
   capitalizeFirstLetter,
   evaluatePasswordStrength,
   getDefaultTranslations,

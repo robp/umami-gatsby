@@ -6,13 +6,16 @@ import {
   EmailAuthProvider,
   getAuth,
   onAuthStateChanged,
-  signInWithEmailAndPassword,
   reauthenticateWithCredential,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
   signOut,
   updateEmail,
   updatePassword,
-  sendPasswordResetEmail,
+  updateProfile,
 } from "firebase/auth"
+
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
 
 import { isBrowser } from "../../utils/functions"
 
@@ -48,6 +51,15 @@ const UserContextProvider = ({ children }) => {
     })
 
     return auth
+  }, [])
+
+  const storage = useMemo(() => {
+    if (!isBrowser()) {
+      return null
+    }
+
+    const storage = getStorage()
+    return storage
   }, [])
 
   let authLogin = async (username, password) => {
@@ -101,6 +113,21 @@ const UserContextProvider = ({ children }) => {
     }
   }
 
+  const authUpdateProfile = async ({ displayName, photoURL }) => {
+    const user = getCurrentUser()
+    // const credential = EmailAuthProvider.credential(user.email, oldPassword)
+    try {
+      // await reauthenticateWithCredential(user, credential)
+      await updateProfile(user, {
+        displayName: displayName,
+        photoURL: photoURL,
+      })
+      return true
+    } catch (error) {
+      throw new Error(error.message, { cause: error.code })
+    }
+  }
+
   const isAuthenticated = () => {
     return auth?.currentUser ? true : false
   }
@@ -109,15 +136,32 @@ const UserContextProvider = ({ children }) => {
     return auth?.currentUser
   }
 
+  const getStorageRef = path => {
+    return ref(storage, path)
+  }
+
+  const putFile = async (path, data) => {
+    const storageRef = getStorageRef(path)
+    try {
+      const snapshot = await uploadBytes(storageRef, data)
+      const uploadURL = await getDownloadURL(snapshot.ref)
+      return uploadURL
+    } catch (error) {
+      throw new Error(error.message, { cause: error.code })
+    }
+  }
+
   const value = {
-    isAuthLoading,
-    getCurrentUser,
-    isAuthenticated,
     authLogin,
     authLogout,
+    authResetPassword,
     authUpdateEmail,
     authUpdatePassword,
-    authResetPassword,
+    authUpdateProfile,
+    getCurrentUser,
+    isAuthLoading,
+    isAuthenticated,
+    putFile,
   }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>

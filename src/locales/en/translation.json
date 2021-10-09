@@ -75,7 +75,7 @@
   "Unknown error": "Unknown error",
   "Unrecognized username or password.": "Unrecognized username or password.",
   "Forgot your password?": "Forgot your password?",
-  "Member for {{howLong}}": "Member for {{howLong}}",
+  "Member for": "Member for",
   "Logged out.": "Logged out.",
   "Reset your password": "Reset your password",
   "Current password": "Current password",
@@ -88,6 +88,7 @@
   "edit-pass--description": "To change the current user password, enter the new password in both fields.",
   "Picture": "Picture",
   "Upload": "Upload",
+  "Your virtual face or picture.": "Your virtual face or picture.",
   "edit-user-picture-0--description": "Your virtual face or picture.<br/>One file only.<br/>8 MB limit.<br/>Allowed types: png gif jpg jpeg.",
   "Save": "Save",
   "Primary Tabs": "Primary Tabs",
@@ -120,5 +121,7 @@
   "Email address updated.": "Email address updated.",
   "Passwords do not match.": "Passwords do not match.",
   "Password is too weak.": "Password is too weak.",
-  "Password updated.": "Password updated."
+  "Password updated.": "Password updated.",
+  "Profile picture for user {{username}}": "Profile picture for user {{username}}",
+  "Remove": "Remove"
 }
