@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo } from "react"
 import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
-import moment from "moment"
+import moment from "moment/min/moment-with-locales"
 
 import { PageContext } from "../../components/context/page-context"
 import { UserContext } from "../../components/context/user-context"
@@ -71,8 +71,9 @@ const Page = ({ pageContext, data }) => {
     navigate("/user/login")
   }
 
+
   const howLong = user?.metadata
-    ? moment(user.metadata.createdAt, "x").fromNow(true)
+    ? moment(user.metadata.createdAt, "x").locale(language).fromNow(true)
     : null
 
   return user ? (
