@@ -71,14 +71,16 @@ const Page = ({ pageContext, data }) => {
     navigate("/user/login")
   }
 
-  const howLong = moment(user.metadata.createdAt, "x").fromNow(true)
+  const howLong = user?.metadata
+    ? moment(user.metadata.createdAt, "x").fromNow(true)
+    : null
 
-  return (
+  return user ? (
     <Layout>
       <Seo title={pageContext.title} />
       <p>{t("Member for {{howLong}}", { howLong: howLong })}</p>
     </Layout>
-  )
+  ) : null
 }
 
 export default Page
