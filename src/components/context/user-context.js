@@ -33,14 +33,13 @@ const firebaseConfig = {
 const UserContextProvider = ({ children }) => {
   const [isAuthLoading, setIsAuthLoading] = useState(true)
 
-  const { auth, storage } = useMemo(() => {
+  const auth = useMemo(() => {
     if (!isBrowser()) {
       return null
     }
 
     initializeApp(firebaseConfig)
     const auth = getAuth()
-    const storage = getStorage()
 
     onAuthStateChanged(auth, user => {
       setIsAuthLoading(false)
@@ -51,7 +50,16 @@ const UserContextProvider = ({ children }) => {
       }
     })
 
-    return { auth: auth, storage: storage }
+    return auth
+  }, [])
+
+  const storage = useMemo(() => {
+    if (!isBrowser()) {
+      return null
+    }
+
+    const storage = getStorage()
+    return storage
   }, [])
 
   let authLogin = async (username, password) => {
