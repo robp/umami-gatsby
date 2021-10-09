@@ -62,7 +62,8 @@ const Page = ({ pageContext, data }) => {
   }
 
   if (isAuthenticated()) {
-    navigate("/")
+    navigate("/user")
+    return null
   }
 
   return (

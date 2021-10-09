@@ -69,19 +69,19 @@ const Page = ({ pageContext, data }) => {
 
   if (!isAuthenticated()) {
     navigate("/user/login")
+    return null
   }
-
 
   const howLong = user?.metadata
     ? moment(user.metadata.createdAt, "x").locale(language).fromNow(true)
     : null
 
-  return user ? (
+  return (
     <Layout>
       <Seo title={pageContext.title} />
       <p>{t("Member for {{howLong}}", { howLong: howLong })}</p>
     </Layout>
-  ) : null
+  )
 }
 
 export default Page

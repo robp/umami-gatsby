@@ -62,14 +62,13 @@ const Page = ({ pageContext, data }) => {
     }
   }, [language, setLocalTasks, t])
 
-  // const regDate = new Date(user.createdAt)
-
   if (isAuthLoading) {
     return null
   }
 
   if (!isAuthenticated()) {
     navigate("/user/login")
+    return null
   }
 
   return (
