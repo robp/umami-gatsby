@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useMemo } from "react"
 import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
+import moment from "moment"
 
 import { PageContext } from "../../components/context/page-context"
 import { UserContext } from "../../components/context/user-context"
@@ -70,10 +71,12 @@ const Page = ({ pageContext, data }) => {
     navigate("/user/login")
   }
 
+  const howLong = moment(user.metadata.createdAt, "x").fromNow(true)
+
   return (
     <Layout>
       <Seo title={pageContext.title} />
-      <p>{t("Member for {{howLong}}", { howLong: "3 weeks" })}</p>
+      <p>{t("Member for {{howLong}}", { howLong: howLong })}</p>
     </Layout>
   )
 }
