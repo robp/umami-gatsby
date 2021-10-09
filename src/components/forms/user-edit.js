@@ -149,7 +149,7 @@ const UserEditForm = () => {
 
     try {
       setIsUploading(true)
-      const uploadResult = await putFile("profilePictures/" + file.name, file)
+      const uploadResult = await putFile(`profilePictures/${user.uid}/${file.name}`, file)
       setIsUploading(false)
       setPhotoURL(uploadResult)
       addMessage({

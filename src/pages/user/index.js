@@ -36,6 +36,8 @@ const Page = ({ pageContext, data }) => {
 
   const user = getCurrentUser()
 
+  console.log(user)
+
   if (user) {
     pageContext.title = user.email
   }

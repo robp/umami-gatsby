@@ -6,7 +6,7 @@
  * @returns {String}
  */
 const basename = (str, separator = "/") => {
-  return str.replace("%2F", "/").split(separator).pop().split("?")[0]
+  return str.replaceAll("%2F", "/").split(separator).pop().split("?")[0]
 }
 
 /**
