@@ -52,3 +52,19 @@
     margin: 0;
   }
 }
+
+.throbber {
+  display: inline-block;
+  width: 17px;
+  height: 13px;
+  background: transparent url(../images/throbber-active.gif) no-repeat center
+    center;
+}
+
+.label {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  font-weight: bold;
+}

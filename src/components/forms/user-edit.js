@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
-import classNames from "classnames"
 import { useI18next, Trans } from "gatsby-plugin-react-i18next"
+import classNames from "classnames"
 
 import { MessagesContext } from "../context/messages-context"
 import { MESSAGE_SEVERITY_SUCCESS, MESSAGE_SEVERITY_ERROR } from "../message"
 import { UserContext } from "../context/user-context"
 import Link from "../link"
 
-import { evaluatePasswordStrength } from "../../utils/functions"
+import { basename, evaluatePasswordStrength } from "../../utils/functions"
 
+import * as fileStyles from "../../styles/file.module.scss"
 import * as formStyles from "../../styles/form.module.scss"
 import * as buttonStyles from "../../styles/buttons.module.scss"
 import * as styles from "../../styles/forms/user-edit.module.scss"
@@ -16,15 +17,21 @@ import * as styles from "../../styles/forms/user-edit.module.scss"
 const UserEditForm = () => {
   const { t, language } = useI18next()
   const { addMessage, clearMessages } = useContext(MessagesContext)
-  const { getCurrentUser, authUpdateEmail, authUpdatePassword } =
-    useContext(UserContext)
+  const {
+    getCurrentUser,
+    authUpdateEmail,
+    authUpdatePassword,
+    authUpdateProfile,
+    putFile,
+  } = useContext(UserContext)
   const user = getCurrentUser()
   const [emailAddress, setEmailAddress] = useState(user.email)
+  const [photoURL, setPhotoURL] = useState(user.photoURL)
+  const [isUploading, setIsUploading] = useState(false)
   const currentPasswordRef = useRef()
   const emailAddressRef = useRef()
   const passwordRef = useRef()
   const confirmPasswordRef = useRef()
-  const pictureRef = useRef()
 
   const passwordConfirmMessageRef = useRef()
   const passwordMatchStatusRef = useRef()
@@ -136,16 +143,41 @@ const UserEditForm = () => {
     return result.strength
   }
 
+  const handlePictureUpload = async event => {
+    event.preventDefault()
+    const file = event.target.files[0]
+
+    try {
+      setIsUploading(true)
+      const uploadResult = await putFile("profilePictures/" + file.name, file)
+      setIsUploading(false)
+      setPhotoURL(uploadResult)
+      addMessage({
+        severity: MESSAGE_SEVERITY_SUCCESS,
+        content: t("File uploaded."),
+      })
+    } catch (error) {
+      setIsUploading(false)
+      addMessage({
+        severity: MESSAGE_SEVERITY_ERROR,
+        content: error.message,
+      })
+    }
+  }
+
+  const handlePictureRemove = event => {
+    event.preventDefault()
+    setPhotoURL(null)
+  }
+
   const handleSubmit = async event => {
     event.preventDefault()
     clearMessages()
 
+    // If changing email address...
     if (emailAddress !== user.email) {
       try {
-        await authUpdateEmail(
-          emailAddress,
-          currentPasswordRef.current.value
-        )
+        await authUpdateEmail(emailAddress, currentPasswordRef.current.value)
         addMessage({
           severity: MESSAGE_SEVERITY_SUCCESS,
           content: t("Email address updated."),
@@ -176,6 +208,7 @@ const UserEditForm = () => {
       })
     }
 
+    // If changing password...
     if (passwordRef.current.value) {
       if (!passwordCheckMatch()) {
         addMessage({
@@ -223,11 +256,78 @@ const UserEditForm = () => {
         behavior: "smooth",
       })
     }
+
+    // Update everything else...
+    try {
+      await authUpdateProfile({
+        displayName: null,
+        photoURL: photoURL,
+      })
+      addMessage({
+        severity: MESSAGE_SEVERITY_SUCCESS,
+        content: t("Profile updated."),
+      })
+    } catch (error) {
+      addMessage({
+        severity: MESSAGE_SEVERITY_ERROR,
+        content: error.message,
+      })
+    }
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
   }
 
   useEffect(() => {
     emailAddressRef.current.value = emailAddress
   }, [emailAddress])
+
+  const imagePreview = photoURL ? (
+    <div className="image-preview">
+      <img
+        src={photoURL}
+        width="100"
+        height="100"
+        alt=""
+        loading="lazy"
+        typeof="foaf:Image"
+        className="image-style-thumbnail"
+      />
+    </div>
+  ) : null
+
+  const imageWidget = photoURL ? (
+    <>
+      <span className={classNames(fileStyles.file, fileStyles.fileImage)}>
+        {" "}
+        <a href={photoURL}>{basename(photoURL)}</a>
+      </span>{" "}
+      <input
+        formNoValidate="formnovalidate"
+        type="submit"
+        id="edit-user-picture-0-remove-button--I5IR68_krzI"
+        name="user_picture_0_remove_button"
+        value={t("Remove")}
+        className="button js-form-submit form-submit"
+        onClick={handlePictureRemove}
+      />
+    </>
+  ) : (
+    <>
+      <input
+        accept="image/*"
+        type="file"
+        id="edit-user-picture-0-upload"
+        name="files[user_picture_0]"
+        size="22"
+        className="js-form-file form-file"
+        onChange={handlePictureUpload}
+      />
+      {isUploading ? <span className={formStyles.throbber} /> : null}
+    </>
+  )
 
   return (
     <form
@@ -368,40 +468,28 @@ const UserEditForm = () => {
         >
           {t("Picture")}
         </label>
+
         <div className="image-widget js-form-managed-file form-managed-file clearfix">
-          <div className="image-widget-data">
-            <input
-              accept="image/*"
-              type="file"
-              id="edit-user-picture-0-upload"
-              name="files[user_picture_0]"
-              size="22"
-              className="js-form-file form-file"
-              ref={pictureRef}
-            />
-            <input
-              className="js-hide button js-form-submit form-submit"
-              formNoValidate="formnovalidate"
-              type="submit"
-              id="edit-user-picture-0-upload-button"
-              name="user_picture_0_upload_button"
-              value={t("Upload")}
-            />
-          </div>
+          {imagePreview ? imagePreview : null}
+          <div className="image-widget-data">{imageWidget}</div>
         </div>
 
         <div
           id="edit-user-picture-0--description"
           className={formStyles.description}
         >
-          <Trans i18nKey="edit-user-picture-0--description">
-            Your virtual face or picture.
-            <br />
-            One file only.
-            <br />8 MB limit.
-            <br />
-            Allowed types: png gif jpg jpeg.
-          </Trans>
+          {imagePreview ? (
+            t("Your virtual face or picture.")
+          ) : (
+            <Trans i18nKey="edit-user-picture-0--description">
+              Your virtual face or picture.
+              <br />
+              One file only.
+              <br />8 MB limit.
+              <br />
+              Allowed types: png gif jpg jpeg.
+            </Trans>
+          )}
         </div>
       </div>
 

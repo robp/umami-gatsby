@@ -30,6 +30,8 @@ const Page = ({ pageContext, data }) => {
     setStoredPageContext(pageContext)
   }, [pageContext, setStoredPageContext])
 
+  pageContext.breadcrumb = null
+
   const user = getCurrentUser()
 
   if (user) {

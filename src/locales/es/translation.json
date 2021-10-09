@@ -75,7 +75,7 @@
   "Unknown error": "Error desconocido",
   "Unrecognized username or password.": "Usuario o contraseña no reconocidos.",
   "Forgot your password?": "¿Olvidaste tu contraseña?",
-  "Member for {{howLong}}": "Miembro desde hace {{howLong}}",
+  "Member for": "Miembro desde hace",
   "Logged out.": "Desconectado.",
   "Reset your password": "Reinicializar su contraseña",
   "Current password": "Contraseña actual",
@@ -88,6 +88,7 @@
   "edit-pass--description": "Para cambiar la contraseña actual del usuario, escriba la nueva contraseña en ambos campos.",
   "Picture": "Imagen",
   "Upload": "Subir al servidor",
+  "Your virtual face or picture.": "Su cara o foto virtual.",
   "edit-user-picture-0--description": "Su cara o foto virtual.<br/>Máximo 1 fichero.<br/>límite de 8 MB.<br/>Tipos permitidos: png gif jpg jpeg.",
   "Save": "Guardar",
   "Primary Tabs": "Solapas principales",
@@ -120,5 +121,7 @@
   "Email address updated.": "Dirección de correo electrónico actualizada.",
   "Passwords do not match.": "Las contraseñas no coinciden.",
   "Password is too weak.": "La contraseña es demasiado débil.",
-  "Password updated.": "Contraseña actualiza."
+  "Password updated.": "Contraseña actualiza.",
+  "Profile picture for user {{username}}": "Foto de perfil para el usuario {{username}}",
+  "Remove": "Eliminar"
 }

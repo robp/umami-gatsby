@@ -7,13 +7,15 @@ import Layout from "../../components/layout/layout-default"
 import Seo from "../../components/seo"
 import PasswordResetForm from "../../components/forms/password-reset"
 
+import { UserContext } from "../../components/context/user-context"
+
 import { getDefaultTranslations } from "../../utils/functions"
 
 const Page = ({ pageContext, data }) => {
   const { t, languages, language, originalPath } = useI18next()
   const { setStoredPageContext, setTranslations, setLocalTasks } =
     useContext(PageContext)
-  // const { isAuthenticated } = useContext(UserContext)
+  const { isAuthenticated } = useContext(UserContext)
 
   const nodeTranslations = useMemo(
     () => getDefaultTranslations(languages, originalPath),
@@ -24,6 +26,7 @@ const Page = ({ pageContext, data }) => {
     setTranslations(nodeTranslations)
   }, [nodeTranslations, setTranslations])
 
+  pageContext.breadcrumb = null
   pageContext.title = t("Reset your password")
 
   useEffect(() => {
@@ -31,7 +34,8 @@ const Page = ({ pageContext, data }) => {
   }, [pageContext, setStoredPageContext])
 
   useEffect(() => {
-    setLocalTasks([
+    setLocalTasks(
+      isAuthenticated() ? [] : [
       {
         node: {
           id: "log-in",
@@ -54,7 +58,7 @@ const Page = ({ pageContext, data }) => {
     return () => {
       setLocalTasks([])
     }
-  }, [language, setLocalTasks, t])
+  }, [language, isAuthenticated, setLocalTasks, t])
 
   return (
     <Layout>
