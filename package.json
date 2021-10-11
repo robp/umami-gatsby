@@ -16,7 +16,6 @@
     "gatsby": "^3.12.1",
     "gatsby-plugin-algolia": "^0.22.1",
     "gatsby-plugin-breadcrumb": "^12.1.1",
-    "gatsby-plugin-gatsby-cloud": "^2.11.0",
     "gatsby-plugin-google-tagmanager": "^3.13.0",
     "gatsby-plugin-image": "^1.11.0",
     "gatsby-plugin-manifest": "^3.11.0",
@@ -44,7 +43,7 @@
   "devDependencies": {
     "gatsby-plugin-remove-trailing-slashes": "^3.11.0",
     "i18next-scanner": "^3.0.0",
-    "prettier": "2.3.2"
+    "prettier": "^2.4.1"
   },
   "keywords": [
     "gatsby"
