@@ -43,10 +43,10 @@ const Page = ({ pageContext, location, data }) => {
     const doSearch = async () => {
       if (keys?.length) {
         try {
-          let hits = await searchIndex.search(keys, {
+          let searchResult = await searchIndex.search(keys, {
             facetFilters: [`langcode:${language}`],
           })
-          setResults(hits)
+          setResults(searchResult.hits)
           setLoading(false)
         } catch (error) {
           console.log(error)
