@@ -1,24 +1,26 @@
 import React, { useContext, useEffect, useMemo } from "react"
-import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 
-import { PageContext } from "../../components/context/page-context"
-import { UserContext } from "../../components/context/user-context"
-import Layout from "../../components/layout/layout-default"
-import Seo from "../../components/seo"
-import LoginForm from "../../components/forms/login"
+import { PageContext } from "../context/page-context"
+import { UserContext } from "../context/user-context"
+import Layout from "../layout/layout-default"
+import Seo from "../seo"
+import LoginForm from "../forms/login"
 
-import { getDefaultTranslations } from "../../utils/functions"
+import {
+  getDefaultTranslations,
+  pathStripLanguage,
+} from "../../utils/functions"
 
-const Page = ({ pageContext, data }) => {
-  const { t, languages, language, originalPath, navigate } = useI18next()
+const Login = ({ pageContext }) => {
+  const { t, languages, language, navigate } = useI18next()
   const { setStoredPageContext, setTranslations, setLocalTasks } =
     useContext(PageContext)
-  const { isAuthLoading, isAuthenticated } = useContext(UserContext)
+  const { isAuthenticated } = useContext(UserContext)
 
   const nodeTranslations = useMemo(
-    () => getDefaultTranslations(languages, originalPath),
-    [languages, originalPath]
+    () => getDefaultTranslations(languages, pathStripLanguage()),
+    [languages]
   )
 
   useEffect(() => {
@@ -57,10 +59,6 @@ const Page = ({ pageContext, data }) => {
     }
   }, [language, setLocalTasks, t])
 
-  if (isAuthLoading) {
-    return null
-  }
-
   if (isAuthenticated()) {
     navigate("/user")
     return null
@@ -74,18 +72,4 @@ const Page = ({ pageContext, data }) => {
   )
 }
 
-export default Page
-
-export const query = graphql`
-  query ($language: String!) {
-    locales: allLocale(filter: { language: { eq: $language } }) {
-      edges {
-        node {
-          ns
-          data
-          language
-        }
-      }
-    }
-  }
-`
+export default Login

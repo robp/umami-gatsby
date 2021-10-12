@@ -385,3 +385,15 @@ exports.createPages = ({ graphql, actions }) => {
     })
   })
 }
+
+exports.onCreatePage = ({ page, actions }) => {
+  const { createPage, deletePage } = actions
+  // Gatsby/i18next doesn't set page.matchPath correctly for client-side routes
+  // with locales, so we have to add the locale here.
+  if (page.path.match(/^\/.+\/user\//) && page.matchPath.match(/^\/user\//)) {
+    const oldPage = Object.assign({}, page)
+    deletePage(oldPage)
+    page.matchPath = `/${page.context.language}/user/*`
+    createPage(page)
+  }
+}

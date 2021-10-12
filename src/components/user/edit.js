@@ -1,25 +1,25 @@
 import React, { useContext, useEffect, useMemo } from "react"
-import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 
-import { PageContext } from "../../components/context/page-context"
-import { UserContext } from "../../components/context/user-context"
-import Layout from "../../components/layout/layout-default"
-import Seo from "../../components/seo"
-import UserEditForm from "../../components/forms/user-edit"
+import { PageContext } from "../context/page-context"
+import { UserContext } from "../context/user-context"
+import Layout from "../layout/layout-default"
+import Seo from "../seo"
+import UserEditForm from "../forms/user-edit"
 
-import { getDefaultTranslations } from "../../utils/functions"
+import {
+  getDefaultTranslations,
+  pathStripLanguage,
+} from "../../utils/functions"
 
-const Page = ({ pageContext, data }) => {
-  const { t, languages, language, originalPath, navigate } = useI18next()
+const Edit = ({ pageContext }) => {
+  const { t, languages, language } = useI18next()
   const { setStoredPageContext, setTranslations, setLocalTasks } =
     useContext(PageContext)
-  const { isAuthLoading, getCurrentUser, isAuthenticated } =
-    useContext(UserContext)
-
+  const { getCurrentUser } = useContext(UserContext)
   const nodeTranslations = useMemo(
-    () => getDefaultTranslations(languages, originalPath),
-    [languages, originalPath]
+    () => getDefaultTranslations(languages, pathStripLanguage()),
+    [languages]
   )
 
   useEffect(() => {
@@ -64,15 +64,6 @@ const Page = ({ pageContext, data }) => {
     }
   }, [language, setLocalTasks, t])
 
-  if (isAuthLoading) {
-    return null
-  }
-
-  if (!isAuthenticated()) {
-    navigate("/user/login")
-    return null
-  }
-
   return (
     <Layout>
       <Seo title={pageContext.title} />
@@ -81,18 +72,4 @@ const Page = ({ pageContext, data }) => {
   )
 }
 
-export default Page
-
-export const query = graphql`
-  query ($language: String!) {
-    locales: allLocale(filter: { language: { eq: $language } }) {
-      edges {
-        node {
-          ns
-          data
-          language
-        }
-      }
-    }
-  }
-`
+export default Edit
