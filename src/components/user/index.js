@@ -1,27 +1,28 @@
 import React, { useContext, useEffect, useMemo } from "react"
-import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 import moment from "moment"
 import "moment/min/locales"
 
-import { PageContext } from "../../components/context/page-context"
-import { UserContext } from "../../components/context/user-context"
-import Layout from "../../components/layout/layout-default"
-import Seo from "../../components/seo"
+import { PageContext } from "../context/page-context"
+import { UserContext } from "../context/user-context"
+import Layout from "../layout/layout-default"
+import Seo from "../seo"
 
-import { getDefaultTranslations } from "../../utils/functions"
+import {
+  getDefaultTranslations,
+  pathStripLanguage,
+} from "../../utils/functions"
 
 import * as formStyles from "../../styles/form.module.scss"
 
-const Page = ({ pageContext, data }) => {
-  const { t, languages, language, originalPath, navigate } = useI18next()
+const Index = ({ pageContext }) => {
+  const { t, languages, language } = useI18next()
   const { setStoredPageContext, setTranslations, setLocalTasks } =
     useContext(PageContext)
-  const { isAuthLoading, getCurrentUser, isAuthenticated } =
-    useContext(UserContext)
+  const { getCurrentUser } = useContext(UserContext)
   const nodeTranslations = useMemo(
-    () => getDefaultTranslations(languages, originalPath),
-    [languages, originalPath]
+    () => getDefaultTranslations(languages, pathStripLanguage()),
+    [languages]
   )
 
   useEffect(() => {
@@ -35,8 +36,6 @@ const Page = ({ pageContext, data }) => {
   pageContext.breadcrumb = null
 
   const user = getCurrentUser()
-
-  console.log(user)
 
   if (user) {
     pageContext.title = user.email
@@ -69,14 +68,6 @@ const Page = ({ pageContext, data }) => {
   }, [language, setLocalTasks, t])
 
   // const regDate = new Date(user.createdAt)
-  if (isAuthLoading) {
-    return null
-  }
-
-  if (!isAuthenticated()) {
-    navigate("/user/login")
-    return null
-  }
 
   const howLong = user?.metadata
     ? moment(user.metadata.createdAt, "x").locale(language).fromNow(true)
@@ -91,7 +82,9 @@ const Page = ({ pageContext, data }) => {
             src={user.photoURL}
             width="100"
             height="100"
-            alt={t("Profile picture for user {{username}}", { username: user.email })}
+            alt={t("Profile picture for user {{username}}", {
+              username: user.email,
+            })}
             loading="lazy"
             typeof="foaf:Image"
             className="image-style-thumbnail"
@@ -105,18 +98,4 @@ const Page = ({ pageContext, data }) => {
   )
 }
 
-export default Page
-
-export const query = graphql`
-  query ($language: String!) {
-    locales: allLocale(filter: { language: { eq: $language } }) {
-      edges {
-        node {
-          ns
-          data
-          language
-        }
-      }
-    }
-  }
-`
+export default Index

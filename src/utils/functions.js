@@ -1,9 +1,9 @@
 /**
  * Returns the portion of the input string after the last occurrance of
  * the supplied separator argument.
- * @param {String} str
- * @param {String} separator
- * @returns {String}
+ * @param {string} str
+ * @param {string} separator
+ * @returns {string}
  */
 const basename = (str, separator = "/") => {
   return str.replaceAll("%2F", "/").split(separator).pop().split("?")[0]
@@ -160,6 +160,16 @@ const normalizeString = str => {
 }
 
 /**
+ * Strings a leading language prefix from the supplied URL path.
+ * @param {string} str
+ * @returns {string}
+ */
+const pathStripLanguage = str => {
+  const path = str || isBrowser() ? window.location.pathname : ''
+  return `${path.slice(path.indexOf("/", 1))}`
+}
+
+/**
  * Remove a trailing slash from the supplied string.
  * @param {string} str
  * @returns {string}
@@ -187,5 +197,6 @@ module.exports = {
   isBrowser,
   normalizeString,
   removeTrailingSlash,
+  pathStripLanguage,
   stripTags,
 }
