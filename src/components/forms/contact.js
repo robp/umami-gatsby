@@ -1,9 +1,10 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect, useRef } from "react"
 import classNames from "classnames"
 import { useI18next } from "gatsby-plugin-react-i18next"
 import { navigate } from "gatsby"
 import VisuallyHidden from "@reach/visually-hidden"
 
+import { UserContext } from "../context/user-context"
 import { MessagesContext } from "../context/messages-context"
 import { MESSAGE_SEVERITY_SUCCESS, MESSAGE_SEVERITY_ERROR } from "../message"
 
@@ -15,6 +16,8 @@ import * as styles from "../../styles/forms/contact.module.scss"
 const ContactForm = () => {
   const { t, language } = useI18next()
   const { addMessage } = useContext(MessagesContext)
+  const { getCurrentUser } = useContext(UserContext)
+  const emailAddressRef = useRef()
 
   const handleSubmit = async event => {
     event.preventDefault()
@@ -48,6 +51,12 @@ const ContactForm = () => {
       })
     }
   }
+
+  useEffect(() => {
+    // Pre-fill the email address field with the current user's email.
+    const user = getCurrentUser()
+    emailAddressRef.current.value = user?.email || null
+  }, [emailAddressRef, getCurrentUser])
 
   return (
     <form
@@ -99,6 +108,7 @@ const ContactForm = () => {
           maxLength="254"
           required="required"
           aria-required="true"
+          ref={emailAddressRef}
         />
       </div>
       <div id="edit-subject-wrapper">
