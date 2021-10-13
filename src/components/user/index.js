@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useMemo } from "react"
+import React, { useContext, useMemo } from "react"
 import { useI18next } from "gatsby-plugin-react-i18next"
 import moment from "moment"
 import "moment/min/locales"
 import { usePageContext } from "../../hooks/use-page-context"
 
-import { PageContext } from "../context/page-context"
 import { UserContext } from "../context/user-context"
 import Layout from "../layout/layout-default"
 import Seo from "../seo"
@@ -18,7 +17,6 @@ import * as formStyles from "../../styles/form.module.scss"
 
 const Index = ({ pageContext }) => {
   const { t, languages, language } = useI18next()
-  const { setLocalTasks } = useContext(PageContext)
   const { getCurrentUser } = useContext(UserContext)
   const nodeTranslations = useMemo(
     () => getDefaultTranslations(languages, pathStripLanguage()),
@@ -33,35 +31,28 @@ const Index = ({ pageContext }) => {
     pageContext.title = user.email
   }
 
-  usePageContext(pageContext, nodeTranslations)
-
-  useEffect(() => {
-    setLocalTasks([
-      {
-        node: {
-          id: "view",
-          title: t("View"),
-          url: `/${language}/user`,
-          parent: null,
-          langcode: language,
-        },
+  const localTasks = [
+    {
+      node: {
+        id: "view",
+        title: t("View"),
+        url: `/${language}/user`,
+        parent: null,
+        langcode: language,
       },
-      {
-        node: {
-          id: "edit",
-          title: t("Edit"),
-          url: `/${language}/user/edit`,
-          parent: null,
-          langcode: language,
-        },
+    },
+    {
+      node: {
+        id: "edit",
+        title: t("Edit"),
+        url: `/${language}/user/edit`,
+        parent: null,
+        langcode: language,
       },
-    ])
-    return () => {
-      setLocalTasks([])
-    }
-  }, [language, setLocalTasks, t])
+    },
+  ]
 
-  // const regDate = new Date(user.createdAt)
+  usePageContext(pageContext, nodeTranslations, localTasks)
 
   const howLong = user?.metadata
     ? moment(user.metadata.createdAt, "x").locale(language).fromNow(true)

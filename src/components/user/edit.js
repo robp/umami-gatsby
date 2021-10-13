@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useMemo } from "react"
+import React, { useContext, useMemo } from "react"
 import { useI18next } from "gatsby-plugin-react-i18next"
 import { usePageContext } from "../../hooks/use-page-context"
 
-import { PageContext } from "../context/page-context"
 import { UserContext } from "../context/user-context"
 import Layout from "../layout/layout-default"
 import Seo from "../seo"
@@ -15,7 +14,6 @@ import {
 
 const Edit = ({ pageContext }) => {
   const { t, languages, language } = useI18next()
-  const { setLocalTasks } = useContext(PageContext)
   const { getCurrentUser } = useContext(UserContext)
   const nodeTranslations = useMemo(
     () => getDefaultTranslations(languages, pathStripLanguage()),
@@ -30,33 +28,28 @@ const Edit = ({ pageContext }) => {
     pageContext.title = user.email
   }
 
-  usePageContext(pageContext, nodeTranslations)
+  const localTasks = [
+    {
+      node: {
+        id: "view",
+        title: t("View"),
+        url: `/${language}/user`,
+        parent: null,
+        langcode: language,
+      },
+    },
+    {
+      node: {
+        id: "edit",
+        title: t("Edit"),
+        url: `/${language}/user/edit`,
+        parent: null,
+        langcode: language,
+      },
+    },
+  ]
 
-  useEffect(() => {
-    setLocalTasks([
-      {
-        node: {
-          id: "view",
-          title: t("View"),
-          url: `/${language}/user`,
-          parent: null,
-          langcode: language,
-        },
-      },
-      {
-        node: {
-          id: "edit",
-          title: t("Edit"),
-          url: `/${language}/user/edit`,
-          parent: null,
-          langcode: language,
-        },
-      },
-    ])
-    return () => {
-      setLocalTasks([])
-    }
-  }, [language, setLocalTasks, t])
+  usePageContext(pageContext, nodeTranslations, localTasks)
 
   return (
     <Layout>
