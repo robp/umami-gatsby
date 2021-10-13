@@ -16,7 +16,7 @@ import * as styles from "../../styles/forms/user-edit.module.scss"
 
 const UserEditForm = () => {
   const { t, language } = useI18next()
-  const { addMessage, clearMessages } = useContext(MessagesContext)
+  const { addMessage, updateMessages } = useContext(MessagesContext)
   const {
     getCurrentUser,
     authUpdateEmail,
@@ -149,7 +149,10 @@ const UserEditForm = () => {
 
     try {
       setIsUploading(true)
-      const uploadResult = await putFile(`profilePictures/${user.uid}/${file.name}`, file)
+      const uploadResult = await putFile(
+        `profilePictures/${user.uid}/${file.name}`,
+        file
+      )
       setIsUploading(false)
       setPhotoURL(uploadResult)
       addMessage({
@@ -172,7 +175,7 @@ const UserEditForm = () => {
 
   const handleSubmit = async event => {
     event.preventDefault()
-    clearMessages()
+    // clearMessages()
 
     // If changing email address...
     if (emailAddress !== user.email) {
@@ -202,10 +205,6 @@ const UserEditForm = () => {
           content: errorMessage,
         })
       }
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      })
     }
 
     // If changing password...
@@ -251,10 +250,6 @@ const UserEditForm = () => {
           })
         }
       }
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      })
     }
 
     // Update everything else...
@@ -273,6 +268,8 @@ const UserEditForm = () => {
         content: error.message,
       })
     }
+
+    updateMessages()
 
     window.scrollTo({
       top: 0,
@@ -470,7 +467,7 @@ const UserEditForm = () => {
         </label>
 
         <div className="image-widget js-form-managed-file form-managed-file clearfix">
-          {imagePreview ? imagePreview : null}
+          {imagePreview}
           <div className="image-widget-data">{imageWidget}</div>
         </div>
 

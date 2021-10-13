@@ -11,27 +11,26 @@ const Logout = () => {
   const { authLogout } = useContext(UserContext)
   const [isLoading, setIsLoading] = useState(false)
 
+  const doLogout = async () => {
+    try {
+      await authLogout()
+      addMessage({
+        severity: MESSAGE_SEVERITY_SUCCESS,
+        content: t("Logged out."),
+      })
+      navigate("/")
+    } catch (error) {
+      addMessage({
+        severity: MESSAGE_SEVERITY_ERROR,
+        content: error.message,
+      })
+      navigate("/")
+    }
+  }
+
   if (!isLoading) {
     setIsLoading(true)
-    authLogout()
-      .then(() => {
-        addMessage({
-          severity: MESSAGE_SEVERITY_SUCCESS,
-          content: t("Logged out."),
-        })
-        setIsLoading(false)
-        navigate("/")
-      })
-      .catch(error => {
-        addMessage({
-          severity: MESSAGE_SEVERITY_ERROR,
-          content: error.message,
-        })
-        setIsLoading(false)
-        navigate("/")
-      })
-  } else {
-    navigate("/")
+    doLogout()
   }
 
   return null

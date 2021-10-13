@@ -2,36 +2,38 @@ import React, { createContext, useReducer } from "react"
 import PropTypes from "prop-types"
 
 const initialState = {
-  messages: [],
+  currentMessages: [],
+  queuedMessages: [],
   routes: 0,
 }
 
 const reducer = (state, action) => {
-  if (action.type === "reset") {
-    if (state.routes > 0) {
+  switch (action.type) {
+    case "reset":
+      return initialState
+    case "addMessage":
+      const queuedMessages = state.queuedMessages
+      queuedMessages.push(action.payload)
       return {
-        messages: [],
+        ...state,
+        queuedMessages: queuedMessages,
+      }
+    case "updateMessages":
+      return {
+        ...state,
+        currentMessages: state.queuedMessages,
+        queuedMessages: [],
         routes: 0,
       }
-    } else {
-      state.routes++
-      return state
-    }
+    default:
+      throw new Error("Unexpected action type")
   }
-  if (action.type === "addMessage") {
-    const result = { ...state }
-    result.messages.push(action.payload)
-    result.routes = 0
-    return result
-  }
-  return state
 }
 
 export const MessagesContext = createContext()
 
 const MessagesContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const { messages } = state
 
   const addMessage = newMessage => {
     dispatch({ type: "addMessage", payload: newMessage })
@@ -41,9 +43,14 @@ const MessagesContextProvider = ({ children }) => {
     dispatch({ type: "reset" })
   }
 
+  const updateMessages = () => {
+    dispatch({ type: "updateMessages" })
+  }
+
   const value = {
-    messages,
+    messages: state.currentMessages,
     addMessage,
+    updateMessages,
     clearMessages,
   }
 

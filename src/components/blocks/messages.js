@@ -9,11 +9,15 @@ import * as styles from "../../styles/blocks/messages.module.scss"
 
 const MessagesBlock = () => {
   const { t } = useTranslation()
-  const { messages, clearMessages } = useContext(MessagesContext)
+  const { messages, updateMessages } = useContext(MessagesContext)
 
+  /**
+   * @todo resolve the build warning produced by not including updateMessages()
+   * in the useEffect() dependencies.
+   */
   useEffect(() => {
-    return () => clearMessages({ type: "reset" })
-  }, [clearMessages])
+    updateMessages()
+  }, [])
 
   return (
     <Block
