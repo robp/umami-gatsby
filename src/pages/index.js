@@ -1,32 +1,17 @@
-import React, { useContext, useEffect, useMemo } from "react"
+import React from "react"
 import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
+import { usePageContext } from "../hooks/use-page-context"
 
-import { PageContext } from "../components/context/page-context"
 import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import FrontpageBlock from "../components/blocks/frontpage"
 
-import { getDefaultTranslations } from "../utils/functions"
-
 const Page = ({ pageContext, data }) => {
-  const { t, languages, originalPath } = useI18next()
-  const { setStoredPageContext, setTranslations } = useContext(PageContext)
-
-  const nodeTranslations = useMemo(
-    () => getDefaultTranslations(languages, originalPath),
-    [languages, originalPath]
-  )
-
-  useEffect(() => {
-    setTranslations(nodeTranslations)
-  }, [nodeTranslations, setTranslations])
+  const { t } = useI18next()
 
   pageContext.title = t("Home")
-
-  useEffect(() => {
-    setStoredPageContext(pageContext)
-  }, [pageContext, setStoredPageContext])
+  usePageContext(pageContext)
 
   return (
     <Layout>

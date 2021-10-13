@@ -1,19 +1,16 @@
-import React, { useContext, useEffect, useMemo } from "react"
+import React from "react"
 import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
+import { usePageContext } from "../hooks/use-page-context"
 
-import { PageContext } from "../components/context/page-context"
 import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import Link from "../components/link"
 
-import { getDefaultTranslations } from "../utils/functions"
-
 import { container } from "../styles/layout.module.scss"
 
 const Page = ({ pageContext, data }) => {
-  const { t, language, languages, originalPath } = useI18next()
-  const { setStoredPageContext, setTranslations } = useContext(PageContext)
+  const { t, language } = useI18next()
 
   const pages = data.allSitePage.edges
 
@@ -33,21 +30,9 @@ const Page = ({ pageContext, data }) => {
     })
   }
 
-  const nodeTranslations = useMemo(
-    () => getDefaultTranslations(languages, originalPath),
-    [languages, originalPath]
-  )
-
-  useEffect(() => {
-    setTranslations(nodeTranslations)
-  }, [nodeTranslations, setTranslations])
-
   pageContext.crumbLabel = t("Pages")
   pageContext.title = t("Hi people")
-
-  useEffect(() => {
-    setStoredPageContext(pageContext)
-  }, [pageContext, setStoredPageContext])
+  usePageContext(pageContext)
 
   return (
     <Layout>

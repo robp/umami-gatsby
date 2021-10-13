@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 import { useTranslation } from "gatsby-plugin-react-i18next"
+import { usePageContext } from "../hooks/use-page-context"
 
-import { PageContext } from "../components/context/page-context"
 import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import ArticleCard from "../components/node/article-card"
@@ -13,19 +13,11 @@ import * as layoutStyles from "../styles/layout.module.scss"
 
 const Tag = ({ pageContext, data }) => {
   const { t } = useTranslation()
-  const { setStoredPageContext, setTranslations } = useContext(PageContext)
   const node = data.taxonomyTermTags
   const nodeTranslations = data.allTaxonomyTermTags.edges
 
-  useEffect(() => {
-    setTranslations(nodeTranslations)
-  }, [nodeTranslations, setTranslations])
-
   pageContext.title = node.name
-
-  useEffect(() => {
-    setStoredPageContext(pageContext)
-  }, [pageContext, setStoredPageContext])
+  usePageContext(pageContext, nodeTranslations)
 
   const nodes = [
     ...(node.relationships?.node__article || []),

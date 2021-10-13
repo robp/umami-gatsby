@@ -1,21 +1,18 @@
-import React, { useContext, useRef, useMemo, useState, useEffect } from "react"
+import React, { useRef, useMemo, useState, useEffect } from "react"
 import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 import algoliasearch from "algoliasearch/lite"
+import { usePageContext } from "../../hooks/use-page-context"
 
-import { PageContext } from "../../components/context/page-context"
 import Layout from "../../components/layout/layout-default"
 import Seo from "../../components/seo"
 import SearchForm from "../../components/forms/search"
 import SearchResult from "../../components/search/result"
 
-import { getDefaultTranslations } from "../../utils/functions"
-
 import * as styles from "../../styles/pages/search.module.scss"
 
 const Page = ({ pageContext, location, data }) => {
-  const { t, languages, originalPath, language } = useI18next()
-  const { setStoredPageContext, setTranslations } = useContext(PageContext)
+  const { t, language } = useI18next()
   const searchFormRef = useRef()
   const [results, setResults] = useState([])
   const [isLoading, setLoading] = useState(true)
@@ -89,24 +86,12 @@ const Page = ({ pageContext, location, data }) => {
     noResults
   )
 
-  const nodeTranslations = useMemo(
-    () => getDefaultTranslations(languages, originalPath),
-    [languages, originalPath]
-  )
-
-  useEffect(() => {
-    setTranslations(nodeTranslations)
-  }, [nodeTranslations, setTranslations])
-
   if (keys?.length) {
     pageContext.title = `${t("Search for")} ${keys}`
   } else {
     pageContext.title = t("Search")
   }
-
-  useEffect(() => {
-    setStoredPageContext(pageContext)
-  }, [pageContext, setStoredPageContext])
+  usePageContext(pageContext)
 
   return (
     <Layout>

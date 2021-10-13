@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useMemo } from "react"
 import { useI18next } from "gatsby-plugin-react-i18next"
+import { usePageContext } from "../../hooks/use-page-context"
 
 import { PageContext } from "../context/page-context"
 import Layout from "../layout/layout-default"
@@ -15,8 +16,7 @@ import {
 
 const Password = ({ pageContext }) => {
   const { t, languages, language } = useI18next()
-  const { setStoredPageContext, setTranslations, setLocalTasks } =
-    useContext(PageContext)
+  const { setLocalTasks } = useContext(PageContext)
   const { isAuthenticated } = useContext(UserContext)
 
   const nodeTranslations = useMemo(
@@ -24,16 +24,9 @@ const Password = ({ pageContext }) => {
     [languages]
   )
 
-  useEffect(() => {
-    setTranslations(nodeTranslations)
-  }, [nodeTranslations, setTranslations])
-
   pageContext.breadcrumb = null
   pageContext.title = t("Reset your password")
-
-  useEffect(() => {
-    setStoredPageContext(pageContext)
-  }, [pageContext, setStoredPageContext])
+  usePageContext(pageContext, nodeTranslations)
 
   useEffect(() => {
     setLocalTasks(

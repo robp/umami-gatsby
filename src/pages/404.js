@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from "react"
+import React from "react"
 import { graphql } from "gatsby"
 import { useTranslation } from "gatsby-plugin-react-i18next"
+import { usePageContext } from "../hooks/use-page-context"
 
-import { PageContext } from "../components/context/page-context"
 import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 
@@ -10,13 +10,9 @@ import { container } from "../styles/layout.module.scss"
 
 const NotFoundPage = ({ pageContext }) => {
   const { t } = useTranslation()
-  const { setStoredPageContext } = useContext(PageContext)
 
   pageContext.title = `404: ${t("Not found")}`
-
-  useEffect(() => {
-    setStoredPageContext(pageContext)
-  }, [pageContext, setStoredPageContext])
+  usePageContext(pageContext)
 
   return (
     <Layout>

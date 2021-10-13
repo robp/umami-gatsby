@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useMemo } from "react"
 import { useI18next } from "gatsby-plugin-react-i18next"
 import moment from "moment"
 import "moment/min/locales"
+import { usePageContext } from "../../hooks/use-page-context"
 
 import { PageContext } from "../context/page-context"
 import { UserContext } from "../context/user-context"
@@ -17,21 +18,12 @@ import * as formStyles from "../../styles/form.module.scss"
 
 const Index = ({ pageContext }) => {
   const { t, languages, language } = useI18next()
-  const { setStoredPageContext, setTranslations, setLocalTasks } =
-    useContext(PageContext)
+  const { setLocalTasks } = useContext(PageContext)
   const { getCurrentUser } = useContext(UserContext)
   const nodeTranslations = useMemo(
     () => getDefaultTranslations(languages, pathStripLanguage()),
     [languages]
   )
-
-  useEffect(() => {
-    setTranslations(nodeTranslations)
-  }, [nodeTranslations, setTranslations])
-
-  useEffect(() => {
-    setStoredPageContext(pageContext)
-  }, [pageContext, setStoredPageContext])
 
   pageContext.breadcrumb = null
 
@@ -40,6 +32,8 @@ const Index = ({ pageContext }) => {
   if (user) {
     pageContext.title = user.email
   }
+
+  usePageContext(pageContext, nodeTranslations)
 
   useEffect(() => {
     setLocalTasks([

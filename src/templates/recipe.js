@@ -1,26 +1,18 @@
-import React, { useContext, useEffect } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import { graphql } from "gatsby"
+import { usePageContext } from "../hooks/use-page-context"
 
-import { PageContext } from "../components/context/page-context"
 import Layout from "../components/layout/layout-node"
 import Seo from "../components/seo"
 import RecipeNode from "../components/node/recipe-node"
 
 const Recipe = ({ pageContext, location, data }) => {
-  const { setStoredPageContext, setTranslations } = useContext(PageContext)
   const node = data.nodeRecipe
   const nodeTranslations = data.allNodeRecipe.edges
 
-  useEffect(() => {
-    setTranslations(nodeTranslations)
-  }, [nodeTranslations, setTranslations])
-
   pageContext.title = node.title
-
-  useEffect(() => {
-    setStoredPageContext(pageContext)
-  }, [pageContext, setStoredPageContext])
+  usePageContext(pageContext, nodeTranslations)
 
   return (
     <Layout>

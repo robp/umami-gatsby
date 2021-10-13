@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useMemo } from "react"
 import { useI18next } from "gatsby-plugin-react-i18next"
+import { usePageContext } from "../../hooks/use-page-context"
 
 import { PageContext } from "../context/page-context"
 import { UserContext } from "../context/user-context"
@@ -14,8 +15,7 @@ import {
 
 const Login = ({ pageContext }) => {
   const { t, languages, language, navigate } = useI18next()
-  const { setStoredPageContext, setTranslations, setLocalTasks } =
-    useContext(PageContext)
+  const { setLocalTasks } = useContext(PageContext)
   const { isAuthenticated } = useContext(UserContext)
 
   const nodeTranslations = useMemo(
@@ -23,15 +23,8 @@ const Login = ({ pageContext }) => {
     [languages]
   )
 
-  useEffect(() => {
-    setTranslations(nodeTranslations)
-  }, [nodeTranslations, setTranslations])
-
   pageContext.title = t("Log in")
-
-  useEffect(() => {
-    setStoredPageContext(pageContext)
-  }, [pageContext, setStoredPageContext])
+  usePageContext(pageContext, nodeTranslations)
 
   useEffect(() => {
     setLocalTasks([
