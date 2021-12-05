@@ -69,7 +69,7 @@ module.exports = {
         languageConfig: {
           defaultLanguage: languages.defaultLangKey,
           enabledLanguages: languages.langs,
-          nonTranslatableEntities: ["file--file", "user--user"],
+          nonTranslatableEntities: ["file--file", "user--user", "view--view"],
           translatableEntities: [
             "node--article",
             "node--recipe",
@@ -256,6 +256,15 @@ module.exports = {
         enablePartialUpdates: process.env.ALGOLIA_PARTIAL_UPDATES,
         matchFields: ["changed"],
         skipIndexing: process.env.ALGOLIA_SKIP_INDEXING,
+      },
+    },
+    //This plugin exists only once but can consume an array of endpoints
+    {
+      resolve: "gatsby-source-rest-api",
+      options: {
+        endpoints: [
+          `${process.env.DRUPAL_BASE_URL}${process.env.DRUPAL_API_BASE}/views/recipe_collections/block`,
+        ],
       },
     },
     `gatsby-plugin-netlify`, // make sure to keep it last in the array

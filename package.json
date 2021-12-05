@@ -28,6 +28,7 @@
     "gatsby-source-drupal": "^4.11.0",
     "gatsby-source-drupal-menu-links": "git+https://github.com/robp/gatsby-source-drupal-menu-links.git#feature/add-i18n",
     "gatsby-source-filesystem": "^3.11.0",
+    "gatsby-source-rest-api": "^0.2.3",
     "gatsby-transformer-sharp": "^3.11.0",
     "i18next": "^19.9.2",
     "moment": "^2.29.1",
