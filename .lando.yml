@@ -1,0 +1,28 @@
+name: umami-gatsby
+
+proxy:
+  node:
+    - umami-gatsby.lndo.site:8000
+
+services:
+  node:
+    type: node:16.13
+    port: 8000
+    build_as_root:
+      # Install libvips to resolve error:
+      #   sharp: Installation error: Use with glibc 2.28 requires manual installation of libvips >= 8.11.3
+      - cd ~ && wget https://github.com/libvips/libvips/releases/download/v8.13.1/vips-8.13.1.tar.gz && tar xf vips-8.13.1.tar.gz && cd vips-8.13.1 && ./configure && make install && ldconfig
+    build:
+      - npm install -g gatsby-cli
+      - npm install
+
+tooling:
+  node:
+    service: node
+  npm:
+    service: node
+  gatsby:
+    service: node
+  gatsby:develop:
+    service: node
+    cmd: gatsby develop --host 0.0.0.0
