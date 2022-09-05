@@ -26,11 +26,6 @@ function Seo({ title, description, pathname, children }) {
     url: `${siteUrl}${pathname || ``}`,
   }
 
-  /**
-   * @todo Add htmlAttributes lang: language
-   * https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/#editing-html-and-body
-   */
-
   return (
     <>
       <title>
@@ -52,7 +47,7 @@ function Seo({ title, description, pathname, children }) {
 }
 
 Seo.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   description: PropTypes.string,
   pathname: PropTypes.string,
   children: PropTypes.node,
