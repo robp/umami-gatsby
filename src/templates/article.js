@@ -16,7 +16,6 @@ const Article = ({ pageContext, location, data }) => {
 
   return (
     <Layout sidebar>
-      <Seo title={node.title} />
       <ArticleNode node={node} canonicalUrl={location.pathname} />
     </Layout>
   )
@@ -27,6 +26,10 @@ Article.propTypes = {
 }
 
 export default Article
+
+export const Head = ({ location, data }) => (
+  <Seo title={data.nodeArticle.title} pathname={location.pathname} />
+)
 
 export const query = graphql`
   query ($language: String!, $nodeId: String!, $internalNid: Int!) {

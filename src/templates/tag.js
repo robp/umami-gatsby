@@ -31,7 +31,6 @@ const Tag = ({ pageContext, data }) => {
 
   return (
     <Layout>
-      <Seo title={node.name} />
       <div>
         <div className={layoutStyles.grid4}>
           {nodes ? (
@@ -65,6 +64,10 @@ Tag.propTypes = {
 }
 
 export default Tag
+
+export const Head = ({ location, data }) => (
+  <Seo title={data.taxonomyTermTags.name} pathname={location.pathname} />
+)
 
 export const query = graphql`
   query ($language: String!, $nodeId: String!, $internalTid: Int!) {

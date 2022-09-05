@@ -4,7 +4,6 @@ import { usePageContext } from "../../hooks/use-page-context"
 
 import { UserContext } from "../context/user-context"
 import Layout from "../layout/layout-default"
-import Seo from "../seo"
 import LoginForm from "../forms/login"
 
 import {
@@ -53,7 +52,6 @@ const Login = ({ pageContext }) => {
 
   return (
     <Layout>
-      <Seo title={pageContext.title} />
       <LoginForm />
     </Layout>
   )

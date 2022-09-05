@@ -36,7 +36,6 @@ const Page = ({ pageContext, data }) => {
 
   return (
     <Layout>
-      <Seo title={pageContext.crumbLabel} />
       <div className={container}>
         <h2>
           {t("Pages")} ({filteredPagesCount})
@@ -48,6 +47,10 @@ const Page = ({ pageContext, data }) => {
 }
 
 export default Page
+
+export const Head = ({ location, pageContext }) => (
+  <Seo title={pageContext.title} pathname={location.pathname} />
+)
 
 export const query = graphql`
   query ($language: String!) {

@@ -16,7 +16,6 @@ const NotFoundPage = ({ pageContext }) => {
 
   return (
     <Layout>
-      <Seo title={pageContext.title} />
       <div className={container}>
         <p
           dangerouslySetInnerHTML={{
@@ -31,6 +30,10 @@ const NotFoundPage = ({ pageContext }) => {
 }
 
 export default NotFoundPage
+
+export const Head = ({ location, pageContext }) => (
+  <Seo title={pageContext.title} pathname={location.pathname} />
+)
 
 export const query = graphql`
   query ($language: String!) {

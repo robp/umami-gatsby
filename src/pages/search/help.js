@@ -14,7 +14,6 @@ const Page = ({ pageContext, data }) => {
 
   return (
     <Layout>
-      <Seo title={pageContext.title} />
       <div className="item-list">
         <ul>
           <li>{t("search.help.keywords")}</li>
@@ -29,6 +28,10 @@ const Page = ({ pageContext, data }) => {
 }
 
 export default Page
+
+export const Head = ({ location, pageContext }) => (
+  <Seo title={pageContext.title} pathname={location.pathname} />
+)
 
 export const query = graphql`
   query ($language: String!) {

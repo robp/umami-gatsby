@@ -20,7 +20,6 @@ const RecipeCategory = ({ pageContext, data }) => {
 
   return (
     <Layout>
-      <Seo title={node.name} />
       <div>
         <div className={layoutStyles.grid4}>
           {node.relationships?.node__recipe ? (
@@ -47,6 +46,13 @@ RecipeCategory.propTypes = {
 }
 
 export default RecipeCategory
+
+export const Head = ({ location, data }) => (
+  <Seo
+    title={data.taxonomyTermRecipeCategory.name}
+    pathname={location.pathname}
+  />
+)
 
 export const query = graphql`
   query ($language: String!, $nodeId: String!, $internalTid: Int!) {

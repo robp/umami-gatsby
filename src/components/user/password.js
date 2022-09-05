@@ -3,7 +3,6 @@ import { useI18next } from "gatsby-plugin-react-i18next"
 import { usePageContext } from "../../hooks/use-page-context"
 
 import Layout from "../layout/layout-default"
-import Seo from "../seo"
 import PasswordResetForm from "../forms/password-reset"
 
 import { UserContext } from "../context/user-context"
@@ -52,7 +51,6 @@ const Password = ({ pageContext }) => {
 
   return (
     <Layout>
-      <Seo title={pageContext.title} />
       <PasswordResetForm />
     </Layout>
   )

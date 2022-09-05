@@ -95,7 +95,6 @@ const Page = ({ pageContext, location, data }) => {
 
   return (
     <Layout>
-      <Seo title={pageContext.title} />
       <SearchForm ref={searchFormRef} />
       {isLoading ? resultsLoading : renderedResults}
     </Layout>
@@ -103,6 +102,10 @@ const Page = ({ pageContext, location, data }) => {
 }
 
 export default Page
+
+export const Head = ({ location, pageContext }) => (
+  <Seo title={pageContext.title} pathname={location.pathname} />
+)
 
 export const query = graphql`
   query ($language: String!) {

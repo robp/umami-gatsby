@@ -7,70 +7,55 @@
 
 import * as React from "react"
 import PropTypes from "prop-types"
-import { Helmet } from "react-helmet"
 import { useI18next } from "gatsby-plugin-react-i18next"
 import { useSiteMetadata } from "../hooks/use-site-metadata"
 
-function Seo({ description, meta, title }) {
-  const { t, language } = useI18next()
-  const siteMetadata = useSiteMetadata()
-  const metaDescription = description || siteMetadata.description
-  const defaultTitle = siteMetadata?.title
+function Seo({ title, description, pathname, children }) {
+  const { t } = useI18next()
+  const {
+    title: defaultTitle,
+    description: defaultDescription,
+    author,
+    siteUrl,
+  } = useSiteMetadata()
+
+  const seo = {
+    title: title || t("Untitled"),
+    description: description || defaultDescription,
+    author: author || ``,
+    url: `${siteUrl}${pathname || ``}`,
+  }
+
+  /**
+   * @todo Add htmlAttributes lang: language
+   * https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/#editing-html-and-body
+   */
 
   return (
-    <Helmet
-      htmlAttributes={{
-        lang: language,
-      }}
-      title={title || t("Untitled")}
-      titleTemplate={defaultTitle ? `%s | ${t(defaultTitle)}` : null}
-      meta={[
-        {
-          name: `description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: siteMetadata?.author || ``,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
-      ].concat(meta)}
-    />
+    <>
+      <title>
+        {seo.title}
+        {defaultTitle && ` | ${defaultTitle}`}
+      </title>
+      <meta name="description" content={seo.description} />
+      <meta name="og:title" content={seo.title} />
+      <meta name="og:description" content={seo.description} />
+      <meta name="og:type" content="website" />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:title" content={seo.title} />
+      <meta name="twitter:url" content={seo.url} />
+      <meta name="twitter:description" content={seo.description} />
+      <meta name="twitter:creator" content={seo.author} />
+      {children}
+    </>
   )
 }
 
-Seo.defaultProps = {
-  meta: [],
-  description: ``,
-}
-
 Seo.propTypes = {
-  description: PropTypes.string,
-  meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  pathname: PropTypes.string,
+  children: PropTypes.node,
 }
 
 export default Seo

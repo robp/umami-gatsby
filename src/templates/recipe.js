@@ -16,7 +16,6 @@ const Recipe = ({ pageContext, location, data }) => {
 
   return (
     <Layout>
-      <Seo title={node.title} description={node.field_summary.value} />
       <RecipeNode node={node} canonicalUrl={location.pathname} />
     </Layout>
   )
@@ -27,6 +26,14 @@ Recipe.propTypes = {
 }
 
 export default Recipe
+
+export const Head = ({ location, data }) => (
+  <Seo
+    title={data.nodeRecipe.title}
+    description={data.nodeRecipe.field_summary.value}
+    pathname={location.pathname}
+  />
+)
 
 export const query = graphql`
   query ($language: String!, $nodeId: String!, $internalNid: Int!) {

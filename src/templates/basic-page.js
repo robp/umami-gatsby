@@ -15,7 +15,6 @@ const BasicPage = ({ pageContext, data }) => {
 
   return (
     <Layout>
-      <Seo title={node.title} />
       {node.body ? (
         <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
       ) : null}
@@ -28,6 +27,10 @@ BasicPage.propTypes = {
 }
 
 export default BasicPage
+
+export const Head = ({ location, data }) => (
+  <Seo title={data.nodePage.title} pathname={location.pathname} />
+)
 
 export const query = graphql`
   query ($language: String!, $nodeId: String!, $internalNid: Int!) {
