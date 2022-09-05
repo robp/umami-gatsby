@@ -41,7 +41,6 @@
     "sass": "^1.37.5"
   },
   "devDependencies": {
-    "gatsby-plugin-remove-trailing-slashes": "^4.19.0",
     "i18next-scanner": "^4.0.0",
     "prettier": "^2.4.1"
   },
