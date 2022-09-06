@@ -8,8 +8,8 @@ import Seo from "../components/seo"
 import RecipeNode from "../components/node/recipe-node"
 
 const Recipe = ({ pageContext, location, data }) => {
-  const node = data.nodeRecipe
-  const nodeTranslations = data.allNodeRecipe.edges
+  const node = data.node
+  const nodeTranslations = data.nodeTranslations.edges
 
   pageContext.title = node.title
   usePageContext(pageContext, nodeTranslations)
@@ -29,8 +29,8 @@ export default Recipe
 
 export const Head = ({ location, data }) => (
   <Seo
-    title={data.nodeRecipe.title}
-    description={data.nodeRecipe.field_summary.value}
+    title={data.node.title}
+    description={data.node.field_summary.value}
     pathname={location.pathname}
   />
 )
@@ -46,10 +46,12 @@ export const query = graphql`
         }
       }
     }
-    nodeRecipe(id: { eq: $nodeId }) {
+    node: nodeRecipe(id: { eq: $nodeId }) {
       ...RecipeNode
     }
-    allNodeRecipe(filter: { drupal_internal__nid: { eq: $internalNid } }) {
+    nodeTranslations: allNodeRecipe(
+      filter: { drupal_internal__nid: { eq: $internalNid } }
+    ) {
       edges {
         node {
           langcode

@@ -4,7 +4,6 @@ import { useI18next } from "gatsby-plugin-react-i18next"
 import { usePageContext } from "../../hooks/use-page-context"
 
 import Layout from "../../components/layout/layout-default"
-import Seo from "../../components/seo"
 
 const Page = ({ pageContext, data }) => {
   const { t } = useI18next()
@@ -29,9 +28,7 @@ const Page = ({ pageContext, data }) => {
 
 export default Page
 
-export const Head = ({ location, pageContext }) => (
-  <Seo title={pageContext.title} pathname={location.pathname} />
-)
+export { Head } from "../index"
 
 export const query = graphql`
   query ($language: String!) {

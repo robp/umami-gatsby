@@ -8,8 +8,8 @@ import Seo from "../components/seo"
 import ArticleNode from "../components/node/article-node"
 
 const Article = ({ pageContext, location, data }) => {
-  const node = data.nodeArticle
-  const nodeTranslations = data.allNodeArticle.edges
+  const node = data.node
+  const nodeTranslations = data.nodeTranslations.edges
 
   pageContext.title = node.title
   usePageContext(pageContext, nodeTranslations)
@@ -28,7 +28,7 @@ Article.propTypes = {
 export default Article
 
 export const Head = ({ location, data }) => (
-  <Seo title={data.nodeArticle.title} pathname={location.pathname} />
+  <Seo title={data.node.title} pathname={location.pathname} />
 )
 
 export const query = graphql`
@@ -42,11 +42,13 @@ export const query = graphql`
         }
       }
     }
-    nodeArticle(id: { eq: $nodeId }) {
+    node: nodeArticle(id: { eq: $nodeId }) {
       createdFormatted: created(formatString: "Do MMMM YYYY", locale: $language)
       ...ArticleNode
     }
-    allNodeArticle(filter: { drupal_internal__nid: { eq: $internalNid } }) {
+    nodeTranslations: allNodeArticle(
+      filter: { drupal_internal__nid: { eq: $internalNid } }
+    ) {
       edges {
         node {
           langcode

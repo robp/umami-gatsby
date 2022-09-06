@@ -4,7 +4,6 @@ import { graphql } from "gatsby"
 
 import { UserContext } from "../../components/context/user-context"
 
-import Seo from "../../components/seo"
 import Index from "../../components/user/index"
 import Edit from "../../components/user/edit"
 import Login from "../../components/user/login"
@@ -36,9 +35,12 @@ const User = ({ pageContext }) => {
 
 export default User
 
-export const Head = ({ location, pageContext }) => (
-  <Seo title={pageContext.title} pathname={location.pathname} />
-)
+/**
+ * @todo Head API only works on page components, so figure out how to customize
+ * the Seo component (e.g. set a different page title) for each component used
+ * in the Router above.
+ */
+export { Head } from "../index"
 
 export const query = graphql`
   query ($language: String!) {

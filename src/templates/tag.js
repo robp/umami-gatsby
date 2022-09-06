@@ -13,8 +13,8 @@ import * as layoutStyles from "../styles/layout.module.scss"
 
 const Tag = ({ pageContext, data }) => {
   const { t } = useTranslation()
-  const node = data.taxonomyTermTags
-  const nodeTranslations = data.allTaxonomyTermTags.edges
+  const node = data.node
+  const nodeTranslations = data.nodeTranslations.edges
 
   pageContext.title = node.name
   usePageContext(pageContext, nodeTranslations)
@@ -66,7 +66,7 @@ Tag.propTypes = {
 export default Tag
 
 export const Head = ({ location, data }) => (
-  <Seo title={data.taxonomyTermTags.name} pathname={location.pathname} />
+  <Seo title={data.node.name} pathname={location.pathname} />
 )
 
 export const query = graphql`
@@ -80,7 +80,7 @@ export const query = graphql`
         }
       }
     }
-    taxonomyTermTags(id: { eq: $nodeId }) {
+    node: taxonomyTermTags(id: { eq: $nodeId }) {
       langcode
       id
       name
@@ -96,7 +96,7 @@ export const query = graphql`
         }
       }
     }
-    allTaxonomyTermTags(
+    nodeTranslations: allTaxonomyTermTags(
       filter: { drupal_internal__tid: { eq: $internalTid } }
     ) {
       edges {
