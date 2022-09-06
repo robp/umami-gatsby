@@ -1,5 +1,7 @@
-import * as React from "react"
+import React, { useContext } from "react"
 import PropTypes from "prop-types"
+
+import { PageContext } from "../context/page-context"
 
 import Header from "./header"
 import HighlightedLayout from "./highlighted"
@@ -15,7 +17,10 @@ import BottomLayout from "./bottom"
 
 import "../../styles/_base.scss"
 
-const Layout = ({ children, sidebar }) => {
+const LayoutDefault = ({ children }) => {
+  const { storedPageContext } = useContext(PageContext)
+  const sidebar = storedPageContext?.layout?.sidebar
+
   return (
     <>
       <Header />
@@ -34,13 +39,8 @@ const Layout = ({ children, sidebar }) => {
   )
 }
 
-Layout.propTypes = {
+LayoutDefault.propTypes = {
   children: PropTypes.node,
-  sidebar: PropTypes.bool,
 }
 
-Layout.defaultProps = {
-  sidebar: false,
-}
-
-export default Layout
+export default LayoutDefault

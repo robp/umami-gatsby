@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 import { usePageContext } from "../hooks/use-page-context"
 
-import Layout from "../components/layout/layout-node"
+import LayoutNode from "../components/layout/layout-node"
 import Seo from "../components/seo"
 import RecipeNode from "../components/node/recipe-node"
 
@@ -12,13 +12,10 @@ const Recipe = ({ pageContext, location, data }) => {
   const nodeTranslations = data.nodeTranslations.edges
 
   pageContext.title = node.title
+  pageContext.layout = { component: LayoutNode }
   usePageContext(pageContext, nodeTranslations)
 
-  return (
-    <Layout>
-      <RecipeNode node={node} canonicalUrl={location.pathname} />
-    </Layout>
-  )
+  return <RecipeNode node={node} canonicalUrl={location.pathname} />
 }
 
 Recipe.propTypes = {

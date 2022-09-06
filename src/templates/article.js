@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 import { usePageContext } from "../hooks/use-page-context"
 
-import Layout from "../components/layout/layout-node"
+import LayoutNode from "../components/layout/layout-node"
 import Seo from "../components/seo"
 import ArticleNode from "../components/node/article-node"
 
@@ -12,13 +12,13 @@ const Article = ({ pageContext, location, data }) => {
   const nodeTranslations = data.nodeTranslations.edges
 
   pageContext.title = node.title
+  pageContext.layout = {
+    component: LayoutNode,
+    sidebar: true,
+  }
   usePageContext(pageContext, nodeTranslations)
 
-  return (
-    <Layout sidebar>
-      <ArticleNode node={node} canonicalUrl={location.pathname} />
-    </Layout>
-  )
+  return <ArticleNode node={node} canonicalUrl={location.pathname} />
 }
 
 Article.propTypes = {

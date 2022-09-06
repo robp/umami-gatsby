@@ -3,7 +3,6 @@ import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 import { usePageContext } from "../hooks/use-page-context"
 
-import Layout from "../components/layout/layout-default"
 import RecipeCard from "../components/node/recipe-card"
 
 import * as layoutStyles from "../styles/layout.module.scss"
@@ -16,25 +15,23 @@ const Page = ({ pageContext, data }) => {
   usePageContext(pageContext)
 
   return (
-    <Layout>
-      <div>
-        <div className={layoutStyles.grid4}>
-          {edges ? (
-            <ul className={layoutStyles.list}>
-              {edges.map(edge => {
-                return (
-                  <li key={edge.node.id} className={layoutStyles.item}>
-                    <RecipeCard node={edge.node} />
-                  </li>
-                )
-              })}
-            </ul>
-          ) : (
-            `<p>${t("No recipes.")}</p>`
-          )}
-        </div>
+    <div>
+      <div className={layoutStyles.grid4}>
+        {edges ? (
+          <ul className={layoutStyles.list}>
+            {edges.map(edge => {
+              return (
+                <li key={edge.node.id} className={layoutStyles.item}>
+                  <RecipeCard node={edge.node} />
+                </li>
+              )
+            })}
+          </ul>
+        ) : (
+          `<p>${t("No recipes.")}</p>`
+        )}
       </div>
-    </Layout>
+    </div>
   )
 }
 

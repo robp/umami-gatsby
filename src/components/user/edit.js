@@ -3,7 +3,6 @@ import { useI18next } from "gatsby-plugin-react-i18next"
 import { usePageContext } from "../../hooks/use-page-context"
 
 import { UserContext } from "../context/user-context"
-import Layout from "../layout/layout-default"
 import UserEditForm from "../forms/user-edit"
 
 import {
@@ -50,11 +49,7 @@ const Edit = ({ pageContext }) => {
 
   usePageContext(pageContext, nodeTranslations, localTasks)
 
-  return (
-    <Layout>
-      <UserEditForm />
-    </Layout>
-  )
+  return <UserEditForm />
 }
 
 export default Edit

@@ -3,7 +3,6 @@ import { useI18next } from "gatsby-plugin-react-i18next"
 import { usePageContext } from "../../hooks/use-page-context"
 
 import { UserContext } from "../context/user-context"
-import Layout from "../layout/layout-default"
 import LoginForm from "../forms/login"
 
 import {
@@ -50,11 +49,7 @@ const Login = ({ pageContext }) => {
     return null
   }
 
-  return (
-    <Layout>
-      <LoginForm />
-    </Layout>
-  )
+  return <LoginForm />
 }
 
 export default Login

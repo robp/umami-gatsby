@@ -3,7 +3,6 @@ import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 import { usePageContext } from "../hooks/use-page-context"
 
-import Layout from "../components/layout/layout-default"
 import Link from "../components/link"
 
 import { container } from "../styles/layout.module.scss"
@@ -34,14 +33,12 @@ const Page = ({ pageContext, data }) => {
   usePageContext(pageContext)
 
   return (
-    <Layout>
-      <div className={container}>
-        <h2>
-          {t("Pages")} ({filteredPagesCount})
-        </h2>
-        <ul>{filteredPages()}</ul>
-      </div>
-    </Layout>
+    <div className={container}>
+      <h2>
+        {t("Pages")} ({filteredPagesCount})
+      </h2>
+      <ul>{filteredPages()}</ul>
+    </div>
   )
 }
 

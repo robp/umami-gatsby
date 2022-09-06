@@ -3,8 +3,6 @@ import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 import { usePageContext } from "../../hooks/use-page-context"
 
-import Layout from "../../components/layout/layout-default"
-
 const Page = ({ pageContext, data }) => {
   const { t } = useI18next()
 
@@ -12,17 +10,15 @@ const Page = ({ pageContext, data }) => {
   usePageContext(pageContext)
 
   return (
-    <Layout>
-      <div className="item-list">
-        <ul>
-          <li>{t("search.help.keywords")}</li>
-          <li>{t("search.help.or")}</li>
-          <li>{t("search.help.and")}</li>
-          <li>{t("search.help.quotes")}</li>
-          <li>{t("search.help.exclude")}</li>
-        </ul>
-      </div>
-    </Layout>
+    <div className="item-list">
+      <ul>
+        <li>{t("search.help.keywords")}</li>
+        <li>{t("search.help.or")}</li>
+        <li>{t("search.help.and")}</li>
+        <li>{t("search.help.quotes")}</li>
+        <li>{t("search.help.exclude")}</li>
+      </ul>
+    </div>
   )
 }
 

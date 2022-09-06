@@ -186,6 +186,14 @@ module.exports = {
             crumbLabel: "Inicio",
           },
           {
+            pathname: "/en/user",
+            crumbLabel: "User",
+          },
+          {
+            pathname: "/es/user",
+            crumbLabel: "Usuario",
+          },
+          {
             pathname: "/en/search",
             crumbLabel: "Search",
           },

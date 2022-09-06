@@ -3,7 +3,6 @@ import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 import { usePageContext } from "../hooks/use-page-context"
 
-import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 
 const BasicPage = ({ pageContext, data }) => {
@@ -14,11 +13,11 @@ const BasicPage = ({ pageContext, data }) => {
   usePageContext(pageContext, nodeTranslations)
 
   return (
-    <Layout>
+    <>
       {node.body ? (
         <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
       ) : null}
-    </Layout>
+    </>
   )
 }
 

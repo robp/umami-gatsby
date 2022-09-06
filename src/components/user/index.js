@@ -5,7 +5,6 @@ import "moment/min/locales"
 import { usePageContext } from "../../hooks/use-page-context"
 
 import { UserContext } from "../context/user-context"
-import Layout from "../layout/layout-default"
 
 import {
   getDefaultTranslations,
@@ -58,7 +57,7 @@ const Index = ({ pageContext }) => {
     : null
 
   return (
-    <Layout>
+    <>
       {user.photoURL ? (
         <div className={formStyles.formItem}>
           <img
@@ -77,7 +76,7 @@ const Index = ({ pageContext }) => {
       <div className={formStyles.formItem}>
         <h4 className={formStyles.label}>{t("Member for")}</h4> {howLong}
       </div>
-    </Layout>
+    </>
   )
 }
 

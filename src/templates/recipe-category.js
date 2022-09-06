@@ -4,7 +4,6 @@ import { graphql } from "gatsby"
 import { useTranslation } from "react-i18next"
 import { usePageContext } from "../hooks/use-page-context"
 
-import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import RecipeCard from "../components/node/recipe-card"
 
@@ -19,25 +18,23 @@ const RecipeCategory = ({ pageContext, data }) => {
   usePageContext(pageContext, nodeTranslations)
 
   return (
-    <Layout>
-      <div>
-        <div className={layoutStyles.grid4}>
-          {node.relationships?.node__recipe ? (
-            <ul className={layoutStyles.list}>
-              {node.relationships.node__recipe.map(node => {
-                return (
-                  <li key={node.id} className={layoutStyles.item}>
-                    <RecipeCard node={node} />
-                  </li>
-                )
-              })}
-            </ul>
-          ) : (
-            `<p>${t("No recipes.")}</p>`
-          )}
-        </div>
+    <div>
+      <div className={layoutStyles.grid4}>
+        {node.relationships?.node__recipe ? (
+          <ul className={layoutStyles.list}>
+            {node.relationships.node__recipe.map(node => {
+              return (
+                <li key={node.id} className={layoutStyles.item}>
+                  <RecipeCard node={node} />
+                </li>
+              )
+            })}
+          </ul>
+        ) : (
+          `<p>${t("No recipes.")}</p>`
+        )}
       </div>
-    </Layout>
+    </div>
   )
 }
 

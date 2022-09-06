@@ -4,7 +4,6 @@ import { useI18next } from "gatsby-plugin-react-i18next"
 import algoliasearch from "algoliasearch/lite"
 import { usePageContext } from "../../hooks/use-page-context"
 
-import Layout from "../../components/layout/layout-default"
 import SearchForm from "../../components/forms/search"
 import SearchResult from "../../components/search/result"
 
@@ -93,10 +92,10 @@ const Page = ({ pageContext, location, data }) => {
   usePageContext(pageContext)
 
   return (
-    <Layout>
+    <>
       <SearchForm ref={searchFormRef} />
       {isLoading ? resultsLoading : renderedResults}
-    </Layout>
+    </>
   )
 }
 
