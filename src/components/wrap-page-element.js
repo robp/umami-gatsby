@@ -1,7 +1,7 @@
 import React, { cloneElement } from "react"
 import PageContextProvider from "./context/page-context"
 
-import Layout from "./layout"
+import LayoutDefault from "./layout/layout-default"
 
 export const wrapPageElement = ({ element, props }) => {
   /**
@@ -9,9 +9,14 @@ export const wrapPageElement = ({ element, props }) => {
    * context in our components
    * @see https://andremonteiro.pt/gatsby-i18next-wrap-page-element/
    */
+  const theElement = element.props.children.props.children
+
+  const { component: Layout = LayoutDefault, props: layoutProps = {} } =
+    theElement.type.layout || {}
+
   const wrapper = (
     <PageContextProvider>
-      <Layout>{element.props.children.props.children}</Layout>
+      <Layout {...layoutProps}>{theElement}</Layout>
     </PageContextProvider>
   )
 

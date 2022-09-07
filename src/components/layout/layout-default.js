@@ -17,10 +17,7 @@ import BottomLayout from "./bottom"
 
 import "../../styles/_base.scss"
 
-const LayoutDefault = ({ children }) => {
-  const { storedPageContext } = useContext(PageContext)
-  const sidebar = storedPageContext?.layout?.sidebar
-
+const LayoutDefault = ({ children, sidebar = false }) => {
   return (
     <>
       <Header />
@@ -41,6 +38,7 @@ const LayoutDefault = ({ children }) => {
 
 LayoutDefault.propTypes = {
   children: PropTypes.node,
+  sidebar: PropTypes.bool,
 }
 
 export default LayoutDefault

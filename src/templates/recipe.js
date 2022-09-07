@@ -12,7 +12,6 @@ const Recipe = ({ pageContext, location, data }) => {
   const nodeTranslations = data.nodeTranslations.edges
 
   pageContext.title = node.title
-  pageContext.layout = { component: LayoutNode }
   usePageContext(pageContext, nodeTranslations)
 
   return <RecipeNode node={node} canonicalUrl={location.pathname} />
@@ -20,6 +19,10 @@ const Recipe = ({ pageContext, location, data }) => {
 
 Recipe.propTypes = {
   data: PropTypes.object.isRequired,
+}
+
+Recipe.layout = {
+  component: LayoutNode,
 }
 
 export default Recipe

@@ -12,10 +12,6 @@ const Article = ({ pageContext, location, data }) => {
   const nodeTranslations = data.nodeTranslations.edges
 
   pageContext.title = node.title
-  pageContext.layout = {
-    component: LayoutNode,
-    sidebar: true,
-  }
   usePageContext(pageContext, nodeTranslations)
 
   return <ArticleNode node={node} canonicalUrl={location.pathname} />
@@ -23,6 +19,13 @@ const Article = ({ pageContext, location, data }) => {
 
 Article.propTypes = {
   data: PropTypes.object.isRequired,
+}
+
+Article.layout = {
+  component: LayoutNode,
+  props: {
+    sidebar: true
+  }
 }
 
 export default Article
