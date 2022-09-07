@@ -3,30 +3,36 @@ import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 import { usePageContext } from "../hooks/use-page-context"
 
-import Layout from "../components/layout/layout-node"
+import LayoutNode from "../components/layout/layout-node"
 import Seo from "../components/seo"
 import ArticleNode from "../components/node/article-node"
 
 const Article = ({ pageContext, location, data }) => {
-  const node = data.nodeArticle
-  const nodeTranslations = data.allNodeArticle.edges
+  const node = data.node
+  const nodeTranslations = data.nodeTranslations.edges
 
   pageContext.title = node.title
   usePageContext(pageContext, nodeTranslations)
 
-  return (
-    <Layout sidebar>
-      <Seo title={node.title} />
-      <ArticleNode node={node} canonicalUrl={location.pathname} />
-    </Layout>
-  )
+  return <ArticleNode node={node} canonicalUrl={location.pathname} />
 }
 
 Article.propTypes = {
   data: PropTypes.object.isRequired,
 }
 
+Article.layout = {
+  component: LayoutNode,
+  props: {
+    sidebar: true
+  }
+}
+
 export default Article
+
+export const Head = ({ location, data }) => (
+  <Seo title={data.node.title} pathname={location.pathname} />
+)
 
 export const query = graphql`
   query ($language: String!, $nodeId: String!, $internalNid: Int!) {
@@ -39,11 +45,13 @@ export const query = graphql`
         }
       }
     }
-    nodeArticle(id: { eq: $nodeId }) {
+    node: nodeArticle(id: { eq: $nodeId }) {
       createdFormatted: created(formatString: "Do MMMM YYYY", locale: $language)
       ...ArticleNode
     }
-    allNodeArticle(filter: { drupal_internal__nid: { eq: $internalNid } }) {
+    nodeTranslations: allNodeArticle(
+      filter: { drupal_internal__nid: { eq: $internalNid } }
+    ) {
       edges {
         node {
           langcode

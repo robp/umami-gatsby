@@ -13,7 +13,7 @@ import Field from "../field"
 import * as readMoreStyles from "../../styles/read-more.module.scss"
 import * as defaultStyles from "../../styles/card-view.module.scss"
 
-const ArticleCard = ({ node, styles }) => {
+const ArticleCard = ({ node, styles = defaultStyles }) => {
   const { t } = useTranslation()
 
   const renderedTitle = (
@@ -48,10 +48,6 @@ const ArticleCard = ({ node, styles }) => {
 ArticleCard.propTypes = {
   node: PropTypes.object.isRequired,
   styles: PropTypes.object,
-}
-
-ArticleCard.defaultProps = {
-  styles: defaultStyles,
 }
 
 export default ArticleCard

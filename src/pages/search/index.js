@@ -4,8 +4,6 @@ import { useI18next } from "gatsby-plugin-react-i18next"
 import algoliasearch from "algoliasearch/lite"
 import { usePageContext } from "../../hooks/use-page-context"
 
-import Layout from "../../components/layout/layout-default"
-import Seo from "../../components/seo"
 import SearchForm from "../../components/forms/search"
 import SearchResult from "../../components/search/result"
 
@@ -94,15 +92,16 @@ const Page = ({ pageContext, location, data }) => {
   usePageContext(pageContext)
 
   return (
-    <Layout>
-      <Seo title={pageContext.title} />
+    <>
       <SearchForm ref={searchFormRef} />
       {isLoading ? resultsLoading : renderedResults}
-    </Layout>
+    </>
   )
 }
 
 export default Page
+
+export { Head } from "../index"
 
 export const query = graphql`
   query ($language: String!) {

@@ -12,7 +12,7 @@ import * as layoutStyles from "../../styles/layout.module.scss"
 import * as contentStyles from "../../styles/layout/content.module.scss"
 import * as sidebarStyles from "../../styles/layout/sidebar.module.scss"
 
-const ContentLayout = ({ children, sidebar }) => {
+const ContentLayout = ({ children, sidebar = false }) => {
   return (
     <>
       <main
@@ -42,10 +42,6 @@ const ContentLayout = ({ children, sidebar }) => {
 ContentLayout.propTypes = {
   children: PropTypes.node,
   sidebar: PropTypes.bool,
-}
-
-ContentLayout.defaultProps = {
-  sidebar: false,
 }
 
 export default ContentLayout

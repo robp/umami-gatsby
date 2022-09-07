@@ -11,12 +11,12 @@ const Field = ({
   html,
   children,
   items,
-  element,
-  labelItems,
+  element = "div",
+  labelItems = false,
   label,
-  labelHidden,
-  labelAbove,
-  labelInline,
+  labelHidden = false,
+  labelAbove = false,
+  labelInline = false,
   className,
   labelClassName,
   itemsClassName,
@@ -44,9 +44,7 @@ const Field = ({
           condition={labelHidden}
           wrapper={children => <VisuallyHidden>{children}</VisuallyHidden>}
         >
-          <Element
-            className={classNames(styles.label, labelClassName)}
-          >
+          <Element className={classNames(styles.label, labelClassName)}>
             {label}
           </Element>
         </ConditionalWrapper>
@@ -87,14 +85,6 @@ Field.propTypes = {
   labelClassName: PropTypes.string,
   itemsClassName: PropTypes.string,
   itemClassName: PropTypes.string,
-}
-
-Field.defaultProps = {
-  element: "div",
-  labelItems: false,
-  labelHidden: false,
-  labelAbove: false,
-  labelInline: false,
 }
 
 export default Field

@@ -13,7 +13,7 @@ import Field from "../field"
 import * as readMoreStyles from "../../styles/read-more.module.scss"
 import * as defaultStyles from "../../styles/card-view.module.scss"
 
-const RecipeCard = ({ node, styles }) => {
+const RecipeCard = ({ node, styles = defaultStyles }) => {
   const { t } = useTranslation()
 
   const renderedTitle = (
@@ -31,7 +31,7 @@ const RecipeCard = ({ node, styles }) => {
   )
   const media = node.relationships.field_media_image
   const image = getImage(media.relationships?.field_media_image?.localFile)
-  const renderedImage = image ?  (
+  const renderedImage = image ? (
     <Field key={`${node.id}-image`} label={t("Image")} labelHidden>
       <GatsbyImage image={image} alt={media.field_media_image.alt} />
     </Field>
@@ -61,10 +61,6 @@ const RecipeCard = ({ node, styles }) => {
 RecipeCard.propTypes = {
   node: PropTypes.object.isRequired,
   styles: PropTypes.object,
-}
-
-RecipeCard.defaultProps = {
-  styles: defaultStyles,
 }
 
 export default RecipeCard

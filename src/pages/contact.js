@@ -3,8 +3,6 @@ import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 import { usePageContext } from "../hooks/use-page-context"
 
-import Layout from "../components/layout/layout-default"
-import Seo from "../components/seo"
 import ContactForm from "../components/forms/contact"
 
 const Page = ({ pageContext, data }) => {
@@ -14,15 +12,12 @@ const Page = ({ pageContext, data }) => {
   pageContext.title = t("Website feedback")
   usePageContext(pageContext)
 
-  return (
-    <Layout>
-      <Seo title={pageContext.title} />
-      <ContactForm />
-    </Layout>
-  )
+  return <ContactForm />
 }
 
 export default Page
+
+export { Head } from "./index"
 
 export const query = graphql`
   query ($language: String!) {

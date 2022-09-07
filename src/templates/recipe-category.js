@@ -4,7 +4,6 @@ import { graphql } from "gatsby"
 import { useTranslation } from "react-i18next"
 import { usePageContext } from "../hooks/use-page-context"
 
-import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 import RecipeCard from "../components/node/recipe-card"
 
@@ -12,33 +11,30 @@ import * as layoutStyles from "../styles/layout.module.scss"
 
 const RecipeCategory = ({ pageContext, data }) => {
   const { t } = useTranslation()
-  const node = data.taxonomyTermRecipeCategory
-  const nodeTranslations = data.allTaxonomyTermRecipeCategory.edges
+  const node = data.node
+  const nodeTranslations = data.nodeTranslations.edges
 
   pageContext.title = node.name
   usePageContext(pageContext, nodeTranslations)
 
   return (
-    <Layout>
-      <Seo title={node.name} />
-      <div>
-        <div className={layoutStyles.grid4}>
-          {node.relationships?.node__recipe ? (
-            <ul className={layoutStyles.list}>
-              {node.relationships.node__recipe.map(node => {
-                return (
-                  <li key={node.id} className={layoutStyles.item}>
-                    <RecipeCard node={node} />
-                  </li>
-                )
-              })}
-            </ul>
-          ) : (
-            `<p>${t("No recipes.")}</p>`
-          )}
-        </div>
+    <div>
+      <div className={layoutStyles.grid4}>
+        {node.relationships?.node__recipe ? (
+          <ul className={layoutStyles.list}>
+            {node.relationships.node__recipe.map(node => {
+              return (
+                <li key={node.id} className={layoutStyles.item}>
+                  <RecipeCard node={node} />
+                </li>
+              )
+            })}
+          </ul>
+        ) : (
+          `<p>${t("No recipes.")}</p>`
+        )}
       </div>
-    </Layout>
+    </div>
   )
 }
 
@@ -47,6 +43,10 @@ RecipeCategory.propTypes = {
 }
 
 export default RecipeCategory
+
+export const Head = ({ location, data }) => (
+  <Seo title={data.node.name} pathname={location.pathname} />
+)
 
 export const query = graphql`
   query ($language: String!, $nodeId: String!, $internalTid: Int!) {
@@ -59,7 +59,7 @@ export const query = graphql`
         }
       }
     }
-    taxonomyTermRecipeCategory(id: { eq: $nodeId }) {
+    node: taxonomyTermRecipeCategory(id: { eq: $nodeId }) {
       langcode
       id
       name
@@ -72,7 +72,7 @@ export const query = graphql`
         }
       }
     }
-    allTaxonomyTermRecipeCategory(
+    nodeTranslations: allTaxonomyTermRecipeCategory(
       filter: { drupal_internal__tid: { eq: $internalTid } }
     ) {
       edges {

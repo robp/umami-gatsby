@@ -6,7 +6,7 @@ import classNames from "classnames"
 import * as defaultStyles from "../styles/card.module.scss"
 import * as nodeStyles from "../styles/node.module.scss"
 
-const Card = ({ title, link, content, styles, ...rest }) => {
+const Card = ({ title, link, content, styles = defaultStyles, ...rest }) => {
   return (
     <div className={classNames(nodeStyles.node, styles.card)} {...rest}>
       <h2 className={styles.title}>{title}</h2>
@@ -21,10 +21,6 @@ Card.propTypes = {
   link: PropTypes.node.isRequired,
   content: PropTypes.node,
   styles: PropTypes.object,
-}
-
-Card.defaultProps = {
-  styles: defaultStyles,
 }
 
 export default Card

@@ -10,13 +10,13 @@ import { styles } from "../styles/block.module.scss"
 
 const Block = ({
   children,
-  element,
+  element = "div",
   title,
   titleHidden,
   titleClassName,
   className,
   locations,
-  locationsExcept,
+  locationsExcept = [],
   ...rest
 }) => {
   const { originalPath } = useI18next()
@@ -43,7 +43,10 @@ const Block = ({
   return display ? (
     <Element className={classNames(styles, className)} {...rest}>
       {title ? (
-        <ConditionalWrapper condition={titleHidden} wrapper={children => <VisuallyHidden>{children}</VisuallyHidden>}>
+        <ConditionalWrapper
+          condition={titleHidden}
+          wrapper={children => <VisuallyHidden>{children}</VisuallyHidden>}
+        >
           <div className={titleClassName}>
             <h2>{title}</h2>
           </div>
@@ -62,11 +65,6 @@ Block.propTypes = {
   className: PropTypes.string,
   locations: PropTypes.array.isRequired,
   locationsExcept: PropTypes.array,
-}
-
-Block.defaultProps = {
-  element: "div",
-  locationsExcept: [],
 }
 
 export default Block

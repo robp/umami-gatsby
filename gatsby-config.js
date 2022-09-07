@@ -10,11 +10,10 @@ module.exports = {
     title: `Umami Food Magazine`,
     description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
     author: `@gatsbyjs`,
-    siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
+    siteUrl: `https://umami.pinciuc.com`,
     languages,
   },
   plugins: [
-    `gatsby-plugin-react-helmet`,
     `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-plugin-sharp`,
@@ -119,6 +118,8 @@ module.exports = {
         redirect: true,
         // if you are using Helmet, you must include siteUrl, and make sure you add http:https
         // siteUrl: `https://example.com/`,
+        // if you are using trailingSlash gatsby config include it here, as well (the default is 'always')
+        trailingSlash: "never",
         // you can pass any i18next options
         // pass following options to allow message content as a key
         i18nextOptions: {
@@ -153,7 +154,6 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-remove-trailing-slashes`,
     `gatsby-plugin-sass`,
     {
       resolve: `gatsby-plugin-breadcrumb`,
@@ -184,6 +184,14 @@ module.exports = {
           {
             pathname: "/es",
             crumbLabel: "Inicio",
+          },
+          {
+            pathname: "/en/user",
+            crumbLabel: "User",
+          },
+          {
+            pathname: "/es/user",
+            crumbLabel: "Usuario",
           },
           {
             pathname: "/en/search",
@@ -260,4 +268,5 @@ module.exports = {
     },
     `gatsby-plugin-netlify`, // make sure to keep it last in the array
   ],
+  trailingSlash: "never",
 }

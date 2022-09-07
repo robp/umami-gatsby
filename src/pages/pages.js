@@ -3,8 +3,6 @@ import { graphql } from "gatsby"
 import { useI18next } from "gatsby-plugin-react-i18next"
 import { usePageContext } from "../hooks/use-page-context"
 
-import Layout from "../components/layout/layout-default"
-import Seo from "../components/seo"
 import Link from "../components/link"
 
 import { container } from "../styles/layout.module.scss"
@@ -12,7 +10,7 @@ import { container } from "../styles/layout.module.scss"
 const Page = ({ pageContext, data }) => {
   const { t, language } = useI18next()
 
-  const pages = data.allSitePage.edges
+  const pages = data.nodes.edges
 
   const filterLang = edge => {
     return edge.node.path.split("/")[1] === language
@@ -35,19 +33,18 @@ const Page = ({ pageContext, data }) => {
   usePageContext(pageContext)
 
   return (
-    <Layout>
-      <Seo title={pageContext.crumbLabel} />
-      <div className={container}>
-        <h2>
-          {t("Pages")} ({filteredPagesCount})
-        </h2>
-        <ul>{filteredPages()}</ul>
-      </div>
-    </Layout>
+    <div className={container}>
+      <h2>
+        {t("Pages")} ({filteredPagesCount})
+      </h2>
+      <ul>{filteredPages()}</ul>
+    </div>
   )
 }
 
 export default Page
+
+export { Head } from "./index"
 
 export const query = graphql`
   query ($language: String!) {
@@ -60,7 +57,7 @@ export const query = graphql`
         }
       }
     }
-    allSitePage {
+    nodes: allSitePage {
       edges {
         node {
           path

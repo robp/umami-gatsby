@@ -35,6 +35,13 @@ const User = ({ pageContext }) => {
 
 export default User
 
+/**
+ * @todo Head API only works on page components, so figure out how to customize
+ * the Seo component (e.g. set a different page title) for each component used
+ * in the Router above.
+ */
+export { Head } from "../index"
+
 export const query = graphql`
   query ($language: String!) {
     locales: allLocale(filter: { language: { eq: $language } }) {

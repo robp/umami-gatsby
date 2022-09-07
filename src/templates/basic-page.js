@@ -3,23 +3,21 @@ import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 import { usePageContext } from "../hooks/use-page-context"
 
-import Layout from "../components/layout/layout-default"
 import Seo from "../components/seo"
 
 const BasicPage = ({ pageContext, data }) => {
-  const node = data.nodePage
-  const nodeTranslations = data.allNodePage.edges
+  const node = data.node
+  const nodeTranslations = data.nodeTranslations.edges
 
   pageContext.title = node.title
   usePageContext(pageContext, nodeTranslations)
 
   return (
-    <Layout>
-      <Seo title={node.title} />
+    <>
       {node.body ? (
         <div dangerouslySetInnerHTML={{ __html: node.body.processed }} />
       ) : null}
-    </Layout>
+    </>
   )
 }
 
@@ -28,6 +26,10 @@ BasicPage.propTypes = {
 }
 
 export default BasicPage
+
+export const Head = ({ location, data }) => (
+  <Seo title={data.node.title} pathname={location.pathname} />
+)
 
 export const query = graphql`
   query ($language: String!, $nodeId: String!, $internalNid: Int!) {
@@ -40,7 +42,7 @@ export const query = graphql`
         }
       }
     }
-    nodePage(id: { eq: $nodeId }) {
+    node: nodePage(id: { eq: $nodeId }) {
       langcode
       id
       title
@@ -48,7 +50,9 @@ export const query = graphql`
         processed
       }
     }
-    allNodePage(filter: { drupal_internal__nid: { eq: $internalNid } }) {
+    nodeTranslations: allNodePage(
+      filter: { drupal_internal__nid: { eq: $internalNid } }
+    ) {
       edges {
         node {
           langcode
